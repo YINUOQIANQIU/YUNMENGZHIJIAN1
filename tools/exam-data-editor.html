@@ -1,0 +1,773 @@
+<!-- tools/exam-data-editor.html -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真题数据编辑器 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .import-section {
+            border-left: 4px solid;
+        }
+        .import-section.json {
+            border-left-color: #3b82f6;
+        }
+        .import-section.csv {
+            border-left-color: #10b981;
+        }
+        .import-section.batch {
+            border-left-color: #8b5cf6;
+        }
+        .log-entry {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- 页面标题 -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">真题数据编辑器</h1>
+            <p class="text-gray-600">统一管理CET-4/6真题试卷、题目和答案数据</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+            <!-- 数据导入面板 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg import-section json">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-800">数据导入</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- JSON导入 -->
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 text-blue-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                JSON文件导入
+                            </span>
+                        </label>
+                        <input type="file" id="jsonFile" accept=".json" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 transition-colors">
+                        <div class="mt-3 space-x-2 flex flex-wrap gap-2">
+                            <button onclick="importJSON()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                                </svg>
+                                导入JSON
+                            </button>
+                            <button onclick="validateJSON()" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                验证格式
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- CSV导入 -->
+                    <div class="bg-green-50 p-4 rounded-lg import-section csv">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 text-green-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                CSV文件导入
+                            </span>
+                        </label>
+                        <input type="file" id="csvFile" accept=".csv" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-100 file:text-green-700 hover:file:bg-green-200 transition-colors">
+                        <button onclick="importCSV()" class="mt-3 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                            导入CSV
+                        </button>
+                    </div>
+                    
+                    <!-- 批量文件导入 -->
+                    <div class="bg-purple-50 p-4 rounded-lg import-section batch">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 text-purple-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                                </svg>
+                                批量文件导入
+                            </span>
+                        </label>
+                        <input type="file" id="multipleFiles" accept=".json,.csv" multiple class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200 transition-colors">
+                        <div class="mt-3 space-y-3">
+                            <select id="importMode" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="update">📝 更新重复数据</option>
+                                <option value="skip">⏭️ 跳过重复数据</option>
+                                <option value="overwrite">🔄 覆盖所有数据</option>
+                            </select>
+                            <button onclick="importMultipleFiles()" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                批量导入文件
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数据导出面板 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-800">数据导出</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <button onclick="exportJSON()" class="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        导出为JSON
+                    </button>
+                    <button onclick="exportCSV()" class="w-full px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M4 19h16"></path>
+                        </svg>
+                        导出为CSV
+                    </button>
+                    <button onclick="generateSample()" class="w-full px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        生成示例数据
+                    </button>
+                </div>
+            </div>
+
+            <!-- 系统检查面板 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-800">系统检查</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <button onclick="checkDataIntegrity()" class="w-full px-4 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        检查数据完整性
+                    </button>
+                    <button onclick="checkDatabase()" class="w-full px-4 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                        </svg>
+                        检查数据库状态
+                    </button>
+                    <button onclick="cleanupData()" class="w-full px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        清理所有数据
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据统计面板 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-800">数据统计</h2>
+                </div>
+                <button onclick="loadStatistics()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    刷新统计
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-blue-50 rounded-lg stat-card">
+                    <div id="paperCount" class="text-2xl font-bold text-blue-600">0</div>
+                    <div class="text-sm text-gray-600">真题试卷</div>
+                    <div class="text-xs text-gray-500 mt-1">CET-4/6</div>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-lg stat-card">
+                    <div id="questionCount" class="text-2xl font-bold text-green-600">0</div>
+                    <div class="text-sm text-gray-600">题目总数</div>
+                    <div class="text-xs text-gray-500 mt-1">所有类型</div>
+                </div>
+                <div class="text-center p-4 bg-purple-50 rounded-lg stat-card">
+                    <div id="sectionCount" class="text-2xl font-bold text-purple-600">0</div>
+                    <div class="text-sm text-gray-600">试卷部分</div>
+                    <div class="text-xs text-gray-500 mt-1">听力/阅读/写作</div>
+                </div>
+                <div class="text-center p-4 bg-orange-50 rounded-lg stat-card">
+                    <div id="examTypeCount" class="text-2xl font-bold text-orange-600">0</div>
+                    <div class="text-sm text-gray-600">考试类型</div>
+                    <div class="text-xs text-gray-500 mt-1">CET-4 vs CET-6</div>
+                </div>
+            </div>
+
+            <!-- 详细统计 -->
+            <div id="detailedStats" class="mt-6 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700 mb-3">按考试类型分布</h3>
+                        <div id="examTypeDistribution" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700 mb-3">按部分类型分布</h3>
+                        <div id="sectionTypeDistribution" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据完整性检查结果 -->
+        <div id="integrityCheckResult" class="hidden bg-white p-6 rounded-lg shadow-lg mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">数据完整性检查结果</h2>
+                <button onclick="hideIntegrityCheck()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="integrityCheckContent" class="overflow-y-auto max-h-80"></div>
+        </div>
+
+        <!-- 操作日志 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-800">操作日志</h2>
+                </div>
+                <div class="space-x-2">
+                    <button onclick="clearLog()" class="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors">
+                        清空日志
+                    </button>
+                    <button onclick="exportLog()" class="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors">
+                        导出日志
+                    </button>
+                </div>
+            </div>
+            <div id="log" class="h-48 overflow-y-auto bg-gray-50 p-4 rounded text-sm font-mono border border-gray-200"></div>
+        </div>
+    </div>
+
+    <script>
+        // 日志功能
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const typeIcons = {
+                info: '🔵',
+                success: '✅',
+                warning: '⚠️',
+                error: '❌',
+                loading: '🔄'
+            };
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry mb-2';
+            logEntry.innerHTML = `
+                <span class="text-gray-500 text-xs">[${timestamp}]</span>
+                <span class="ml-2">${typeIcons[type] || '🔵'} ${message}</span>
+            `;
+            
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+            log('日志已清空', 'info');
+        }
+
+        function exportLog() {
+            const logContent = document.getElementById('log').innerText;
+            const blob = new Blob([logContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `exam-data-log-${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            log('日志已导出', 'success');
+        }
+
+        // 数据导入功能
+        async function importJSON() {
+            const fileInput = document.getElementById('jsonFile');
+            if (!fileInput.files[0]) {
+                alert('请选择JSON文件');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('jsonFile', file);
+
+            try {
+                log('🔄 开始导入真题JSON数据...', 'loading');
+                const response = await fetch('/api/tools/import-exam-json', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    log('✅ 真题数据导入成功: ' + result.message, 'success');
+                    if (result.data) {
+                        log(`📊 导入详情: 试卷ID ${result.data.paperId}, ${result.data.totalSections} 个部分, ${result.data.totalQuestions} 道题目`, 'info');
+                    }
+                    loadStatistics();
+                } else {
+                    log('❌ 真题数据导入失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 导入失败: ' + error.message, 'error');
+            }
+        }
+
+        async function validateJSON() {
+            const fileInput = document.getElementById('jsonFile');
+            if (!fileInput.files[0]) {
+                alert('请选择JSON文件');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    // 基本验证
+                    if (data.exam_paper) {
+                        const paper = data.exam_paper;
+                        const required = ['exam_type', 'year', 'month', 'title'];
+                        const missing = required.filter(field => !paper[field]);
+                        
+                        if (missing.length === 0) {
+                            log('✅ JSON格式验证通过', 'success');
+                            alert('JSON格式验证通过！文件结构正确。');
+                        } else {
+                            log('❌ JSON格式验证失败: 缺少字段 ' + missing.join(', '), 'error');
+                            alert('JSON格式验证失败: 缺少必要字段 ' + missing.join(', '));
+                        }
+                    } else {
+                        log('❌ JSON格式验证失败: 缺少 exam_paper 字段', 'error');
+                        alert('JSON格式验证失败: 缺少 exam_paper 字段');
+                    }
+                } catch (error) {
+                    log('❌ JSON解析失败: ' + error.message, 'error');
+                    alert('JSON解析失败: ' + error.message);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        async function importCSV() {
+            const fileInput = document.getElementById('csvFile');
+            if (!fileInput.files[0]) {
+                alert('请选择CSV文件');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('csvFile', file);
+
+            try {
+                log('🔄 开始导入CSV数据...', 'loading');
+                const response = await fetch('/api/tools/import-exam-csv', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    log('✅ CSV数据导入成功: ' + result.message, 'success');
+                    loadStatistics();
+                } else {
+                    log('❌ CSV数据导入失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 导入失败: ' + error.message, 'error');
+            }
+        }
+
+        async function importMultipleFiles() {
+            const fileInput = document.getElementById('multipleFiles');
+            const modeSelect = document.getElementById('importMode');
+            
+            if (!fileInput.files.length) {
+                alert('请选择要导入的文件');
+                return;
+            }
+
+            const formData = new FormData();
+            for (let i = 0; i < fileInput.files.length; i++) {
+                formData.append('files', fileInput.files[i]);
+            }
+            formData.append('mode', modeSelect.value);
+
+            try {
+                log(`🔄 开始批量导入 ${fileInput.files.length} 个文件 (模式: ${modeSelect.value})...`, 'loading');
+                const response = await fetch('/api/tools/import-exam-multiple', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    log(`✅ 批量导入完成: 成功 ${result.summary.success}, 失败 ${result.summary.failed}, 跳过 ${result.summary.skipped}`, 'success');
+                    loadStatistics();
+                } else {
+                    log('❌ 批量导入失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 批量导入失败: ' + error.message, 'error');
+            }
+        }
+
+        // 数据导出功能
+        async function exportJSON() {
+            try {
+                log('🔄 开始导出JSON数据...', 'loading');
+                const response = await fetch('/api/tools/export-exam-json');
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `exam-data-${Date.now()}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    log('✅ JSON数据导出成功', 'success');
+                } else {
+                    const result = await response.json();
+                    log('❌ JSON数据导出失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 导出失败: ' + error.message, 'error');
+            }
+        }
+
+        async function exportCSV() {
+            try {
+                log('🔄 开始导出CSV数据...', 'loading');
+                const response = await fetch('/api/tools/export-exam-csv');
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `exam-data-${Date.now()}.csv`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    log('✅ CSV数据导出成功', 'success');
+                } else {
+                    const result = await response.json();
+                    log('❌ CSV数据导出失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 导出失败: ' + error.message, 'error');
+            }
+        }
+
+        async function generateSample() {
+            try {
+                log('🔄 生成示例数据...', 'loading');
+                const response = await fetch('/api/tools/generate-exam-sample', {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    log('✅ 示例数据生成成功', 'success');
+                    alert('示例数据已生成: ' + result.files.join(', '));
+                } else {
+                    log('❌ 示例数据生成失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 生成失败: ' + error.message, 'error');
+            }
+        }
+
+        // 系统检查功能
+        async function checkDataIntegrity() {
+            try {
+                log('🔍 检查数据完整性...', 'loading');
+                const response = await fetch('/api/tools/check-exam-integrity');
+                const result = await response.json();
+                
+                if (result.success) {
+                    log('✅ 数据完整性检查完成', 'success');
+                    displayIntegrityCheckResult(result.data);
+                } else {
+                    log('❌ 数据完整性检查失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 检查失败: ' + error.message, 'error');
+            }
+        }
+
+        async function checkDatabase() {
+            try {
+                log('🔍 检查数据库...', 'loading');
+                const response = await fetch('/api/tools/check-exam-tables');
+                const result = await response.json();
+                
+                if (result.success) {
+                    log('✅ 数据库检查完成', 'success');
+                    let tableStatus = '';
+                    Object.entries(result.data).forEach(([table, exists]) => {
+                        tableStatus += `${table}: ${exists ? '✅' : '❌'}\n`;
+                    });
+                    log('数据库表状态:\n' + tableStatus, 'info');
+                } else {
+                    log('❌ 数据库检查失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 检查失败: ' + error.message, 'error');
+            }
+        }
+
+        async function cleanupData() {
+            if (!confirm('确定要清理所有真题数据吗？此操作不可逆！')) {
+                return;
+            }
+
+            try {
+                log('🗑️ 清理数据...', 'loading');
+                const response = await fetch('/api/tools/cleanup-exam-data', {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    log('✅ 数据清理完成', 'success');
+                    loadStatistics();
+                } else {
+                    log('❌ 数据清理失败: ' + result.message, 'error');
+                }
+            } catch (error) {
+                log('❌ 清理失败: ' + error.message, 'error');
+            }
+        }
+
+        // 数据显示功能
+        function displayIntegrityCheckResult(data) {
+            const container = document.getElementById('integrityCheckResult');
+            const content = document.getElementById('integrityCheckContent');
+            
+            let html = `
+                <div class="mb-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <div class="text-lg font-bold">${data.total_papers || 0}</div>
+                            <div class="text-sm">总试卷数</div>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <div class="text-lg font-bold text-green-600">${data.valid_papers || 0}</div>
+                            <div class="text-sm">有效试卷</div>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded-lg">
+                            <div class="text-lg font-bold text-red-600">${data.invalid_papers || 0}</div>
+                            <div class="text-sm">问题试卷</div>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded-lg">
+                            <div class="text-lg font-bold">${Math.round(((data.valid_papers || 0) / (data.total_papers || 1)) * 100)}%</div>
+                            <div class="text-sm">完整率</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (data.issues && data.issues.length > 0) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="font-semibold text-gray-700 mb-2">发现的问题:</h3>
+                        <div class="space-y-2">
+                `;
+
+                data.issues.forEach(issue => {
+                    html += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <strong class="text-red-700">${issue.paper}</strong>
+                                    <div class="text-sm text-red-600 mt-1">${issue.issue}</div>
+                                </div>
+                                <span class="px-2 py-1 text-xs bg-red-200 text-red-800 rounded">问题</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div></div>`;
+            } else {
+                html += `
+                    <div class="p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                        <div class="text-green-600 font-semibold">🎉 所有数据完整无误！</div>
+                    </div>
+                `;
+            }
+
+            content.innerHTML = html;
+            container.classList.remove('hidden');
+        }
+
+        function hideIntegrityCheck() {
+            document.getElementById('integrityCheckResult').classList.add('hidden');
+        }
+
+        // 统计功能
+        async function loadStatistics() {
+            try {
+                log('📊 加载统计数据...', 'loading');
+                const response = await fetch('/api/tools/exam-statistics');
+                const data = await response.json();
+                
+                if (data.success) {
+                    // 基础统计
+                    document.getElementById('paperCount').textContent = data.data.total_papers?.count || 0;
+                    document.getElementById('questionCount').textContent = data.data.total_questions?.count || 0;
+                    document.getElementById('sectionCount').textContent = data.data.total_sections?.count || 0;
+                    
+                    // 考试类型统计
+                    const examTypes = data.data.papers_by_type || [];
+                    document.getElementById('examTypeCount').textContent = examTypes.length;
+                    
+                    // 显示详细统计
+                    displayDetailedStats(data.data);
+                    log('📊 统计数据已更新', 'success');
+                }
+            } catch (error) {
+                log('❌ 加载统计失败: ' + error.message, 'error');
+            }
+        }
+
+        function displayDetailedStats(stats) {
+            const examTypeDiv = document.getElementById('examTypeDistribution');
+            const sectionTypeDiv = document.getElementById('sectionTypeDistribution');
+            const detailedStats = document.getElementById('detailedStats');
+            
+            // 考试类型分布
+            if (stats.papers_by_type && stats.papers_by_type.length > 0) {
+                examTypeDiv.innerHTML = '';
+                stats.papers_by_type.forEach(item => {
+                    const percentage = Math.round((item.count / stats.total_papers.count) * 100);
+                    examTypeDiv.innerHTML += `
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">${item.exam_type}</span>
+                            <div class="flex items-center">
+                                <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: ${percentage}%"></div>
+                                </div>
+                                <span class="text-xs text-gray-600 w-8 text-right">${item.count}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            // 部分类型分布
+            if (stats.sections_by_type && stats.sections_by_type.length > 0) {
+                sectionTypeDiv.innerHTML = '';
+                stats.sections_by_type.forEach(item => {
+                    const percentage = Math.round((item.count / stats.total_sections.count) * 100);
+                    const colors = {
+                        'listening': 'bg-green-500',
+                        'reading': 'bg-blue-500',
+                        'writing': 'bg-purple-500',
+                        'translation': 'bg-orange-500'
+                    };
+                    const color = colors[item.section_type] || 'bg-gray-500';
+                    
+                    sectionTypeDiv.innerHTML += `
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">${this.getSectionTypeName(item.section_type)}</span>
+                            <div class="flex items-center">
+                                <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                    <div class="${color} h-2 rounded-full" style="width: ${percentage}%"></div>
+                                </div>
+                                <span class="text-xs text-gray-600 w-8 text-right">${item.count}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            detailedStats.classList.remove('hidden');
+        }
+
+        // 辅助函数
+        function getSectionTypeName(type) {
+            const names = {
+                'listening': '听力',
+                'reading': '阅读',
+                'writing': '写作',
+                'translation': '翻译',
+                'short': '短对话',
+                'long': '长对话',
+                'passage': '短文',
+                'lecture': '讲座'
+            };
+            return names[type] || type;
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStatistics();
+            log('真题数据编辑器已就绪', 'success');
+        });
+    </script>
+</body>
+</html>

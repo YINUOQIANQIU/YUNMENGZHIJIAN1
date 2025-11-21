@@ -1,0 +1,130 @@
+/* 用户中心专用样式 */
+.user-center-gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stats-card-hover {
+  transition: all 0.3s ease;
+}
+
+.stats-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.record-item {
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.record-item:hover {
+  border-left-color: #2962FF;
+  transform: translateX(5px);
+}
+
+.member-badge-vip {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.member-badge-premium {
+  background: linear-gradient(135deg, #9b59b6, #e74c3c);
+  box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+}
+
+.member-badge-basic {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.avatar-upload-zone {
+  border: 2px dashed #d1d5db;
+  transition: all 0.3s ease;
+}
+
+.avatar-upload-zone:hover {
+  border-color: #2962FF;
+  background-color: rgba(41, 98, 255, 0.05);
+}
+
+.avatar-upload-zone.dragover {
+  border-color: #2962FF;
+  background-color: rgba(41, 98, 255, 0.1);
+  transform: scale(1.02);
+}
+
+/* 加载动画 */
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(41, 98, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(41, 98, 255, 0.8);
+  }
+}
+
+/* 进度环动画 */
+.progress-ring-animated {
+  animation: progressRing 1s ease-out;
+}
+
+@keyframes progressRing {
+  from {
+    background: conic-gradient(#2962FF 0%, #E5E7EB 0%);
+  }
+}
+
+/* 技能图表样式 */
+.skill-chart-container {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .user-profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .user-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .user-actions button,
+  .user-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 暗色主题支持 */
+@media (prefers-color-scheme: dark) {
+  .glass-effect {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+  }
+  
+  .glass-effect h1,
+  .glass-effect h2,
+  .glass-effect h3,
+  .glass-effect .text-gray-800 {
+    color: #f1f5f9;
+  }
+  
+  .glass-effect .text-gray-600 {
+    color: #cbd5e1;
+  }
+  
+  .glass-effect .text-gray-500 {
+    color: #94a3b8;
+  }
+}

@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错题本 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入认证和UI管理脚本 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        error: '#EF4444'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #F0F7FF 0%, #E3F2FF 100%);
+            min-height: 100vh;
+        }
+        .error-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            background: white;
+        }
+        .error-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.15);
+        }
+        .difficulty-easy { border-left: 4px solid #10B981; }
+        .difficulty-medium { border-left: 4px solid #F59E0B; }
+        .difficulty-hard { border-left: 4px solid #EF4444; }
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .search-highlight {
+            background-color: #FFFB8A;
+            padding: 2px 0;
+            border-radius: 2px;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn-primary {
+            background: #EF4444;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #DC2626;
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .error-state {
+            border-left: 4px solid #EF4444;
+        }
+        .retry-btn {
+            background: #EF4444;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .retry-btn:hover {
+            background: #DC2626;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50 shadow-sm">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-primary text-2xl font-bold tracking-tight">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+                <a href="云梦智间日记.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习日记</a>
+                <a href="云梦智间错题本.html" class="text-primary font-medium border-b-2 border-primary">错题本</a>
+            </div>
+        </div>
+        
+        <!-- 使用统一认证系统的用户区域 -->
+        <div id="auth-section">
+            <!-- 这里的内容将由UI管理器动态生成 -->
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="pt-16 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- 页面标题和统计 -->
+            <div class="mb-8 fade-in">
+                <h1 class="text-3xl font-bold text-secondary mb-2">错题本</h1>
+                <p class="text-gray-600">记录错题，分析原因，避免重复犯错</p>
+                
+                <!-- 统计卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-blue-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-bold text-secondary" id="total-questions">0</p>
+                                <p class="text-gray-600 text-sm">总错题数</p>
+                            </div>
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-times-circle text-error text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-blue-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-bold text-secondary" id="recent-questions">0</p>
+                                <p class="text-gray-600 text-sm">本周新增</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-calendar-plus text-warning text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-blue-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-bold text-secondary" id="hard-questions">0</p>
+                                <p class="text-gray-600 text-sm">难题数量</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-fire text-purple-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-blue-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-bold text-secondary" id="subjects-count">0</p>
+                                <p class="text-gray-600 text-sm">涉及科目</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-book text-success text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 fade-in">
+                <!-- 侧边栏 -->
+                <div class="lg:w-64 flex-shrink-0">
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-blue-50 sticky top-24">
+                        <!-- 快速操作 -->
+                        <div class="mb-6">
+                            <button id="new-error-btn" class="w-full px-4 py-3 bg-error text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center font-medium shadow-sm">
+                                <i class="fas fa-plus mr-2"></i>
+                                添加错题
+                            </button>
+                        </div>
+
+                        <!-- 筛选选项 -->
+                        <div class="border-t border-gray-100 pt-4">
+                            <h3 class="font-semibold text-gray-700 mb-3">筛选</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-sm text-gray-600 mb-1 block">科目</label>
+                                    <select id="subject-filter" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">所有科目</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-sm text-gray-600 mb-1 block">难度</label>
+                                    <select id="difficulty-filter" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">所有难度</option>
+                                        <option value="简单">简单</option>
+                                        <option value="中等">中等</option>
+                                        <option value="困难">困难</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-sm text-gray-600 mb-1 block">标签</label>
+                                    <select id="tag-filter" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">所有标签</option>
+                                    </select>
+                                </div>
+                                <button id="clear-filters" class="w-full px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                                    <i class="fas fa-times mr-2"></i>清除筛选
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 统计信息 -->
+                        <div class="border-t border-gray-100 pt-4 mt-4">
+                            <h3 class="font-semibold text-gray-700 mb-3">统计</h3>
+                            <div class="space-y-2 text-sm" id="stats-sidebar">
+                                <!-- 动态加载统计信息 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 主内容区 -->
+                <div class="flex-1">
+                    <!-- 搜索栏 -->
+                    <div class="bg-white rounded-xl shadow-sm p-4 mb-6 border border-blue-50">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <div class="flex-1 relative">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                <input type="text" id="search-input" placeholder="搜索题目、答案、分析..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <button id="search-btn" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-medium">
+                                <i class="fas fa-search mr-2"></i>搜索
+                            </button>
+                            <button id="clear-search" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-times mr-2"></i>清除
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 内容列表 -->
+                    <div id="content-list" class="space-y-4">
+                        <!-- 动态内容 -->
+                    </div>
+
+                    <!-- 加载更多 -->
+                    <div id="load-more-container" class="text-center mt-8 hidden">
+                        <button id="load-more-btn" class="px-6 py-2 bg-white text-primary border border-primary rounded-lg hover:bg-blue-50 transition-colors font-medium">
+                            <i class="fas fa-arrow-down mr-2"></i>加载更多
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新建/编辑模态框 - 优化版本 -->
+    <div id="editor-modal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" id="editor-overlay"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-xl max-w-4xl w-full mx-auto max-h-[90vh] overflow-hidden transform transition-all fade-in flex flex-col">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200 bg-gradient-to-r from-error to-red-600">
+                    <h3 class="text-lg font-semibold text-white" id="modal-title">添加错题</h3>
+                    <button id="close-modal" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- 修改这里：使用flex-grow确保内容区域可以自适应高度 -->
+                <div class="p-6 overflow-y-auto flex-grow">
+                    <form id="error-form">
+                        <input type="hidden" id="edit-id">
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-question-circle mr-2 text-primary"></i>题目 <span class="text-error">*</span>
+                                </label>
+                                <textarea id="error-question" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入题目内容..." required></textarea>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        <i class="fas fa-times-circle mr-2 text-error"></i>我的答案
+                                    </label>
+                                    <textarea id="error-my-answer" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="我错误的答案..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        <i class="fas fa-check-circle mr-2 text-success"></i>正确答案 <span class="text-error">*</span>
+                                    </label>
+                                    <textarea id="error-correct-answer" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="正确答案..." required></textarea>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-analytics mr-2 text-primary"></i>错误分析
+                                </label>
+                                <textarea id="error-analysis" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="分析错误原因、知识点漏洞、改进方法..."></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">科目</label>
+                                    <select id="error-subject" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">选择科目</option>
+                                        <option value="词汇">词汇</option>
+                                        <option value="听力">听力</option>
+                                        <option value="阅读">阅读</option>
+                                        <option value="写作">写作</option>
+                                        <option value="翻译">翻译</option>
+                                        <option value="语法">语法</option>
+                                        <option value="完形填空">完形填空</option>
+                                        <option value="口语">口语</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">难度</label>
+                                    <select id="error-difficulty" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="简单">简单</option>
+                                        <option value="中等" selected>中等</option>
+                                        <option value="困难">困难</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">错误类型</label>
+                                    <select id="error-type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <option value="">选择错误类型</option>
+                                        <option value="概念不清">概念不清</option>
+                                        <option value="计算错误">计算错误</option>
+                                        <option value="审题不清">审题不清</option>
+                                        <option value="粗心大意">粗心大意</option>
+                                        <option value="知识点遗忘">知识点遗忘</option>
+                                        <option value="时间不够">时间不够</option>
+                                        <option value="其他">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-lightbulb mr-2 text-primary"></i>涉及知识点
+                                </label>
+                                <textarea id="knowledge-points" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="输入相关知识点，用逗号分隔"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-tags mr-2 text-primary"></i>标签
+                                </label>
+                                <input type="text" id="entry-tags" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="添加标签，用逗号分隔（例如：易错题,重点,需要复习）">
+                                <div class="text-xs text-gray-500 mt-1">常用标签: 易错题,重点,需要复习,概念不清,计算错误,审题不清</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="flex justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50">
+                    <button id="cancel-btn" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors font-medium">
+                        <i class="fas fa-times mr-2"></i>取消
+                    </button>
+                    <button id="save-btn" class="px-6 py-2 bg-error text-white rounded-lg hover:bg-red-600 transition-colors font-medium flex items-center shadow-sm">
+                        <i class="fas fa-save mr-2"></i>
+                        保存错题
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div id="delete-modal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" id="delete-overlay"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-xl max-w-sm w-full mx-auto p-6 transform transition-all fade-in">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-exclamation-triangle text-error text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">确认删除</h3>
+                    <p class="text-gray-600 mb-6">确定要删除这道错题吗？此操作不可撤销。</p>
+                    
+                    <div class="flex gap-3">
+                        <button id="cancel-delete" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                            取消
+                        </button>
+                        <button id="confirm-delete" class="flex-1 px-4 py-2 bg-error text-white rounded-lg hover:bg-red-600 transition-colors font-medium">
+                            删除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="message-toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg border-l-4 p-4 min-w-80 transform transition-all fade-in">
+            <div class="flex items-center">
+                <i class="fas fa-info-circle text-primary text-xl mr-3" id="message-icon"></i>
+                <div class="flex-1">
+                    <p class="font-medium text-gray-800" id="message-text"></p>
+                </div>
+                <button onclick="hideMessage()" class="text-gray-400 hover:text-gray-600 ml-4">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 增强版错题本管理器 - 集成统一认证系统
+        class EnhancedErrorQuestionsManager {
+            constructor() {
+                this.currentPage = 1;
+                this.hasMore = false;
+                this.isLoading = false;
+                this.searchQuery = '';
+                this.filterTag = '';
+                this.filterSubject = '';
+                this.filterDifficulty = '';
+                this.editingId = null;
+                this.questions = [];
+                this.baseURL = '/api/error-questions';
+                this.isAuthenticated = false;
+                this.currentUser = null;
+                
+                this.init();
+            }
+
+            async init() {
+                console.log('🚀 初始化增强版错题本管理器 - 集成统一认证');
+                this.bindEvents();
+                
+                // 等待统一认证系统初始化
+                await this.waitForAuthSystem();
+                
+                // 检查认证状态
+                await this.checkAuthentication();
+                
+                // 如果已登录，加载数据
+                if (this.isAuthenticated) {
+                    await this.loadFilterOptions();
+                    await this.loadQuestions();
+                    await this.loadStatistics();
+                }
+            }
+
+            // 等待统一认证系统初始化
+            async waitForAuthSystem() {
+                return new Promise((resolve) => {
+                    const checkAuth = () => {
+                        if (window.unifiedAuthManager && window.unifiedAuthManager.isInitialized) {
+                            console.log('✅ 统一认证系统已就绪');
+                            resolve();
+                        } else if (window.uiManager && window.uiManager.authManager) {
+                            console.log('✅ UI管理器认证系统已就绪');
+                            resolve();
+                        } else {
+                            setTimeout(checkAuth, 100);
+                        }
+                    };
+                    checkAuth();
+                });
+            }
+
+            // 增强认证检查方法
+            async checkAuthentication() {
+                try {
+                    // 使用统一认证系统检查状态
+                    if (window.unifiedAuthManager) {
+                        this.isAuthenticated = window.unifiedAuthManager.isLoggedIn();
+                        this.currentUser = window.unifiedAuthManager.getCurrentUser();
+                    } else if (window.uiManager && window.uiManager.authManager) {
+                        this.isAuthenticated = window.uiManager.authManager.isLoggedIn();
+                        this.currentUser = window.uiManager.authManager.getCurrentUser();
+                    } else {
+                        // 降级：检查本地存储
+                        const token = localStorage.getItem('auth_token');
+                        const userData = localStorage.getItem('user_data');
+                        this.isAuthenticated = !!(token && userData);
+                        if (userData) {
+                            try {
+                                this.currentUser = JSON.parse(userData);
+                                // 兼容用户ID字段
+                                if (this.currentUser && !this.currentUser.id) {
+                                    this.currentUser.id = this.currentUser.userId || this.currentUser.user_id || 1;
+                                }
+                            } catch (e) {
+                                console.error('解析用户数据失败:', e);
+                            }
+                        }
+                    }
+
+                    // 如果仍然没有用户ID，设置默认值
+                    if (this.currentUser && !this.currentUser.id) {
+                        this.currentUser.id = this.currentUser.userId || this.currentUser.user_id || 1;
+                        console.warn('⚠️ 使用兼容性用户ID:', this.currentUser.id);
+                    }
+
+                    // 更新UI
+                    this.updateAuthUI();
+                    
+                } catch (error) {
+                    console.error('认证检查失败:', error);
+                    // 即使认证失败，也显示登录界面而不是卡在加载状态
+                    this.showLoginRequired();
+                }
+            }
+
+            // 增强API请求方法，添加重试机制
+            async makeAuthenticatedRequest(url, options = {}, retries = 3) {
+                for (let attempt = 1; attempt <= retries; attempt++) {
+                    try {
+                        // 获取认证token
+                        let token = '';
+                        if (window.unifiedAuthManager) {
+                            token = window.unifiedAuthManager.getToken();
+                        } else if (window.uiManager && window.uiManager.authManager) {
+                            token = window.uiManager.authManager.getToken();
+                        } else {
+                            token = localStorage.getItem('auth_token');
+                        }
+                        
+                        const defaultOptions = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                ...(token && { 'Authorization': `Bearer ${token}` })
+                            },
+                            ...options
+                        };
+
+                        const response = await fetch(url, defaultOptions);
+                        const result = await response.json();
+                        
+                        // 如果认证失败，尝试重新获取token
+                        if (result.code === 'TOKEN_INVALID' && attempt < retries) {
+                            console.log(`🔄 Token无效，尝试重新获取 (${attempt}/${retries})`);
+                            await this.refreshAuthToken();
+                            continue;
+                        }
+                        
+                        return result;
+                    } catch (error) {
+                        console.error(`❌ API请求失败 (${attempt}/${retries}):`, error);
+                        if (attempt === retries) {
+                            throw error;
+                        }
+                        // 等待后重试
+                        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+                    }
+                }
+            }
+
+            // 刷新认证token
+            async refreshAuthToken() {
+                try {
+                    console.log('🔄 尝试刷新认证token...');
+                    
+                    // 使用统一认证系统刷新token
+                    if (window.unifiedAuthManager && window.unifiedAuthManager.refreshToken) {
+                        await window.unifiedAuthManager.refreshToken();
+                    } else if (window.uiManager && window.uiManager.authManager && window.uiManager.authManager.refreshToken) {
+                        await window.uiManager.authManager.refreshToken();
+                    } else {
+                        // 降级：重新登录
+                        console.log('🔐 Token刷新不可用，需要重新登录');
+                        this.showMessage('登录已过期，请重新登录', 'warning');
+                        setTimeout(() => {
+                            window.location.href = '云梦智间登录.html';
+                        }, 2000);
+                    }
+                } catch (error) {
+                    console.error('❌ 刷新token失败:', error);
+                    this.showMessage('认证失败，请重新登录', 'error');
+                    setTimeout(() => {
+                        window.location.href = '云梦智间登录.html';
+                    }, 2000);
+                }
+            }
+
+            // 更新认证UI
+            updateAuthUI() {
+                if (this.isAuthenticated && this.currentUser) {
+                    // 已登录状态
+                    this.showAuthenticatedUI();
+                } else {
+                    // 未登录状态
+                    this.showLoginRequired();
+                }
+            }
+
+            // 显示已登录状态的UI
+            showAuthenticatedUI() {
+                const container = document.getElementById('content-list');
+                // 确保内容区域显示正常内容（将在loadQuestions中填充）
+                if (container) {
+                    container.innerHTML = `
+                        <div class="text-center py-8">
+                            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                            <p class="text-gray-600 mt-2">加载错题中...</p>
+                        </div>
+                    `;
+                }
+                
+                // 更新统计卡片显示
+                this.updateStatisticsDisplay();
+            }
+
+            // 更新统计卡片显示
+            updateStatisticsDisplay() {
+                // 统计卡片会通过updateStatistics方法更新
+                // 这里确保它们可见
+                const statsContainer = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-4.gap-4.mt-6');
+                if (statsContainer) {
+                    statsContainer.style.display = 'grid';
+                }
+            }
+
+            // 显示登录要求
+            showLoginRequired() {
+                const container = document.getElementById('content-list');
+                const statsContainer = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-4.gap-4.mt-6');
+                
+                // 隐藏统计卡片
+                if (statsContainer) {
+                    statsContainer.style.display = 'none';
+                }
+                
+                // 显示登录提示
+                if (container) {
+                    container.innerHTML = `
+                        <div class="text-center py-12 fade-in">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-user-lock text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">请先登录</h3>
+                            <p class="text-gray-600 mb-6">登录后即可使用错题本功能</p>
+                            <button onclick="errorQuestionsManager.handleLogin()" class="btn-primary">
+                                <i class="fas fa-sign-in-alt mr-2"></i>立即登录
+                            </button>
+                        </div>
+                    `;
+                }
+                
+                // 禁用新建错题按钮
+                const newErrorBtn = document.getElementById('new-error-btn');
+                if (newErrorBtn) {
+                    newErrorBtn.disabled = true;
+                    newErrorBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+
+            // 处理登录
+            handleLogin() {
+                window.location.href = '云梦智间登录.html';
+            }
+
+            // 处理退出登录
+            async handleLogout() {
+                // 使用统一认证系统的登出方法
+                if (window.unifiedAuthManager) {
+                    window.unifiedAuthManager.logout();
+                } else if (window.uiManager && window.uiManager.authManager) {
+                    window.uiManager.authManager.logout();
+                } else {
+                    // 降级：清除本地存储并刷新
+                    localStorage.removeItem('auth_token');
+                    localStorage.removeItem('user_data');
+                    window.location.reload();
+                }
+            }
+
+            // 绑定所有事件
+            bindEvents() {
+                // 搜索和筛选
+                document.getElementById('search-btn').addEventListener('click', () => this.handleSearch());
+                document.getElementById('search-input').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.handleSearch();
+                });
+                document.getElementById('clear-search').addEventListener('click', () => this.clearSearch());
+                
+                // 筛选器
+                document.getElementById('subject-filter').addEventListener('change', (e) => {
+                    this.filterSubject = e.target.value;
+                    this.reloadQuestions();
+                });
+                document.getElementById('difficulty-filter').addEventListener('change', (e) => {
+                    this.filterDifficulty = e.target.value;
+                    this.reloadQuestions();
+                });
+                document.getElementById('tag-filter').addEventListener('change', (e) => {
+                    this.filterTag = e.target.value;
+                    this.reloadQuestions();
+                });
+                document.getElementById('clear-filters').addEventListener('click', () => this.clearFilters());
+                
+                // 模态框
+                document.getElementById('new-error-btn').addEventListener('click', () => this.showEditor());
+                document.getElementById('close-modal').addEventListener('click', () => this.hideEditor());
+                document.getElementById('editor-overlay').addEventListener('click', () => this.hideEditor());
+                document.getElementById('cancel-btn').addEventListener('click', () => this.hideEditor());
+                document.getElementById('save-btn').addEventListener('click', () => this.saveQuestion());
+                
+                // 删除确认
+                document.getElementById('delete-overlay').addEventListener('click', () => this.hideDeleteModal());
+                document.getElementById('cancel-delete').addEventListener('click', () => this.hideDeleteModal());
+                document.getElementById('confirm-delete').addEventListener('click', () => this.confirmDelete());
+                
+                // 加载更多
+                document.getElementById('load-more-btn').addEventListener('click', () => this.loadMore());
+                
+                // 监听认证状态变化
+                this.setupAuthListeners();
+            }
+
+            // 设置认证状态监听器
+            setupAuthListeners() {
+                // 监听统一认证系统的状态变化
+                if (window.unifiedAuthManager) {
+                    window.unifiedAuthManager.addAuthListener((isLoggedIn, user, authState) => {
+                        console.log('🔔 错题本系统收到认证状态变化:', { isLoggedIn, user });
+                        this.isAuthenticated = isLoggedIn;
+                        this.currentUser = user;
+                        this.updateAuthUI();
+                        
+                        if (isLoggedIn) {
+                            // 重新加载数据
+                            this.loadFilterOptions();
+                            this.loadQuestions();
+                            this.loadStatistics();
+                        }
+                    });
+                }
+                
+                // 监听UI管理器的认证状态变化
+                if (window.uiManager && window.uiManager.authManager) {
+                    window.uiManager.authManager.addAuthListener((isLoggedIn, user, authState) => {
+                        console.log('🔔 错题本系统收到UI管理器认证状态变化:', { isLoggedIn, user });
+                        this.isAuthenticated = isLoggedIn;
+                        this.currentUser = user;
+                        this.updateAuthUI();
+                        
+                        if (isLoggedIn) {
+                            // 重新加载数据
+                            this.loadFilterOptions();
+                            this.loadQuestions();
+                            this.loadStatistics();
+                        }
+                    });
+                }
+                
+                // 监听全局认证事件
+                document.addEventListener('authSystemReady', (event) => {
+                    console.log('🔔 错题本系统收到全局认证就绪事件');
+                    this.checkAuthentication();
+                });
+                
+                document.addEventListener('uiAuthStateUpdated', (event) => {
+                    console.log('🔔 错题本系统收到UI认证状态更新事件');
+                    const { isLoggedIn, user } = event.detail;
+                    this.isAuthenticated = isLoggedIn;
+                    this.currentUser = user;
+                    this.updateAuthUI();
+                    
+                    if (isLoggedIn) {
+                        this.loadFilterOptions();
+                        this.loadQuestions();
+                        this.loadStatistics();
+                    }
+                });
+            }
+
+            // 增强错题加载方法
+            async loadQuestions(page = 1) {
+                if (!this.isAuthenticated) {
+                    this.showLoginRequired();
+                    return;
+                }
+                
+                if (page === 1) {
+                    this.showLoading();
+                }
+                
+                this.isLoading = true;
+                
+                try {
+                    const result = await this.makeAuthenticatedRequest(`${this.baseURL}/entries`, {
+                        body: JSON.stringify({
+                            page: page,
+                            search: this.searchQuery,
+                            tag: this.filterTag,
+                            subject: this.filterSubject,
+                            difficulty: this.filterDifficulty
+                        })
+                    });
+
+                    if (!result.success) {
+                        // 如果认证失败，重新检查认证状态
+                        if (result.code === 'AUTH_REQUIRED' || result.code === 'TOKEN_INVALID') {
+                            console.log('🔐 API返回认证失败，重新检查认证状态');
+                            await this.checkAuthentication();
+                            
+                            // 如果仍然认证失败，显示登录提示
+                            if (!this.isAuthenticated) {
+                                this.showLoginRequired();
+                                return;
+                            }
+                            
+                            // 重新尝试加载
+                            if (page === 1) {
+                                return await this.loadQuestions(1);
+                            }
+                        }
+                        
+                        // 其他错误
+                        throw new Error(result.message || '加载失败');
+                    }
+
+                    if (page === 1) {
+                        this.questions = result.data.questions || [];
+                    } else {
+                        this.questions = [...this.questions, ...(result.data.questions || [])];
+                    }
+                    
+                    this.currentPage = page;
+                    this.hasMore = result.data.hasMore || false;
+                    
+                    this.renderQuestions();
+                    this.updateLoadMoreButton();
+                    
+                } catch (error) {
+                    console.error('加载错题失败:', error);
+                    
+                    // 根据错误类型显示不同的提示
+                    if (error.message.includes('网络') || error.message.includes('连接')) {
+                        this.showMessage('网络连接失败，请检查网络设置', 'error');
+                    } else if (error.message.includes('认证') || error.message.includes('令牌')) {
+                        this.showMessage('登录已过期，请重新登录', 'warning');
+                        setTimeout(() => {
+                            window.location.href = '云梦智间登录.html';
+                        }, 2000);
+                    } else {
+                        this.showMessage('加载失败，请重试', 'error');
+                    }
+                    
+                    // 出错时显示错误状态
+                    this.showErrorState('加载错题失败', error.message);
+                } finally {
+                    this.hideLoading();
+                    this.isLoading = false;
+                }
+            }
+
+            // 显示错误状态
+            showErrorState(title, message) {
+                const container = document.getElementById('content-list');
+                container.innerHTML = `
+                    <div class="error-state bg-white rounded-xl p-6 fade-in">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-exclamation-triangle text-error text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">${title}</h3>
+                            <p class="text-gray-600 mb-4">${message}</p>
+                            <button onclick="errorQuestionsManager.retryLoad()" class="retry-btn">
+                                <i class="fas fa-redo mr-2"></i>重试
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 重试加载
+            retryLoad() {
+                this.reloadQuestions();
+            }
+
+            // 渲染错题列表
+            renderQuestions() {
+                const container = document.getElementById('content-list');
+                
+                if (!this.questions || this.questions.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12 fade-in">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-times-circle text-gray-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">还没有错题记录</h3>
+                            <p class="text-gray-600 mb-6">开始记录你的错题吧</p>
+                            <button onclick="errorQuestionsManager.showEditor()" class="btn-primary">
+                                <i class="fas fa-plus mr-2"></i>添加第一道错题
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = this.questions.map(question => this.renderQuestion(question)).join('');
+            }
+
+            // 渲染单道错题
+            renderQuestion(question) {
+                const date = new Date(question.created_at).toLocaleDateString('zh-CN');
+                
+                // 高亮搜索关键词
+                let questionText = question.question || '';
+                let analysisText = question.analysis || '';
+                
+                if (this.searchQuery) {
+                    const regex = new RegExp(this.searchQuery, 'gi');
+                    questionText = questionText.replace(regex, match => `<span class="search-highlight">${match}</span>`);
+                    analysisText = analysisText.replace(regex, match => `<span class="search-highlight">${match}</span>`);
+                }
+
+                const difficultyClass = `difficulty-${question.difficulty === '困难' ? 'hard' : question.difficulty === '中等' ? 'medium' : 'easy'}`;
+
+                return `
+                    <div class="error-card rounded-xl p-6 fade-in ${difficultyClass}">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center bg-red-100 text-error">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">${question.subject || '未分类'} · ${question.difficulty || '未设置'}</h3>
+                                    <p class="text-sm text-gray-500">${date}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="errorQuestionsManager.editQuestion('${question.id}')" class="p-2 text-gray-400 hover:text-primary transition-colors" title="编辑">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="errorQuestionsManager.showDeleteModal('${question.id}')" class="p-2 text-gray-400 hover:text-error transition-colors" title="删除">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm font-medium text-gray-700 mb-1 block">题目:</label>
+                                <p class="text-gray-800 leading-relaxed whitespace-pre-line">${questionText}</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-medium text-error mb-1 block">我的答案:</label>
+                                    <p class="text-error whitespace-pre-line">${question.my_answer || '未填写'}</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-success mb-1 block">正确答案:</label>
+                                    <p class="text-success whitespace-pre-line">${question.correct_answer}</p>
+                                </div>
+                            </div>
+                            
+                            ${question.analysis ? `
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-1 block">分析:</label>
+                                    <p class="text-gray-600 whitespace-pre-line">${analysisText}</p>
+                                </div>
+                            ` : ''}
+                            
+                            ${question.error_type ? `
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-1 block">错误类型:</label>
+                                    <span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded-full">${question.error_type}</span>
+                                </div>
+                            ` : ''}
+                            
+                            ${question.knowledge_points ? `
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-1 block">知识点:</label>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${question.knowledge_points.split(',').map(point => `
+                                            <span class="px-2 py-1 bg-blue-100 text-primary text-xs rounded-full">${point.trim()}</span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex gap-2">
+                                ${question.tags ? question.tags.split(',').map(tag => `
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full">${tag.trim()}</span>
+                                `).join('') : ''}
+                            </div>
+                            <span class="text-xs text-gray-500">复习次数: ${question.review_count || 0}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 显示编辑器
+            showEditor(questionId = null) {
+                if (!this.isAuthenticated) {
+                    this.showMessage('请先登录', 'warning');
+                    return;
+                }
+                
+                this.editingId = questionId;
+                const modal = document.getElementById('editor-modal');
+                const title = document.getElementById('modal-title');
+                
+                if (questionId) {
+                    title.textContent = '编辑错题';
+                    this.loadQuestionForEdit(questionId);
+                } else {
+                    title.textContent = '添加错题';
+                    this.resetForm();
+                }
+                
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // 隐藏编辑器
+            hideEditor() {
+                const modal = document.getElementById('editor-modal');
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+
+            // 重置表单
+            resetForm() {
+                document.getElementById('edit-id').value = '';
+                document.getElementById('error-question').value = '';
+                document.getElementById('error-my-answer').value = '';
+                document.getElementById('error-correct-answer').value = '';
+                document.getElementById('error-analysis').value = '';
+                document.getElementById('error-subject').value = '';
+                document.getElementById('error-difficulty').value = '中等';
+                document.getElementById('error-type').value = '';
+                document.getElementById('knowledge-points').value = '';
+                document.getElementById('entry-tags').value = '';
+            }
+
+            // 加载要编辑的错题
+            async loadQuestionForEdit(questionId) {
+                try {
+                    const question = this.questions.find(q => q.id === questionId);
+                    if (question) {
+                        document.getElementById('edit-id').value = question.id;
+                        document.getElementById('error-question').value = question.question || '';
+                        document.getElementById('error-my-answer').value = question.my_answer || '';
+                        document.getElementById('error-correct-answer').value = question.correct_answer || '';
+                        document.getElementById('error-analysis').value = question.analysis || '';
+                        document.getElementById('error-subject').value = question.subject || '';
+                        document.getElementById('error-difficulty').value = question.difficulty || '中等';
+                        document.getElementById('error-type').value = question.error_type || '';
+                        document.getElementById('knowledge-points').value = question.knowledge_points || '';
+                        document.getElementById('entry-tags').value = question.tags || '';
+                    }
+                } catch (error) {
+                    console.error('加载编辑内容失败:', error);
+                    this.showMessage('加载失败', 'error');
+                }
+            }
+
+            // 保存错题
+            async saveQuestion() {
+                if (!this.isAuthenticated) {
+                    this.showMessage('请先登录', 'warning');
+                    return;
+                }
+                
+                const formData = {
+                    id: document.getElementById('edit-id').value || null,
+                    question: document.getElementById('error-question').value.trim(),
+                    my_answer: document.getElementById('error-my-answer').value.trim(),
+                    correct_answer: document.getElementById('error-correct-answer').value.trim(),
+                    analysis: document.getElementById('error-analysis').value.trim(),
+                    subject: document.getElementById('error-subject').value,
+                    difficulty: document.getElementById('error-difficulty').value,
+                    error_type: document.getElementById('error-type').value,
+                    knowledge_points: document.getElementById('knowledge-points').value.trim(),
+                    tags: document.getElementById('entry-tags').value.trim()
+                };
+
+                // 验证必填字段
+                if (!formData.question) {
+                    this.showMessage('题目不能为空', 'warning');
+                    return;
+                }
+                if (!formData.correct_answer) {
+                    this.showMessage('正确答案不能为空', 'warning');
+                    return;
+                }
+
+                const saveBtn = document.getElementById('save-btn');
+                const originalText = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>保存中...';
+                saveBtn.disabled = true;
+
+                try {
+                    const result = await this.makeAuthenticatedRequest(`${this.baseURL}/save`, {
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    if (!result.success) {
+                        // 如果认证失败，重新检查认证状态
+                        if (result.code === 'AUTH_REQUIRED') {
+                            console.log('🔐 API返回认证失败，重新检查认证状态');
+                            await this.checkAuthentication();
+                            return;
+                        }
+                        throw new Error(result.message || '保存失败');
+                    }
+
+                    this.showMessage(result.message, 'success');
+                    this.hideEditor();
+                    await this.reloadQuestions();
+                    await this.loadStatistics();
+                    await this.loadFilterOptions();
+
+                } catch (error) {
+                    console.error('保存错题失败:', error);
+                    this.showMessage(error.message || '保存失败，请重试', 'error');
+                } finally {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                }
+            }
+
+            // 显示删除确认
+            showDeleteModal(questionId) {
+                if (!this.isAuthenticated) return;
+                
+                this.editingId = questionId;
+                document.getElementById('delete-modal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // 隐藏删除确认
+            hideDeleteModal() {
+                document.getElementById('delete-modal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                this.editingId = null;
+            }
+
+            // 确认删除
+            async confirmDelete() {
+                if (!this.editingId) return;
+
+                try {
+                    const result = await this.makeAuthenticatedRequest(`${this.baseURL}/delete`, {
+                        body: JSON.stringify({
+                            id: this.editingId
+                        })
+                    });
+                    
+                    if (!result.success) {
+                        // 如果认证失败，重新检查认证状态
+                        if (result.code === 'AUTH_REQUIRED') {
+                            console.log('🔐 API返回认证失败，重新检查认证状态');
+                            await this.checkAuthentication();
+                            return;
+                        }
+                        throw new Error(result.message || '删除失败');
+                    }
+
+                    this.showMessage(result.message, 'success');
+                    this.hideDeleteModal();
+                    await this.reloadQuestions();
+                    await this.loadStatistics();
+                    await this.loadFilterOptions();
+
+                } catch (error) {
+                    console.error('删除错题失败:', error);
+                    this.showMessage(error.message || '删除失败，请重试', 'error');
+                }
+            }
+
+            // 搜索处理
+            handleSearch() {
+                this.searchQuery = document.getElementById('search-input').value.trim();
+                this.reloadQuestions();
+            }
+
+            // 清除搜索
+            clearSearch() {
+                document.getElementById('search-input').value = '';
+                this.searchQuery = '';
+                this.reloadQuestions();
+            }
+
+            // 清除筛选
+            clearFilters() {
+                document.getElementById('subject-filter').value = '';
+                document.getElementById('difficulty-filter').value = '';
+                document.getElementById('tag-filter').value = '';
+                
+                this.filterSubject = '';
+                this.filterDifficulty = '';
+                this.filterTag = '';
+                
+                this.reloadQuestions();
+            }
+
+            // 重新加载条目
+            reloadQuestions() {
+                this.currentPage = 1;
+                this.loadQuestions(1);
+            }
+
+            // 加载更多
+            loadMore() {
+                if (!this.isLoading && this.hasMore) {
+                    this.loadQuestions(this.currentPage + 1);
+                }
+            }
+
+            // 更新加载更多按钮
+            updateLoadMoreButton() {
+                const container = document.getElementById('load-more-container');
+                if (this.hasMore) {
+                    container.classList.remove('hidden');
+                } else {
+                    container.classList.add('hidden');
+                }
+            }
+
+            // 加载筛选选项
+            async loadFilterOptions() {
+                if (!this.isAuthenticated) return;
+                
+                try {
+                    // 加载标签
+                    const tagsResult = await this.makeAuthenticatedRequest(`${this.baseURL}/tags`);
+                    if (tagsResult.success) {
+                        const tagSelect = document.getElementById('tag-filter');
+                        tagSelect.innerHTML = '<option value="">所有标签</option>' +
+                            tagsResult.data.map(tag => `<option value="${tag}">${tag}</option>`).join('');
+                    }
+
+                    // 加载科目
+                    const subjectsResult = await this.makeAuthenticatedRequest(`${this.baseURL}/subjects`);
+                    if (subjectsResult.success) {
+                        const subjectSelect = document.getElementById('subject-filter');
+                        subjectSelect.innerHTML = '<option value="">所有科目</option>' +
+                            subjectsResult.data.map(subject => `<option value="${subject}">${subject}</option>`).join('');
+                    }
+                } catch (error) {
+                    console.error('加载筛选选项失败:', error);
+                }
+            }
+
+            // 加载统计信息
+            async loadStatistics() {
+                if (!this.isAuthenticated) return;
+                
+                try {
+                    const result = await this.makeAuthenticatedRequest(`${this.baseURL}/statistics`);
+                    
+                    if (result.success) {
+                        this.updateStatistics(result.data);
+                    }
+                } catch (error) {
+                    console.error('更新统计失败:', error);
+                }
+            }
+
+            // 更新统计信息
+            updateStatistics(data) {
+                document.getElementById('total-questions').textContent = data.total;
+                document.getElementById('recent-questions').textContent = data.recent;
+                
+                // 计算难题数量
+                const hardQuestions = data.byDifficulty.find(item => item.difficulty === '困难');
+                document.getElementById('hard-questions').textContent = hardQuestions ? hardQuestions.count : 0;
+                
+                // 计算科目数量
+                document.getElementById('subjects-count').textContent = data.bySubject.length;
+
+                // 更新侧边栏统计
+                this.updateSidebarStats(data);
+            }
+
+            // 更新侧边栏统计
+            updateSidebarStats(data) {
+                const container = document.getElementById('stats-sidebar');
+                
+                let html = '';
+                
+                // 按科目统计
+                if (data.bySubject.length > 0) {
+                    html += '<div class="mb-3">';
+                    html += '<h4 class="font-medium text-gray-700 mb-2">按科目:</h4>';
+                    data.bySubject.forEach(item => {
+                        const percentage = Math.round((item.count / data.total) * 100);
+                        html += `
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm text-gray-600">${item.subject}</span>
+                                <span class="text-sm font-medium">${item.count}</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1.5 mb-2">
+                                <div class="bg-primary h-1.5 rounded-full" style="width: ${percentage}%"></div>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                }
+
+                // 按难度统计
+                if (data.byDifficulty.length > 0) {
+                    html += '<div>';
+                    html += '<h4 class="font-medium text-gray-700 mb-2">按难度:</h4>';
+                    data.byDifficulty.forEach(item => {
+                        const colorClass = item.difficulty === '困难' ? 'text-error' : 
+                                         item.difficulty === '中等' ? 'text-warning' : 'text-success';
+                        html += `
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm ${colorClass}">${item.difficulty}</span>
+                                <span class="text-sm font-medium">${item.count}</span>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                }
+
+                container.innerHTML = html;
+            }
+
+            // 添加全局认证状态变化处理
+            handleGlobalAuthChange(isLoggedIn, user, authState) {
+                console.log('🔔 错题本管理器收到全局认证变化:', { isLoggedIn, user });
+                
+                this.isAuthenticated = isLoggedIn;
+                this.currentUser = user;
+                
+                if (isLoggedIn) {
+                    this.showAuthenticatedUI();
+                    // 重新加载数据
+                    this.loadFilterOptions();
+                    this.loadQuestions();
+                    this.loadStatistics();
+                } else {
+                    this.showLoginRequired();
+                }
+            }
+
+            // 增强显示加载状态方法
+            showLoading() {
+                const container = document.getElementById('content-list');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            ${Array(3).fill(0).map(() => `
+                                <div class="bg-white rounded-xl p-6 border border-blue-50">
+                                    <div class="animate-pulse">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full loading-shimmer"></div>
+                                                <div>
+                                                    <div class="h-4 w-32 loading-shimmer rounded mb-2"></div>
+                                                    <div class="h-3 w-24 loading-shimmer rounded"></div>
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <div class="w-8 h-8 loading-shimmer rounded"></div>
+                                                <div class="w-8 h-8 loading-shimmer rounded"></div>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <div>
+                                                <div class="h-4 w-20 loading-shimmer rounded mb-2"></div>
+                                                <div class="h-4 w-full loading-shimmer rounded"></div>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <div class="h-4 w-20 loading-shimmer rounded mb-2"></div>
+                                                    <div class="h-4 w-full loading-shimmer rounded"></div>
+                                                </div>
+                                                <div>
+                                                    <div class="h-4 w-20 loading-shimmer rounded mb-2"></div>
+                                                    <div class="h-4 w-full loading-shimmer rounded"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
+
+            // 隐藏加载状态
+            hideLoading() {
+                // 由renderQuestions处理
+            }
+
+            // 显示消息
+            showMessage(message, type = 'info') {
+                const toast = document.getElementById('message-toast');
+                const icon = document.getElementById('message-icon');
+                const text = document.getElementById('message-text');
+                
+                // 设置图标和颜色
+                const icons = {
+                    success: 'fa-check-circle text-success',
+                    error: 'fa-exclamation-circle text-error',
+                    warning: 'fa-exclamation-triangle text-warning',
+                    info: 'fa-info-circle text-primary'
+                };
+                
+                icon.className = `fas ${icons[type] || icons.info} text-xl mr-3`;
+                text.textContent = message;
+                
+                toast.classList.remove('hidden');
+                
+                // 3秒后自动隐藏
+                setTimeout(() => {
+                    this.hideMessage();
+                }, 3000);
+            }
+
+            hideMessage() {
+                document.getElementById('message-toast').classList.add('hidden');
+            }
+        }
+
+        // 全局函数
+        function handleLogin() {
+            window.location.href = '云梦智间登录.html';
+        }
+
+        function hideMessage() {
+            if (window.errorQuestionsManager) {
+                window.errorQuestionsManager.hideMessage();
+            }
+        }
+
+        // 初始化错题本管理器
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📝 错题本页面加载完成，初始化错题本管理器');
+            window.errorQuestionsManager = new EnhancedErrorQuestionsManager();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2022_09",
+    "exam_type": "CET-6",
+    "year": 2022,
+    "month": 9,
+    "title": "2022年9月英语六级听力真题(第1套)",
+    "audio_file": "cet6_2022_09.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It enables people to earn more money."},
+        {"option": "B", "text": "It teaches the importance of financing."},
+        {"option": "C", "text": "It helps people with budgeting."},
+        {"option": "D", "text": "It introduces a novel way to invest."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Many Americans are not satisfied with their income."},
+        {"option": "B", "text": "Many Americans have no idea about how to invest."},
+        {"option": "C", "text": "Most Americans do not know how to save money."},
+        {"option": "D", "text": "Most Americans do not stick to a budget."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Keep track of his money."},
+        {"option": "B", "text": "Live within his means."},
+        {"option": "C", "text": "Find more sources of income."},
+        {"option": "D", "text": "Refrain from buying luxuries."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It offers a greater variety of items."},
+        {"option": "B", "text": "It helps avoid unnecessary spending."},
+        {"option": "C", "text": "It changes one's way of living."},
+        {"option": "D", "text": "It saves one's time for shopping."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is brand-new."},
+        {"option": "B", "text": "It has plenty of rooms."},
+        {"option": "C", "text": "It belongs to her mother."},
+        {"option": "D", "text": "It has been vacant for months."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Space."},
+        {"option": "B", "text": "Tranquillity."},
+        {"option": "C", "text": "Appliances."},
+        {"option": "D", "text": "Location."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Talk to his wife about the contract terms."},
+        {"option": "B", "text": "Pay the first month's rent and a deposit."},
+        {"option": "C", "text": "Check the references of the flat owner."},
+        {"option": "D", "text": "Consult his solicitor one more time."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "She can have a wonderful view of the pond."},
+        {"option": "B", "text": "She will be much closer to her work place."},
+        {"option": "C", "text": "She can make friends with new neighbours."},
+        {"option": "D", "text": "She will have plenty of space for her shoes."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The more commercials they see, the more brands they get to know."},
+        {"option": "B", "text": "The more commercials they see, the more they adore celebrities."},
+        {"option": "C", "text": "The more television they watch, the fewer conflicts in the family."},
+        {"option": "D", "text": "The more television they watch, the greater their parents' stress."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Inform children of the family's financial situation."},
+        {"option": "B", "text": "Shift children's attention to interesting activities."},
+        {"option": "C", "text": "Involve children in making purchasing decisions."},
+        {"option": "D", "text": "Help children understand advertising's intent."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their limited cognitive ability."},
+        {"option": "B", "text": "Their strong natural curiosity."},
+        {"option": "C", "text": "Their admiration for celebrities."},
+        {"option": "D", "text": "Their lack of social experience."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Bad guys may do good deeds."},
+        {"option": "B", "text": "Bad guys may go unpunished."},
+        {"option": "C", "text": "Good guys may not always cooperate."},
+        {"option": "D", "text": "Good guys may get unfair treatment."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "By what we do."},
+        {"option": "B", "text": "By fair evaluation."},
+        {"option": "C", "text": "In comparison with others."},
+        {"option": "D", "text": "In accordance with set standards."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Learn from them earnestly."},
+        {"option": "B", "text": "Compete with them actively."},
+        {"option": "C", "text": "Leave them alone temporarily."},
+        {"option": "D", "text": "Cooperate with them sincerely."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Being dismissed as hypocritical."},
+        {"option": "B", "text": "Not getting the reward they deserve."},
+        {"option": "C", "text": "Having to make too many sacrifices."},
+        {"option": "D", "text": "Being misunderstood by people around."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are increasingly aware of gender differences."},
+        {"option": "B", "text": "They engage themselves in positive recollection."},
+        {"option": "C", "text": "They begin to see the importance of friendship."},
+        {"option": "D", "text": "They make friends with peers of the same sex."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Competing for position."},
+        {"option": "B", "text": "Pursuing fashion."},
+        {"option": "C", "text": "Forging close ties with friends."},
+        {"option": "D", "text": "Fulfilling family obligations."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They prioritize romance over friendship."},
+        {"option": "B", "text": "They try to strengthen same-sex friendships."},
+        {"option": "C", "text": "They begin to take friendship more seriously."},
+        {"option": "D", "text": "They compete intensely for romantic partners."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They regard it as a matter of sheer privacy."},
+        {"option": "B", "text": "They are worried about being turned down."},
+        {"option": "C", "text": "They fear that their condition will be made widely known."},
+        {"option": "D", "text": "They are afraid to be discriminated against once recruited."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "After receiving a job offer."},
+        {"option": "B", "text": "During a job interview."},
+        {"option": "C", "text": "When confirming an interview."},
+        {"option": "D", "text": "Upon completing a cover letter."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Describe the true state of their health."},
+        {"option": "B", "text": "Provide all the information required."},
+        {"option": "C", "text": "Stress the irrelevance of their disability to the job."},
+        {"option": "D", "text": "Avoid mentioning the name of their disability."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their scores were least affected by music with speech."},
+        {"option": "B", "text": "It was the poorest when there was background speech."},
+        {"option": "C", "text": "Their scores were most depressed with instrumental music."},
+        {"option": "D", "text": "It was disrupted by the sound of an air conditioner or fan."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It has to do with the type and volume of the background noise."},
+        {"option": "B", "text": "It has to do with short-term memory for listening comprehension."},
+        {"option": "C", "text": "It depends on the overlap in processing different kinds of information."},
+        {"option": "D", "text": "It depends on the participants' ability to concentrate on the task at hand."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Keep everything as quiet as possible."},
+        {"option": "B", "text": "Play nothing but instrumental music."},
+        {"option": "C", "text": "Use vocal material as little as possible."},
+        {"option": "D", "text": "Wear a pair of earphones or headphones."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Sociable people were immune to all distractions."},
+        {"option": "B", "text": "Shy quiet people were most adversely impacted."},
+        {"option": "C", "text": "Less outgoing people were more affected by silence."},
+        {"option": "D", "text": "Confident people were unaffected by high-arousal music."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

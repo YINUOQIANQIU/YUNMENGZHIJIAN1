@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI智能批改 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 引入统一认证和UI管理 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <script src="云梦智间主入口.js"></script>
+    
+    <!-- 批改功能脚本 -->
+    <script src="js/file-upload-manager.js"></script>
+    <script src="js/correction-manager.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E',
+                        success: '#4CAF50',
+                        error: '#F44336',
+                        warning: '#FF9800',
+                        info: '#2196F3'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e3edff 100%);
+            min-height: 100vh;
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .text-highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .highlight-error {
+            background-color: rgba(244, 67, 54, 0.15);
+            border-bottom: 2px dashed #F44336;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .highlight-suggestion {
+            background-color: rgba(255, 152, 0, 0.15);
+            border-bottom: 2px dashed #FF9800;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .highlight-excellent {
+            background-color: rgba(76, 175, 80, 0.15);
+            border-bottom: 2px dashed #4CAF50;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .typing-dots {
+            display: inline-block;
+        }
+        .typing-dots::after {
+            content: '...';
+            animation: typing 1.5s infinite;
+        }
+        @keyframes typing {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 新增文件上传区域样式 */
+        .file-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+        }
+
+        .file-upload-area:hover {
+            border-color: #2962FF;
+            background-color: #f0f4ff;
+        }
+
+        .file-upload-area.dragover {
+            border-color: #2962FF;
+            background-color: #e0e7ff;
+        }
+
+        .file-info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2962FF, #1A237E);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一导航栏 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-primary text-2xl font-bold tracking-tight">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 -->
+        <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+            <div id="login-btn-container">
+                <!-- 由UI管理器动态填充 -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- 页面标题 -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl lg:text-5xl font-bold text-secondary mb-4">
+                <span class="text-highlight">AI智能批改</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                专业英语作文批改，即时反馈语法错误、词汇使用和篇章结构，助力写作能力提升
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <!-- 左侧输入面板 -->
+            <div class="xl:col-span-2 space-y-6">
+                <!-- 输入方式选择 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <!-- 考试类型选择 -->
+                    <div class="flex items-center space-x-4 mb-6">
+                        <label class="text-sm font-medium text-gray-700">考试类型:</label>
+                        <select id="exam-type-select" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="CET4">英语四级</option>
+                            <option value="CET6">英语六级</option>
+                            <option value="IELTS">雅思</option>
+                            <option value="TOEFL">托福</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6">
+                        <button id="text-input-tab" class="flex-1 py-3 px-4 text-sm font-medium rounded-md transition-all duration-200 bg-white text-primary shadow-sm">
+                            <i class="fas fa-keyboard mr-2"></i>文本输入
+                        </button>
+                        <button id="file-input-tab" class="flex-1 py-3 px-4 text-sm font-medium rounded-md transition-all duration-200 text-gray-600 hover:text-primary">
+                            <i class="fas fa-file-upload mr-2"></i>文件上传
+                        </button>
+                    </div>
+
+                    <!-- 文本输入区域 -->
+                    <div id="text-input-area" class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <label class="block text-sm font-medium text-gray-700">输入您的英文作文</label>
+                            <div class="flex gap-2">
+                                <button id="clear-text" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-eraser mr-1"></i>清空
+                                </button>
+                                <button id="paste-text" class="text-sm text-primary hover:text-secondary transition-colors">
+                                    <i class="fas fa-paste mr-1"></i>粘贴
+                                </button>
+                            </div>
+                        </div>
+                        <textarea 
+                            id="essay-text" 
+                            rows="12"
+                            placeholder="请在此处输入或粘贴您的英文作文...&#10;&#10;例如：&#10;My Ideal Career&#10;My ideal job is to become a software engineer. I am passionate about programming and problem-solving. In the future, I want to work for a leading technology company where I can contribute to innovative projects..."
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
+                        ></textarea>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span id="word-count">0 单词</span>
+                            <span>建议字数：150-300词</span>
+                        </div>
+                    </div>
+
+                    <!-- 文件上传区域 - 修改为与AI聊天界面相同 -->
+                    <div id="file-input-area" class="space-y-4 hidden">
+                        <div class="file-upload-area" id="upload-drop-zone">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-lg font-medium text-gray-600 mb-2">拖放文件到这里或点击上传</p>
+                            <p class="text-sm text-gray-500 mb-4">支持 .txt, .doc, .docx, .pdf 格式，最大50MB</p>
+                            <input 
+                                type="file" 
+                                id="file-upload"
+                                accept=".txt,.doc,.docx,.pdf"
+                                class="hidden"
+                            >
+                            <button id="browse-files" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                                选择文件
+                            </button>
+                        </div>
+                        
+                        <!-- 文件信息显示区域 -->
+                        <div id="file-info-container" class="hidden">
+                            <div class="file-info-card">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-file text-white text-xl"></i>
+                                        <div>
+                                            <p id="file-name" class="font-medium"></p>
+                                            <p id="file-size" class="text-sm opacity-80"></p>
+                                        </div>
+                                    </div>
+                                    <button id="remove-file" class="text-white hover:text-red-200">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="progress-bar mt-3">
+                                    <div id="upload-progress" class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 文件预览区域 -->
+                        <div id="file-preview-container" class="hidden">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="text-sm font-medium text-gray-700 mb-2">文件预览</h4>
+                                <div id="file-preview-content" class="max-h-60 overflow-y-auto text-sm text-gray-600"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 批改按钮 -->
+                    <div class="mt-6">
+                        <button id="submit-correction" class="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-semibold text-lg hover:opacity-90 transition-all duration-200 shadow-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-magic"></i>
+                            <span>开始AI批改</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 批改历史 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-4 flex items-center">
+                        <i class="fas fa-history mr-2"></i>批改历史
+                    </h3>
+                    <div id="correction-history" class="space-y-3">
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-inbox text-4xl mb-3"></i>
+                            <p>暂无批改记录</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧结果面板 -->
+            <div class="space-y-6">
+                <!-- 评分概览 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-6 flex items-center">
+                        <i class="fas fa-chart-bar mr-2"></i>批改结果
+                    </h3>
+                    
+                    <div id="score-overview" class="text-center py-8 text-gray-500">
+                        <i class="fas fa-edit text-4xl mb-3"></i>
+                        <p>提交作文后查看批改结果</p>
+                    </div>
+
+                    <div id="score-details" class="hidden space-y-6">
+                        <!-- 总体评分 -->
+                        <div class="text-center">
+                            <div class="inline-flex items-baseline mb-2">
+                                <span id="total-score" class="text-5xl font-bold text-primary">85</span>
+                                <span class="text-2xl text-gray-500 ml-1">/100</span>
+                            </div>
+                            <p id="score-comment" class="text-lg font-medium text-gray-700">良好的写作水平</p>
+                        </div>
+
+                        <!-- 评分细分 -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-700">语法准确性</span>
+                                <div class="flex items-center space-x-2">
+                                    <span id="grammar-score" class="text-sm font-semibold">0/25</span>
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div id="grammar-bar" class="h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-700">词汇丰富度</span>
+                                <div class="flex items-center space-x-2">
+                                    <span id="vocabulary-score" class="text-sm font-semibold">0/20</span>
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div id="vocabulary-bar" class="h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-700">结构连贯性</span>
+                                <div class="flex items-center space-x-2">
+                                    <span id="structure-score" class="text-sm font-semibold">0/25</span>
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div id="structure-bar" class="h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-700">内容完整性</span>
+                                <div class="flex items-center space-x-2">
+                                    <span id="content-score" class="text-sm font-semibold">0/30</span>
+                                    <div class="w-24 bg-gray-200 rounded-full h-2">
+                                        <div id="content-bar" class="h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 标注文本区域 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-4 flex items-center">
+                        <i class="fas fa-highlighter mr-2"></i>标注文本
+                    </h3>
+                    <div id="annotated-text" class="text-gray-600">
+                        <p class="text-center py-4">批改完成后将显示标注文本</p>
+                    </div>
+                </div>
+
+                <!-- 详细分析 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-4 flex items-center">
+                        <i class="fas fa-search mr-2"></i>详细分析
+                    </h3>
+                    
+                    <div id="analysis-content" class="space-y-4 text-gray-600">
+                        <p>提交作文后，AI将为您提供：</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>语法错误检测与修正</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                <span>词汇使用建议</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-project-diagram text-blue-500 mr-2"></i>
+                                <span>篇章结构优化</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-star text-purple-500 mr-2"></i>
+                                <span>个性化学习建议</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="detailed-analysis" class="hidden space-y-4">
+                        <!-- 分析内容将由JS动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 学习建议 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-4 flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>学习建议
+                    </h3>
+                    <div id="learning-suggestions" class="space-y-3 text-sm text-gray-600">
+                        <p>根据批改结果，为您推荐针对性的学习内容</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 加载遮罩 -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">AI正在批改中</h3>
+            <p class="text-gray-600">请稍等<span class="typing-dots"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // 初始化批改管理器
+        document.addEventListener('DOMContentLoaded', function() {
+            // 等待认证系统就绪
+            if (window.appMain) {
+                window.correctionManager = new CorrectionManager();
+                if (window.fileUploadManager) {
+                    window.fileUploadManager = new FileUploadManager();
+                }
+                
+                // 初始化文件上传功能
+                initFileUpload();
+            } else {
+                document.addEventListener('authSystemReady', function() {
+                    window.correctionManager = new CorrectionManager();
+                    if (window.fileUploadManager) {
+                        window.fileUploadManager = new FileUploadManager();
+                    }
+                    
+                    // 初始化文件上传功能
+                    initFileUpload();
+                });
+            }
+            
+            // 初始化标签切换
+            initTabSwitching();
+        });
+        
+        // 初始化文件上传功能
+        function initFileUpload() {
+            const fileUpload = document.getElementById('file-upload');
+            const browseFiles = document.getElementById('browse-files');
+            const uploadDropZone = document.getElementById('upload-drop-zone');
+            const fileInfoContainer = document.getElementById('file-info-container');
+            const filePreviewContainer = document.getElementById('file-preview-container');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            const removeFile = document.getElementById('remove-file');
+            const uploadProgress = document.getElementById('upload-progress');
+            const filePreviewContent = document.getElementById('file-preview-content');
+            
+            // 点击上传区域触发文件选择
+            browseFiles.addEventListener('click', () => {
+                fileUpload.click();
+            });
+            
+            // 文件选择变化事件
+            fileUpload.addEventListener('change', handleFileSelect);
+            
+            // 拖放事件处理
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadDropZone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadDropZone.addEventListener(eventName, () => {
+                    uploadDropZone.classList.add('dragover');
+                }, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadDropZone.addEventListener(eventName, () => {
+                    uploadDropZone.classList.remove('dragover');
+                }, false);
+            });
+            
+            uploadDropZone.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+            
+            // 处理文件选择
+            function handleFileSelect(e) {
+                const files = e.target.files;
+                handleFiles(files);
+            }
+            
+            // 处理文件
+            function handleFiles(files) {
+                if (files.length === 0) return;
+                
+                const file = files[0];
+                
+                // 验证文件类型
+                const allowedTypes = ['.txt', '.doc', '.docx', '.pdf'];
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                if (!allowedTypes.includes(fileExtension)) {
+                    alert('不支持的文件类型。请上传 .txt, .doc, .docx 或 .pdf 文件。');
+                    return;
+                }
+                
+                // 验证文件大小 (最大50MB)
+                const maxSize = 50 * 1024 * 1024; // 50MB
+                if (file.size > maxSize) {
+                    alert('文件太大。请上传小于50MB的文件。');
+                    return;
+                }
+                
+                // 显示文件信息
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfoContainer.classList.remove('hidden');
+                
+                // 模拟上传进度
+                simulateUploadProgress(uploadProgress);
+                
+                // 预览文件内容
+                previewFileContent(file, filePreviewContent);
+                filePreviewContainer.classList.remove('hidden');
+            }
+            
+            // 模拟上传进度
+            function simulateUploadProgress(progressBar) {
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                    } else {
+                        width += Math.random() * 10;
+                        if (width > 100) width = 100;
+                        progressBar.style.width = width + '%';
+                    }
+                }, 100);
+            }
+            
+            // 预览文件内容
+            function previewFileContent(file, previewElement) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    let content = '';
+                    
+                    if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+                        // 文本文件
+                        content = e.target.result;
+                    } else if (file.name.endsWith('.pdf')) {
+                        // PDF文件 - 简单提示
+                        content = 'PDF文件内容预览需要专门的PDF解析库。';
+                    } else {
+                        // Word文档 - 简单提示
+                        content = 'Word文档内容预览需要专门的文档解析库。';
+                    }
+                    
+                    // 限制预览内容长度
+                    if (content.length > 1000) {
+                        content = content.substring(0, 1000) + '...';
+                    }
+                    
+                    previewElement.textContent = content || '无法预览此文件内容。';
+                };
+                
+                if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+                    reader.readAsText(file);
+                } else {
+                    // 对于非文本文件，只读取为二进制字符串用于显示基本信息
+                    reader.readAsBinaryString(file);
+                }
+            }
+            
+            // 删除文件
+            removeFile.addEventListener('click', () => {
+                fileUpload.value = '';
+                fileInfoContainer.classList.add('hidden');
+                filePreviewContainer.classList.add('hidden');
+            });
+            
+            // 格式化文件大小
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        }
+        
+        // 初始化标签切换
+        function initTabSwitching() {
+            const textInputTab = document.getElementById('text-input-tab');
+            const fileInputTab = document.getElementById('file-input-tab');
+            const textInputArea = document.getElementById('text-input-area');
+            const fileInputArea = document.getElementById('file-input-area');
+            
+            textInputTab.addEventListener('click', () => {
+                textInputTab.classList.add('bg-white', 'text-primary', 'shadow-sm');
+                textInputTab.classList.remove('text-gray-600');
+                fileInputTab.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+                fileInputTab.classList.add('text-gray-600');
+                
+                textInputArea.classList.remove('hidden');
+                fileInputArea.classList.add('hidden');
+            });
+            
+            fileInputTab.addEventListener('click', () => {
+                fileInputTab.classList.add('bg-white', 'text-primary', 'shadow-sm');
+                fileInputTab.classList.remove('text-gray-600');
+                textInputTab.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+                textInputTab.classList.add('text-gray-600');
+                
+                fileInputArea.classList.remove('hidden');
+                textInputArea.classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

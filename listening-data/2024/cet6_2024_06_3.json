@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2024_06_3",
+    "exam_type": "CET-6",
+    "year": 2024,
+    "month": 6,
+    "title": "2024年6月英语六级听力真题（第三套）",
+    "audio_file": "cet6_2024_06_3.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Reply to the man's last proposal within a short time."},
+        {"option": "B", "text": "Sign the agreement if one small change is made to it."},
+        {"option": "C", "text": "Make a sponsorship deal for her client at the meeting."},
+        {"option": "D", "text": "Give the man some good news regarding the contract"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are becoming impatient."},
+        {"option": "B", "text": "They are afraid time is running out."},
+        {"option": "C", "text": ""},
+        {"option": "D", "text": ""}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To prevent geographical discrimination."},
+        {"option": "B", "text": "To tap the food and beverage market."},
+        {"option": "C", "text": ""},
+        {"option": "D", "text": ""}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is a potential market for food and beverage."},
+        {"option": "B", "text": "It is very attractive for real estate developers."},
+        {"option": "C", "text": ""},
+        {"option": "D", "text": ""}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are thrilled by a rare astronomic phenomenon"},
+        {"option": "B", "text": "They are celebrating a big event on mountain tops."},
+        {"option": "C", "text": "They are enthusiastic about big science-related stories."},
+        {"option": "D", "text": "They are joined by astronomers all across North America."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It will be the most formidable of its kind in over a century"},
+        {"option": "B", "text": "It will come closest to Earth in more than one hundred years"},
+        {"option": "C", "text": "It will eclipse many other such events in human history"},
+        {"option": "D", "text": "It will be seen most clearly from Denver's mountain tops."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "A blur."},
+        {"option": "B", "text": "Stars."},
+        {"option": "C", "text": "The edge of our galaxy."},
+        {"option": "D", "text": "An ordinary flying object."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Use professional equipment."},
+        {"option": "B", "text": "Climb to the nearby heights"},
+        {"option": "C", "text": "Fix their eyes due north"},
+        {"option": "D", "text": "Make use of phone apps"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Whether consumers should be warned against ultra-processed foods."},
+        {"option": "B", "text": "Whether there is sufficient scientific consensus on dietary guidelines."},
+        {"option": "C", "text": "Whether guidelines can form the basis for nutrition advice to consumers."},
+        {"option": "D", "text": "Whether food scientists will agree on the concept of ultra-processed foods."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "By the labor cost for the final products"},
+        {"option": "B", "text": "By the extent of chemical alteration."},
+        {"option": "C", "text": "By the degree of industrial processing."},
+        {"option": "D", "text": "By the convention of classification."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Increased consumers' expenses."},
+        {"option": "B", "text": "People's misunderstanding of nutrition."},
+        {"option": "C", "text": "Greater risk of chronic diseases."},
+        {"option": "D", "text": "Children's dislike for unprocessed foods"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They begin to think of the benefits of constraints."},
+        {"option": "B", "text": "They try to seek solutions from creative people."},
+        {"option": "C", "text": "They try hard to maximize their mental energy."},
+        {"option": "D", "text": "They begin to see the world in a different way"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is characteristic of all creative people."},
+        {"option": "B", "text": "It is a creative persons response to limitation."},
+        {"option": "C", "text": "It is essential to pushing society forward."},
+        {"option": "D", "text": "It is an impetus to socio-economic development"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Scarcity or abundance of resources has little impact on people's creativity."},
+        {"option": "B", "text": "Innovative people are not constrained in connecting unrelated concepts"},
+        {"option": "C", "text": "People have no incentive to use available resources in new ways."},
+        {"option": "D", "text": "Creative people tend to consume more available resources"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is key to a company's survival."},
+        {"option": "B", "text": "It is essential to meeting challenges"},
+        {"option": "C", "text": "It shapes and focuses problems:"},
+        {"option": "D", "text": "It thrives best when constrained."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Because they are learned."},
+        {"option": "B", "text": "Because they come naturally."},
+        {"option": "C", "text": "Because they have to be properly personalized"},
+        {"option": "D", "text": "Because there can be more effective strategies"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The extent of difference and of similarity between the two sides."},
+        {"option": "B", "text": "The knowledge of the specific expectation the other side holds."},
+        {"option": "C", "text": "The importance of one's goals and of the relationship."},
+        {"option": "D", "text": "The approaches one adopts to conflict management."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The fox."},
+        {"option": "B", "text": "The owl."},
+        {"option": "C", "text": "The shark"},
+        {"option": "D", "text": "The turtle."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Help save species from extinction and boost human health."},
+        {"option": "B", "text": "Understand how plants and animals perished over the past"},
+        {"option": "C", "text": "Help gather information publicly available to researchers"},
+        {"option": "D", "text": "Find out the cause of extinction of Britain's 66,000 species"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It was once dominated by dinosaurs"},
+        {"option": "B", "text": "Its prospects depend on future human behavior"},
+        {"option": "C", "text": "It has entered the sixth mass extinction"},
+        {"option": "D", "text": "Its climate change is aggravated by humans"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It dwarfs all other efforts to conserve, protect and restore biodiversity on earth"},
+        {"option": "B", "text": "It is costly to get started and requires the joint efforts of thousands of scientists"},
+        {"option": "C", "text": "It can help to bring back the large numbers of plants and animals that have gone extinct"},
+        {"option": "D", "text": "It is the most exciting, most relevant, most timely and most internationally inspirational"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Cultural identity"},
+        {"option": "B", "text": "Social evolution."},
+        {"option": "C", "text": "The Copernican revolution."},
+        {"option": "D", "text": "Human individuality"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is a delusion to be disposed of."},
+        {"option": "B", "text": "It is a myth spread by John Donne's poem."},
+        {"option": "C", "text": "It is prevalent even among academics."},
+        {"option": "D", "text": "It is rooted in the mindset of the 17th century"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He believes in Copernican philosophical doctrines about the universe."},
+        {"option": "B", "text": "He has gained ample scientific evidence at the University of Reading."},
+        {"option": "C", "text": "He has found that our inner self and material self are interconnected."},
+        {"option": "D", "text": "He contends most of our body cells can only live a few days or weeks."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "By coming to see how disruptive such problems have got to be."},
+        {"option": "B", "text": "By realising that we all can do our own bit in such endeavours."},
+        {"option": "C", "text": "By becoming aware that we are part of a bigger world"},
+        {"option": "D", "text": "By making joint efforts resolutely and persistently."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

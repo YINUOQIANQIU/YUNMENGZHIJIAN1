@@ -1,0 +1,102 @@
+{
+  "vocabulary": [
+    {
+      "word": "abandon",
+      "phonetic": "/əˈbændən/",
+      "definition": "to leave a place, thing, or person forever",
+      "part_of_speech": "verb",
+      "level": "CET-4",
+      "example_sentence": "They had to abandon their home because of the flood.",
+      "synonyms": ["desert", "leave", "forsake"],
+      "antonyms": ["keep", "retain"],
+      "word_family": ["abandoned", "abandonment"],
+      "frequency_band": 1,
+      "categories": [
+        {
+          "category": "academic",
+          "subcategory": "common"
+        }
+      ]
+    },
+    {
+      "word": "beneficial",
+      "phonetic": "/ˌbenɪˈfɪʃl/",
+      "definition": "having a good effect; favorable",
+      "part_of_speech": "adjective",
+      "level": "CET-4",
+      "example_sentence": "Regular exercise is beneficial to health.",
+      "synonyms": ["advantageous", "helpful", "favorable"],
+      "antonyms": ["harmful", "detrimental"],
+      "word_family": ["benefit", "beneficially"],
+      "frequency_band": 2,
+      "categories": [
+        {
+          "category": "academic",
+          "subcategory": "common"
+        }
+      ]
+    },
+    {
+      "word": "comprehensive",
+      "phonetic": "/ˌkɒmprɪˈhensɪv/",
+      "definition": "complete and including everything that is necessary",
+      "part_of_speech": "adjective",
+      "level": "CET-6",
+      "example_sentence": "The company offers comprehensive insurance coverage.",
+      "synonyms": ["complete", "thorough", "exhaustive"],
+      "antonyms": ["partial", "incomplete"],
+      "word_family": ["comprehend", "comprehension"],
+      "frequency_band": 3,
+      "categories": [
+        {
+          "category": "academic",
+          "subcategory": "advanced"
+        }
+      ]
+    },
+    {
+      "word": "diligent",
+      "phonetic": "/ˈdɪlɪdʒənt/",
+      "definition": "showing care and effort in one's work or duties",
+      "part_of_speech": "adjective",
+      "level": "CET-4",
+      "example_sentence": "She is a diligent student who always completes her homework on time.",
+      "synonyms": ["hardworking", "industrious", "assiduous"],
+      "antonyms": ["lazy", "negligent"],
+      "word_family": ["diligence", "diligently"],
+      "frequency_band": 2,
+      "categories": [
+        {
+          "category": "personality",
+          "subcategory": "positive"
+        }
+      ]
+    },
+    {
+      "word": "eloquent",
+      "phonetic": "/ˈeləkwənt/",
+      "definition": "able to express ideas and opinions well in speech or writing",
+      "part_of_speech": "adjective",
+      "level": "CET-6",
+      "example_sentence": "The speaker delivered an eloquent speech that moved the audience.",
+      "synonyms": ["articulate", "expressive", "fluent"],
+      "antonyms": ["inarticulate", "tongue-tied"],
+      "word_family": ["eloquence", "eloquently"],
+      "frequency_band": 3,
+      "categories": [
+        {
+          "category": "communication",
+          "subcategory": "skill"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "exported_at": "2024-01-15T10:30:00.000Z",
+    "total_words": 5,
+    "description": "英语词汇学习数据包",
+    "author": "Word Buster Team",
+    "difficulty_levels": ["CET-4", "CET-6"]
+  }
+}

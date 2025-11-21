@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习分析 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="js/ai-learning-analysis.js"></script>
+    <script src="js/test-analysis-flow.js"></script>
+    <!-- 引入认证和UI管理器 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <style>
+        .ability-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+        .ability-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.1);
+            border-color: rgba(41, 98, 255, 0.2);
+        }
+        .knowledge-graph {
+            min-height: 400px;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .weakness-tag {
+            transition: all 0.3s ease;
+        }
+        .weakness-tag:hover {
+            transform: scale(1.05);
+        }
+        .timeline-item {
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #2962FF;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(41, 98, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(41, 98, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(41, 98, 255, 0); }
+        }
+        .animate-bounce-in {
+            animation: bounce-in 0.6s ease-out;
+        }
+        @keyframes bounce-in {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .ai-status-processing { border-left: 4px solid #3B82F6; }
+        .ai-status-success { border-left: 4px solid #10B981; }
+        .ai-status-error { border-left: 4px solid #EF4444; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #F0F7FF 0%, #E3F2FF 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(41, 98, 255, 0.15);
+        }
+        .user-dropdown {
+            transition: all 0.2s ease;
+        }
+        .user-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+        .analysis-stage {
+            transition: all 0.3s ease;
+        }
+        .analysis-stage.completed { color: #10B981; }
+        .analysis-stage.active { color: #3B82F6; font-weight: 600; }
+        .analysis-stage.pending { color: #6B7280; }
+        
+        /* 新增样式优化 */
+        /* 滚动条美化 */
+        #learning-path-timeline::-webkit-scrollbar,
+        #review-schedule::-webkit-scrollbar,
+        #recommendations-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        #learning-path-timeline::-webkit-scrollbar-track,
+        #review-schedule::-webkit-scrollbar-track,
+        #recommendations-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        #learning-path-timeline::-webkit-scrollbar-thumb,
+        #review-schedule::-webkit-scrollbar-thumb,
+        #recommendations-list::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        #learning-path-timeline::-webkit-scrollbar-thumb:hover,
+        #review-schedule::-webkit-scrollbar-thumb:hover,
+        #recommendations-list::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            .ability-card {
+                margin-bottom: 1rem;
+            }
+        }
+        /* 动画优化 */
+        .fade-in {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* 进度条美化 */
+        .progress-ring circle {
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+        /* 标签样式优化 */
+        .weakness-tag {
+            border-left: 4px solid #EF4444;
+        }
+        .weakness-tag:hover {
+            border-left-color: #DC2626; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 导航栏 - 使用统一认证系统管理 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-2xl font-bold tracking-tight" style="color: #2962FF;">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题练习.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题练习</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 - 由UI管理器控制 -->
+        <div class="flex items-center gap-4 lg:gap-6">
+            <a href="云梦智间测试.html" class="flex items-center px-4 lg:px-6 py-2 bg-primary text-white rounded-button hover:bg-secondary transition-colors text-sm font-medium">
+                重新评估
+            </a>
+            <div id="auth-section">
+                <!-- 这里的内容将由UI管理器动态生成 -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- AI分析状态显示 -->
+    <div id="analysis-progress" class="max-w-7xl mx-auto pt-20 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="ability-card rounded-lg p-8 mb-8">
+            <div id="analysis-status" class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">AI分析进行中</h2>
+                <p class="text-gray-600 text-lg mb-4" id="current-stage-message">正在加载测试结果数据...</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <p class="text-sm text-gray-500" id="progress-text">0% 完成</p>
+                
+                <!-- 分析阶段详情 -->
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                    <div class="p-4 border rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-network text-blue-500 mr-2"></i>
+                            <span class="font-medium">能力图谱生成</span>
+                        </div>
+                        <div id="ability-map-status" class="text-sm analysis-stage pending">等待中...</div>
+                    </div>
+                    <div class="p-4 border rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-exclamation-triangle text-orange-500 mr-2"></i>
+                            <span class="font-medium">薄弱点分析</span>
+                        </div>
+                        <div id="weakpoints-status" class="text-sm analysis-stage pending">等待中...</div>
+                    </div>
+                    <div class="p-4 border rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-route text-green-500 mr-2"></i>
+                            <span class="font-medium">学习路径规划</span>
+                        </div>
+                        <div id="learning-path-status" class="text-sm analysis-stage pending">等待中...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="success-message" class="text-center hidden">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-3xl mx-auto mb-4">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">分析完成！</h2>
+                <p class="text-gray-600 mb-6">您的个性化学习分析报告已生成</p>
+                <!-- 修改这里：按钮文字颜色改为深色，确保可见 -->
+                <button onclick="showAnalysisResults()" class="px-6 py-3 bg-primary text-gray-900 rounded-lg hover:bg-secondary transition-colors font-medium">
+                    查看分析报告
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分析内容 -->
+    <div id="analysis-content" class="max-w-7xl mx-auto pt-20 py-8 px-4 sm:px-6 lg:px-8 hidden">
+        <!-- 顶部概览卡片 - 优化布局 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+            <!-- 总体能力水平 -->
+            <div class="lg:col-span-3 ability-card rounded-xl p-6 card-hover">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">总体能力水平</h3>
+                <div class="text-center">
+                    <div class="w-32 h-32 mx-auto mb-4 relative">
+                        <svg class="w-full h-full progress-ring" viewBox="0 0 36 36">
+                            <circle cx="18" cy="18" r="16" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+                            <circle cx="18" cy="18" r="16" fill="none" stroke="#2962FF" stroke-width="2" 
+                                    stroke-dasharray="100" stroke-linecap="round" id="overall-score-ring"/>
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <p class="text-2xl font-bold text-gray-900" id="overall-score">0</p>
+                            <p class="text-sm text-gray-600" id="cefr-level">CEFR Level</p>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <p>基于智普AI分析</p>
+                        <p id="assessment-date">评估日期: --</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 学习进度概览 -->
+            <div class="lg:col-span-3 ability-card rounded-xl p-6 card-hover">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">学习进度概览</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">计划完成度</span>
+                        <span class="font-semibold text-primary" id="plan-completion">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="completion-progress" class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-sm text-gray-600">待复习任务</span>
+                        <span class="font-semibold text-orange-600" id="pending-reviews">0个</span>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">学习时长</span>
+                        <span class="font-semibold text-blue-600" id="total-study-time">0分钟</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 能力分布雷达图 -->
+            <div class="lg:col-span-6 ability-card rounded-xl p-6 card-hover">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">三维能力图谱</h3>
+                    <div class="flex gap-2">
+                        <button onclick="toggleRadarView()" class="px-3 py-1 text-sm bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fas fa-sync-alt mr-1"></i>切换视图
+                        </button>
+                    </div>
+                </div>
+                <div id="ability-radar-chart" class="h-64"></div>
+            </div>
+        </div>
+
+        <!-- AI分析增强区域 -->
+        <div id="ai-analysis-enhanced" class="hidden">
+            <!-- 动态生成的AI分析说明 -->
+        </div>
+
+        <!-- 核心分析区域 - 优化为3列布局 -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+            <!-- 左侧：薄弱点分析和建议 -->
+            <div class="xl:col-span-2 space-y-6">
+                <!-- 薄弱知识点分析 -->
+                <div class="ability-card rounded-xl p-6 card-hover">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">薄弱知识点分析</h3>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium" id="weakness-count">
+                            0个薄弱点
+                        </span>
+                    </div>
+                    
+                    <!-- 知识点权重分布 -->
+                    <div class="mb-6">
+                        <h4 class="font-medium text-gray-700 mb-3">能力维度权重分布</h4>
+                        <div id="knowledge-weights" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <!-- 动态生成知识点权重 -->
+                        </div>
+                    </div>
+
+                    <!-- 薄弱点列表 -->
+                    <div id="weak-points-analysis" class="space-y-4">
+                        <div class="animate-pulse">
+                            <div class="h-20 bg-gray-200 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI学习建议 -->
+                <div class="ability-card rounded-xl p-6 card-hover">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-gray-900">AI学习建议</h3>
+                        <i class="fas fa-robot text-blue-500 text-xl"></i>
+                    </div>
+                    <div id="recommendations-list" class="space-y-4 max-h-80 overflow-y-auto pr-2">
+                        <div class="animate-pulse">
+                            <div class="h-4 bg-gray-200 rounded mb-2"></div>
+                            <div class="h-3 bg-gray-200 rounded w-3/4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：学习路径概览 -->
+            <div class="space-y-6">
+                <!-- 学习路径概览 -->
+                <div class="ability-card rounded-xl p-6 card-hover">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">学习路径概览</h3>
+                        <button onclick="adjustLearningPath()" class="px-3 py-1 text-sm bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            调整计划
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                            <span class="text-gray-700">计划时长</span>
+                            <span class="font-semibold text-primary" id="path-duration">--</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="text-gray-700">重点领域</span>
+                            <span class="font-semibold text-green-600" id="focus-areas">--</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                            <span class="text-gray-700">预计提升</span>
+                            <span class="font-semibold text-orange-600" id="expected-improvement">--</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white">
+                        <h4 class="font-medium mb-2 flex items-center">
+                            <i class="fas fa-robot mr-2"></i>
+                            AI路径规划
+                        </h4>
+                        <p class="text-sm opacity-90" id="path-description">
+                            基于您的能力评估结果，智普AI为您生成了个性化的学习路径...
+                        </p>
+                    </div>
+
+                    <div class="mt-6 space-y-3">
+                        <a href="云梦智间测试.html" class="w-full py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors text-center block font-medium">
+                            <i class="fas fa-redo mr-2"></i>重新评估能力
+                        </a>
+                        <button onclick="startLearning()" class="w-full py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-center block font-medium">
+                            <i class="fas fa-play mr-2"></i>开始学习
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 学习统计 -->
+                <div class="ability-card rounded-xl p-6 card-hover">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">学习统计</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600" id="total-tasks">0</div>
+                            <div class="text-sm text-gray-600">总任务数</div>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600" id="completed-tasks">0</div>
+                            <div class="text-sm text-gray-600">已完成</div>
+                        </div>
+                        <div class="p-3 bg-orange-50 rounded-lg">
+                            <div class="text-2xl font-bold text-orange-600" id="study-days">0</div>
+                            <div class="text-sm text-gray-600">学习天数</div>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600" id="efficiency-score">0</div>
+                            <div class="text-sm text-gray-600">效率评分</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 详细计划和复习计划 - 并排布局 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- 详细学习计划 -->
+            <div class="ability-card rounded-xl p-6 card-hover">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-900">详细学习计划</h3>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                            <i class="fas fa-calendar mr-1"></i>
+                            <span id="plan-duration">4周</span>
+                        </span>
+                    </div>
+                </div>
+                <div id="learning-path-timeline" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                    <div class="animate-pulse">
+                        <div class="h-32 bg-gray-200 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 抗遗忘复习计划 -->
+            <div class="ability-card rounded-xl p-6 card-hover">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-semibold text-gray-900">抗遗忘复习计划</h3>
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                        <i class="fas fa-brain mr-1"></i>
+                        <span id="review-count">0个复习</span>
+                    </span>
+                </div>
+                <div id="review-schedule" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                    <div class="animate-pulse">
+                        <div class="h-20 bg-gray-200 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let analysisData = null;
+        let learningPath = null;
+        let currentRadarView = 'standard';
+
+        // 主初始化函数
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📊 学习分析页面初始化');
+            
+            // 等待认证系统初始化完成
+            waitForAuthSystem().then(() => {
+                console.log('✅ 认证系统已就绪，开始分析流程');
+                startAnalysisProcess();
+            }).catch(error => {
+                console.error('❌ 认证系统初始化失败:', error);
+                // 即使认证系统失败，也尝试开始分析流程
+                startAnalysisProcess();
+            });
+        });
+
+        // 等待认证系统初始化
+        function waitForAuthSystem() {
+            return new Promise((resolve, reject) => {
+                const checkAuthSystem = () => {
+                    if (window.unifiedAuthManager && window.unifiedAuthManager.isInitialized) {
+                        resolve();
+                    } else if (window.uiManager && window.uiManager.authManager) {
+                        resolve();
+                    } else {
+                        setTimeout(checkAuthSystem, 100);
+                    }
+                };
+                
+                // 设置超时
+                setTimeout(() => {
+                    reject(new Error('认证系统初始化超时'));
+                }, 5000);
+                
+                checkAuthSystem();
+            });
+        }
+
+        // 开始分析流程
+        async function startAnalysisProcess() {
+            try {
+                // 多重数据源恢复策略
+                analysisData = await recoverAnalysisData();
+                
+                if (analysisData) {
+                    console.log('✅ 成功恢复分析数据:', analysisData);
+                    
+                    // 开始模拟AI分析过程
+                    startAIAnalysisSimulation();
+                } else {
+                    console.error('❌ 无法恢复分析数据');
+                    showNoData();
+                }
+            } catch (error) {
+                console.error('❌ 分析流程初始化失败:', error);
+                showErrorState(error);
+            }
+        }
+
+        // 多重数据源恢复策略
+        async function recoverAnalysisData() {
+            console.log('🔄 开始恢复分析数据...');
+            
+            const recoveryStrategies = [
+                recoverFromEnhancedURL,      // 新增：增强URL恢复
+                recoverFromMultipleStorage,  // 新增：多重存储恢复  
+                recoverFromURLParams,
+                recoverFromLocalStorage,
+                recoverFromSessionStorage,
+                recoverFromForceTransfer,
+                generateFallbackData
+            ];
+            
+            for (let i = 0; i < recoveryStrategies.length; i++) {
+                try {
+                    console.log(`🔄 尝试数据源 ${i + 1}: ${recoveryStrategies[i].name}`);
+                    const data = await recoveryStrategies[i]();
+                    
+                    if (data && data.assessment) {
+                        console.log(`✅ 从 ${recoveryStrategies[i].name} 成功恢复数据`);
+                        // 验证数据完整性
+                        if (validateAnalysisData(data)) {
+                            return data;
+                        } else {
+                            console.warn('❌ 数据验证失败，尝试下一个策略');
+                        }
+                    }
+                } catch (error) {
+                    console.warn(`❌ 数据源 ${i + 1} 失败:`, error);
+                }
+            }
+            
+            console.error('❌ 所有数据恢复策略都失败了');
+            return null;
+        }
+
+        // 新增：增强URL恢复策略
+        async function recoverFromEnhancedURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const enhanced = urlParams.get('enhanced');
+            const fresh = urlParams.get('fresh');
+            
+            if (enhanced === 'true' || fresh === 'true') {
+                console.log('🆕 检测到增强分析结果');
+                
+                // 尝试多个存储位置
+                const storageKeys = [
+                    'current_ai_analysis',
+                    'FORCE_ANALYSIS_DATA',
+                    'last_ai_analysis', 
+                    'analysis_report_data'
+                ];
+                
+                for (const key of storageKeys) {
+                    const data = getLocalStorageData(key);
+                    if (data && validateAnalysisData(data)) {
+                        console.log(`✅ 从 ${key} 恢复增强数据`);
+                        
+                        // 清理临时数据
+                        sessionStorage.removeItem('temp_analysis_data');
+                        sessionStorage.removeItem('backup_analysis_data');
+                        
+                        return data;
+                    }
+                }
+            }
+            return null;
+        }
+        recoverFromEnhancedURL.name = '增强URL';
+
+        // 新增：多重存储恢复策略
+        async function recoverFromMultipleStorage() {
+            console.log('🔍 执行多重存储恢复...');
+            
+            // 尝试所有可能的存储位置
+            const storageLocations = [
+                { type: 'localStorage', keys: ['current_ai_analysis', 'FORCE_ANALYSIS_DATA', 'last_ai_analysis', 'analysis_report_data'] },
+                { type: 'sessionStorage', keys: ['temp_analysis_data', 'backup_analysis_data'] }
+            ];
+            
+            for (const location of storageLocations) {
+                for (const key of location.keys) {
+                    let data;
+                    if (location.type === 'localStorage') {
+                        data = getLocalStorageData(key);
+                    } else {
+                        data = getSessionStorageData(key);
+                    }
+                    
+                    if (data && validateAnalysisData(data)) {
+                        console.log(`✅ 从 ${location.type}.${key} 恢复数据`);
+                        return data;
+                    }
+                }
+            }
+            
+            return null;
+        }
+        recoverFromMultipleStorage.name = '多重存储';
+
+        // 新增：数据验证函数
+        function validateAnalysisData(data) {
+            if (!data) return false;
+            
+            const requiredFields = ['assessment', 'abilityAnalysis'];
+            const hasRequiredFields = requiredFields.every(field => data[field]);
+            
+            if (!hasRequiredFields) {
+                console.warn('❌ 数据缺少必要字段:', requiredFields.filter(field => !data[field]));
+                return false;
+            }
+            
+            // 验证assessment结构
+            if (!data.assessment.overallScore && !data.assessment.overall_score) {
+                console.warn('❌ assessment数据不完整');
+                return false;
+            }
+            
+            console.log('✅ 数据验证通过');
+            return true;
+        }
+
+        // 从URL参数恢复数据
+        async function recoverFromURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const analysisId = urlParams.get('analysis_id');
+            const fresh = urlParams.get('fresh');
+            const fallback = urlParams.get('fallback');
+            
+            if (fresh === 'true') {
+                console.log('🆕 检测到新分析结果');
+                const data = getLocalStorageData('current_ai_analysis');
+                if (data) {
+                    // 清理临时数据
+                    sessionStorage.removeItem('temp_analysis_data');
+                    return data;
+                }
+            }
+            
+            if (fallback === 'true') {
+                console.log('🔄 使用降级模式');
+                return getLocalStorageData('current_ai_analysis');
+            }
+            
+            if (analysisId) {
+                // 新流程：从本地存储获取完整数据
+                const localData = localStorage.getItem('current_ai_analysis');
+                if (localData) {
+                    try {
+                        return JSON.parse(localData);
+                    } catch (e) {
+                        console.warn('解析本地存储数据失败');
+                    }
+                }
+            }
+            
+            // 如果没有特定参数，尝试从URL参数生成数据
+            const overallScore = parseInt(urlParams.get('overall_score'));
+            if (overallScore) {
+                return generateDataFromURLParams(urlParams);
+            }
+            
+            return null;
+        }
+        recoverFromURLParams.name = 'URL参数';
+
+        // 从本地存储恢复数据
+        async function recoverFromLocalStorage() {
+            const keys = ['current_ai_analysis', 'analysis_report', 'last_ai_analysis', 'FORCE_ANALYSIS_DATA'];
+            
+            for (const key of keys) {
+                const data = getLocalStorageData(key);
+                if (data) {
+                    console.log(`✅ 从 localStorage.${key} 恢复数据`);
+                    return data;
+                }
+            }
+            return null;
+        }
+        recoverFromLocalStorage.name = '本地存储';
+
+        // 从会话存储恢复数据
+        async function recoverFromSessionStorage() {
+            const data = getSessionStorageData('temp_analysis_data');
+            if (data) {
+                console.log('✅ 从 sessionStorage 恢复临时数据');
+                return data;
+            }
+            return null;
+        }
+        recoverFromSessionStorage.name = '会话存储';
+
+        // 强制数据传输恢复
+        async function recoverFromForceTransfer() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.get('force_transfer') === 'true') {
+                console.log('🔧 使用强制数据恢复');
+                
+                // 尝试多个数据源
+                const data = 
+                    getLocalStorageData('FORCE_ANALYSIS_DATA') ||
+                    getLocalStorageData('current_ai_analysis') ||
+                    generateDataFromURLParams(urlParams);
+                    
+                if (data) {
+                    console.log('✅ 强制数据恢复成功');
+                    return data;
+                }
+            }
+            return null;
+        }
+        recoverFromForceTransfer.name = '强制传输';
+
+        // 降级数据生成
+        function generateFallbackData() {
+            console.log('🔄 使用降级数据');
+            return {
+                metadata: {
+                    timestamp: new Date().toISOString(),
+                    examType: 'CET4',
+                    generatedBy: 'fallback_system',
+                    dataVersion: '1.0'
+                },
+                assessment: {
+                    overallScore: 75,
+                    level: 'B1',
+                    examType: 'CET4',
+                    testDate: new Date().toISOString()
+                },
+                abilityAnalysis: {
+                    overallScore: 75,
+                    level: 'B1',
+                    abilityMap: {
+                        dataPoints: [
+                            { dimension: 'vocabulary', displayName: '词汇能力', score: 75, weight: 0.25 },
+                            { dimension: 'grammar', displayName: '语法能力', score: 68, weight: 0.25 },
+                            { dimension: 'reading', displayName: '阅读理解', score: 82, weight: 0.25 },
+                            { dimension: 'translation', displayName: '翻译能力', score: 71, weight: 0.25 }
+                        ]
+                    },
+                    weakPoints: [
+                        {
+                            dimension: 'grammar',
+                            displayName: '语法能力',
+                            score: 68,
+                            priority: 'medium',
+                            knowledgeGaps: ['时态语态', '从句结构'],
+                            recommendedActions: ['语法专项练习', '句子改错训练']
+                        }
+                    ]
+                },
+                recommendations: [
+                    {
+                        message: '系统正在优化分析流程，当前显示基础分析结果',
+                        actions: ['重新测试获取完整分析', '联系技术支持'],
+                        priority: 'medium'
+                    }
+                ],
+                detailedLearningPlan: {
+                    totalTasks: 56,
+                    completedTasks: 12,
+                    duration: "4周",
+                    weeklyPlans: [
+                        {
+                            week: 1,
+                            focus: '基础巩固',
+                            focusAreas: ['语法', '词汇'],
+                            dailyTasks: Array.from({ length: 7 }, (_, i) => ({
+                                day: i + 1,
+                                completed: i < 3, // 前3天已完成
+                                tasks: [
+                                    { type: 'grammar', duration: 30, content: '语法专项练习' },
+                                    { type: 'vocabulary', duration: 25, content: '词汇记忆训练' }
+                                ]
+                            })),
+                            weeklyGoals: ['掌握基础语法', '积累核心词汇']
+                        },
+                        {
+                            week: 2,
+                            focus: '能力提升',
+                            focusAreas: ['阅读', '听力'],
+                            dailyTasks: Array.from({ length: 7 }, (_, i) => ({
+                                day: i + 1,
+                                completed: false,
+                                tasks: [
+                                    { type: 'reading', duration: 40, content: '阅读理解训练' },
+                                    { type: 'listening', duration: 35, content: '听力理解练习' }
+                                ]
+                            })),
+                            weeklyGoals: ['提升阅读速度', '加强听力理解']
+                        }
+                    ]
+                },
+                reviewPlan: {
+                    totalReviews: 12,
+                    completedReviews: 3,
+                    schedule: [
+                        {
+                            id: 'review-1',
+                            knowledgePoint: '时态语态',
+                            reviewType: '记忆强化',
+                            dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+                            status: 'pending',
+                            estimatedTime: 20,
+                            materials: ['语法手册', '练习册P45']
+                        },
+                        {
+                            id: 'review-2',
+                            knowledgePoint: '从句结构',
+                            reviewType: '应用练习',
+                            dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+                            status: 'pending',
+                            estimatedTime: 25,
+                            materials: ['语法手册', '练习册P78']
+                        },
+                        {
+                            id: 'review-3',
+                            knowledgePoint: '基础词汇',
+                            reviewType: '记忆测试',
+                            dueDate: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+                            status: 'completed',
+                            estimatedTime: 15,
+                            materials: ['词汇手册', '单词卡']
+                        }
+                    ]
+                }
+            };
+        }
+        generateFallbackData.name = '降级数据';
+
+        // 工具函数
+        function getLocalStorageData(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (e) {
+                console.warn(`解析 localStorage.${key} 失败:`, e);
+                return null;
+            }
+        }
+
+        function getSessionStorageData(key) {
+            try {
+                const data = sessionStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (e) {
+                console.warn(`解析 sessionStorage.${key} 失败:`, e);
+                return null;
+            }
+        }
+
+        // 从URL参数生成数据
+        function generateDataFromURLParams(urlParams) {
+            const overallScore = parseInt(urlParams.get('overall_score')) || 75;
+            const examType = urlParams.get('exam_type') || 'CET4';
+            
+            return {
+                assessment: {
+                    overallScore: overallScore,
+                    level: getCEFRLevel(overallScore),
+                    examType: examType,
+                    testDate: new Date().toISOString()
+                },
+                abilityMap: {
+                    dataPoints: [
+                        { dimension: 'vocabulary', displayName: '词汇能力', score: overallScore - 5 },
+                        { dimension: 'grammar', displayName: '语法能力', score: overallScore - 10 },
+                        { dimension: 'reading', displayName: '阅读理解', score: overallScore + 5 },
+                        { dimension: 'translation', displayName: '翻译能力', score: overallScore - 8 }
+                    ]
+                },
+                weakPoints: [
+                    {
+                        dimension: 'grammar',
+                        displayName: '语法能力',
+                        score: overallScore - 10,
+                        priority: 'medium',
+                        recommendedActions: ['语法专项练习', '句子结构分析']
+                    }
+                ]
+            };
+        }
+
+        // AI分析模拟
+        function startAIAnalysisSimulation() {
+            const stages = [
+                { id: 'data_loading', name: '数据加载', message: '正在加载测试结果数据...' },
+                { id: 'score_calculation', name: '分数计算', message: '正在计算各维度得分...' },
+                { id: 'ability_mapping', name: '能力图谱生成', message: '正在生成三维能力图谱...' },
+                { id: 'weakness_analysis', name: '薄弱点分析', message: '正在分析知识薄弱环节...' },
+                { id: 'path_planning', name: '学习路径规划', message: '正在制定个性化学习计划...' },
+                { id: 'review_scheduling', name: '复习计划安排', message: '正在生成抗遗忘复习计划...' }
+            ];
+            
+            let currentStage = 0;
+            
+            // 更新进度显示
+            function updateProgress() {
+                const stage = stages[currentStage];
+                const progress = ((currentStage + 1) / stages.length) * 100;
+                
+                // 更新UI
+                const messageElement = document.getElementById('current-stage-message');
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                
+                if (messageElement) {
+                    messageElement.textContent = stage.message;
+                }
+                
+                if (progressBar) {
+                    progressBar.style.width = `${progress}%`;
+                }
+                
+                if (progressText) {
+                    progressText.textContent = `${Math.round(progress)}% 完成`;
+                }
+                
+                // 更新具体状态
+                updateStageDetails(stage.id);
+                
+                console.log(`🔄 ${stage.name}: ${stage.message}`);
+            }
+            
+            // 更新阶段详情
+            function updateStageDetails(stageId) {
+                const statusMap = {
+                    'data_loading': { element: 'ability-map-status', text: '等待中...' },
+                    'score_calculation': { element: 'ability-map-status', text: '准备中...' },
+                    'ability_mapping': { element: 'ability-map-status', text: '生成中...' },
+                    'weakness_analysis': { element: 'weakpoints-status', text: '分析中...' },
+                    'path_planning': { element: 'learning-path-status', text: '规划中...' },
+                    'review_scheduling': { element: 'learning-path-status', text: '安排中...' }
+                };
+                
+                const config = statusMap[stageId];
+                if (config) {
+                    const element = document.getElementById(config.element);
+                    if (element) {
+                        element.textContent = config.text;
+                        element.className = 'text-sm analysis-stage active';
+                    }
+                }
+                
+                // 标记已完成阶段
+                markCompletedStages(stageId);
+            }
+            
+            // 标记已完成阶段
+            function markCompletedStages(currentStageId) {
+                const stages = ['ability_mapping', 'weakness_analysis', 'path_planning'];
+                let foundCurrent = false;
+                
+                stages.forEach(stage => {
+                    const elementId = stage.replace('_', '-') + '-status';
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        if (foundCurrent) {
+                            element.className = 'text-sm analysis-stage pending';
+                        } else if (stage === currentStageId) {
+                            element.className = 'text-sm analysis-stage active';
+                            foundCurrent = true;
+                        } else {
+                            element.className = 'text-sm analysis-stage completed';
+                            element.textContent = '已完成';
+                        }
+                    }
+                });
+            }
+            
+            // 完成分析
+            function completeAnalysis() {
+                console.log('✅ 分析流程完成');
+                
+                const statusElement = document.getElementById('analysis-status');
+                const successElement = document.getElementById('success-message');
+                
+                if (statusElement) statusElement.classList.add('hidden');
+                if (successElement) successElement.classList.remove('hidden');
+                
+                // 标记所有阶段完成
+                markAllStagesCompleted();
+                
+                // 显示成功动画
+                showSuccessAnimation();
+            }
+            
+            // 标记所有阶段完成
+            function markAllStagesCompleted() {
+                const elements = [
+                    'ability-map-status',
+                    'weakpoints-status', 
+                    'learning-path-status'
+                ];
+                
+                elements.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.textContent = '已完成';
+                        element.className = 'text-sm analysis-stage completed';
+                    }
+                });
+            }
+            
+            // 显示成功动画
+            function showSuccessAnimation() {
+                const successIcon = document.createElement('div');
+                successIcon.className = 'fixed inset-0 flex items-center justify-center z-50 pointer-events-none';
+                successIcon.innerHTML = `
+                    <div class="animate-bounce-in">
+                        <div class="w-32 h-32 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center shadow-2xl">
+                            <i class="fas fa-check text-white text-4xl"></i>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(successIcon);
+                
+                setTimeout(() => {
+                    successIcon.remove();
+                }, 2000);
+            }
+            
+            // 开始模拟进度
+            updateProgress();
+            
+            const interval = setInterval(() => {
+                currentStage++;
+                
+                if (currentStage >= stages.length) {
+                    clearInterval(interval);
+                    completeAnalysis();
+                } else {
+                    updateProgress();
+                }
+            }, 800);
+        }
+
+        // 显示分析结果
+        function showAnalysisResults() {
+            document.getElementById('analysis-progress').classList.add('hidden');
+            document.getElementById('analysis-content').classList.remove('hidden');
+            
+            // 渲染分析结果
+            setTimeout(() => {
+                initCharts();
+                renderAllComponents();
+            }, 100);
+        }
+
+        // 初始化图表
+        function initCharts() {
+            if (!checkECharts()) {
+                return;
+            }
+            
+            try {
+                initOverallScoreChart();
+                initAbilityRadarChart();
+                console.log('✅ 所有图表初始化完成');
+            } catch (error) {
+                console.error('❌ 图表初始化失败:', error);
+                
+                // 显示错误信息
+                if (window.uiManager) {
+                    window.uiManager.showMessage('图表渲染失败，正在尝试修复...', 'warning');
+                }
+                
+                // 尝试重新初始化
+                setTimeout(initCharts, 1000);
+            }
+        }
+
+        // 检查ECharts库加载
+        function checkECharts() {
+            if (typeof echarts === 'undefined') {
+                console.error('❌ ECharts库未正确加载');
+                // 重新加载ECharts
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js';
+                script.onload = function() {
+                    console.log('✅ ECharts库重新加载成功');
+                    initCharts();
+                };
+                document.head.appendChild(script);
+                return false;
+            }
+            return true;
+        }
+
+        // 初始化总体分数图表
+        function initOverallScoreChart() {
+            const score = analysisData.assessment?.overallScore || 
+                         analysisData.assessment?.overall_score || 
+                         analysisData.abilityAnalysis?.overallScore || 75;
+            
+            console.log('🎯 总体分数:', score);
+            
+            const ring = document.getElementById('overall-score-ring');
+            const scoreElement = document.getElementById('overall-score');
+            const levelElement = document.getElementById('cefr-level');
+            
+            if (ring) {
+                const circumference = 2 * Math.PI * 16;
+                const offset = circumference - (score / 100) * circumference;
+                
+                ring.style.strokeDasharray = `${circumference} ${circumference}`;
+                ring.style.strokeDashoffset = offset;
+                
+                // 设置颜色基于分数
+                let color = '#2962FF';
+                if (score >= 90) color = '#10B981';
+                else if (score >= 80) color = '#3B82F6';
+                else if (score >= 70) color = '#F59E0B';
+                else if (score >= 60) color = '#EF4444';
+                
+                ring.style.stroke = color;
+            }
+            
+            if (scoreElement) {
+                scoreElement.textContent = score;
+            }
+            
+            if (levelElement) {
+                levelElement.textContent = analysisData.assessment?.level || 
+                                         analysisData.abilityAnalysis?.level || 
+                                         getCEFRLevel(score);
+            }
+        }
+
+        // 初始化能力雷达图
+        function initAbilityRadarChart() {
+            const chartDom = document.getElementById('ability-radar-chart');
+            if (!chartDom) {
+                console.error('❌ 雷达图容器未找到');
+                return;
+            }
+
+            // 确保容器有高度
+            chartDom.style.height = '400px';
+            
+            const chart = echarts.init(chartDom);
+            
+            // 多重路径获取能力图谱数据
+            let abilityMap = analysisData.abilityAnalysis?.abilityMap || 
+                            analysisData.assessment?.abilityMap ||
+                            analysisData.abilityMap;
+
+            console.log('📊 能力图谱数据源:', {
+                fromAbilityAnalysis: !!analysisData.abilityAnalysis?.abilityMap,
+                fromAssessment: !!analysisData.assessment?.abilityMap,
+                direct: !!analysisData.abilityMap,
+                final: !!abilityMap
+            });
+
+            // 如果数据不存在，使用紧急备用数据
+            if (!abilityMap) {
+                console.warn('⚠️ 能力图谱数据不存在，使用紧急备用数据');
+                abilityMap = {
+                    dataPoints: [
+                        { dimension: 'vocabulary', displayName: '词汇能力', score: 75, weight: 0.25 },
+                        { dimension: 'grammar', displayName: '语法能力', score: 68, weight: 0.25 },
+                        { dimension: 'reading', displayName: '阅读理解', score: 82, weight: 0.25 },
+                        { dimension: 'translation', displayName: '翻译能力', score: 71, weight: 0.25 }
+                    ]
+                };
+                
+                // 保存到分析数据中，避免后续再次找不到
+                if (!analysisData.abilityAnalysis) analysisData.abilityAnalysis = {};
+                analysisData.abilityAnalysis.abilityMap = abilityMap;
+            }
+
+            // 统一数据格式处理
+            let dataPoints = [];
+            
+            if (abilityMap.dataPoints && Array.isArray(abilityMap.dataPoints)) {
+                dataPoints = abilityMap.dataPoints;
+            } else if (abilityMap.data_points && Array.isArray(abilityMap.data_points)) {
+                dataPoints = abilityMap.data_points;
+            } else if (Array.isArray(abilityMap)) {
+                dataPoints = abilityMap;
+            } else {
+                console.error('❌ 无法解析能力图谱数据格式，使用默认数据');
+                dataPoints = [
+                    { dimension: 'vocabulary', displayName: '词汇能力', score: 75, weight: 0.25 },
+                    { dimension: 'grammar', displayName: '语法能力', score: 68, weight: 0.25 },
+                    { dimension: 'reading', displayName: '阅读理解', score: 82, weight: 0.25 },
+                    { dimension: 'translation', displayName: '翻译能力', score: 71, weight: 0.25 }
+                ];
+            }
+
+            console.log('📈 处理后的数据点:', dataPoints);
+
+            // 构建雷达图指标和数据
+            const indicator = dataPoints.map(point => ({
+                name: point.displayName || getDimensionDisplayName(point.dimension) || point.name || '未知维度',
+                max: 100
+            }));
+
+            const values = dataPoints.map(point => {
+                const score = point.score || point.value || point.percentage || 50;
+                return Math.max(0, Math.min(100, score));
+            });
+
+            console.log('🎯 雷达图数据:', { indicator, values });
+
+            const option = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                radar: {
+                    indicator: indicator,
+                    shape: 'circle',
+                    splitNumber: 5,
+                    radius: '65%'
+                },
+                series: [{
+                    type: 'radar',
+                    data: [{
+                        value: values,
+                        name: '能力分布',
+                        areaStyle: {
+                            color: 'rgba(41, 98, 255, 0.4)'
+                        },
+                        lineStyle: {
+                            color: '#2962FF',
+                            width: 3
+                        },
+                        itemStyle: {
+                            color: '#2962FF'
+                        }
+                    }]
+                }]
+            };
+
+            chart.setOption(option);
+
+            // 响应式调整
+            window.addEventListener('resize', function() {
+                chart.resize();
+            });
+
+            console.log('✅ 雷达图初始化完成');
+            
+            return chart;
+        }
+
+        // 修改渲染逻辑，增加数据完整性检查
+        function renderAllComponents() {
+            // 先验证和修复数据
+            if (!analysisData) {
+                console.error('❌ 分析数据为空，无法渲染');
+                showNoData();
+                return;
+            }
+            
+            if (!validateAndFixAnalysisData()) {
+                console.error('❌ 数据验证失败，无法渲染');
+                showDataError();
+                return;
+            }
+            
+            // 确保关键数据存在
+            ensureCriticalData();
+            
+            // 渲染各个组件
+            renderAIAnalysisSource();
+            renderRecommendations();
+            renderWeakPoints();
+            renderKnowledgeWeights();
+            renderLearningPathOverview();
+            renderLearningPathTimeline();
+            renderReviewSchedule();
+            renderLearningStats();
+            updateAssessmentDate();
+            
+            console.log('🎉 所有组件渲染完成');
+        }
+
+        // 新增：确保关键数据存在
+        function ensureCriticalData() {
+            // 确保abilityMap存在
+            if (!analysisData.abilityMap && analysisData.abilityAnalysis?.abilityMap) {
+                analysisData.abilityMap = analysisData.abilityAnalysis.abilityMap;
+            }
+            
+            if (!analysisData.abilityMap) {
+                console.warn('⚠️ 自动生成abilityMap数据');
+                analysisData.abilityMap = {
+                    dataPoints: [
+                        { dimension: 'vocabulary', displayName: '词汇能力', score: 75, weight: 0.25 },
+                        { dimension: 'grammar', displayName: '语法能力', score: 68, weight: 0.25 },
+                        { dimension: 'reading', displayName: '阅读理解', score: 82, weight: 0.25 },
+                        { dimension: 'translation', displayName: '翻译能力', score: 71, weight: 0.25 }
+                    ]
+                };
+            }
+            
+            // 确保weakPoints存在
+            if (!analysisData.weakPoints && analysisData.abilityAnalysis?.weakPoints) {
+                analysisData.weakPoints = analysisData.abilityAnalysis.weakPoints;
+            }
+            
+            if (!analysisData.weakPoints) {
+                analysisData.weakPoints = [];
+            }
+            
+            // 确保learningPath存在
+            if (!analysisData.learningPath) {
+                analysisData.learningPath = {
+                    duration: "4周",
+                    focusAreas: ['综合能力提升'],
+                    expectedImprovement: "+15-20分",
+                    description: "基于您的能力评估结果，智普AI为您生成了个性化的学习路径"
+                };
+            }
+        }
+
+        // 数据验证和修复函数
+        function validateAndFixAnalysisData() {
+            console.log('🔍 验证分析数据...', analysisData);
+            
+            if (!analysisData) {
+                console.error('❌ 分析数据为空');
+                return false;
+            }
+            
+            // 确保必要的数据结构存在
+            if (!analysisData.assessment) {
+                analysisData.assessment = {
+                    overallScore: 75,
+                    level: 'B1',
+                    examType: 'CET4',
+                    testDate: new Date().toISOString()
+                };
+            }
+            
+            if (!analysisData.abilityAnalysis) {
+                analysisData.abilityAnalysis = {
+                    overallScore: analysisData.assessment.overallScore || 75,
+                    level: analysisData.assessment.level || 'B1'
+                };
+            }
+            
+            // 确保能力图谱数据存在
+            if (!analysisData.abilityMap && !analysisData.assessment.abilityMap) {
+                analysisData.abilityMap = {
+                    dataPoints: [
+                        { dimension: 'vocabulary', displayName: '词汇能力', score: 75, weight: 0.25 },
+                        { dimension: 'grammar', displayName: '语法能力', score: 68, weight: 0.25 },
+                        { dimension: 'reading', displayName: '阅读理解', score: 82, weight: 0.25 },
+                        { dimension: 'translation', displayName: '翻译能力', score: 71, weight: 0.25 }
+                    ]
+                };
+            }
+            
+            // 确保薄弱点数据存在
+            if (!analysisData.weakPoints && !analysisData.abilityAnalysis.weakPoints) {
+                analysisData.weakPoints = [];
+            }
+            
+            // 确保学习路径数据存在
+            if (!analysisData.learningPath) {
+                analysisData.learningPath = {
+                    duration: "4周",
+                    focusAreas: ['语法', '词汇'],
+                    expectedImprovement: "+15-20分",
+                    weeklyPlans: [
+                        {
+                            week: 1,
+                            focus: '基础巩固',
+                            focusAreas: ['语法', '词汇'],
+                            dailyTasks: Array.from({ length: 7 }, (_, i) => ({
+                                day: i + 1,
+                                tasks: [
+                                    { type: 'grammar', duration: 30, content: '语法专项练习' },
+                                    { type: 'vocabulary', duration: 25, content: '词汇记忆训练' }
+                                ]
+                            })),
+                            weeklyGoals: ['掌握基础语法', '积累核心词汇']
+                        }
+                    ]
+                };
+            }
+            
+            console.log('✅ 数据验证完成');
+            return true;
+        }
+
+        // 渲染AI分析来源
+        function renderAIAnalysisSource() {
+            const abilitySource = document.getElementById('ability-map-source');
+            const weakPointsSource = document.getElementById('weak-points-source');
+            
+            // 检查是否为AI增强分析
+            const isAIEnhanced = analysisData.metadata?.aiEnhanced || 
+                                analysisData.abilityAnalysis?.analysisSource?.abilityMap === 'zhipu_ai';
+            
+            if (isAIEnhanced) {
+                if (abilitySource) {
+                    abilitySource.innerHTML = `
+                        <span class="flex items-center">
+                            <i class="fas fa-robot mr-1"></i>
+                            智普AI
+                        </span>
+                    `;
+                    abilitySource.className = 'px-2 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded text-xs font-medium';
+                }
+                
+                if (weakPointsSource) {
+                    weakPointsSource.innerHTML = `
+                        <span class="flex items-center">
+                            <i class="fas fa-robot mr-1"></i>
+                            智普AI
+                        </span>
+                    `;
+                    weakPointsSource.className = 'px-2 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded text-xs font-medium';
+                }
+                
+                // 在分析页面顶部添加AI分析说明
+                addAIAnalysisDescription();
+            } else {
+                // 原有逻辑
+                if (abilitySource) {
+                    abilitySource.textContent = '智普AI';
+                    abilitySource.className = 'px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium';
+                }
+                if (weakPointsSource) {
+                    weakPointsSource.textContent = '智普AI';
+                    weakPointsSource.className = 'px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium';
+                }
+            }
+        }
+
+        // 添加AI分析说明
+        function addAIAnalysisDescription() {
+            const overviewSection = document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-12.gap-6.mb-8');
+            if (!overviewSection) return;
+            
+            const aiDescription = document.createElement('div');
+            aiDescription.className = 'ability-card rounded-lg p-6 lg:col-span-12 mt-4';
+            aiDescription.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">智普AI深度分析报告</h3>
+                            <p class="text-gray-600">基于GLM-4大模型的专业能力评估</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500">分析时间</div>
+                        <div class="text-sm font-semibold text-gray-900">${new Date().toLocaleString()}</div>
+                    </div>
+                </div>
+                <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div class="text-center p-3 bg-blue-50 rounded-lg">
+                        <div class="font-semibold text-blue-700">分析模型</div>
+                        <div>GLM-4</div>
+                    </div>
+                    <div class="text-center p-3 bg-green-50 rounded-lg">
+                        <div class="font-semibold text-green-700">分析维度</div>
+                        <div>4维能力</div>
+                    </div>
+                    <div class="text-center p-3 bg-purple-50 rounded-lg">
+                        <div class="font-semibold text-purple-700">置信度</div>
+                        <div>85%</div>
+                    </div>
+                    <div class="text-center p-3 bg-orange-50 rounded-lg">
+                        <div class="font-semibold text-orange-700">个性化</div>
+                        <div>高度定制</div>
+                    </div>
+                </div>
+            `;
+            
+            overviewSection.parentNode.insertBefore(aiDescription, overviewSection.nextSibling);
+        }
+
+        // 渲染建议
+        function renderRecommendations() {
+            const container = document.getElementById('recommendations-list');
+            if (!container) return;
+            
+            const recommendations = analysisData.recommendations || [];
+            
+            console.log('💡 渲染建议:', recommendations);
+
+            if (recommendations.length === 0) {
+                // 如果没有建议，生成默认建议
+                const defaultRecommendations = [
+                    {
+                        message: '坚持每日学习，建立良好的学习习惯',
+                        actions: ['每日打卡', '定时复习']
+                    },
+                    {
+                        message: '重点关注薄弱环节，进行专项练习',
+                        actions: ['错题整理', '专项训练']
+                    }
+                ];
+                
+                renderRecommendationsList(defaultRecommendations, container);
+                return;
+            }
+
+            renderRecommendationsList(recommendations, container);
+        }
+
+        // 渲染建议列表
+        function renderRecommendationsList(recommendations, container) {
+            let html = '';
+            recommendations.forEach((rec, index) => {
+                // 支持多种数据格式
+                const message = rec.message || rec.title || rec.description || '学习建议';
+                const actions = rec.actions || rec.recommendedActions || [];
+                
+                html += `
+                    <div class="p-3 border border-gray-200 rounded-lg ability-card fade-in">
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm mr-3 flex-shrink-0">
+                                ${index + 1}
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">${message}</p>
+                                ${actions.length > 0 ? `
+                                    <div class="mt-2 flex flex-wrap gap-1">
+                                        ${actions.map(action => `
+                                            <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">${action}</span>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 渲染薄弱点
+        function renderWeakPoints() {
+            const container = document.getElementById('weak-points-analysis');
+            const countElement = document.getElementById('weakness-count');
+            
+            if (!container) return;
+            
+            const weakPoints = analysisData.weakPoints || 
+                              analysisData.abilityAnalysis?.weakPoints || [];
+            
+            console.log('🔴 薄弱点数据:', weakPoints);
+
+            if (countElement) {
+                countElement.textContent = `${weakPoints.length}个薄弱点`;
+            }
+
+            if (weakPoints.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-check-circle text-3xl text-green-500 mb-3"></i>
+                        <p class="text-gray-600">恭喜！未发现明显薄弱环节</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            weakPoints.forEach(point => {
+                const priorityColors = {
+                    high: 'bg-red-100 text-red-800 border-red-200',
+                    medium: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+                    low: 'bg-blue-100 text-blue-800 border-blue-200'
+                };
+
+                // 支持多种数据格式
+                const dimension = point.dimension || 'general';
+                const displayName = point.displayName || getDimensionDisplayName(dimension);
+                const score = point.score || point.percentage || 60;
+                const priority = point.priority || 'medium';
+                const recommendedActions = point.recommendedActions || point.actions || [];
+
+                html += `
+                    <div class="p-4 border rounded-lg ${priorityColors[priority]} weakness-tag fade-in">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold">${displayName}</h4>
+                            <span class="px-2 py-1 rounded-full text-xs font-medium ${
+                                priority === 'high' ? 'bg-red-200 text-red-900' :
+                                priority === 'medium' ? 'bg-yellow-200 text-yellow-900' :
+                                'bg-blue-200 text-blue-900'
+                            }">
+                                ${priority === 'high' ? '高优先级' : priority === 'medium' ? '中优先级' : '低优先级'}
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm">能力得分</span>
+                            <span class="font-bold">${score}/100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="h-2 rounded-full ${
+                                priority === 'high' ? 'bg-red-500' :
+                                priority === 'medium' ? 'bg-yellow-500' :
+                                'bg-blue-500'
+                            }" style="width: ${score}%"></div>
+                        </div>
+                        ${recommendedActions.length > 0 ? `
+                            <div class="mt-3">
+                                <p class="text-sm font-medium mb-1">建议行动:</p>
+                                <div class="flex flex-wrap gap-1">
+                                    ${recommendedActions.map(action => `
+                                        <span class="px-2 py-1 bg-white bg-opacity-50 rounded text-xs">${action}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 渲染知识点权重
+        function renderKnowledgeWeights() {
+            const container = document.getElementById('knowledge-weights');
+            const abilityMap = analysisData.abilityMap || analysisData.assessment.ability_map;
+            
+            if (!abilityMap) return;
+
+            let html = '';
+            abilityMap.dataPoints.forEach(point => {
+                const weightPercent = Math.round((point.weight || 0.1) * 100);
+                html += `
+                    <div class="text-center p-3 bg-white rounded-lg border fade-in">
+                        <div class="text-sm font-medium text-gray-700 mb-1">${getDimensionDisplayName(point.dimension)}</div>
+                        <div class="text-lg font-bold text-primary">${weightPercent}%</div>
+                        <div class="text-xs text-gray-500">考试权重</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 渲染学习路径概览
+        function renderLearningPathOverview() {
+            if (!learningPath) {
+                learningPath = analysisData.learningPath || 
+                              analysisData.abilityAnalysis?.learningPath;
+            }
+            
+            if (!learningPath) return;
+
+            console.log('🛣️ 学习路径数据:', learningPath);
+
+            document.getElementById('path-duration').textContent = learningPath.duration || '4周';
+            
+            const focusAreas = learningPath.focusAreas || 
+                              (learningPath.weeklyPlans && learningPath.weeklyPlans[0]?.focusAreas) || 
+                              ['综合能力'];
+            document.getElementById('focus-areas').textContent = Array.isArray(focusAreas) ? 
+                focusAreas.join('、') : focusAreas;
+
+            document.getElementById('expected-improvement').textContent = '+15-20分';
+
+            if (learningPath.description) {
+                document.getElementById('path-description').textContent = learningPath.description;
+            }
+        }
+
+        // 新增：渲染学习统计
+        function renderLearningStats() {
+            const detailedPlan = analysisData.detailedLearningPlan;
+            const reviewPlan = analysisData.reviewPlan;
+            
+            if (detailedPlan) {
+                document.getElementById('total-tasks').textContent = detailedPlan.totalTasks || 0;
+                document.getElementById('completed-tasks').textContent = detailedPlan.completedTasks || 0;
+                document.getElementById('plan-duration').textContent = detailedPlan.duration || '4周';
+                
+                // 计算完成度
+                const completion = detailedPlan.totalTasks > 0 ? 
+                    Math.round((detailedPlan.completedTasks / detailedPlan.totalTasks) * 100) : 0;
+                document.getElementById('plan-completion').textContent = completion + '%';
+                document.getElementById('completion-progress').style.width = completion + '%';
+            }
+            
+            if (reviewPlan) {
+                const pendingReviews = reviewPlan.schedule ? 
+                    reviewPlan.schedule.filter(item => item.status === 'pending').length : 0;
+                document.getElementById('pending-reviews').textContent = pendingReviews + '个';
+                document.getElementById('review-count').textContent = reviewPlan.totalReviews + '个复习';
+            }
+            
+            // 计算学习统计
+            const totalStudyTime = calculateTotalStudyTime();
+            document.getElementById('total-study-time').textContent = totalStudyTime + '分钟';
+            document.getElementById('study-days').textContent = '28'; // 4周
+            document.getElementById('efficiency-score').textContent = '85'; // 模拟效率评分
+        }
+
+        // 新增：计算总学习时间
+        function calculateTotalStudyTime() {
+            const detailedPlan = analysisData.detailedLearningPlan;
+            let totalTime = 0;
+            
+            if (detailedPlan && detailedPlan.weeklyPlans) {
+                detailedPlan.weeklyPlans.forEach(week => {
+                    week.dailyTasks.forEach(day => {
+                        day.tasks.forEach(task => {
+                            totalTime += task.duration || 0;
+                        });
+                    });
+                });
+            }
+            
+            return totalTime;
+        }
+
+        // 修改：增强的 renderLearningPathTimeline 函数
+        function renderLearningPathTimeline() {
+            const container = document.getElementById('learning-path-timeline');
+            
+            const detailedPlan = analysisData.detailedLearningPlan;
+            
+            if (!detailedPlan || !detailedPlan.weeklyPlans) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-calendar-plus text-3xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-500">暂无详细学习计划</p>
+                        <button onclick="generateLearningPlan()" class="mt-3 px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors text-sm">
+                            生成学习计划
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            detailedPlan.weeklyPlans.forEach(week => {
+                const completedDays = week.dailyTasks.filter(day => day.completed).length;
+                const progressPercent = Math.round((completedDays / 7) * 100);
+                
+                html += `
+                    <div class="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-semibold text-gray-900">第${week.week}周 · ${week.focus}</h4>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">
+                                ${progressPercent}% 完成
+                            </span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>本周进度</span>
+                                <span>${completedDays}/7 天</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: ${progressPercent}%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <p class="text-sm text-gray-600 mb-2">
+                                <i class="fas fa-bullseye mr-1 text-primary"></i>
+                                重点: ${week.focusAreas.join(', ')}
+                            </p>
+                        </div>
+                        
+                        <div class="flex gap-2 mb-3">
+                            ${week.dailyTasks.slice(0, 3).map(day => `
+                                <div class="flex-1 text-center p-2 bg-gray-50 rounded border cursor-pointer hover:bg-blue-50 transition-colors ${day.completed ? 'bg-green-50 border-green-200' : ''}"
+                                     onclick="showDayDetails(${week.week}, ${day.day})">
+                                    <div class="text-sm font-medium ${day.completed ? 'text-green-700' : 'text-gray-900'}">第${day.day}天</div>
+                                    <div class="text-xs text-gray-500">${calculateDailyTime(day.tasks)}分钟</div>
+                                    ${day.completed ? '<i class="fas fa-check text-green-500 text-xs mt-1"></i>' : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        ${week.dailyTasks.length > 3 ? `
+                            <button onclick="expandWeek(${week.week})" class="w-full py-2 text-sm text-gray-600 hover:text-primary transition-colors border-t border-gray-100">
+                                <i class="fas fa-chevron-down mr-1"></i>
+                                查看剩余${week.dailyTasks.length - 3}天
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 新增：计算每日学习时间
+        function calculateDailyTime(tasks) {
+            return tasks.reduce((total, task) => total + (task.duration || 0), 0);
+        }
+
+        // 新增：显示每日详情
+        function showDayDetails(week, day) {
+            const detailedPlan = analysisData.detailedLearningPlan;
+            const weekPlan = detailedPlan.weeklyPlans.find(w => w.week === week);
+            const dayPlan = weekPlan.dailyTasks.find(d => d.day === day);
+            
+            if (dayPlan && window.uiManager) {
+                const taskList = dayPlan.tasks.map(task => 
+                    `• ${task.content} (${task.duration}分钟)`
+                ).join('\n');
+                
+                const message = `第${week}周 第${day}天学习计划:\n\n${taskList}\n\n总时长: ${calculateDailyTime(dayPlan.tasks)}分钟`;
+                
+                window.uiManager.showLearningConfirmation(
+                    message,
+                    '开始学习',
+                    '稍后再说'
+                ).then((confirmed) => {
+                    if (confirmed) {
+                        // 标记为已完成
+                        dayPlan.completed = true;
+                        // 更新完成统计
+                        analysisData.detailedLearningPlan.completedTasks++;
+                        // 重新渲染
+                        renderLearningPathTimeline();
+                        renderLearningStats();
+                        
+                        window.uiManager.showMessage('学习任务已完成！', 'success');
+                    }
+                });
+            }
+        }
+
+        // 修改：增强的 renderReviewSchedule 函数
+        function renderReviewSchedule() {
+            const container = document.getElementById('review-schedule');
+            const reviewPlan = analysisData.reviewPlan;
+            
+            if (!reviewPlan || !reviewPlan.schedule) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-brain text-3xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-500">暂无复习计划</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 按日期排序
+            const sortedSchedule = [...reviewPlan.schedule].sort((a, b) => 
+                new Date(a.dueDate) - new Date(b.dueDate)
+            );
+
+            let html = '';
+            sortedSchedule.forEach((review, index) => {
+                if (index >= 10) return; // 只显示前10个
+                
+                const dueDate = new Date(review.dueDate);
+                const today = new Date();
+                const daysUntilDue = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+                
+                let statusConfig = {
+                    color: 'bg-gray-100 text-gray-800',
+                    text: '待复习',
+                    icon: 'clock'
+                };
+                
+                if (review.status === 'completed') {
+                    statusConfig = {
+                        color: 'bg-green-100 text-green-800',
+                        text: '已完成',
+                        icon: 'check'
+                    };
+                } else if (daysUntilDue <= 0) {
+                    statusConfig = {
+                        color: 'bg-red-100 text-red-800',
+                        text: '逾期',
+                        icon: 'exclamation-triangle'
+                    };
+                } else if (daysUntilDue <= 2) {
+                    statusConfig = {
+                        color: 'bg-orange-100 text-orange-800',
+                        text: '即将到期',
+                        icon: 'exclamation-circle'
+                    };
+                }
+                
+                html += `
+                    <div class="p-3 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors cursor-pointer"
+                         onclick="startReview('${review.id}')">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-medium text-gray-900 text-sm">${review.knowledgePoint}</h4>
+                            <span class="px-2 py-1 rounded text-xs font-medium ${statusConfig.color}">
+                                <i class="fas fa-${statusConfig.icon} mr-1"></i>
+                                ${statusConfig.text}
+                            </span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center text-xs text-gray-600 mb-2">
+                            <span>复习类型: ${review.reviewType}</span>
+                            <span>${review.estimatedTime}分钟</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs ${daysUntilDue <= 0 ? 'text-red-600' : daysUntilDue <= 2 ? 'text-orange-600' : 'text-gray-500'}">
+                                <i class="far fa-calendar mr-1"></i>
+                                ${dueDate.toLocaleDateString()}
+                                ${daysUntilDue > 0 ? `(${daysUntilDue}天后)` : '(已逾期)'}
+                            </span>
+                            <div class="flex gap-1">
+                                ${review.materials.slice(0, 2).map(material => `
+                                    <span class="px-1 py-0.5 bg-blue-50 text-blue-700 rounded text-xs">${material}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 新增：开始复习
+        function startReview(reviewId) {
+            const reviewPlan = analysisData.reviewPlan;
+            const review = reviewPlan.schedule.find(r => r.id === reviewId);
+            
+            if (review && window.uiManager) {
+                const materials = review.materials.join('、');
+                const message = `开始复习: ${review.knowledgePoint}\n\n复习内容: ${materials}\n预计时间: ${review.estimatedTime}分钟`;
+                
+                window.uiManager.showLearningConfirmation(
+                    message,
+                    '开始复习',
+                    '稍后复习'
+                ).then((confirmed) => {
+                    if (confirmed) {
+                        // 标记为已完成
+                        review.status = 'completed';
+                        // 更新完成统计
+                        analysisData.reviewPlan.completedReviews++;
+                        // 重新渲染
+                        renderReviewSchedule();
+                        renderLearningStats();
+                        
+                        window.uiManager.showMessage('复习任务已完成！', 'success');
+                    }
+                });
+            }
+        }
+
+        // 更新评估日期
+        function updateAssessmentDate() {
+            const lastAssessment = localStorage.getItem('last_assessment_data');
+            if (lastAssessment) {
+                const data = JSON.parse(lastAssessment);
+                const date = new Date(data.timestamp);
+                document.getElementById('assessment-date').textContent = 
+                    `评估日期: ${date.toLocaleDateString()}`;
+            }
+        }
+
+        // 调整学习路径
+        function adjustLearningPath() {
+            if (window.uiManager) {
+                window.uiManager.showLearningConfirmation(
+                    '确定要调整学习路径吗？系统将基于您的最新进度重新规划学习内容。',
+                    '重新规划',
+                    '取消'
+                ).then((confirmed) => {
+                    if (confirmed) {
+                        // 调用API重新生成学习路径
+                        regenerateLearningPath();
+                    }
+                });
+            }
+        }
+
+        // 重新生成学习路径
+        async function regenerateLearningPath() {
+            if (window.uiManager) {
+                window.uiManager.showLearningProgress('正在重新规划学习路径...');
+            }
+
+            try {
+                // 模拟API调用
+                setTimeout(() => {
+                    if (window.uiManager) {
+                        window.uiManager.hideLearningProgress();
+                        window.uiManager.showMessage('学习路径已更新', 'success');
+                    }
+                    
+                    // 重新渲染学习路径
+                    renderLearningPathOverview();
+                    renderLearningPathTimeline();
+                }, 2000);
+            } catch (error) {
+                console.error('重新生成学习路径失败:', error);
+                if (window.uiManager) {
+                    window.uiManager.hideLearningProgress();
+                    window.uiManager.showMessage('更新失败，请重试', 'error');
+                }
+            }
+        }
+
+        // 新增：开始学习函数
+        function startLearning() {
+            if (window.uiManager) {
+                window.uiManager.showLearningConfirmation(
+                    '准备好开始您的个性化学习之旅了吗？\n\n系统将根据您的学习计划引导您完成每日任务。',
+                    '开始学习',
+                    '稍后开始'
+                ).then((confirmed) => {
+                    if (confirmed) {
+                        window.location.href = '云梦智间学习.html';
+                    }
+                });
+            }
+        }
+
+        // 新增：数据显示错误
+        function showDataError() {
+            const container = document.querySelector('.max-w-7xl');
+            container.innerHTML = `
+                <div class="bg-white rounded-lg shadow-sm p-12 text-center max-w-2xl mx-auto">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 text-3xl mx-auto mb-6">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">数据加载异常</h2>
+                    <p class="text-gray-600 mb-6">分析数据格式异常，正在尝试修复...</p>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="location.reload()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            重新加载
+                        </button>
+                        <button onclick="useFallbackData()" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                            使用示例数据
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 新增：使用备用数据
+        function useFallbackData() {
+            analysisData = generateFallbackData();
+            document.getElementById('analysis-progress').classList.add('hidden');
+            document.getElementById('analysis-content').classList.remove('hidden');
+            renderAllComponents();
+        }
+
+        // 工具函数
+        function getCEFRLevel(score) {
+            if (score >= 90) return 'C2';
+            if (score >= 80) return 'C1';
+            if (score >= 70) return 'B2';
+            if (score >= 60) return 'B1';
+            if (score >= 50) return 'A2';
+            return 'A1';
+        }
+
+        function getDimensionDisplayName(dimension) {
+            const names = {
+                vocabulary: '词汇能力',
+                grammar: '语法能力', 
+                reading: '阅读理解',
+                listening: '听力理解',
+                speaking: '口语表达',
+                writing: '写作能力',
+                pronunciation: '发音准确',
+                comprehension: '综合理解',
+                fluency: '语言流利'
+            };
+            return names[dimension] || dimension;
+        }
+
+        // 切换雷达图视图
+        function toggleRadarView() {
+            currentRadarView = currentRadarView === 'standard' ? 'weighted' : 'standard';
+            // 这里可以添加不同视图的逻辑
+            if (window.uiManager) {
+                window.uiManager.showMessage(`已切换到${currentRadarView === 'standard' ? '标准' : '加权'}视图`, 'info');
+            }
+        }
+
+        // 显示无数据
+        function showNoData() {
+            const container = document.querySelector('.max-w-7xl');
+            container.innerHTML = `
+                <div class="bg-white rounded-lg shadow-sm p-12 text-center max-w-2xl mx-auto">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl mx-auto mb-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">暂无学习数据</h2>
+                    <p class="text-gray-600 mb-6">完成能力评估测试后，即可查看详细的学习分析报告</p>
+                    <div class="flex gap-4 justify-center">
+                        <a href="云梦智间测试.html" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            开始能力评估
+                        </a>
+                        <a href="云梦智间首页.html" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                            返回首页
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 显示错误状态
+        function showErrorState(error) {
+            const container = document.querySelector('.max-w-7xl');
+            container.innerHTML = `
+                <div class="bg-white rounded-lg shadow-sm p-12 text-center max-w-2xl mx-auto">
+                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center text-red-600 text-3xl mx-auto mb-6">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">加载失败</h2>
+                    <p class="text-gray-600 mb-4">抱歉，加载分析数据时遇到问题</p>
+                    <p class="text-sm text-gray-500 mb-6">错误信息: ${error.message}</p>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="location.reload()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            重试
+                        </button>
+                        <a href="云梦智间首页.html" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                            返回首页
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

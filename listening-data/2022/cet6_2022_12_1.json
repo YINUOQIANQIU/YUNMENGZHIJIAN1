@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2022_12_1",
+    "exam_type": "CET-6",
+    "year": 2022,
+    "month": 12,
+    "title": "2022年12月英语六级听力真题(第1套)",
+    "audio_file": "cet6_2022_12_1.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "She hasn't started writing it."},
+        {"option": "B", "text": "She hasn't decided on a topic."},
+        {"option": "C", "text": "She is proofreading the first draft."},
+        {"option": "D", "text": "She is working on the references."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He lent many books to the man for reference."},
+        {"option": "B", "text": "He offered the man advice on resource hunting."},
+        {"option": "C", "text": "He published a lot in a number of reputable journals."},
+        {"option": "D", "text": "He told the man to be selective when using e-resources."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He didn't think her dissertation topic viable."},
+        {"option": "B", "text": "He wasn't interested in her dissertation topic."},
+        {"option": "C", "text": "He didn't want her to rush through her dissertation."},
+        {"option": "D", "text": "He wasn't specific about the length of her dissertation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Change her research methodology."},
+        {"option": "B", "text": "Narrow down her dissertation topic."},
+        {"option": "C", "text": "Consult her professor more."},
+        {"option": "D", "text": "Follow the man's advice."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He has translated 12 books."},
+        {"option": "B", "text": "He is a well-known nutritionist."},
+        {"option": "C", "text": "His books sell well worldwide."},
+        {"option": "D", "text": "His latest book sold a million copies."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The desire of Americans to try exotic cuisines."},
+        {"option": "B", "text": "The demand for information about food safety."},
+        {"option": "C", "text": "The fact that over half of Americans are overweight."},
+        {"option": "D", "text": "The fact that science books are difficult to read."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The general public."},
+        {"option": "B", "text": "Those who are overweight."},
+        {"option": "C", "text": "Those who want to lose weight."},
+        {"option": "D", "text": "The medical community."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Switch to a vegetarian diet."},
+        {"option": "B", "text": "Follow a personalized diet."},
+        {"option": "C", "text": "Adhere to doctors' advice."},
+        {"option": "D", "text": "Cut carbohydrate intake."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The rate of their growth increased dramatically."},
+        {"option": "B", "text": "The growth of their new brain cells doubled."},
+        {"option": "C", "text": "They began to show signs of depression."},
+        {"option": "D", "text": "They began to get irritated and restless."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To avoid them in the future."},
+        {"option": "B", "text": "To warn others against them."},
+        {"option": "C", "text": "To make good sense of them."},
+        {"option": "D", "text": "To reflect on their causes."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Produce a surprising healing effect."},
+        {"option": "B", "text": "Weaken one's immunity in the long run."},
+        {"option": "C", "text": "Make people more susceptible to illness."},
+        {"option": "D", "text": "Provide protection against mental illnesses."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Placing their own interests over their staff's."},
+        {"option": "B", "text": "Being overwhelmed by their daily routines."},
+        {"option": "C", "text": "Lacking the ability to relate to their staff."},
+        {"option": "D", "text": "Spending too much time handling email."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their leadership may be challenged."},
+        {"option": "B", "text": "Their companies may go bankrupt."},
+        {"option": "C", "text": "Unexpected events may occur."},
+        {"option": "D", "text": "Major problems may result."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Keep an eye on their employees."},
+        {"option": "B", "text": "Motivate and inspire their team."},
+        {"option": "C", "text": "Sacrifice some of the immediate goals."},
+        {"option": "D", "text": "Have greater ambition in overall planning."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Cultivate self-control."},
+        {"option": "B", "text": "Filter their email boxes."},
+        {"option": "C", "text": "Respond only after work."},
+        {"option": "D", "text": "Check only when necessary."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The key to increasing healthy food supply."},
+        {"option": "B", "text": "The best way to improve marketing research."},
+        {"option": "C", "text": "The impact of advertisements on consumption."},
+        {"option": "D", "text": "The importance of the appearance of food."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "By focusing on the nutrients in different foods."},
+        {"option": "B", "text": "By emphasizing the diversity of food."},
+        {"option": "C", "text": "By stressing pleasing aesthetics of food."},
+        {"option": "D", "text": "By winning the support of marketing professors."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They can attract customers with the healthy qualities of their products."},
+        {"option": "B", "text": "They can boost sales of healthy foods by making them visually appealing."},
+        {"option": "C", "text": "They can turn to marketing professors for advice."},
+        {"option": "D", "text": "They can rely on advertising for sales promotion."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It has witnessed a spectacular surge in demand."},
+        {"option": "B", "text": "It has met much criticism from environmentalists."},
+        {"option": "C", "text": "It has seen more small businesses offering environment-friendly products."},
+        {"option": "D", "text": "It has experienced increasingly fierce competition among global companies."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Consumers now know much more about technology."},
+        {"option": "B", "text": "Their mass production has sharply reduced the price."},
+        {"option": "C", "text": "Consumers tend to favor all that is novel."},
+        {"option": "D", "text": "Their quality has been greatly improved."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Purchasing only this kind of products for home cleaning."},
+        {"option": "B", "text": "Writing positive comments about them on social media."},
+        {"option": "C", "text": "Demonstrating on TV how effective these products are."},
+        {"option": "D", "text": "Telling one another about their incomparable virtues."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Increasing cleaners' workload."},
+        {"option": "B", "text": "Blocking the fountains' works."},
+        {"option": "C", "text": "Breaking a time-honored ritual."},
+        {"option": "D", "text": "Polluting the fountains' water."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are occasionally retrieved by curious tourists."},
+        {"option": "B", "text": "They are regularly donated to charity organizations."},
+        {"option": "C", "text": "They are mostly used for the fountains' maintenance."},
+        {"option": "D", "text": "They are usually used as wages for fountain cleaners."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is invested in a series of businesses."},
+        {"option": "B", "text": "It is used exclusively for its maintenance."},
+        {"option": "C", "text": "It is used to run a supermarket for the needy."},
+        {"option": "D", "text": "It is estimated to be about $40,000 a month."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He was arrested for stealing money from four fountain cleaners."},
+        {"option": "B", "text": "He was sentenced to 34 years' imprisonment."},
+        {"option": "C", "text": "He collected rare coins from around the world."},
+        {"option": "D", "text": "He stole a lot of money from a fountain with a magnetic stick."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

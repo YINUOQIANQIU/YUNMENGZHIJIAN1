@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>词汇学习 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2962FF;
+            --primary-dark: #1A237E;
+            --secondary: #1E293B;
+            --accent: #667eea;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --light-bg: #f8faff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e3f2ff 100%);
+            min-height: 100vh;
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .word-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(41, 98, 255, 0.1);
+        }
+        .word-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(41, 98, 255, 0.15);
+        }
+        .study-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .study-card:hover::before {
+            left: 100%;
+        }
+        .study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(41, 98, 255, 0.15);
+        }
+        .correct {
+            border: 2px solid #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .incorrect {
+            border: 2px solid #EF4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(41, 98, 255, 0.2);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #5a67d8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(41, 98, 255, 0.3);
+        }
+        .btn-primary:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .guest-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+        .login-required-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        .login-required-card i {
+            font-size: 3rem;
+            color: #9CA3AF;
+            margin-bottom: 1rem;
+        }
+        .login-required-card p {
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 新增优化样式 */
+        .flashcard-3d {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .flashcard-3d.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .spelling-input {
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        .streak-counter {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 新增样式 */
+        .section-header {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+        .stats-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        .stats-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(41, 98, 255, 0.1);
+        }
+        .quick-review-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .quick-review-card:hover {
+            border-left-color: var(--primary);
+            transform: translateX(5px);
+        }
+        .progress-indicator {
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #E5E7EB;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.5s ease;
+        }
+        .word-count-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--error);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        /* 紧凑布局样式 */
+        .compact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .compact-card {
+            padding: 1.25rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .compact-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .compact-grid {
+                grid-template-columns: 1fr;
+            }
+            .compact-container {
+                padding: 0 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 - 修改为与首页一致的样式 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-2xl font-bold tracking-tight" style="color: #2962FF;">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+                <a href="云梦智间词汇.html" class="text-primary font-medium border-b-2 border-primary">词汇学习</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 - 修改为与首页一致的样式 -->
+        <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+            <div id="login-btn-container">
+                <a href="云梦智间登录.html" class="flex items-center px-4 lg:px-6 py-2 bg-blue-50 text-primary rounded-lg hover:bg-blue-100 transition-colors">
+                    <span class="whitespace-nowrap font-medium text-sm lg:text-base">登录</span>
+                </a>
+            </div>
+            <a href="云梦智间AI聊天.html" class="flex items-center px-4 lg:px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                <span class="whitespace-nowrap font-medium text-sm lg:text-base">免费试用</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-16 pb-8 compact-container">
+        <!-- 词汇学习头部 -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 fade-in compact-section">
+            <div class="flex-1 mb-4 md:mb-0">
+                <h1 class="text-xl md:text-2xl font-bold text-secondary mb-1">词汇强化学习</h1>
+                <p class="text-gray-600 text-sm">通过科学记忆方法掌握核心词汇</p>
+            </div>
+            <div class="flex gap-2">
+                <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border text-sm">
+                    <i class="fas fa-fire text-orange-500"></i>
+                    <span class="font-semibold text-orange-600 streak-counter px-2 py-1 rounded-full" id="streak-count">7</span>
+                    <span class="text-gray-600">天连续</span>
+                </div>
+                <button id="start-smart-learning" class="flex items-center gap-2 px-3 py-2 btn-primary text-sm">
+                    <i class="fas fa-brain"></i>
+                    <span>智能学习</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 学习进度概览 -->
+        <div class="compact-grid mb-6 compact-section">
+            <div class="stats-card compact-card flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs text-gray-500">今日学习</p>
+                    <p class="text-lg font-bold" id="today-words">12</p>
+                </div>
+            </div>
+            <div class="stats-card compact-card flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs text-gray-500">已掌握</p>
+                    <p class="text-lg font-bold" id="mastered-words-count">156</p>
+                </div>
+            </div>
+            <div class="stats-card compact-card flex items-center gap-3">
+                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs text-gray-500">待复习</p>
+                    <p class="text-lg font-bold" id="review-words-count">23</p>
+                </div>
+            </div>
+            <div class="stats-card compact-card flex items-center gap-3">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs text-gray-500">正确率</p>
+                    <p class="text-lg font-bold" id="accuracy-rate">87%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 学习模式选择 -->
+        <div class="compact-card mb-6 compact-section">
+            <div class="section-header">
+                <h3 class="text-lg font-semibold text-secondary">选择学习模式</h3>
+            </div>
+            <div class="compact-grid">
+                <!-- 词卡记忆 -->
+                <div class="study-card compact-card relative" data-type="flashcard">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">新词学习</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-secondary mb-2">词卡记忆</h3>
+                    <p class="text-gray-600 text-xs mb-3">通过翻转卡片学习新单词，包含详细释义和例句</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+                        <span>15分钟</span>
+                        <span>10个单词</span>
+                    </div>
+                    <button class="w-full py-2 btn-primary start-practice-btn flex items-center justify-center gap-2 text-sm" data-type="flashcard">
+                        <i class="fas fa-play"></i>
+                        开始学习
+                    </button>
+                    <!-- 游客模式遮罩 -->
+                    <div id="flashcard-practice-guest-overlay" class="guest-overlay hidden">
+                        <div class="text-center p-4">
+                            <i class="fas fa-lock text-xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600 text-xs">请登录后使用</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 选择题练习 -->
+                <div class="study-card compact-card relative" data-type="multiple-choice">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-green-600">
+                            <i class="fas fa-list-ol"></i>
+                        </div>
+                        <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">巩固练习</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-secondary mb-2">选择题练习</h3>
+                    <p class="text-gray-600 text-xs mb-3">四选一模式测试词汇理解，包含干扰项分析</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+                        <span>10分钟</span>
+                        <span>20道题目</span>
+                    </div>
+                    <button class="w-full py-2 btn-primary start-practice-btn flex items-center justify-center gap-2 text-sm" data-type="multiple-choice">
+                        <i class="fas fa-play"></i>
+                        开始练习
+                    </button>
+                    <!-- 游客模式遮罩 -->
+                    <div id="choice-practice-guest-overlay" class="guest-overlay hidden">
+                        <div class="text-center p-4">
+                            <i class="fas fa-lock text-xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600 text-xs">请登录后使用</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 拼写练习 -->
+                <div class="study-card compact-card relative" data-type="spelling">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full">拼写测试</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-secondary mb-2">拼写练习</h3>
+                    <p class="text-gray-600 text-xs mb-3">根据释义拼写正确单词，包含发音和详细反馈</p>
+                    <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+                        <span>12分钟</span>
+                        <span>15个单词</span>
+                    </div>
+                    <button class="w-full py-2 btn-primary start-practice-btn flex items-center justify-center gap-2 text-sm" data-type="spelling">
+                        <i class="fas fa-play"></i>
+                        开始测试
+                    </button>
+                    <!-- 游客模式遮罩 -->
+                    <div id="spelling-practice-guest-overlay" class="guest-overlay hidden">
+                        <div class="text-center p-4">
+                            <i class="fas fa-lock text-xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600 text-xs">请登录后使用</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快速复习区域 -->
+        <div class="compact-grid mb-6 compact-section">
+            <!-- 今日复习计划 -->
+            <div class="compact-card">
+                <div class="section-header">
+                    <h3 class="text-lg font-semibold text-secondary">今日复习计划</h3>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <div class="quick-review-card flex items-center justify-between p-2 bg-blue-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xs">
+                                <i class="fas fa-redo"></i>
+                            </div>
+                            <span class="text-sm">需要复习的单词</span>
+                        </div>
+                        <span class="font-semibold text-sm" id="due-words">18</span>
+                    </div>
+                    <div class="quick-review-card flex items-center justify-between p-2 bg-green-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-sm">已掌握的单词</span>
+                        </div>
+                        <span class="font-semibold text-sm" id="learned-words">156</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="flex justify-between text-xs text-gray-600 mb-1">
+                        <span>今日复习进度</span>
+                        <span id="review-progress-text">65%</span>
+                    </div>
+                    <div class="progress-indicator">
+                        <div class="progress-fill" style="width: 65%" id="review-progress-bar"></div>
+                    </div>
+                </div>
+                <button class="w-full py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 text-sm">
+                    <i class="fas fa-clock"></i>
+                    开始复习
+                </button>
+            </div>
+
+            <!-- 学习统计 -->
+            <div class="compact-card">
+                <div class="section-header">
+                    <h3 class="text-lg font-semibold text-secondary">学习统计</h3>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs text-gray-600 mb-1">
+                            <span>本周学习进度</span>
+                            <span id="week-progress">42%</span>
+                        </div>
+                        <div class="progress-indicator">
+                            <div class="progress-fill" style="width: 42%" id="week-progress-bar"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-center">
+                        <div class="p-2 bg-orange-50 rounded-lg">
+                            <div class="text-lg font-bold text-orange-600" id="total-words">324</div>
+                            <div class="text-xs text-gray-600">总词汇量</div>
+                        </div>
+                        <div class="p-2 bg-purple-50 rounded-lg">
+                            <div class="text-lg font-bold text-purple-600" id="study-days">24</div>
+                            <div class="text-xs text-gray-600">学习天数</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快速词卡练习 -->
+        <div class="compact-card compact-section">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary">快速词卡练习</h3>
+                    <p class="text-gray-600 text-xs">随机单词快速复习</p>
+                </div>
+                <div class="flex gap-2">
+                    <button id="shuffle-flashcards" class="flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-xs">
+                        <i class="fas fa-random"></i>
+                        <span>随机</span>
+                    </button>
+                    <button id="refresh-flashcards" class="flex items-center gap-1 px-2 py-1 btn-primary text-xs">
+                        <i class="fas fa-redo"></i>
+                        <span>换一组</span>
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="flashcard-container">
+                <!-- 动态词卡内容 -->
+                <div class="flashcard-item bg-white border border-gray-200 rounded-lg p-3 cursor-pointer hover:shadow-md transition-all duration-300 text-center">
+                    <h4 class="font-bold text-secondary mb-1">plastic</h4>
+                    <p class="text-xs text-gray-500">/ˈplæstɪk/</p>
+                    <button class="mt-2 text-xs text-primary hover:text-secondary transition-colors">
+                        <i class="fas fa-eye mr-1"></i>查看释义
+                    </button>
+                </div>
+                <div class="flashcard-item bg-white border border-gray-200 rounded-lg p-3 cursor-pointer hover:shadow-md transition-all duration-300 text-center">
+                    <h4 class="font-bold text-secondary mb-1">steal</h4>
+                    <p class="text-xs text-gray-500">/stiːl/</p>
+                    <button class="mt-2 text-xs text-primary hover:text-secondary transition-colors">
+                        <i class="fas fa-eye mr-1"></i>查看释义
+                    </button>
+                </div>
+                <div class="flashcard-item bg-white border border-gray-200 rounded-lg p-3 cursor-pointer hover:shadow-md transition-all duration-300 text-center">
+                    <h4 class="font-bold text-secondary mb-1">preferable</h4>
+                    <p class="text-xs text-gray-500">/ˈprefrəbl/</p>
+                    <button class="mt-2 text-xs text-primary hover:text-secondary transition-colors">
+                        <i class="fas fa-eye mr-1"></i>查看释义
+                    </button>
+                </div>
+                <div class="flashcard-item bg-white border border-gray-200 rounded-lg p-3 cursor-pointer hover:shadow-md transition-all duration-300 text-center">
+                    <h4 class="font-bold text-secondary mb-1">abandon</h4>
+                    <p class="text-xs text-gray-500">/əˈbændən/</p>
+                    <button class="mt-2 text-xs text-primary hover:text-secondary transition-colors">
+                        <i class="fas fa-eye mr-1"></i>查看释义
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 练习模态框 -->
+    <div id="practice-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="practice-overlay"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-xl max-w-4xl w-full mx-auto transform transition-all fade-in max-h-[90vh] overflow-hidden">
+                <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary" id="practice-title">词汇练习</h3>
+                        <div class="flex items-center gap-4 mt-1 text-xs text-gray-500">
+                            <span id="progress-text">进度: 0/0</span>
+                            <span id="accuracy-display">正确率: 0%</span>
+                        </div>
+                    </div>
+                    <button id="close-practice-modal" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-4 overflow-y-auto" id="practice-content" style="max-height: calc(90vh - 80px)">
+                    <!-- 动态内容 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学习完成模态框 -->
+    <div id="completion-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-auto transform transition-all fade-in text-center p-6">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-xl mx-auto mb-3">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="text-lg font-bold text-secondary mb-2" id="completion-title">练习完成！</h3>
+                <p class="text-gray-600 text-sm mb-4" id="completion-message">你在本次练习中表现出色</p>
+                
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <div class="bg-blue-50 p-2 rounded-lg">
+                        <div class="text-lg font-bold text-blue-600" id="completion-correct">0</div>
+                        <div class="text-xs text-gray-600">正确</div>
+                    </div>
+                    <div class="bg-red-50 p-2 rounded-lg">
+                        <div class="text-lg font-bold text-red-600" id="completion-incorrect">0</div>
+                        <div class="text-xs text-gray-600">错误</div>
+                    </div>
+                    <div class="bg-green-50 p-2 rounded-lg">
+                        <div class="text-lg font-bold text-green-600" id="completion-accuracy">0%</div>
+                        <div class="text-xs text-gray-600">正确率</div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2 justify-center">
+                    <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm" id="completion-close">
+                        结束练习
+                    </button>
+                    <button class="px-4 py-2 btn-primary text-sm" id="completion-restart">
+                        再练习一次
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="message-toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg border-l-4 p-3 min-w-64 transform transition-all fade-in">
+            <div class="flex items-center">
+                <i class="fas fa-info-circle text-primary text-lg mr-2" id="message-icon"></i>
+                <div class="flex-1">
+                    <p class="font-medium text-gray-800 text-sm" id="message-text"></p>
+                </div>
+                <button onclick="hideMessage()" class="text-gray-400 hover:text-gray-600 ml-2">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入必要的JavaScript文件 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <script src="云梦智间词汇.js"></script>
+
+    <script>
+        // 全局函数
+        function hideMessage() {
+            const messageToast = document.getElementById('message-toast');
+            if (messageToast) {
+                messageToast.classList.add('hidden');
+            }
+        }
+
+        // 在开始训练时
+        function startVocabularyPractice(activityType) {
+            if (window.vocabularyDataManager) {
+                vocabularyDataManager.startTrainingSession(activityType);
+            }
+            // ... 其他初始化代码
+            console.log(`开始${activityType}训练`);
+        }
+
+        // 在用户答题时
+        function handleUserAnswer(word, userAnswer, isCorrect, timeSpent) {
+            if (window.vocabularyDataManager) {
+                vocabularyDataManager.recordAnswer(word, userAnswer, isCorrect, timeSpent);
+            }
+            // ... 其他处理逻辑
+            console.log(`用户答题: ${word}, 答案: ${userAnswer}, 正确: ${isCorrect}, 用时: ${timeSpent}ms`);
+        }
+
+        // 在训练完成时
+        async function completeVocabularyPractice(additionalData = {}) {
+            if (window.vocabularyDataManager) {
+                const result = await vocabularyDataManager.endTrainingSession(additionalData);
+                if (result) {
+                    // 更新界面统计信息
+                    updateUserStats();
+                    showSuccessMessage('学习记录已保存！');
+                }
+            } else {
+                console.log('训练完成', additionalData);
+            }
+        }
+
+        // 更新用户统计信息
+        async function updateUserStats() {
+            if (window.vocabularyDataManager) {
+                const stats = await vocabularyDataManager.getUserStats();
+                if (stats) {
+                    document.getElementById('today-words').textContent = stats.today_words || 0;
+                    document.getElementById('mastered-words-count').textContent = stats.total_words_mastered || 0;
+                    document.getElementById('review-words-count').textContent = stats.review_words_count || 0;
+                    document.getElementById('accuracy-rate').textContent = `${stats.accuracy_rate || 0}%`;
+                    document.getElementById('streak-count').textContent = stats.current_streak || 0;
+                }
+            }
+        }
+
+        // 显示成功消息
+        function showSuccessMessage(message) {
+            const messageToast = document.getElementById('message-toast');
+            const messageText = document.getElementById('message-text');
+            const messageIcon = document.getElementById('message-icon');
+            
+            if (messageToast && messageText && messageIcon) {
+                messageText.textContent = message;
+                messageIcon.className = 'fas fa-check-circle text-green-500 text-lg mr-2';
+                messageToast.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    messageToast.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+        // 为学习模式按钮添加事件监听器
+        function setupPracticeButtons() {
+            const practiceButtons = document.querySelectorAll('.start-practice-btn');
+            practiceButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const activityType = this.getAttribute('data-type');
+                    startVocabularyPractice(activityType);
+                    
+                    // 这里可以添加打开对应练习模态框的逻辑
+                    console.log(`开始${activityType}练习`);
+                });
+            });
+        }
+
+        // 等待页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📚 初始化词汇系统...');
+            
+            // 设置练习按钮事件
+            setupPracticeButtons();
+            
+            // 初始化用户统计信息
+            updateUserStats();
+            
+            // 确保所有必要的管理器都已初始化
+            if (window.unifiedAuthManager && window.uiManager) {
+                console.log('✅ 所有管理器已就绪');
+                
+                // 强制同步UI状态
+                if (window.uiManager.enhancedSyncAllAuthStates) {
+                    window.uiManager.enhancedSyncAllAuthStates();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

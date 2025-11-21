@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2025_06_2",
+    "exam_type": "CET-6",
+    "year": 2025,
+    "month": 6,
+    "title": "2025年6月英语六级听力真题（第二套）",
+    "audio_file": "cet6_2025_06_2.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "What can be learned about the candidates?",
+      "options": [
+        {"option": "A", "text": "They have to make a choice by the end of the day."},
+        {"option": "B", "text": "Both candidates are very keen on getting the job."},
+        {"option": "C", "text": "They hold different views on the procedure."},
+        {"option": "D", "text": "Both candidates are quite competitive."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What is said about Rachel and Peter?",
+      "options": [
+        {"option": "A", "text": "Both Rachel and Peter came across as respectful and professional."},
+        {"option": "B", "text": "Rachel scored moderately higher grades than Peter at school."},
+        {"option": "C", "text": "Both Rachel and Peter excelled in their academic pursuit."},
+        {"option": "D", "text": "Peter appeared slightly stronger than Rachel physically."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What was impressive about the candidate?",
+      "options": [
+        {"option": "A", "text": "His use of body language."},
+        {"option": "B", "text": "His accumulation of experience."},
+        {"option": "C", "text": "His unusual state of mind."},
+        {"option": "D", "text": "His knowledge about the company."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What will the speakers probably do next?",
+      "options": [
+        {"option": "A", "text": "Compare the candidates side by side again."},
+        {"option": "B", "text": "Find a way to break the tie next time."},
+        {"option": "C", "text": "Ask the board to cast the deciding vote."},
+        {"option": "D", "text": "Let John make the final decision."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What are the speakers talking about?",
+      "options": [
+        {"option": "A", "text": "The private label \"L'Orange\"."},
+        {"option": "B", "text": "The woman's latest collection."},
+        {"option": "C", "text": "This season's new fashion."},
+        {"option": "D", "text": "The head designer's role."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What kind of fashion does the woman prefer?",
+      "options": [
+        {"option": "A", "text": "Something reflecting the social norms."},
+        {"option": "B", "text": "Something meeting public expectations."},
+        {"option": "C", "text": "Something slightly absurd."},
+        {"option": "D", "text": "Something a bit ambiguous."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "What does the woman try to do in her design?",
+      "options": [
+        {"option": "A", "text": "Merge styles often at opposite ends of the fashion spectrum."},
+        {"option": "B", "text": "Learn from the designs of the Asian rural mountain villagers."},
+        {"option": "C", "text": "Make velvet capes look both majestic and masculine."},
+        {"option": "D", "text": "Draw intricate patterns onto a traditional power suit."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What is the man looking forward to?",
+      "options": [
+        {"option": "A", "text": "Obtaining the woman's signature."},
+        {"option": "B", "text": "Seeing the woman's new creations."},
+        {"option": "C", "text": "Incorporating indigenous aspects into his work."},
+        {"option": "D", "text": "Sharing more ideas with the woman next time."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "What is said about the animals in the study?",
+      "options": [
+        {"option": "A", "text": "They could readily recognize their owner simply by looking."},
+        {"option": "B", "text": "They could understand the implications of human commands."},
+        {"option": "C", "text": "They could be domesticated to act as our companions."},
+        {"option": "D", "text": "They could follow pointing gestures without training."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "What should be the focus in dealing with these animals?",
+      "options": [
+        {"option": "A", "text": "Cultivating them to be intelligent creatures."},
+        {"option": "B", "text": "Training them to behave like domesticated dogs."},
+        {"option": "C", "text": "Understanding how humans impact their behavior."},
+        {"option": "D", "text": "Taking measures to reduce their numbers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "What is suggested regarding these animals?",
+      "options": [
+        {"option": "A", "text": "Tame them through repeated training."},
+        {"option": "B", "text": "Treat them with sensitivity and respect."},
+        {"option": "C", "text": "Make them responsive to our commands."},
+        {"option": "D", "text": "Watch their behavior and try to improve it."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "What do we learn about the refrigerator?",
+      "options": [
+        {"option": "A", "text": "The temperature inside it varies from place to place."},
+        {"option": "B", "text": "Proper placement facilitates access to food products."},
+        {"option": "C", "text": "Its different shelves are designed for different purposes."},
+        {"option": "D", "text": "The space in an average fridge changes from top to bottom."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What is the purpose of the fridge's design?",
+      "options": [
+        {"option": "A", "text": "To slow the rising of temperature in it."},
+        {"option": "B", "text": "To provide a big box of evenly cold air."},
+        {"option": "C", "text": "To prevent germs from growing quickly."},
+        {"option": "D", "text": "To keep the food cold as long as possible."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "Where is the warmest place in the fridge?",
+      "options": [
+        {"option": "A", "text": "On the top shelf."},
+        {"option": "B", "text": "In the middle section."},
+        {"option": "C", "text": "On the inside of its doors."},
+        {"option": "D", "text": "At the back of its bottom shelf."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "What will happen if raw meat is placed on the top shelf?",
+      "options": [
+        {"option": "A", "text": "They will be extra-chilly."},
+        {"option": "B", "text": "They will be hard to defrost."},
+        {"option": "C", "text": "They will be contaminated."},
+        {"option": "D", "text": "They will be ruined."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What is the most serious health problem for the elderly?",
+      "options": [
+        {"option": "A", "text": "Chronic depression."},
+        {"option": "B", "text": "Growing feebleness."},
+        {"option": "C", "text": "Hip fracture."},
+        {"option": "D", "text": "Fatal infections."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "What does the speaker say about the research?",
+      "options": [
+        {"option": "A", "text": "It feels real and relevant."},
+        {"option": "B", "text": "It contributes to psychology."},
+        {"option": "C", "text": "It outcompetes lots of academics' research."},
+        {"option": "D", "text": "It wins recognition outside of Birmingham."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "How does the researcher conduct her study?",
+      "options": [
+        {"option": "A", "text": "By bringing together experts old and young."},
+        {"option": "B", "text": "By counting on advanced modem technology."},
+        {"option": "C", "text": "By making full use of her expertise."},
+        {"option": "D", "text": "By combining multiple perspectives."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "What is the problem with cooking schools?",
+      "options": [
+        {"option": "A", "text": "They don't teach basic organization."},
+        {"option": "B", "text": "They don't focus on teaching techniques."},
+        {"option": "C", "text": "They attach little importance to recipes."},
+        {"option": "D", "text": "They hire very few distinguished chefs."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "What does the speaker say about discipline for chefs?",
+      "options": [
+        {"option": "A", "text": "It's unique to celebrity chefs."},
+        {"option": "B", "text": "It's a way of transformation."},
+        {"option": "C", "text": "It's too demanding for them."},
+        {"option": "D", "text": "It's a way of life to them."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "What should chefs learn from philosophers?",
+      "options": [
+        {"option": "A", "text": "Respect others so as to be respected."},
+        {"option": "B", "text": "Use time and resources in a wise way."},
+        {"option": "C", "text": "Cultivate a habit of self-discipline."},
+        {"option": "D", "text": "Learn from philosophers earnestly."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "What does the speaker mainly discuss?",
+      "options": [
+        {"option": "A", "text": "The motive for hard work."},
+        {"option": "B", "text": "The reason for stagnation."},
+        {"option": "C", "text": "The basis for self-improvement."},
+        {"option": "D", "text": "The justification for self-confidence."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "What do people tend to do when they achieve a goal?",
+      "options": [
+        {"option": "A", "text": "Feel confidence, happiness and satisfaction."},
+        {"option": "B", "text": "Believe they have achieved their life goals."},
+        {"option": "C", "text": "Use a key tool for setting ambitious goals."},
+        {"option": "D", "text": "Stop imagining further progress in life."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "Why is it hard to achieve happiness through goal setting?",
+      "options": [
+        {"option": "A", "text": "We feel we are always falling behind others."},
+        {"option": "B", "text": "We have to adapt to the ever-changing goal."},
+        {"option": "C", "text": "There are various misconceptions about goal setting."},
+        {"option": "D", "text": "There are always problems with the goal originally set."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "What should we do to achieve happiness according to the speaker?",
+      "options": [
+        {"option": "A", "text": "A noticeable change in the number of goals to achieve."},
+        {"option": "B", "text": "Measuring always against the gap rather than the gain."},
+        {"option": "C", "text": "Measuring where we've come from instead of measuring against the goal."},
+        {"option": "D", "text": "A proper conception of what we fail to notice in trying to achieve our goals."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

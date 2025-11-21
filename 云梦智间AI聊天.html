@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云梦智间 AI - 你的智能学习伙伴</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E',
+                        aiBg: '#F8FAFF',
+                        userBg: '#2962FF',
+                        accent: '#FF6D00',
+                        lightBg: '#F5F7FF'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '2px',
+                        DEFAULT: '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        'full': '9999px'
+                    },
+                    fontFamily: {
+                        'sans': ['"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+                        'content': ['"PingFang SC"', '"Microsoft YaHei"', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'message': '0 2px 8px rgba(0, 0, 0, 0.08)',
+                        'input': '0 4px 12px rgba(41, 98, 255, 0.1)',
+                        'card': '0 4px 12px rgba(0, 0, 0, 0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #F5F7FF;
+        }
+        
+        /* 修改用户消息样式 - 更柔和的蓝色，白色文字 */
+        .message-user {
+            background: linear-gradient(135deg, #4A7BFF 0%, #3A6BEF 100%);
+            color: white;
+            border-radius: 16px 0 16px 16px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(74, 123, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message-user::after {
+            content: "";
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 8px;
+            height: 16px;
+            background: linear-gradient(135deg, #4A7BFF 0%, #3A6BEF 100%);
+            clip-path: polygon(0 0, 0 100%, 100% 0);
+        }
+
+        /* AI消息样式微调 */
+        .message-assistant {
+            background: #F8FAFF;
+            border-radius: 0 16px 16px 16px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .message-assistant::before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 8px;
+            height: 16px;
+            background: #F8FAFF;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+        
+        .typing-indicator {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #2962FF;
+            border-radius: 50%;
+            margin-right: 4px;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: rgba(241, 241, 241, 0.5);
+            border-radius: 3px;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: rgba(136, 136, 136, 0.3);
+            border-radius: 3px;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+            background: rgba(85, 85, 85, 0.5);
+        }
+        
+        .input-box {
+            transition: all 0.2s ease;
+            min-height: 48px;
+            max-height: 200px;
+        }
+        
+        /* 增强输入区域样式 */
+        .input-box:focus {
+            box-shadow: 0 0 0 2px rgba(74, 123, 255, 0.2);
+            border-color: #4A7BFF;
+        }
+        
+        /* 发送按钮样式增强 */
+        .send-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 123, 255, 0.3);
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 123, 255, 0.4);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+        }
+        
+        .tooltip {
+            opacity: 0;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        
+        .tooltip-parent:hover .tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .sidebar {
+            transition: all 0.3s ease;
+            transform: translateX(-100%);
+        }
+        
+        .sidebar-open {
+            transform: translateX(0);
+        }
+        
+        .sidebar-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sidebar-overlay-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .welcome-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 16px;
+            box-sizing: border-box;
+        }
+        
+        /* 输入框容器样式 */
+        .input-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+        }
+        
+        .input-wrapper {
+            padding: 0 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* 聊天内容区域 */
+        .chat-content-container {
+            position: fixed;
+            top: 72px; /* 顶部导航栏高度 */
+            bottom: 150px; /* 输入框区域高度 */
+            left: 0;
+            right: 0;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        
+        .chat-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+        
+        /* AI回复样式优化 */
+        .ai-response {
+            line-height: 1.6;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .ai-response h2, .ai-response h3 {
+            margin: 1.2em 0 0.8em;
+            font-weight: 600;
+            color: #222;
+        }
+        
+        .ai-response p {
+            margin-bottom: 1em;
+        }
+        
+        .ai-response ul, .ai-response ol {
+            margin: 0.8em 0;
+            padding-left: 1.5em;
+        }
+        
+        .ai-response li {
+            margin-bottom: 0.5em;
+        }
+        
+        .ai-response blockquote {
+            border-left: 3px solid #2962FF;
+            padding: 0.5em 1em;
+            margin: 1em 0;
+            background-color: rgba(41, 98, 255, 0.05);
+            color: #555;
+        }
+        
+        .ai-response pre {
+            background-color: #f6f8fa;
+            padding: 1em;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        
+        .ai-response code {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(175, 184, 193, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        
+        .ai-response .citation {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 1em;
+        }
+        
+        .ai-response a {
+            color: #2962FF;
+            text-decoration: underline;
+        }
+        
+        .ai-response .emoji {
+            font-size: 1.2em;
+            margin-right: 0.3em;
+            vertical-align: middle;
+        }
+        
+        .ai-response .highlight {
+            background-color: rgba(255, 215, 0, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+        
+        .ai-response .tip-box {
+            background-color: rgba(41, 98, 255, 0.05);
+            border-left: 3px solid #2962FF;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .ai-response .example-box {
+            background-color: rgba(0, 128, 0, 0.05);
+            border-left: 3px solid #008000;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .ai-response .warning-box {
+            background-color: rgba(255, 0, 0, 0.05);
+            border-left: 3px solid #FF0000;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* 消息样式调整 - 头像和消息框分开 */
+        .message-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .message-container.user {
+            justify-content: flex-end;
+        }
+        
+        .message-container.assistant {
+            justify-content: flex-start;
+        }
+        
+        .avatar-container {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .user-avatar, .ai-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            min-width: 200px;
+        }
+        
+        /* 用户消息文字颜色改为白色 */
+        .message-user .user-message-text {
+            color: white;
+        }
+        
+        .message-user .message-time,
+        .message-user .message-actions {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* 加载动画 */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        .typing-indicator {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* 语音相关样式 */
+        .speech-indicator {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .assistant-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* 增强语音按钮样式 */
+        .speak-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speak-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .speak-btn:active {
+            transform: scale(0.95);
+        }
+
+        .speak-btn i {
+            font-size: 12px;
+        }
+
+        /* 语音指示器样式 */
+        .speech-indicator {
+            animation: pulse 2s infinite;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* 服务状态栏样式 */
+        .service-status-bar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 8px 16px;
+            margin: -16px -16px 16px -16px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .service-indicator {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* 语音录制指示器样式 */
+        .recording {
+            background-color: #ef4444 !important;
+            color: white !important;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* 文件上传区域样式 */
+        .file-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+        }
+
+        .file-upload-area:hover {
+            border-color: #2962FF;
+            background-color: #f0f4ff;
+        }
+
+        .file-upload-area.dragover {
+            border-color: #2962FF;
+            background-color: #e0e7ff;
+        }
+
+        /* 文件信息卡片样式 */
+        .file-info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+
+        /* 进度条样式 */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2962FF, #1A237E);
+            transition: width 0.3s ease;
+        }
+
+        /* 响应式设计 */
+        @media (min-width: 1024px) {
+            .sidebar-open ~ .flex-1 .chat-content-container,
+            .sidebar-open ~ .flex-1 .input-container {
+                left: 256px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .input-wrapper {
+                max-width: 100%;
+                padding: 0 12px;
+            }
+            
+            .chat-content-container {
+                top: 64px;
+                bottom: 140px;
+                padding: 12px;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .ai-response {
+                font-size: 14px;
+            }
+            
+            .service-status-bar {
+                margin: -12px -12px 12px -12px;
+                padding: 8px 12px;
+            }
+            
+            .file-upload-area {
+                padding: 16px;
+            }
+            
+            .file-info-card {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+    <!-- 顶部导航 -->
+    <header class="bg-white/90 backdrop-blur-md p-4 border-b border-gray-200/50 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+            <button id="sidebar-toggle" class="w-9 h-9 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="云梦智间首页.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h1 class="text-xl font-semibold text-gray-800 hover:text-primary transition-colors">云梦智间 AI</h1>
+            </a>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="云梦智间首页.html" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 flex items-center gap-2">
+                <i class="fas fa-home"></i>
+                <span>返回首页</span>
+            </a>
+            <button id="new-chat-btn" class="px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:opacity-90 flex items-center gap-2">
+                <i class="fas fa-plus"></i>
+                <span>新对话</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <div class="flex flex-1 overflow-hidden">
+        <!-- 侧边栏 -->
+        <div id="sidebar" class="sidebar w-64 bg-white/90 backdrop-blur-md border-r border-gray-200/50 flex flex-col absolute lg:relative z-20 h-full shadow-lg">
+            <div class="p-4 border-b border-gray-200">
+                <button id="sidebar-new-chat-btn" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90">
+                    <i class="fas fa-plus"></i>
+                    <span class="whitespace-nowrap">新建对话</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto scrollbar-custom">
+                <div class="p-4">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-sm font-medium text-gray-700">对话分类</span>
+                        <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <button id="learning-assistant-btn" class="w-full text-left px-3 py-2 rounded-lg bg-blue-50 text-primary flex items-center gap-2">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>学习助手</span>
+                        </button>
+                        <button id="translation-assistant-btn" class="w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                            <i class="fas fa-language"></i>
+                            <span>翻译助手</span>
+                        </button>
+                        <button id="writing-assistant-btn" class="w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                            <i class="fas fa-pen"></i>
+                            <span>写作助手</span>
+                        </button>
+                    </div>
+                    
+                    <!-- 快速操作按钮 -->
+                    <div class="mt-4 space-y-2">
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2 quick-action-btn">
+                            <i class="fas fa-microphone-alt"></i>
+                            <span>口语练习</span>
+                        </button>
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2 quick-action-btn">
+                            <i class="fas fa-spell-check"></i>
+                            <span>语法检查</span>
+                        </button>
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2 quick-action-btn">
+                            <i class="fas fa-language"></i>
+                            <span>文本翻译</span>
+                        </button>
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2 quick-action-btn">
+                            <i class="fas fa-book"></i>
+                            <span>学习计划</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm font-medium text-gray-700">历史对话</span>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-3" id="chat-history-list">
+                        <!-- 历史对话会动态加载 -->
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <img id="user-avatar-sidebar" src="94B2FFC12D41C799B69B2668BBA16BE7.jpg" class="w-8 h-8 rounded-full user-avatar" alt="用户头像">
+                        <div>
+                            <div id="user-name-sidebar" class="text-sm font-medium text-gray-900">游客</div>
+                            <div id="user-status-sidebar" class="text-xs text-gray-500">请登录</div>
+                        </div>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 侧边栏遮罩 -->
+        <div id="sidebar-overlay" class="sidebar-overlay fixed inset-0 bg-black/50 z-10 lg:hidden"></div>
+
+        <!-- 聊天主区域 -->
+        <div class="flex-1 flex flex-col">
+            <!-- 聊天内容区域 -->
+            <div id="chat-content-container" class="chat-content-container scrollbar-custom">
+                <!-- 已移除服务状态显示 -->
+                
+                <div id="chat-content" class="chat-content space-y-6">
+                    <!-- 欢迎消息 -->
+                    <div id="welcome-container" class="welcome-container">
+                        <div class="message-assistant p-6 shadow-message">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">👋 你好！我是云梦智间 AI，你的智能学习伙伴</h2>
+                            <p class="font-content text-gray-700 mb-4">我可以帮助你解决英语学习中的各种问题，包括听力、阅读、写作和翻译等方面。让我们一起轻松愉快地学习吧！</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-blue-50/50 p-4 rounded-lg">
+                                    <h3 class="font-semibold text-primary mb-2">📚 学习辅导</h3>
+                                    <ul class="font-content text-gray-700 space-y-1">
+                                        <li>• 解答英语学习问题</li>
+                                        <li>• 提供四六级/雅思备考建议</li>
+                                        <li>• 检查语法和写作</li>
+                                        <li>• 解析复杂句子结构</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50/50 p-4 rounded-lg">
+                                    <h3 class="font-semibold text-primary mb-2">✨ 实用功能</h3>
+                                    <ul class="font-content text-gray-700 space-y-1">
+                                        <li>• 专业中英文翻译</li>
+                                        <li>• 模拟口语对话练习</li>
+                                        <li>• 生成个性化学习计划</li>
+                                        <li>• 提供学习资源推荐</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 这里会动态添加聊天消息 -->
+                </div>
+            </div>
+
+            <!-- 输入区域 -->
+            <div id="input-container" class="input-container">
+                <div class="input-wrapper">
+                    <!-- 语音控制UI -->
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="flex-1"></div>
+                        <div class="flex items-center gap-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                                <input type="checkbox" id="speech-toggle" checked class="rounded text-primary focus:ring-primary">
+                                <span>AI语音回复</span>
+                            </label>
+                            <button id="speech-settings" class="text-gray-500 hover:text-primary transition-colors">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 输入框 -->
+                    <div class="flex gap-2">
+                        <div class="flex-1 relative">
+                            <textarea 
+                                id="user-input"
+                                class="input-box w-full p-3 pr-10 rounded-lg border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none resize-none font-content"
+                                rows="1"
+                                placeholder="输入消息，按 Shift+Enter 换行"
+                                disabled
+                            ></textarea>
+                        </div>
+                        <button 
+                            id="send-btn"
+                            class="send-btn bg-gradient-to-r from-primary to-secondary text-white w-12 h-12 rounded-lg flex items-center justify-center shadow"
+                            disabled
+                        >
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- 快捷工具栏 -->
+                    <div class="flex items-center justify-center gap-3 mt-3">
+                        <button id="voice-btn" class="tooltip-parent w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
+                            <i class="fas fa-microphone"></i>
+                            <span class="tooltip absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">语音输入</span>
+                        </button>
+                        <button id="image-btn" class="tooltip-parent w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
+                            <i class="fas fa-camera"></i>
+                            <span class="tooltip absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">图片识别</span>
+                        </button>
+                        <button id="file-btn" class="tooltip-parent w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
+                            <i class="fas fa-file-upload"></i>
+                            <span class="tooltip absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">文件上传</span>
+                        </button>
+                        <div class="h-5 w-px bg-gray-200 mx-1"></div>
+                        <button id="keyboard-btn" class="tooltip-parent w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="tooltip absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">键盘输入</span>
+                        </button>
+                    </div>
+                    
+                    <!-- 已移除文件格式提示 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div id="loading-overlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <div class="flex items-center justify-center gap-3">
+                <div class="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                <div>
+                    <p class="font-medium text-gray-800">AI正在思考...</p>
+                    <p class="text-sm text-gray-600">请稍等片刻</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 增强语音设置模态框 -->
+    <div id="speech-settings-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">语音设置 - 百度AI TTS</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">语音选择</label>
+                    <select id="voice-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="5118" selected>御姐音 - 成熟优雅磁性声线</option>
+                        <option value="0">标准女声 - 清晰自然</option>
+                        <option value="1">标准男声 - 沉稳有力</option>
+                        <option value="3">度逍遥 - 磁性男声</option>
+                        <option value="4">度丫丫 - 可爱女声</option>
+                    </select>
+                    <p class="text-xs text-purple-500 mt-1">推荐使用"御姐音"，声音成熟优雅富有磁性</p>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        语速 <span id="rate-value" class="text-primary font-medium">4</span>
+                    </label>
+                    <input type="range" id="speech-rate" min="0" max="15" step="1" value="4" class="w-full">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>较慢</span>
+                        <span>推荐</span>
+                        <span>较快</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        音调 <span id="pitch-value" class="text-primary font-medium">6</span>
+                    </label>
+                    <input type="range" id="speech-pitch" min="0" max="15" step="1" value="6" class="w-full">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>较低</span>
+                        <span>推荐</span>
+                        <span>较高</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        音量 <span id="volume-value" class="text-primary font-medium">8</span>
+                    </label>
+                    <input type="range" id="speech-volume" min="0" max="15" step="1" value="8" class="w-full">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>较小</span>
+                        <span>推荐</span>
+                        <span>较大</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-3 rounded-lg">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-info-circle text-blue-500"></i>
+                        <div>
+                            <p class="text-sm text-blue-700 font-medium">优化建议</p>
+                            <p class="text-xs text-blue-600 mt-1">使用"御姐音"配合推荐参数，可获得成熟优雅的语音体验</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button id="speech-test-btn" class="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+                    <i class="fas fa-volume-up"></i>
+                    测试语音
+                </button>
+                <button id="speech-settings-cancel" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    取消
+                </button>
+                <button id="speech-settings-save" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                    保存设置
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 服务信息模态框 -->
+    <div id="service-info-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">AI服务信息</h3>
+            
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">扣子智能体</h4>
+                            <p class="text-sm text-gray-600">字节跳动 AI 服务</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-700">
+                        <div class="flex justify-between">
+                            <span>服务状态:</span>
+                            <span class="text-green-600 font-medium">在线</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>响应速度:</span>
+                            <span class="text-blue-600 font-medium">快速</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>支持语言:</span>
+                            <span class="text-gray-800">中英文</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-medium text-gray-800 mb-2">服务特性</h4>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 支持多轮对话记忆</li>
+                        <li>• 专业英语学习辅导</li>
+                        <li>• 智能翻译和语法检查</li>
+                        <li>• 个性化学习建议</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-yellow-50 p-3 rounded-lg">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle text-yellow-500"></i>
+                        <div>
+                            <p class="text-sm text-yellow-700 font-medium">服务说明</p>
+                            <p class="text-xs text-yellow-600 mt-1">当前使用扣子智能体作为AI服务后端，提供稳定可靠的对话体验</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button id="service-info-close" class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载必要的JavaScript文件 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <script src="js/ai-api-service.js"></script>
+    <script src="js/ai-voice-service.js"></script>
+    <script src="js/ai-chat-manager.js"></script>
+
+    <script>
+        // 页面初始化
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('AI聊天页面初始化...');
+            
+            // 初始化侧边栏功能
+            initSidebar();
+            
+            // 初始化语音控制功能
+            initSpeechControl();
+            
+            // 初始化语音播放控制
+            initSpeechPlaybackControl();
+            
+            // 初始化服务状态功能
+            initServiceStatus();
+            
+            // 添加用户交互检测以解决自动播放限制
+            setupAutoplayHandler();
+            
+            // 等待必要的JavaScript文件加载
+            await waitForScripts();
+            
+            // 等待认证系统初始化
+            await new Promise(resolve => {
+                const checkAuth = () => {
+                    if (window.unifiedAuthManager && window.unifiedAuthManager.isInitialized) {
+                        resolve();
+                    } else {
+                        setTimeout(checkAuth, 100);
+                    }
+                };
+                checkAuth();
+            });
+
+            // 初始化AI聊天管理器
+            if (window.AIChatManager) {
+                try {
+                    window.aiChatManager = new window.AIChatManager();
+                    console.log('AI聊天管理器初始化成功');
+                } catch (error) {
+                    console.error('AI聊天管理器初始化失败:', error);
+                    showErrorFallback();
+                }
+            } else {
+                console.error('AI聊天管理器类未找到');
+                showErrorFallback();
+            }
+
+            // 更新用户界面状态
+            updateUIState();
+        });
+
+        // 新增：语音播放控制逻辑
+        function initSpeechPlaybackControl() {
+            let isPlaying = false;
+            let currentPlayingMessageId = null;
+            
+            // 监听语音播放请求
+            document.addEventListener('ai-voice-play', function(event) {
+                const { messageId, text } = event.detail;
+                
+                // 如果正在播放相同消息，忽略请求
+                if (isPlaying && currentPlayingMessageId === messageId) {
+                    return;
+                }
+                
+                // 如果正在播放其他消息，先停止
+                if (isPlaying) {
+                    stopCurrentPlayback();
+                }
+                
+                // 开始播放新消息
+                playSpeech(text, messageId);
+            });
+            
+            // 监听语音停止请求
+            document.addEventListener('ai-voice-stop', function() {
+                stopCurrentPlayback();
+            });
+            
+            function playSpeech(text, messageId) {
+                if (!window.aiChatManager || !window.aiChatManager.voiceService) {
+                    console.error('语音服务未就绪');
+                    return;
+                }
+                
+                isPlaying = true;
+                currentPlayingMessageId = messageId;
+                
+                // 更新UI状态
+                updateSpeechButtonState(messageId, 'playing');
+                
+                window.aiChatManager.voiceService.speak(text, {
+                    messageId: messageId,
+                    onStart: () => {
+                        console.log('开始播放消息:', messageId);
+                        updateSpeechButtonState(messageId, 'playing');
+                    },
+                    onEnd: () => {
+                        console.log('播放完成消息:', messageId);
+                        isPlaying = false;
+                        currentPlayingMessageId = null;
+                        updateSpeechButtonState(messageId, 'stopped');
+                    },
+                    onError: (error) => {
+                        console.error('播放错误:', error);
+                        isPlaying = false;
+                        currentPlayingMessageId = null;
+                        updateSpeechButtonState(messageId, 'error');
+                    }
+                }).catch(error => {
+                    console.error('语音播放失败:', error);
+                    isPlaying = false;
+                    currentPlayingMessageId = null;
+                    updateSpeechButtonState(messageId, 'error');
+                });
+            }
+            
+            function stopCurrentPlayback() {
+                if (window.aiChatManager && window.aiChatManager.voiceService) {
+                    window.aiChatManager.voiceService.stop();
+                }
+                isPlaying = false;
+                
+                if (currentPlayingMessageId) {
+                    updateSpeechButtonState(currentPlayingMessageId, 'stopped');
+                    currentPlayingMessageId = null;
+                }
+            }
+            
+            function updateSpeechButtonState(messageId, state) {
+                // 找到对应的语音按钮并更新状态
+                const speakBtn = document.querySelector(`[data-message-id="${messageId}"] .speak-btn`);
+                if (speakBtn) {
+                    const icon = speakBtn.querySelector('i');
+                    switch (state) {
+                        case 'playing':
+                            icon.className = 'fas fa-stop';
+                            speakBtn.classList.add('playing');
+                            break;
+                        case 'stopped':
+                            icon.className = 'fas fa-volume-up';
+                            speakBtn.classList.remove('playing');
+                            break;
+                        case 'error':
+                            icon.className = 'fas fa-exclamation-triangle';
+                            speakBtn.classList.remove('playing');
+                            break;
+                    }
+                }
+            }
+            
+            // 全局函数，供消息渲染调用
+            window.toggleSpeechPlayback = function(messageId, text) {
+                const event = new CustomEvent('ai-voice-play', {
+                    detail: { messageId, text }
+                });
+                document.dispatchEvent(event);
+            };
+            
+            // 文本转义函数
+            window.escapeTextForJS = function(text) {
+                return text.replace(/`/g, '\\`')
+                           .replace(/\$/g, '\\$')
+                           .replace(/\n/g, '\\n');
+            };
+        }
+
+        // 新增：消息渲染函数，添加语音控制
+        function renderMessageWithSpeechControl(message, messageId) {
+            const escapedContent = window.escapeTextForJS ? window.escapeTextForJS(message.content) : message.content.replace(/`/g, '\\`').replace(/\$/g, '\\$').replace(/\n/g, '\\n');
+            
+            return `
+                <div class="message-container ${message.role}">
+                    <div class="avatar-container">
+                        <img src="${message.role === 'user' ? 'user-avatar.jpg' : 'ai-avatar.jpg'}" 
+                             class="${message.role === 'user' ? 'user-avatar' : 'ai-avatar'}" 
+                             alt="${message.role === 'user' ? '用户' : 'AI'}头像">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-${message.role === 'user' ? 'user' : 'assistant'} p-4">
+                            <div class="font-content ${message.role === 'user' ? 'user-message-text' : 'ai-response'}">
+                                ${message.content}
+                            </div>
+                            ${message.role === 'assistant' ? `
+                            <div class="message-actions flex items-center gap-2 mt-2" data-message-id="${messageId}">
+                                <button class="speak-btn tooltip-parent w-8 h-8 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50" 
+                                        onclick="toggleSpeechPlayback('${messageId}', \`${escapedContent}\`)">
+                                    <i class="fas fa-volume-up text-xs"></i>
+                                    <span class="tooltip">朗读</span>
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 新增：初始化服务状态功能
+        function initServiceStatus() {
+            const serviceInfoBtn = document.getElementById('service-info-btn');
+            const serviceInfoModal = document.getElementById('service-info-modal');
+            const serviceInfoClose = document.getElementById('service-info-close');
+
+            // 服务信息按钮点击事件
+            if (serviceInfoBtn) {
+                serviceInfoBtn.addEventListener('click', function() {
+                    serviceInfoModal.classList.remove('hidden');
+                });
+            }
+
+            // 关闭服务信息模态框
+            if (serviceInfoClose) {
+                serviceInfoClose.addEventListener('click', function() {
+                    serviceInfoModal.classList.add('hidden');
+                });
+            }
+
+            // 点击模态框外部关闭
+            if (serviceInfoModal) {
+                serviceInfoModal.addEventListener('click', function(e) {
+                    if (e.target === serviceInfoModal) {
+                        serviceInfoModal.classList.add('hidden');
+                    }
+                });
+            }
+
+            // 监听服务状态变化
+            window.addEventListener('ai-service-status-change', function(event) {
+                updateServiceStatus(event.detail);
+            });
+        }
+
+        // 更新服务状态显示
+        function updateServiceStatus(status) {
+            // 服务状态显示已移除，此函数保留但不执行任何操作
+        }
+
+        // 新增：等待必要的脚本加载
+        function waitForScripts() {
+            return new Promise((resolve) => {
+                const scripts = [
+                    '云梦智间统一认证.js',
+                    '云梦智间UI管理器.js', 
+                    'js/ai-api-service.js',
+                    'js/ai-voice-service.js',
+                    'js/ai-chat-manager.js'
+                ];
+                
+                let loadedCount = 0;
+                
+                const checkLoaded = () => {
+                    loadedCount++;
+                    if (loadedCount === scripts.length) {
+                        console.log('所有必要脚本已加载');
+                        resolve();
+                    }
+                };
+                
+                // 检查脚本是否已加载
+                scripts.forEach(script => {
+                    const checkScript = () => {
+                        const scriptName = script.replace('.js', '').replace('js/', '');
+                        if (window[scriptName] || (script === 'js/ai-api-service.js' && window.AIApiService) ||
+                            (script === 'js/ai-voice-service.js' && window.AIVoiceService) ||
+                            (script === 'js/ai-chat-manager.js' && window.AIChatManager)) {
+                            checkLoaded();
+                        } else {
+                            setTimeout(checkScript, 100);
+                        }
+                    };
+                    checkScript();
+                });
+                
+                // 超时保护
+                setTimeout(() => {
+                    console.log('脚本加载超时，继续初始化');
+                    resolve();
+                }, 5000);
+            });
+        }
+
+        // 添加用户交互检测以解决自动播放限制
+        function setupAutoplayHandler() {
+            let userInteracted = false;
+            
+            const enableAutoplay = () => {
+                if (!userInteracted) {
+                    userInteracted = true;
+                    console.log('用户已交互，允许自动播放');
+                    
+                    // 触发语音服务预加载
+                    if (window.aiChatManager && window.aiChatManager.voiceService) {
+                        window.aiChatManager.voiceService.init().then(() => {
+                            console.log('语音服务在用户交互后重新初始化');
+                        });
+                    }
+                    
+                    // 移除事件监听器
+                    document.removeEventListener('click', enableAutoplay);
+                    document.removeEventListener('keydown', enableAutoplay);
+                    document.removeEventListener('touchstart', enableAutoplay);
+                }
+            };
+            
+            // 添加多种用户交互监听
+            document.addEventListener('click', enableAutoplay);
+            document.addEventListener('keydown', enableAutoplay);
+            document.addEventListener('touchstart', enableAutoplay);
+            
+            // 10秒后自动标记为已交互（备选方案）
+            setTimeout(() => {
+                if (!userInteracted) {
+                    console.log('自动标记为用户已交互');
+                    userInteracted = true;
+                }
+            }, 10000);
+        }
+
+        // 增强语音设置功能
+        function initSpeechControl() {
+            const speechToggle = document.getElementById('speech-toggle');
+            const speechSettingsBtn = document.getElementById('speech-settings');
+            const speechModal = document.getElementById('speech-settings-modal');
+            const speechSettingsCancel = document.getElementById('speech-settings-cancel');
+            const speechSettingsSave = document.getElementById('speech-settings-save');
+            const speechTestBtn = document.getElementById('speech-test-btn');
+            const speechRate = document.getElementById('speech-rate');
+            const speechPitch = document.getElementById('speech-pitch');
+            const speechVolume = document.getElementById('speech-volume');
+            const rateValue = document.getElementById('rate-value');
+            const pitchValue = document.getElementById('pitch-value');
+            const volumeValue = document.getElementById('volume-value');
+            const voiceSelect = document.getElementById('voice-select');
+
+            // 更新滑块值显示
+            speechRate.addEventListener('input', function() {
+                rateValue.textContent = this.value;
+            });
+            
+            speechPitch.addEventListener('input', function() {
+                pitchValue.textContent = this.value;
+            });
+
+            speechVolume.addEventListener('input', function() {
+                volumeValue.textContent = this.value;
+            });
+
+            // 语音设置按钮事件
+            speechSettingsBtn.addEventListener('click', function() {
+                speechModal.classList.remove('hidden');
+            });
+
+            // 测试语音按钮
+            speechTestBtn.addEventListener('click', function() {
+                const testText = "您好，这是云梦智间AI的语音测试。如果听到这段话，说明语音功能工作正常。";
+                if (window.aiChatManager) {
+                    window.aiChatManager.speakAIResponse(testText, {
+                        onStart: () => {
+                            speechTestBtn.innerHTML = '<i class="fas fa-volume-up"></i> 测试中...';
+                            speechTestBtn.disabled = true;
+                        },
+                        onEnd: () => {
+                            speechTestBtn.innerHTML = '<i class="fas fa-volume-up"></i> 测试语音';
+                            speechTestBtn.disabled = false;
+                        },
+                        onError: (error) => {
+                            speechTestBtn.innerHTML = '<i class="fas fa-volume-up"></i> 测试语音';
+                            speechTestBtn.disabled = false;
+                            alert('语音测试失败: ' + error);
+                        }
+                    });
+                }
+            });
+
+            // 关闭模态框
+            speechSettingsCancel.addEventListener('click', function() {
+                speechModal.classList.add('hidden');
+            });
+
+            speechSettingsSave.addEventListener('click', function() {
+                // 保存语音设置到本地存储
+                const settings = {
+                    enabled: speechToggle.checked,
+                    voice: voiceSelect.value,
+                    rate: speechRate.value,
+                    pitch: speechPitch.value,
+                    volume: speechVolume.value
+                };
+                
+                localStorage.setItem('speech-settings', JSON.stringify(settings));
+                
+                // 应用语音选择
+                if (window.aiChatManager && window.aiChatManager.voiceService) {
+                    window.aiChatManager.voiceService.setVoice(voiceSelect.value);
+                }
+                
+                // 关闭模态框
+                speechModal.classList.add('hidden');
+                
+                // 显示保存成功提示
+                if (window.uiManager) {
+                    window.uiManager.showMessage('语音设置已保存', 'success');
+                }
+            });
+
+            // 点击模态框外部关闭
+            speechModal.addEventListener('click', function(e) {
+                if (e.target === speechModal) {
+                    speechModal.classList.add('hidden');
+                }
+            });
+
+            // 加载保存的语音设置
+            const savedSettings = localStorage.getItem('speech-settings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                if (speechToggle) speechToggle.checked = settings.enabled !== false; // 默认开启
+                if (voiceSelect) voiceSelect.value = settings.voice || '5118'; // 默认御姐音
+                if (speechRate) speechRate.value = settings.rate || '4';
+                if (speechPitch) speechPitch.value = settings.pitch || '6';
+                if (speechVolume) speechVolume.value = settings.volume || '8';
+                if (rateValue) rateValue.textContent = settings.rate || '4';
+                if (pitchValue) pitchValue.textContent = settings.pitch || '6';
+                if (volumeValue) volumeValue.textContent = settings.volume || '8';
+            }
+        }
+
+        // 错误回退处理
+        function showErrorFallback() {
+            const chatContent = document.getElementById('chat-content');
+            if (chatContent) {
+                chatContent.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-2xl mx-auto mb-4">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">功能加载失败</h3>
+                        <p class="text-gray-600 mb-4">AI聊天功能暂时不可用，请刷新页面重试</p>
+                        <button onclick="window.location.reload()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            <i class="fas fa-redo mr-2"></i>刷新页面
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // 初始化侧边栏
+        function initSidebar() {
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+            if (sidebarToggle && sidebar && sidebarOverlay) {
+                sidebarToggle.addEventListener('click', toggleSidebar);
+                sidebarOverlay.addEventListener('click', toggleSidebar);
+            }
+
+            // 移除助手切换事件绑定，因为已经在AIChatManager中处理
+            // 只保留快速操作按钮的绑定
+            document.querySelectorAll('.quick-action-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    const prompts = {
+                        '口语练习': '我想练习英语口语，请模拟一个日常对话场景，比如在咖啡店点餐。',
+                        '语法检查': '请帮我检查以下英文句子的语法是否正确，并指出错误：',
+                        '文本翻译': '请将以下中文翻译成英文：',
+                        '学习计划': '我需要一个为期30天的英语学习计划，目标是提升商务英语能力。'
+                    };
+                    
+                    const userInput = document.getElementById('user-input');
+                    userInput.value = prompts[action] || action;
+                    userInput.focus();
+                    handleInputChange();
+                    
+                    if (window.aiChatManager) {
+                        window.aiChatManager.showQuickActionFeedback(action);
+                    }
+                });
+            });
+        }
+
+        // 切换侧边栏
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            
+            sidebar.classList.toggle('sidebar-open');
+            sidebarOverlay.classList.toggle('sidebar-overlay-open');
+            adjustInputPosition();
+        }
+
+        // 调整输入框位置
+        function adjustInputPosition() {
+            const chatContentContainer = document.getElementById('chat-content-container');
+            const inputContainer = document.getElementById('input-container');
+            
+            if (window.innerWidth >= 1024 && document.getElementById('sidebar').classList.contains('sidebar-open')) {
+                chatContentContainer.style.left = '256px';
+                inputContainer.style.left = '256px';
+            } else {
+                chatContentContainer.style.left = '0';
+                inputContainer.style.left = '0';
+            }
+        }
+
+        // 切换助手
+        function switchAssistant(assistantType) {
+            if (window.aiChatManager) {
+                window.aiChatManager.switchAssistant(assistantType);
+            }
+        }
+
+        // 处理输入变化
+        function handleInputChange() {
+            if (window.aiChatManager) {
+                window.aiChatManager.handleInputChange();
+            } else {
+                // 备用处理
+                const userInput = document.getElementById('user-input');
+                const sendBtn = document.getElementById('send-btn');
+                
+                if (userInput && sendBtn) {
+                    userInput.style.height = 'auto';
+                    userInput.style.height = (userInput.scrollHeight) + 'px';
+                    
+                    const hasText = userInput.value.trim().length > 0;
+                    const isLoggedIn = window.unifiedAuthManager ? window.unifiedAuthManager.isLoggedIn() : false;
+                    const canSend = hasText && (isLoggedIn || true); // 游客也可以发送
+                    
+                    sendBtn.disabled = !canSend;
+                }
+            }
+        }
+
+        // 更新UI状态
+        function updateUIState() {
+            const isLoggedIn = window.unifiedAuthManager ? window.unifiedAuthManager.isLoggedIn() : false;
+            const user = window.unifiedAuthManager ? window.unifiedAuthManager.getCurrentUser() : null;
+
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const userAvatar = document.getElementById('user-avatar-sidebar');
+            const userName = document.getElementById('user-name-sidebar');
+            const userStatus = document.getElementById('user-status-sidebar');
+
+            if (isLoggedIn && user) {
+                userInput.disabled = false;
+                userInput.placeholder = '输入消息，按 Shift+Enter 换行';
+                
+                // 更新侧边栏用户信息
+                if (userAvatar) userAvatar.src = user.avatar || '94B2FFC12D41C799B69B2668BBA16BE7.jpg';
+                if (userName) userName.textContent = user.name;
+                if (userStatus) {
+                    userStatus.textContent = user.memberLevel === 'vip' ? 'VIP会员' : '普通用户';
+                    userStatus.className = user.memberLevel === 'vip' ? 
+                        'text-xs text-yellow-600 font-medium' : 'text-xs text-gray-500';
+                }
+            } else {
+                userInput.disabled = false; // 允许游客使用
+                userInput.placeholder = '游客模式，每日可发送5条消息';
+                
+                if (userName) userName.textContent = '游客';
+                if (userStatus) {
+                    userStatus.textContent = '请登录';
+                    userStatus.className = 'text-xs text-gray-500';
+                }
+            }
+
+            handleInputChange();
+        }
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', adjustInputPosition);
+
+        // 全局错误处理
+        window.addEventListener('error', function(e) {
+            console.error('页面错误:', e.error);
+        });
+
+        // 网络状态检测
+        window.addEventListener('online', function() {
+            console.log('网络连接恢复');
+            if (window.uiManager) {
+                window.uiManager.showMessage('网络连接已恢复', 'success');
+            }
+        });
+
+        window.addEventListener('offline', function() {
+            console.log('网络连接断开');
+            if (window.uiManager) {
+                window.uiManager.showMessage('网络连接已断开，部分功能可能受限', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

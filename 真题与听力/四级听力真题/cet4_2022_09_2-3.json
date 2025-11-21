@@ -1,0 +1,32 @@
+{
+  "exam_paper": {
+    "exam_type": "CET-4",
+    "year": 2022,
+    "month": 9,
+    "paper_number": 3,
+    "title": "2022年9月大学英语四级考试真题（第3套）",
+    "total_score": 710,
+    "time_allowed": 125,
+    "description": "2022年9月大学英语四级考试真题（第3套）",
+    "sections": [
+      {
+        "section_type": "writing",
+        "section_name": "Part I Writing",
+        "section_order": 1,
+        "time_allowed": "30 minutes",
+        "directions": "Suppose your class plans to invite some former graduates to share their job experiences with the students. As the organizer of the activity, you are now to write an invitation letter to the invited speakers on behalf of your class. You will have 30 minutes to write the letter. You should write at least 120 words but no more than 180 words.",
+        "content": "{\"writing_type\": \"invitation_letter\", \"topic\": \"Invitation Letter to Former Graduates\", \"requirements\": {\"word_count\": {\"min\": 120, \"max\": 180}, \"format\": \"letter\", \"role\": \"organizer\", \"purpose\": \"invite speakers to share job experiences\"}}",
+        "questions": []
+      },
+      {
+        "section_type": "translation",
+        "section_name": "Part IV Translation",
+        "section_order": 4,
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to translate a passage from Chinese into English. You should write your answer on Answer Sheet 2.",
+        "content": "{\"translation_content\": \"戏曲是一种中国传统的艺术形式，可以追溯到唐朝。中国戏曲吸引观众的一大特色是其独具风格的腔道（facial painting）。腔道代表不同角色的性格和命运。观众通过观察腔道能够更好地理解这些角色的故事。欣赏戏曲是中国人特别是老年人的一大乐趣。为了吸引更多的年轻观众，传统戏曲正在不断地发展和创新。如今，越来越多的外国观众也喜欢中国戏曲。\", \"requirements\": {\"min_words\": 100, \"max_words\": 200}, \"vocabulary\": {\"腔道\": \"facial painting\"}}",
+        "questions": []
+      }
+    ]
+  }
+}

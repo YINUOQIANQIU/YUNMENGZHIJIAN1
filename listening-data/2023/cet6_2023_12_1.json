@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2023_12_1",
+    "exam_type": "CET-6",
+    "year": 2023,
+    "month": 12,
+    "title": "2023年12月英语六级听力真题(第1套)",
+    "audio_file": "cet6_2023_12_1.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is clear that he is expected to enjoy a healthy life."},
+        {"option": "B", "text": "There is nothing wrong with his digestive system."},
+        {"option": "C", "text": "There is some indication of an issue with his blood circulation."},
+        {"option": "D", "text": "He doesn't know he has long been suffering from poor health."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 30,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Mistaking symptoms of illness for stress."},
+        {"option": "B", "text": "Complaining they are being overworked."},
+        {"option": "C", "text": "Being unaware of the stress they are under."},
+        {"option": "D", "text": "Suffering from illness without recognising it."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 30,
+      "audio_end_time": 60,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Prescribe some medication for him."},
+        {"option": "B", "text": "Give him another physical check-up."},
+        {"option": "C", "text": "Explain to him the common consequence of stress."},
+        {"option": "D", "text": "Buy some sleeping pills for him from the drugstore."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 60,
+      "audio_end_time": 90,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It calls for responsible management."},
+        {"option": "B", "text": "It proves to be quite profitable."},
+        {"option": "C", "text": "It is remarkably promising."},
+        {"option": "D", "text": "It is full of competition."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 90,
+      "audio_end_time": 120,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To avoid being in the limelight."},
+        {"option": "B", "text": "To seek medical help for his injury."},
+        {"option": "C", "text": "To pursue a less competitive career."},
+        {"option": "D", "text": "To stay away from his hostile teammates."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 120,
+      "audio_end_time": 150,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It has ups and downs."},
+        {"option": "B", "text": "It proves rewarding."},
+        {"option": "C", "text": "It does not last long."},
+        {"option": "D", "text": "It is not so profitable."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 150,
+      "audio_end_time": 180,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He was a financial advisor."},
+        {"option": "B", "text": "He suffered from poor health."},
+        {"option": "C", "text": "He became a basketball coach."},
+        {"option": "D", "text": "He was back in the news."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 180,
+      "audio_end_time": 210,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Study issues of public health."},
+        {"option": "B", "text": "Alleviate the obesity problem."},
+        {"option": "C", "text": "Raise sufficient public funding."},
+        {"option": "D", "text": "Train young basketball players."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 210,
+      "audio_end_time": 240,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "When she started teaching at Edinburgh University in Scotland."},
+        {"option": "B", "text": "While she was doing her doctoral studies on American Literature."},
+        {"option": "C", "text": "After publishing her first novel Behind the Scenes at the Museum."},
+        {"option": "D", "text": "After winning the 1986 Woman's Own Short Story Competition."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 240,
+      "audio_end_time": 270,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The themes of love and loss."},
+        {"option": "B", "text": "The code of human behaviour."},
+        {"option": "C", "text": "The sins and flaws of eccentrics."},
+        {"option": "D", "text": "The manners of fashionable circles."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 270,
+      "audio_end_time": 300,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are usually ignorant of complex human relations."},
+        {"option": "B", "text": "They successfully imitate the manners of celebrities."},
+        {"option": "C", "text": "They often get rewarded instead of being punished."},
+        {"option": "D", "text": "They are generally looked down upon in society."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 300,
+      "audio_end_time": 330,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is what members use to alleviate tension in a team."},
+        {"option": "B", "text": "It is what employers are increasingly seeking after."},
+        {"option": "C", "text": "It is conducive to getting over a recession."},
+        {"option": "D", "text": "It is necessary for learning a new task."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 330,
+      "audio_end_time": 360,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Make better choices."},
+        {"option": "B", "text": "Follow innovative ideas."},
+        {"option": "C", "text": "Achieve recognition duly."},
+        {"option": "D", "text": "Accumulate work experience."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 360,
+      "audio_end_time": 390,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Workers show more emotional intelligence."},
+        {"option": "B", "text": "Workers use brains more than muscles."},
+        {"option": "C", "text": "People usually work flexible hours."},
+        {"option": "D", "text": "People often work in teams."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 390,
+      "audio_end_time": 420,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Leave the group as soon as possible."},
+        {"option": "B", "text": "Anticipate setbacks well in advance."},
+        {"option": "C", "text": "Decide on new priorities speedily."},
+        {"option": "D", "text": "Stick to original goals confidently."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 420,
+      "audio_end_time": 450,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "What differentiates people from animals."},
+        {"option": "B", "text": "Why philosophers disagree with scientists."},
+        {"option": "C", "text": "Where humans' great cognitive capacity originates."},
+        {"option": "D", "text": "When being creative becomes a biological mandate."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 450,
+      "audio_end_time": 480,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is what tells apart two adjacent generations."},
+        {"option": "B", "text": "It is what sharpens our appetite for novelty."},
+        {"option": "C", "text": "It is something only geniuses can achieve."},
+        {"option": "D", "text": "It is something every human being can do."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 480,
+      "audio_end_time": 510,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It seeks inspiration for novel inventions."},
+        {"option": "B", "text": "It constantly absorbs new information."},
+        {"option": "C", "text": "It uses existing ideas to create new ones."},
+        {"option": "D", "text": "It repeats precedent on a regular basis."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 510,
+      "audio_end_time": 540,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Dogs know when their owners are not feeling well."},
+        {"option": "B", "text": "Dogs have the cognition for telling right from wrong."},
+        {"option": "C", "text": "Dogs have an aptitude for developing skills to interact with humans."},
+        {"option": "D", "text": "Dogs know when their human companions can no longer stand them."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 540,
+      "audio_end_time": 570,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They can readily detect different ill smells of viruses."},
+        {"option": "B", "text": "They can easily tell what bacteria cause odor change."},
+        {"option": "C", "text": "They are particularly sensitive to strange smells."},
+        {"option": "D", "text": "They have an extremely powerful sense of smell."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 570,
+      "audio_end_time": 600,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It can ensure owners suffer fewer chronic diseases."},
+        {"option": "B", "text": "It can benefit owners both physically and mentally."},
+        {"option": "C", "text": "It can reduce owners' risk of getting cancer or diabetes."},
+        {"option": "D", "text": "It can alert owners to the seriousness of their conditions."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 600,
+      "audio_end_time": 630,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Crack down on courses like science, technology, engineering and math."},
+        {"option": "B", "text": "Restrict the ability of creative arts courses to recruit new students."},
+        {"option": "C", "text": "Look at how to reform technical and vocational education."},
+        {"option": "D", "text": "Ensure creative arts students get better value for money."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 630,
+      "audio_end_time": 660,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Seemingly reasonable."},
+        {"option": "B", "text": "Clearly well-grounded."},
+        {"option": "C", "text": "Extremely irrational."},
+        {"option": "D", "text": "Apparently simplistic."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 660,
+      "audio_end_time": 690,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "A high proportion of them haven't tried to save money."},
+        {"option": "B", "text": "Most of them never hope to buy a house or to retire."},
+        {"option": "C", "text": "Forty percent of them earn less than £25,000 a year."},
+        {"option": "D", "text": "The majority of them have fairly well-paying jobs."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 690,
+      "audio_end_time": 720,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The context of a bank balance."},
+        {"option": "B", "text": "Britain's economy as a whole."},
+        {"option": "C", "text": "The specific degree a student earns."},
+        {"option": "D", "text": "Britain's defective educational system."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 720,
+      "audio_end_time": 750,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

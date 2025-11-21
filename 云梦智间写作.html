@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>写作进阶 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 引入统一认证系统和UI管理器 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    
+    <style>
+        /* 保持原有样式不变 */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F5F7FF;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #F0F7FF 0%, #E3F2FF 100%);
+        }
+        .writing-editor {
+            min-height: 300px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 16px;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        .writing-editor:focus {
+            border-color: #2962FF;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+            outline: none;
+        }
+        .timer-warning {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { background-color: #fef3c7; }
+            50% { background-color: #fde68a; }
+            100% { background-color: #fef3c7;}
+        }
+        .score-excellent { color: #10b981; }
+        .score-good { color: #3b82f6; }
+        .score-average { color: #f59e0b; }
+        .score-poor { color: #ef4444; }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(41, 98, 255, 0.1);
+        }
+        .hero-bg {
+            background-image: linear-gradient(to right, rgba(41, 98, 255, 0.8), rgba(156, 39, 176, 0.8)), 
+                              url('https://ai-public.mastergo.com/ai/img_res/a127b747ca8237cc915f5cae10d01b16.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    /* 增强兼容性 */
+    line-clamp: 3; /* 未来标准语法 */
+    box-orient: vertical; /* 部分旧版 Firefox */
+}
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        
+        /* 新增考试相关样式 */
+        .exam-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #2962FF;
+        }
+        .exam-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.15);
+        }
+        .writing-prompt-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+        }
+        .section-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '2px',
+                        DEFAULT: '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        'full': '9999px',
+                        'button': '4px'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="gradient-bg">
+    <!-- 导航栏 (与首页完全一致) -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-primary text-2xl font-bold tracking-tight">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="云梦智间写作.html" class="text-primary font-medium border-b-2 border-primary">写作进阶</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 -->
+        <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+            <div id="login-btn-container">
+                <!-- 由UI管理器动态生成 -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 max-w-[1440px] mx-auto px-6" id="writing-app">
+        <!-- 加载状态 -->
+        <div v-if="loading" class="flex justify-center items-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+
+        <!-- 写作练习界面 -->
+        <div v-else-if="currentView === 'practice'" class="space-y-8">
+            <!-- 题目区域 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="section-badge">{{ currentQuestion.section_type || '写作' }}</span>
+                        <span class="ml-2 text-sm text-gray-500">字数: {{ currentQuestion.word_limit || 150 }} • 时间: {{ currentQuestion.time_limit || 30 }}分钟</span>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold" :class="timerClass">{{ formattedTime }}</div>
+                        <div class="text-sm text-gray-500">剩余时间</div>
+                    </div>
+                </div>
+                
+                <h2 class="text-xl font-bold text-secondary mb-4">{{ currentQuestion.title || '写作题目' }}</h2>
+                
+                <!-- 写作提示内容 -->
+                <div v-if="currentQuestion.passage_content" class="writing-prompt-card rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-blue-800 mb-2">写作提示</h4>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ currentQuestion.passage_content }}</p>
+                    </div>
+                </div>
+                
+                <div class="prose max-w-none mb-4">
+                    <p class="text-gray-700 leading-relaxed">{{ currentQuestion.question_text || currentQuestion.content }}</p>
+                </div>
+                
+                <div v-if="currentQuestion.requirements" class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <p class="text-sm text-yellow-700"><strong>写作要求:</strong> {{ currentQuestion.requirements }}</p>
+                </div>
+            </div>
+
+            <!-- 写作编辑器 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-secondary">开始写作</h3>
+                    <div class="text-sm text-gray-500">
+                        字数: <span class="font-medium">{{ wordCount }}</span> / {{ currentQuestion.word_limit || 150 }}
+                    </div>
+                </div>
+                
+                <textarea 
+                    v-model="writingContent"
+                    @input="updateWordCount"
+                    :disabled="timeLeft <= 0"
+                    class="writing-editor w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="请在这里开始您的写作..."
+                ></textarea>
+                
+                <div class="flex justify-between items-center mt-4">
+                    <div class="text-sm text-gray-500">
+                        {{ Math.round((wordCount / (currentQuestion.word_limit || 150)) * 100) }}% 完成度
+                    </div>
+                    <button 
+                        @click="submitWriting"
+                        :disabled="!writingContent.trim() || timeLeft <= 0"
+                        class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                    >
+                        {{ timeLeft <= 0 ? '时间到' : '提交作文' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 评分结果界面 -->
+        <div v-else-if="currentView === 'result'" class="space-y-8">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-secondary mb-2">写作评分结果</h2>
+                    <p class="text-gray-600">您的作文已完成AI智能评分</p>
+                </div>
+                
+                <!-- 分数展示 -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="text-3xl font-bold" :class="getScoreClass(result.scores.overall)">{{ result.scores.overall }}</div>
+                        <div class="text-sm text-gray-600">总分</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                        <div class="text-2xl font-bold" :class="getScoreClass(result.scores.content)">{{ result.scores.content }}</div>
+                        <div class="text-sm text-gray-600">内容</div>
+                    </div>
+                    <div class="text-center p-4 bg-purple-50 rounded-lg">
+                        <div class="text-2xl font-bold" :class="getScoreClass(result.scores.structure)">{{ result.scores.structure }}</div>
+                        <div class="text-sm text-gray-600">结构</div>
+                    </div>
+                    <div class="text-center p-4 bg-orange-50 rounded-lg">
+                        <div class="text-2xl font-bold" :class="getScoreClass(result.scores.language)">{{ result.scores.language }}</div>
+                        <div class="text-sm text-gray-600">语言</div>
+                    </div>
+                </div>
+                
+                <!-- AI反馈 -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-3">AI评语</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-700 leading-relaxed">{{ result.feedback }}</p>
+                    </div>
+                </div>
+                
+                <!-- 改进建议 -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-3">改进建议</h3>
+                    <div class="space-y-2">
+                        <div v-for="(suggestion, index) in result.suggestions" :key="index" 
+                             class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+                            <i class="fas fa-lightbulb text-blue-500 mt-1"></i>
+                            <span class="text-gray-700">{{ suggestion }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 操作按钮 -->
+                <div class="flex gap-4">
+                    <button @click="startNewPractice" class="flex-1 px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                        开始新的练习
+                    </button>
+                    <button @click="viewHistory" class="flex-1 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        查看历史记录
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史记录界面 -->
+        <div v-else-if="currentView === 'history'" class="space-y-6">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-secondary">写作历史记录</h2>
+                    <button @click="currentView = 'main'" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        返回主页
+                    </button>
+                </div>
+                
+                <div v-if="historyRecords.length === 0" class="text-center py-12">
+                    <i class="fas fa-history text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">暂无写作记录</p>
+                </div>
+                
+                <div v-else class="space-y-4">
+                    <div v-for="record in historyRecords" :key="record.id" 
+                         class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-semibold text-secondary">{{ record.title }}</h3>
+                            <span class="text-sm text-gray-500">{{ formatDate(record.submitted_at) }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-4 text-sm text-gray-600">
+                                <span>字数: {{ record.word_count }}</span>
+                                <span>用时: {{ Math.floor(record.time_spent / 60) }}分钟</span>
+                                <span>得分: <span :class="getScoreClass(record.score_overall)">{{ record.score_overall }}</span></span>
+                            </div>
+                            <button @click="viewRecordDetail(record)" class="text-primary hover:text-secondary transition-colors text-sm">
+                                查看详情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主界面 -->
+        <div v-else class="space-y-12">
+            <!-- Hero区域 -->
+            <div class="hero-bg rounded-2xl p-8 lg:p-12 text-white">
+                <div class="max-w-2xl">
+                    <h1 class="text-3xl lg:text-5xl font-bold mb-6">四六级写作真题训练</h1>
+                    <p class="text-lg lg:text-xl mb-8 opacity-90">基于真实四六级考试写作题目，AI智能评分助力写作提升</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button @click="loadWritingPapers" class="px-6 py-3 bg-white text-primary rounded-button hover:bg-white/90 transition-colors font-medium">
+                            <i class="fas fa-database mr-2"></i>开始练习
+                        </button>
+                        <button @click="viewHistory" class="px-6 py-3 bg-primary/20 text-white rounded-button hover:bg-primary/30 transition-colors font-medium">
+                            <i class="fas fa-history mr-2"></i>查看历史记录
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 真题试卷区域 -->
+            <section v-if="writingPapers.length > 0">
+                <h2 class="text-2xl lg:text-3xl font-bold text-secondary mb-6">四六级写作真题试卷</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div v-for="paper in writingPapers" :key="paper.id" 
+                         class="exam-card bg-white rounded-lg shadow-md p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800">{{ paper.title }}</h3>
+                                <p class="text-gray-600 mt-1">{{ paper.description || '四六级写作真题' }}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                {{ paper.exam_type }}
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+                            <div class="text-center">
+                                <div class="text-gray-500">年份</div>
+                                <div class="font-semibold">{{ paper.year }}年{{ paper.month }}月</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-gray-500">写作题目</div>
+                                <div class="font-semibold">{{ paper.writing_questions_count || 1 }}</div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-3">
+                            <button @click="showPaperDetail(paper)" 
+                                    class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center text-sm">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                查看详情
+                            </button>
+                            <button @click="startWritingExam(paper)" 
+                                    class="flex-1 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center text-sm">
+                                <i class="fas fa-play mr-2"></i>
+                                开始写作
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 快速开始区域 -->
+            <section>
+                <h2 class="text-2xl lg:text-3xl font-bold text-secondary mb-6">快速开始</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div v-for="type in questionTypes" :key="type.value" 
+                         @click="startPracticeWithType(type.value)"
+                         class="bg-white rounded-xl shadow-lg p-6 card-hover cursor-pointer transition-all duration-300 hover:shadow-xl">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-primary text-xl">
+                            <i :class="type.icon"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-3">{{ type.name }}</h3>
+                        <p class="text-gray-600 mb-4">{{ type.description }}</p>
+                        <div class="text-primary hover:text-secondary transition-colors flex items-center gap-2 text-sm">
+                            开始练习 <i class="fas fa-arrow-right text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 写作特色功能 -->
+            <section>
+                <h2 class="text-2xl lg:text-3xl font-bold text-secondary mb-6">写作特色功能</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                        <div class="feature-icon bg-blue-50 text-blue-500 mx-auto">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">AI智能评分</h3>
+                        <p class="text-gray-600">基于深度学习算法，提供精准的写作评分和详细反馈</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                        <div class="feature-icon bg-green-50 text-green-500 mx-auto">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">限时练习</h3>
+                        <p class="text-gray-600">模拟真实考试环境，帮助您掌握时间管理技巧</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                        <div class="feature-icon bg-purple-50 text-purple-500 mx-auto">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">历史记录</h3>
+                        <p class="text-gray-600">完整保存您的写作历程，随时回顾进步轨迹</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                        <div class="feature-icon bg-orange-50 text-orange-500 mx-auto">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">真题训练</h3>
+                        <p class="text-gray-600">基于真实四六级考试题目，针对性提升写作能力</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-50 py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">写作资源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">四六级写作模板</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">高分句型库</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">学术词汇表</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">写作评分标准</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">写作工具</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">AI智能批改</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">语法检查器</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">同义词替换</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">写作计时器</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">学习指导</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">写作常见错误</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">写作提升技巧</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">范文解析</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors">写作计划制定</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">联系我们</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-primary mr-3"></i>
+                            <span class="text-gray-600">writing@moyu.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-primary mr-3"></i>
+                            <span class="text-gray-600">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock text-primary mr-3"></i>
+                            <span class="text-gray-600">9:00-18:00 (周一至周五)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8 text-center">
+                <p class="text-gray-500 text-sm">© 2025 云梦智间 版权所有 | 沪ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vue.js 和主要逻辑 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        // 等待认证系统初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化Vue应用
+            const app = new Vue({
+                el: '#writing-app',
+                data: {
+                    loading: false,
+                    currentView: 'main', // 'main', 'practice', 'result', 'history'
+                    currentUser: null,
+                    currentQuestion: {},
+                    writingContent: '',
+                    wordCount: 0,
+                    timeLeft: 0,
+                    timerInterval: null,
+                    result: {},
+                    historyRecords: [],
+                    writingPapers: [], // 存储从数据库获取的写作真题试卷
+                    questionTypes: [
+                        {
+                            value: '议论文',
+                            name: '议论文写作',
+                            description: '掌握论证方法，学会有理有据地表达观点',
+                            icon: 'fas fa-pen'
+                        },
+                        {
+                            value: '图表作文',
+                            name: '图表作文',
+                            description: '数据分析与描述，准确表达统计信息',
+                            icon: 'fas fa-chart-line'
+                        },
+                        {
+                            value: '应用文',
+                            name: '应用文写作',
+                            description: '掌握书信、通知等实用文体的写作技巧',
+                            icon: 'fas fa-envelope'
+                        }
+                    ]
+                },
+                computed: {
+                    formattedTime() {
+                        const minutes = Math.floor(this.timeLeft / 60);
+                        const seconds = this.timeLeft % 60;
+                        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    },
+                    timerClass() {
+                        if (this.timeLeft > 300) return 'text-green-600';
+                        if (this.timeLeft > 60) return 'text-yellow-600';
+                        return 'text-red-600 timer-warning';
+                    }
+                },
+                async mounted() {
+                    // 等待认证系统就绪
+                    await this.waitForAuth();
+                    this.loading = false;
+                    
+                    // 添加认证状态监听
+                    this.setupAuthListeners();
+                },
+                methods: {
+                    // 设置认证监听器
+                    setupAuthListeners() {
+                        document.addEventListener('authSystemReady', this.handleAuthUpdate);
+                        document.addEventListener('uiAuthStateUpdated', this.handleAuthUpdate);
+                    },
+                    
+                    // 处理认证状态更新
+                    handleAuthUpdate(event) {
+                        const authState = event.detail;
+                        this.currentUser = authState.user;
+                        console.log('写作页面认证状态更新:', this.currentUser);
+                    },
+                    
+                    waitForAuth() {
+                        return new Promise((resolve) => {
+                            const maxWaitTime = 5000;
+                            const startTime = Date.now();
+                            
+                            const checkAuth = () => {
+                                const currentTime = Date.now();
+                                
+                                if (window.unifiedAuthManager && window.unifiedAuthManager.isInitialized) {
+                                    this.currentUser = window.unifiedAuthManager.getCurrentUser();
+                                    console.log('认证检查完成，用户:', this.currentUser);
+                                    resolve();
+                                } else if (currentTime - startTime > maxWaitTime) {
+                                    console.log('认证检查超时，设置为未登录状态');
+                                    this.currentUser = null;
+                                    resolve();
+                                } else {
+                                    setTimeout(checkAuth, 100);
+                                }
+                            };
+                            checkAuth();
+                        });
+                    },
+
+                    // 从数据库加载写作真题试卷
+                    async loadWritingPapers() {
+                        if (!this.currentUser) {
+                            this.showLoginPrompt();
+                            return;
+                        }
+                        
+                        this.loading = true;
+                        try {
+                            // 修改：调用正确的写作真题API
+                            const response = await fetch('/api/writing-enhanced/papers', {
+                                headers: window.unifiedAuthManager.getAuthHeaders()
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                                this.writingPapers = result.data;
+                                this.showMessage(`成功加载 ${this.writingPapers.length} 套写作真题`, 'success');
+                            } else {
+                                throw new Error(result.message || '获取试卷列表失败');
+                            }
+                        } catch (error) {
+                            console.error('加载写作真题失败:', error);
+                            this.showMessage('加载真题数据失败: ' + error.message, 'error');
+                        }
+                        this.loading = false;
+                    },
+
+                    // 加载试卷的写作部分
+                    async loadWritingSections(paper) {
+                        try {
+                            const response = await fetch(`/api/exam/papers/${paper.id}`, {
+                                headers: window.unifiedAuthManager.getAuthHeaders()
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success && result.data.sections) {
+                                // 查找写作部分
+                                const writingSections = result.data.sections.filter(section => 
+                                    section.section_type === 'writing'
+                                );
+                                
+                                paper.writing_sections = writingSections;
+                                paper.writing_questions_count = writingSections.reduce((count, section) => 
+                                    count + (section.questions_count || 0), 0
+                                );
+                            }
+                        } catch (error) {
+                            console.error(`加载试卷 ${paper.id} 的写作部分失败:`, error);
+                        }
+                    },
+
+                    // 显示试卷详情
+                    async showPaperDetail(paper) {
+                        const content = `
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl font-bold text-blue-600">${paper.year}</div>
+                                        <div class="text-sm text-blue-600">年份</div>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl font-bold text-green-600">${paper.month}</div>
+                                        <div class="text-sm text-green-600">月份</div>
+                                    </div>
+                                    <div class="bg-purple-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl font-bold text-purple-600">${paper.writing_questions_count || 1}</div>
+                                        <div class="text-sm text-purple-600">写作题目</div>
+                                    </div>
+                                    <div class="bg-orange-50 p-4 rounded-lg text-center">
+                                        <div class="text-2xl font-bold text-orange-600">${paper.time_allowed || 30}</div>
+                                        <div class="text-sm text-orange-600">建议时间(分钟)</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold mb-2">试卷说明</h4>
+                                    <p class="text-gray-600 bg-gray-50 p-3 rounded-lg">${paper.description || '四六级写作真题'}</p>
+                                </div>
+
+                                ${paper.writing_sections && paper.writing_sections.length > 0 ? `
+                                    <div>
+                                        <h4 class="font-semibold mb-2">写作部分</h4>
+                                        <div class="space-y-2">
+                                            ${paper.writing_sections.map(section => `
+                                                <div class="bg-blue-50 p-3 rounded-lg">
+                                                    <div class="font-medium text-blue-800">${section.section_name}</div>
+                                                    <div class="text-sm text-blue-600 mt-1">${section.directions || '写作题目'}</div>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                        
+                        this.showModal(paper.title, content);
+                    },
+
+                    // 开始写作考试
+                    async startWritingExam(paper) {
+                        if (!this.currentUser) {
+                            this.showLoginPrompt();
+                            return;
+                        }
+
+                        this.loading = true;
+                        try {
+                            // 获取该试卷的写作题目
+                            const response = await fetch(`/api/writing-enhanced/papers/${paper.id}/questions`, {
+                                headers: window.unifiedAuthManager.getAuthHeaders()
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success && result.data.length > 0) {
+                                // 使用第一个写作题目
+                                this.currentQuestion = result.data[0];
+                                
+                                this.writingContent = '';
+                                this.wordCount = 0;
+                                this.timeLeft = (this.currentQuestion.time_limit || 30) * 60;
+                                this.currentView = 'practice';
+                                
+                                this.startTimer();
+                                this.startAutoSave();
+                                
+                                this.showMessage(`开始 ${paper.title} 的写作练习`, 'success');
+                            } else {
+                                throw new Error('该试卷没有找到写作题目');
+                            }
+                        } catch (error) {
+                            console.error('开始写作考试失败:', error);
+                            this.showMessage('开始写作失败: ' + error.message, 'error');
+                        }
+                        this.loading = false;
+                    },
+
+                    // 获取试卷的写作题目
+                    async getWritingQuestions(paperId) {
+                        try {
+                            const response = await fetch(`/api/writing-enhanced/papers/${paperId}/questions`, {
+                                headers: window.unifiedAuthManager.getAuthHeaders()
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                                return result.data;
+                            }
+                        } catch (error) {
+                            console.error('获取写作题目失败:', error);
+                        }
+                        
+                        return [];
+                    },
+
+                    // 原有的方法保持不变，只修改API调用部分
+                    async startPracticeWithType(questionType) {
+                        if (!this.currentUser) {
+                            this.showLoginPrompt();
+                            return;
+                        }
+                        
+                        this.loading = true;
+                        
+                        try {
+                            // 从真题库中获取对应类型的写作题目
+                            const writingQuestions = await this.searchWritingQuestions(questionType);
+                            
+                            if (writingQuestions.length > 0) {
+                                const randomIndex = Math.floor(Math.random() * writingQuestions.length);
+                                this.currentQuestion = writingQuestions[randomIndex];
+                                this.writingContent = '';
+                                this.wordCount = 0;
+                                this.timeLeft = (this.currentQuestion.time_limit || 30) * 60;
+                                this.currentView = 'practice';
+                                
+                                this.startTimer();
+                                this.startAutoSave();
+                            } else {
+                                // 如果没有找到题目，使用备用题目
+                                this.useBackupQuestion(questionType);
+                            }
+                        } catch (error) {
+                            console.error('开始练习失败:', error);
+                            this.showMessage('开始练习失败，使用备用题目', 'warning');
+                            this.useBackupQuestion(questionType);
+                        }
+                        
+                        this.loading = false;
+                    },
+
+                    // 搜索写作题目
+                    async searchWritingQuestions(questionType) {
+                        // 这里可以调用专门的搜索API，或者从已加载的试卷中筛选
+                        // 暂时返回空数组，实际使用时需要根据具体API调整
+                        return [];
+                    },
+
+                    // 自动保存草稿
+                    startAutoSave() {
+                        if (this.autoSaveInterval) {
+                            clearInterval(this.autoSaveInterval);
+                        }
+                        
+                        this.autoSaveInterval = setInterval(() => {
+                            if (this.writingContent.trim() && this.currentUser) {
+                                this.saveDraft();
+                            }
+                        }, 30000);
+                    },
+
+                    // 保存草稿
+                    async saveDraft() {
+                        try {
+                            const draft = {
+                                question_id: this.currentQuestion.id,
+                                content: this.writingContent,
+                                word_count: this.wordCount,
+                                time_spent: (this.currentQuestion.time_limit || 30) * 60 - this.timeLeft,
+                                saved_at: new Date().toISOString()
+                            };
+                            
+                            localStorage.setItem(`writing_draft_${this.currentUser.id}`, JSON.stringify(draft));
+                        } catch (error) {
+                            console.error('保存草稿失败:', error);
+                        }
+                    },
+
+                    // 显示登录提示
+                    showLoginPrompt() {
+                        this.showMessage('请先登录以开始写作练习', 'warning');
+                        setTimeout(() => {
+                            window.location.href = '云梦智间登录.html';
+                        }, 1500);
+                    },
+
+                    // 提交写作
+                    async submitWriting() {
+                        if (!this.writingContent.trim()) {
+                            this.showMessage('请先完成写作内容', 'error');
+                            return;
+                        }
+                        
+                        this.loading = true;
+                        
+                        try {
+                            // 前端AI分析
+                            const analysisResult = await this.analyzeWritingWithAI(
+                                this.writingContent, 
+                                this.currentQuestion, 
+                                this.wordCount
+                            );
+                            
+                            // 保存到写作记录表
+                            const saveResponse = await fetch('/api/writing/save-result', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    ...window.unifiedAuthManager.getAuthHeaders()
+                                },
+                                body: JSON.stringify({
+                                    user_id: this.currentUser.id,
+                                    question_id: this.currentQuestion.id,
+                                    content: this.writingContent,
+                                    time_spent: (this.currentQuestion.time_limit || 30) * 60 - this.timeLeft,
+                                    analysis_result: analysisResult,
+                                    word_count: this.wordCount
+                                })
+                            });
+                            
+                            const saveResult = await saveResponse.json();
+                            
+                            if (saveResult.success) {
+                                this.result = analysisResult;
+                                this.currentView = 'result';
+                                
+                                // 清除草稿
+                                localStorage.removeItem(`writing_draft_${this.currentUser.id}`);
+                                
+                            } else {
+                                throw new Error('保存失败');
+                            }
+                        } catch (error) {
+                            console.error('提交写作失败:', error);
+                            this.showMessage('提交失败，请检查网络连接后重试', 'error');
+                        }
+                        
+                        this.loading = false;
+                    },
+
+                    // AI分析函数
+                    async analyzeWritingWithAI(content, question, wordCount) {
+                        try {
+                            // 构造分析提示词
+                            const prompt = {
+                                role: "system",
+                                content: `你是一个专业的英语写作评分专家。请对以下作文进行详细分析并返回JSON格式的结果：
+                                
+作文题目：${question.title || question.question_text}
+写作要求：${question.requirements || '请根据题目要求完成写作'}
+字数要求：${question.word_limit || 150}字
+实际字数：${wordCount}字
+
+评分维度：
+1. 内容切题性 (0-30分)：内容相关性、观点明确性、论据充分性
+2. 结构组织 (0-30分)：文章结构、段落衔接、逻辑性
+3. 语言表达 (0-40分)：语法准确性、词汇丰富性、句式多样性
+
+请返回JSON格式：
+{
+    "scores": {
+        "overall": 总体分数,
+        "content": 内容分数, 
+        "structure": 结构分数,
+        "language": 语言分数
+    },
+    "feedback": "总体评语",
+    "common_errors": ["错误1", "错误2"],
+    "suggestions": ["建议1", "建议2"],
+    "detailed_analysis": {
+        "content_analysis": "内容分析",
+        "structure_analysis": "结构分析",
+        "language_analysis": "语言分析"
+    }
+}`
+                            };
+
+                            const userMessage = {
+                                role: "user",
+                                content: `请分析以下作文：\n\n${content}`
+                            };
+
+                            // 调用AI聊天服务
+                            const response = await fetch('/api/ai/chat', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    ...window.unifiedAuthManager.getAuthHeaders()
+                                },
+                                body: JSON.stringify({
+                                    messages: [prompt, userMessage],
+                                    assistant_type: 'writing_evaluator'
+                                })
+                            });
+
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                                // 解析AI返回的JSON
+                                try {
+                                    const analysisResult = JSON.parse(result.content);
+                                    return analysisResult;
+                                } catch (parseError) {
+                                    console.error('AI返回数据解析失败:', parseError);
+                                    return this.generateLocalAnalysis(content, wordCount, question.word_limit);
+                                }
+                            } else {
+                                throw new Error('AI服务调用失败');
+                            }
+                        } catch (error) {
+                            console.error('AI分析失败:', error);
+                            // 使用本地分析作为后备
+                            return this.generateLocalAnalysis(content, wordCount, question.word_limit);
+                        }
+                    },
+
+                    // 本地分析生成（备用）
+                    generateLocalAnalysis(content, wordCount, wordLimit) {
+                        const wordRatio = wordCount / (wordLimit || 150);
+                        
+                        // 基础分数计算
+                        let baseScore = 70;
+                        if (wordRatio < 0.8) baseScore -= 10;
+                        else if (wordRatio > 1.2) baseScore += 5;
+                        else if (wordRatio >= 0.9 && wordRatio <= 1.1) baseScore += 5;
+                        
+                        baseScore = Math.max(50, Math.min(85, baseScore));
+                        
+                        return {
+                            scores: {
+                                overall: Math.round(baseScore),
+                                content: Math.round(Math.max(50, Math.min(85, baseScore))),
+                                structure: Math.round(Math.max(50, Math.min(85, baseScore - 3))),
+                                language: Math.round(Math.max(50, Math.min(85, baseScore - 2)))
+                            },
+                            feedback: "您的作文结构基本完整，内容切题。建议注意语法准确性和词汇多样性，可以多使用连接词使文章更连贯。",
+                            common_errors: ["部分语法错误", "词汇重复较多", "句式单一"],
+                            suggestions: [
+                                "尝试使用更多样的连接词",
+                                "注意主谓一致和时态统一", 
+                                "丰富词汇表达，避免重复",
+                                "可以适当使用复杂句式"
+                            ],
+                            detailed_analysis: {
+                                content_analysis: "内容基本切题，观点明确，但论据可以更充分。",
+                                structure_analysis: "文章结构清晰，但段落之间的过渡可以更自然。",
+                                language_analysis: "语言表达基本准确，建议提升词汇和句式的多样性。"
+                            }
+                        };
+                    },
+
+                    // 显示消息
+                    showMessage(message, type = 'info') {
+                        if (window.uiManager && window.uiManager.showMessage) {
+                            window.uiManager.showMessage(message, type);
+                        } else {
+                            alert(message);
+                        }
+                    },
+
+                    // 显示模态框
+                    showModal(title, content) {
+                        const modal = document.createElement('div');
+                        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+                        modal.innerHTML = `
+                            <div class="bg-white rounded-xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-secondary">${title}</h3>
+                                    <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div>${content}</div>
+                                <div class="mt-6 text-center">
+                                    <button onclick="this.closest('.fixed').remove()" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                                        关闭
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                        
+                        // 点击背景关闭
+                        modal.addEventListener('click', (e) => {
+                            if (e.target === modal) {
+                                modal.remove();
+                            }
+                        });
+                    },
+
+                    // 备用题目
+                    useBackupQuestion(questionType) {
+                        const backupQuestions = {
+                            '议论文': {
+                                id: 1001,
+                                question_type: '议论文',
+                                title: '远程工作的利与弊',
+                                question_text: '随着科技的发展，远程工作变得越来越普遍。请就"远程工作的利与弊"这一话题写一篇议论文。',
+                                requirements: '1. 分析远程工作的优势\n2. 讨论远程工作可能带来的问题\n3. 提出个人观点和建议',
+                                word_limit: 150,
+                                time_limit: 30
+                            },
+                            '图表作文': {
+                                id: 1002,
+                                question_type: '图表作文', 
+                                title: '大学生就业趋势分析',
+                                question_text: '根据提供的图表数据，分析近年来大学生就业趋势的变化，并讨论可能的原因和影响。',
+                                requirements: '1. 描述图表显示的主要趋势\n2. 分析变化的原因\n3. 讨论对大学生的影响',
+                                word_limit: 150,
+                                time_limit: 30
+                            },
+                            '应用文': {
+                                id: 1003,
+                                question_type: '应用文',
+                                title: '给校长的建议信',
+                                question_text: '假设你是一名大学生，请给校长写一封信，就校园环境的改善提出具体建议。',
+                                requirements: '1. 使用正式的书信格式\n2. 提出2-3个具体建议\n3. 说明建议的理由和预期效果',
+                                word_limit: 150,
+                                time_limit: 30
+                            }
+                        };
+                        
+                        this.currentQuestion = backupQuestions[questionType] || backupQuestions['议论文'];
+                        this.writingContent = '';
+                        this.wordCount = 0;
+                        this.timeLeft = this.currentQuestion.time_limit * 60;
+                        this.currentView = 'practice';
+                        this.startTimer();
+                        this.startAutoSave();
+                    },
+
+                    startTimer() {
+                        if (this.timerInterval) {
+                            clearInterval(this.timerInterval);
+                        }
+                        
+                        this.timerInterval = setInterval(() => {
+                            this.timeLeft--;
+                            
+                            if (this.timeLeft <= 0) {
+                                clearInterval(this.timerInterval);
+                                this.submitWriting();
+                            }
+                        }, 1000);
+                    },
+                    
+                    updateWordCount() {
+                        this.wordCount = this.writingContent.trim() ? 
+                            this.writingContent.trim().split(/\s+/).length : 0;
+                    },
+                    
+                    getScoreClass(score) {
+                        if (score >= 85) return 'score-excellent';
+                        if (score >= 75) return 'score-good';
+                        if (score >= 60) return 'score-average';
+                        return 'score-poor';
+                    },
+                    
+                    startNewPractice() {
+                        this.currentView = 'main';
+                    },
+                    
+                    async viewHistory() {
+                        if (!this.currentUser) {
+                            this.showLoginPrompt();
+                            return;
+                        }
+                        
+                        this.currentView = 'history';
+                        await this.loadHistoryRecords();
+                    },
+                    
+                    async loadHistoryRecords() {
+                        if (!this.currentUser) return;
+                        
+                        try {
+                            const response = await fetch(`/api/writing/history?user_id=${this.currentUser.id}`, {
+                                headers: window.unifiedAuthManager.getAuthHeaders()
+                            });
+                            const result = await response.json();
+                            
+                            if (result.success) {
+                                this.historyRecords = result.data.records || [];
+                            }
+                        } catch (error) {
+                            console.error('加载历史记录失败:', error);
+                            this.historyRecords = [];
+                        }
+                    },
+                    
+                    viewRecordDetail(record) {
+                        const content = `
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold">作文题目</h4>
+                                    <p class="text-gray-700">${record.title}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">作文内容</h4>
+                                    <div class="bg-gray-50 p-4 rounded-lg whitespace-pre-line">${record.content}</div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold ${this.getScoreClass(record.score_overall)}">${record.score_overall}</div>
+                                        <div class="text-sm text-gray-600">总分</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-lg">${record.word_count}</div>
+                                        <div class="text-sm text-gray-600">字数</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-lg">${Math.floor(record.time_spent / 60)}:${(record.time_spent % 60).toString().padStart(2, '0')}</div>
+                                        <div class="text-sm text-gray-600">用时</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        this.showModal('写作记录详情', content);
+                    },
+                    
+                    formatDate(dateString) {
+                        const date = new Date(dateString);
+                        return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+                    }
+                },
+                
+                beforeDestroy() {
+                    if (this.timerInterval) {
+                        clearInterval(this.timerInterval);
+                    }
+                    if (this.autoSaveInterval) {
+                        clearInterval(this.autoSaveInterval);
+                    }
+                    
+                    // 移除认证监听器
+                    document.removeEventListener('authSystemReady', this.handleAuthUpdate);
+                    document.removeEventListener('uiAuthStateUpdated', this.handleAuthUpdate);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

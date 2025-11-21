@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI视频课程 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <!-- 引入认证和UI管理脚本 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <script src="云梦智间主入口.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E',
+                        success: '#4CAF50',
+                        error: '#F44336'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '2px',
+                        DEFAULT: '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        'full': '9999px',
+                        'button': '4px'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            min-height: 1024px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #F5F7FF;
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        .progress-rainbow {
+            background: linear-gradient(90deg, #2962FF 0%, #1A237E 50%, #4CAF50 100%);
+        }
+        .difficulty-meter {
+            background: linear-gradient(180deg, #4CAF50 0%, #FFC107 50%, #F44336 100%);
+        }
+        .ai-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        /* 机械人助手样式 */
+        #robot-assistant-container {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 120px;
+            z-index: 1000;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .robot-image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .robot-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 50% 0 0 50%;
+            box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            position: absolute;
+            right: 0;
+        }
+        
+        /* 消息气泡 */
+        .robot-message {
+            position: absolute;
+            right: 90px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 240px;
+            font-size: 14px;
+            line-height: 1.4;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .robot-message:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -8px;
+            transform: translateY(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent transparent transparent white;
+        }
+        
+        /* 视频播放器模态框样式 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .video-modal-content {
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #2962FF;
+            color: white;
+        }
+        
+        .video-modal-body {
+            padding: 0;
+            position: relative;
+            background: #000;
+        }
+        
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+        }
+        
+        .video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .control-left, .control-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .control-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+            font-size: 16px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .control-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .zoom-btn {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .zoom-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .zoom-level {
+            min-width: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .close-modal {
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.2s;
+        }
+        
+        .close-modal:hover {
+            opacity: 0.8;
+        }
+        
+        /* 虚拟场景模态框 */
+        .virtual-scene-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .virtual-scene-content {
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .virtual-scene-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #1A237E;
+            color: white;
+        }
+        
+        .virtual-scene-body {
+            flex: 1;
+            display: flex;
+            position: relative;
+            background: #000;
+        }
+        
+        .scene-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scene-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .scene-video-overlay {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 180px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .scene-video-overlay:hover {
+            transform: scale(1.05);
+        }
+        
+        .scene-video-player {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .scene-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .scene-control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .scene-control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 动画效果 */
+        .talk-animation {
+            animation: talk 0.5s infinite alternate;
+        }
+        
+        .happy-animation {
+            animation: happy 1s ease;
+        }
+        
+        .sad-animation {
+            animation: sad 1s ease;
+        }
+        
+        .nod-animation {
+            animation: nod 0.5s ease;
+        }
+        
+        @keyframes talk {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.05); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        
+        @keyframes happy {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            50% { transform: rotate(-10deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        @keyframes sad {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+        
+        @keyframes nod {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 导航栏 -->
+        <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+            <div class="flex items-center gap-8 lg:gap-16">
+                <a href="云梦智间首页.html" class="flex items-center gap-3">
+                    <span class="text-primary text-2xl font-bold tracking-tight">云梦智间</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                    <a href="云梦智间视频.html" class="text-gray-700 hover:text-primary transition-colors font-medium">AI视频课程</a>
+                    <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                    <a href="云梦智间词汇.html" class="text-gray-700 hover:text-primary transition-colors font-medium">词汇学习</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+                </div>
+            </div>
+            
+            <!-- 搜索框和用户区域 -->
+            <div class="flex items-center gap-4 lg:gap-6">
+                <div class="relative hidden md:block">
+                    <input type="text" v-model="searchQuery" @input="handleSearch" placeholder="搜索视频课程..." class="w-[200px] lg:w-[240px] pl-10 pr-4 py-2 border border-gray-200 rounded-button focus:border-primary focus:outline-none">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                
+                <!-- 添加调试按钮 -->
+                <button @click="debugVideoFiles" class="px-3 py-2 bg-red-500 text-white rounded-button text-sm hover:bg-red-600 transition-colors">
+                    <i class="fas fa-bug mr-1"></i>调试视频
+                </button>
+                
+                <!-- 动态登录/用户区域 - 由UI管理器动态更新 -->
+                <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+                    <div id="login-btn-container">
+                        <!-- UI管理器会动态更新这里的内容 -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 视频播放器模态框 -->
+        <div id="video-modal" class="video-modal" :style="{ display: showVideoModal ? 'flex' : 'none' }">
+            <div class="video-modal-content">
+                <div class="video-modal-header">
+                    <h3 id="video-modal-title">{{ currentVideo.title }}</h3>
+                    <span class="close-modal" @click="closeVideoModal">&times;</span>
+                </div>
+                <div class="video-modal-body">
+                    <div class="video-player-container">
+                        <video id="video-player" class="video-player" controls>
+                            <source :src="currentVideo.videoUrl" type="video/mp4">
+                            您的浏览器不支持HTML5视频
+                        </video>
+                    </div>
+                </div>
+                <div class="video-controls">
+                    <div class="control-left">
+                        <button class="control-btn" id="play-pause-btn" @click="togglePlayPause">
+                            <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+                        </button>
+                        <span id="current-time">{{ formatTime(currentTime) }}</span>
+                        <span>/</span>
+                        <span id="duration">{{ formatTime(duration) }}</span>
+                    </div>
+                    <div class="control-right">
+                        <div class="zoom-controls">
+                            <button class="zoom-btn" id="zoom-out-btn" @click="zoomOut">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                            <span class="zoom-level" id="zoom-level">{{ Math.round(zoom * 100) }}%</span>
+                            <button class="zoom-btn" id="zoom-in-btn" @click="zoomIn">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                        <button class="control-btn" id="fullscreen-btn" @click="toggleFullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="control-btn ml-2 bg-primary text-white px-3 py-1 rounded" @click="enterVirtualScene">
+                            <i class="fas fa-vr-cardboard mr-1"></i>虚拟场景
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 虚拟场景模态框 -->
+        <div id="virtual-scene-modal" class="virtual-scene-modal" :style="{ display: showVirtualSceneModal ? 'flex' : 'none' }">
+            <div class="virtual-scene-content">
+                <div class="virtual-scene-header">
+                    <h3>{{ currentScene.name }} - {{ currentVideo.title }}</h3>
+                    <span class="close-modal" @click="closeVirtualSceneModal">&times;</span>
+                </div>
+                <div class="virtual-scene-body">
+                    <div class="scene-container">
+                        <img :src="currentScene.background" class="scene-background" :alt="currentScene.name">
+                        <div class="scene-video-overlay">
+                            <video class="scene-video-player" controls :src="currentVideo.videoUrl"></video>
+                        </div>
+                        <div class="scene-controls">
+                            <button class="scene-control-btn" @click="toggleSceneVideoPlay">
+                                <i :class="isSceneVideoPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+                            </button>
+                            <button class="scene-control-btn" @click="exitVirtualScene">
+                                <i class="fas fa-times mr-1"></i>退出场景
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区域 -->
+        <main class="pt-24 pb-16 max-w-[1440px] mx-auto px-6">
+            <!-- 筛选栏 -->
+            <div class="px-6 py-3 border-b flex items-center justify-between bg-gray-50 mb-6 rounded-lg">
+                <div class="flex gap-4">
+                    <span class="text-sm text-gray-500">已选择：</span>
+                    <div class="flex gap-2">
+                        <span v-for="(filter, index) in activeFilters" :key="index" 
+                              class="px-2 py-1 bg-blue-100 text-primary text-sm rounded-button cursor-pointer"
+                              @click="removeFilter(index)">
+                            {{ filter }} <i class="fas fa-times ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-500">考点覆盖率：</span>
+                    <div class="w-[200px] h-2 bg-gray-200 rounded-button overflow-hidden">
+                        <div class="h-full progress-rainbow" :style="{ width: coverageRate + '%' }"></div>
+                    </div>
+                    <span class="text-sm text-primary">{{ coverageRate }}%</span>
+                </div>
+            </div>
+
+            <!-- 视频课程网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- 课程卡片 -->
+                <div v-for="course in filteredCourses" :key="course.id" 
+                     class="bg-white rounded-xl shadow-lg overflow-hidden card-hover transition-all cursor-pointer"
+                     @click="openVideoModal(course)">
+                    <div class="relative">
+                        <img :src="course.image" class="w-full h-[200px] object-cover" :alt="course.title">
+                        <div class="absolute top-2 right-2 flex">
+                            <i v-for="n in 5" :key="n" 
+                               :class="n <= course.rating ? 'fas fa-star text-yellow-400' : 'fas fa-star text-gray-300'"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 flex items-center bg-black bg-opacity-60 px-2 py-1 rounded-full">
+                            <i class="fas fa-fire text-orange-500 mr-1"></i>
+                            <span class="text-white text-sm">{{ course.popularity }}%</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="font-semibold text-secondary mb-1">{{ course.title }}</h3>
+                                <p class="text-sm text-gray-600">{{ course.description }}</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="bg-primary bg-opacity-10 text-primary text-xs px-2 py-1 rounded-full">AI 金讲</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-gray-400 mr-1 text-sm"></i>
+                                <span class="text-sm text-gray-500">{{ course.students }} 人在学</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1 text-sm"></i>
+                                <span class="text-sm text-gray-500">{{ course.duration }} 分钟</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分页 -->
+            <div class="flex justify-center mb-8">
+                <div class="flex items-center gap-2">
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-button hover:bg-gray-50 transition-colors"
+                            @click="prevPage" :disabled="currentPage === 1">
+                        <i class="fas fa-chevron-left text-gray-400"></i>
+                    </button>
+                    <button v-for="page in visiblePages" :key="page" 
+                            class="w-8 h-8 flex items-center justify-center border rounded-button transition-colors"
+                            :class="page === currentPage ? 'border-primary bg-primary text-white' : 'border-gray-200 text-gray-600 hover:bg-gray-50'"
+                            @click="goToPage(page)">
+                        {{ page }}
+                    </button>
+                    <span v-if="showEllipsis" class="text-gray-400">...</span>
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-button hover:bg-gray-50 transition-colors"
+                            @click="nextPage" :disabled="currentPage === totalPages">
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 虚拟课堂场景 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h3 class="text-lg font-semibold text-secondary mb-6">虚拟课堂场景</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div v-for="scene in virtualScenes" :key="scene.id" 
+                         class="border border-gray-200 rounded-lg overflow-hidden card-hover transition-all cursor-pointer"
+                         @click="openVirtualScene(scene)">
+                        <img :src="scene.thumbnail" class="w-full h-[160px] object-cover" :alt="scene.name">
+                        <div class="p-4">
+                            <h4 class="font-medium text-secondary mb-1">{{ scene.name }}</h4>
+                            <p class="text-sm text-gray-600">{{ scene.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 机械人助手容器 -->
+        <div id="robot-assistant-container" @click="showRobotMessage">
+            <div class="robot-image-container">
+                <img src="AB9D66DF1072932D11D8D306BE46693C.jpg" alt="小助手" class="robot-image" :class="robotAnimation">
+            </div>
+            <div class="robot-message" :style="{ display: showRobotMessageText ? 'block' : 'none' }">
+                {{ robotMessage }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化Vue应用
+        const app = new Vue({
+            el: '#app',
+            data: {
+                // 用户认证状态 - 由全局认证系统管理
+                isLoggedIn: false,
+                currentUser: {},
+                learningStats: {},
+                
+                // 课程数据
+                courses: [],
+                filteredCourses: [],
+                virtualScenes: [],
+                
+                // 搜索和筛选
+                searchQuery: '',
+                activeFilters: ['四六级', '听力训练'],
+                coverageRate: 75,
+                
+                // 分页
+                currentPage: 1,
+                pageSize: 8,
+                totalPages: 1,
+                visiblePages: [1, 2, 3],
+                showEllipsis: true,
+                
+                // 视频播放
+                showVideoModal: false,
+                currentVideo: {},
+                isPlaying: false,
+                currentTime: 0,
+                duration: 0,
+                zoom: 1,
+                
+                // 虚拟场景
+                showVirtualSceneModal: false,
+                currentScene: {},
+                isSceneVideoPlaying: false,
+                
+                // 机器人助手
+                robotMessage: '',
+                showRobotMessageText: false,
+                robotAnimation: '',
+                robotMessages: [
+                    "需要推荐视频课程吗？",
+                    "点击我可以获得学习建议哦~",
+                    "这些AI视频课程很适合你！",
+                    "有什么课程问题尽管问我吧！",
+                    "你的学习进度很不错，继续加油！",
+                    "想了解如何高效观看视频课程吗？"
+                ]
+            },
+            computed: {
+                // 计算可见页码
+                computedVisiblePages() {
+                    const pages = [];
+                    const startPage = Math.max(1, this.currentPage - 1);
+                    const endPage = Math.min(this.totalPages, startPage + 2);
+                    
+                    for (let i = startPage; i <= endPage; i++) {
+                        pages.push(i);
+                    }
+                    
+                    return pages;
+                }
+            },
+            watch: {
+                // 监听搜索查询变化
+                searchQuery() {
+                    this.filterCourses();
+                },
+                // 监听当前页码变化
+                currentPage() {
+                    this.updateVisiblePages();
+                    this.filterCourses();
+                }
+            },
+            mounted() {
+                this.init();
+            },
+            methods: {
+                // 初始化应用
+                async init() {
+                    await this.checkAuthStatus();
+                    await this.loadCourses();
+                    await this.loadVirtualScenes();
+                    this.initRobotAssistant();
+                    this.initVideoPlayer();
+                    
+                    // 监听全局认证状态变化
+                    document.addEventListener('uiAuthStateUpdated', (event) => {
+                        this.handleGlobalAuthChange(event.detail);
+                    });
+                },
+                
+                // 处理全局认证状态变化
+                handleGlobalAuthChange(authState) {
+                    console.log('🔄 教学页面收到全局认证状态变化:', authState);
+                    this.isLoggedIn = authState.isLoggedIn;
+                    this.currentUser = authState.user || {};
+                    this.learningStats = authState.authState?.learningProgress || {};
+                },
+                
+                // 检查用户认证状态 - 使用全局认证系统
+                async checkAuthStatus() {
+                    try {
+                        // 等待全局认证系统初始化
+                        await window.unifiedAuthManager.init();
+                        
+                        const authState = window.unifiedAuthManager.getAuthState();
+                        this.isLoggedIn = authState.isLoggedIn;
+                        this.currentUser = authState.user || {};
+                        this.learningStats = authState.learningProgress || {};
+                        
+                        console.log('✅ 教学页面认证状态同步完成:', authState);
+                    } catch (error) {
+                        console.error('❌ 认证状态同步失败:', error);
+                        this.isLoggedIn = false;
+                        this.currentUser = {};
+                        this.learningStats = {};
+                    }
+                },
+                
+                // 加载课程数据 - 修改为使用静态数据
+                async loadCourses() {
+                    try {
+                        const response = await axios.get('/api/courses');
+                        if (response.data.success) {
+                            this.courses = response.data.courses;
+                            this.filterCourses();
+                            this.totalPages = Math.ceil(this.courses.length / this.pageSize);
+                            this.updateVisiblePages();
+                        }
+                    } catch (error) {
+                        console.error('加载课程失败:', error);
+                        // 如果API调用失败，使用默认数据
+                        this.courses = this.getDefaultCourses();
+                        this.filterCourses();
+                        this.totalPages = Math.ceil(this.courses.length / this.pageSize);
+                        this.updateVisiblePages();
+                    }
+                },
+                
+                // 加载虚拟场景
+                async loadVirtualScenes() {
+                    try {
+                        const response = await axios.get('/api/virtual-scenes');
+                        if (response.data.success) {
+                            this.virtualScenes = response.data.scenes;
+                        }
+                    } catch (error) {
+                        console.error('加载虚拟场景失败:', error);
+                        // 使用默认数据作为后备
+                        this.virtualScenes = this.getDefaultScenes();
+                    }
+                },
+                
+                // 获取默认课程数据 - 修复视频路径
+                getDefaultCourses() {
+                    return [
+                        {
+                            id: 1,
+                            title: "英语口语进阶",
+                            description: "AI 情景对话 | 职场必备",
+                            image: "https://ai-public.mastergo.com/ai/img_res/4f81835c2858a319eba7efb9ff6d03f6.jpg",
+                            videoUrl: "/videos/英语口语进阶.mp4", // 使用绝对路径
+                            rating: 4,
+                            popularity: 98,
+                            students: 2345,
+                            duration: 120,
+                            tags: ["口语", "职场", "AI对话"]
+                        },
+                        {
+                            id: 2,
+                            title: "语法精讲系列",
+                            description: "虚拟语气 | 从入门到精通",
+                            image: "https://ai-public.mastergo.com/ai/img_res/c62474d9490954385e1af0851a1d66da.jpg",
+                            videoUrl: "/videos/语法精讲.mp4", // 使用绝对路径
+                            rating: 3,
+                            popularity: 85,
+                            students: 1876,
+                            duration: 90,
+                            tags: ["语法", "虚拟语气"]
+                        },
+                        {
+                            id: 3,
+                            title: "高频词汇突破",
+                            description: "四六级必备 | 记忆法",
+                            image: "https://ai-public.mastergo.com/ai/img_res/8bad936df7a37d61f452e780975f1174.jpg",
+                            videoUrl: "/videos/高频词汇突破.mp4", // 使用绝对路径
+                            rating: 5,
+                            popularity: 95,
+                            students: 3421,
+                            duration: 150,
+                            tags: ["词汇", "四六级", "记忆法"]
+                        },
+                        {
+                            id: 4,
+                            title: "听力特训营",
+                            description: "场景对话 | 听力技巧",
+                            image: "https://ai-public.mastergo.com/ai/img_res/6edc1cdcc59041790c195be927d70950.jpg",
+                            videoUrl: "/videos/听力特训营.mp4", // 使用绝对路径
+                            rating: 4,
+                            popularity: 92,
+                            students: 2789,
+                            duration: 180,
+                            tags: ["听力", "场景对话"]
+                        },
+                        {
+                            id: 5,
+                            title: "写作进阶课程",
+                            description: "高分写作 | 实战技巧",
+                            image: "https://ai-public.mastergo.com/ai/img_res/5d74927c0728d84eed2da0502713f883.jpg",
+                            videoUrl: "/videos/写作进阶课程.mp4", // 使用绝对路径
+                            rating: 4,
+                            popularity: 89,
+                            students: 1654,
+                            duration: 160,
+                            tags: ["写作", "高分技巧"]
+                        },
+                        {
+                            id: 6,
+                            title: "阅读理解突破",
+                            description: "快速阅读 | 解题技巧",
+                            image: "https://ai-public.mastergo.com/ai/img_res/a510a6e17c47db481734345bfd1050a5.jpg",
+                            videoUrl: "/videos/阅读理解突破.mp4", // 使用绝对路径
+                            rating: 3,
+                            popularity: 82,
+                            students: 2123,
+                            duration: 140,
+                            tags: ["阅读", "解题技巧"]
+                        },
+                        {
+                            id: 7,
+                            title: "翻译技巧精讲",
+                            description: "中英互译 | 专业技巧",
+                            image: "https://ai-public.mastergo.com/ai/img_res/8a95593ceff398b9a3975ad1a3009b4e.jpg",
+                            videoUrl: "/videos/翻译技巧精讲.mp4", // 使用绝对路径
+                            rating: 5,
+                            popularity: 96,
+                            students: 3567,
+                            duration: 200,
+                            tags: ["翻译", "中英互译"]
+                        },
+                        {
+                            id: 8,
+                            title: "考前冲刺班",
+                            description: "真题解析 | 考点预测",
+                            image: "https://ai-public.mastergo.com/ai/img_res/9c1e72d72d792aa60dcf05f67d464f9c.jpg",
+                            videoUrl: "/videos/考前冲刺班.mp4", // 使用绝对路径
+                            rating: 4,
+                            popularity: 91,
+                            students: 4231,
+                            duration: 240,
+                            tags: ["冲刺", "真题", "考点预测"]
+                        }
+                    ];
+                },
+                
+                // 获取默认虚拟场景
+                getDefaultScenes() {
+                    return [
+                        {
+                            id: 1,
+                            name: "智能图书馆",
+                            description: "虚拟学习空间 | 智能书架",
+                            thumbnail: "https://ai-public.mastergo.com/ai/img_res/97d242a4187ee7ef91f58621b69989ab.jpg",
+                            background: "https://ai-public.mastergo.com/ai/img_res/97d242a4187ee7ef91f58621b69989ab.jpg",
+                            videoIds: [1, 3, 6] // 关联的课程ID
+                        },
+                        {
+                            id: 2,
+                            name: "语音实验室",
+                            description: "听说训练 | 发音矫正",
+                            thumbnail: "https://ai-public.mastergo.com/ai/img_res/4e6e11b0b9cf32e973e67ff68372b143.jpg",
+                            background: "https://ai-public.mastergo.com/ai/img_res/4e6e11b0b9cf32e973e67ff68372b143.jpg",
+                            videoIds: [1, 4] // 关联的课程ID
+                        },
+                        {
+                            id: 3,
+                            name: "四六级考场",
+                            description: "考试模拟 | 实战体验",
+                            thumbnail: "https://ai-public.mastergo.com/ai/img_res/a6425301d6689dd01b322fb389cf5c69.jpg",
+                            background: "https://ai-public.mastergo.com/ai/img_res/a6425301d6689dd01b322fb389cf5c69.jpg",
+                            videoIds: [3, 8] // 关联的课程ID
+                        },
+                        {
+                            id: 4,
+                            name: "互动教室",
+                            description: "小组讨论 | 协作学习",
+                            thumbnail: "https://ai-public.mastergo.com/ai/img_res/df11c284827265d64b65cfa7f61cf136.jpg",
+                            background: "https://ai-public.mastergo.com/ai/img_res/df11c284827265d64b65cfa7f61cf136.jpg",
+                            videoIds: [1, 2, 5] // 关联的课程ID
+                        }
+                    ];
+                },
+                
+                // 过滤课程
+                filterCourses() {
+                    let filtered = this.courses;
+                    
+                    // 应用搜索查询
+                    if (this.searchQuery) {
+                        const query = this.searchQuery.toLowerCase();
+                        filtered = filtered.filter(course => 
+                            course.title.toLowerCase().includes(query) ||
+                            course.description.toLowerCase().includes(query) ||
+                            course.tags.some(tag => tag.toLowerCase().includes(query))
+                        );
+                    }
+                    
+                    // 应用分页
+                    const startIndex = (this.currentPage - 1) * this.pageSize;
+                    const endIndex = startIndex + this.pageSize;
+                    this.filteredCourses = filtered.slice(startIndex, endIndex);
+                },
+                
+                // 处理搜索
+                handleSearch() {
+                    this.currentPage = 1;
+                    this.filterCourses();
+                },
+                
+                // 移除筛选条件
+                removeFilter(index) {
+                    this.activeFilters.splice(index, 1);
+                    this.filterCourses();
+                },
+                
+                // 更新可见页码
+                updateVisiblePages() {
+                    this.visiblePages = this.computedVisiblePages;
+                    this.showEllipsis = this.totalPages > 5 && this.currentPage < this.totalPages - 2;
+                },
+                
+                // 上一页
+                prevPage() {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                    }
+                },
+                
+                // 下一页
+                nextPage() {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                    }
+                },
+                
+                // 跳转到指定页
+                goToPage(page) {
+                    this.currentPage = page;
+                },
+                
+                // 初始化机器人助手
+                initRobotAssistant() {
+                    // 随机显示机器人消息
+                    setInterval(() => {
+                        if (!this.showRobotMessageText) {
+                            this.showRandomRobotMessage();
+                        }
+                    }, 15000);
+                },
+                
+                // 显示随机机器人消息
+                showRandomRobotMessage() {
+                    const randomIndex = Math.floor(Math.random() * this.robotMessages.length);
+                    this.robotMessage = this.robotMessages[randomIndex];
+                    this.showRobotMessageText = true;
+                    this.robotAnimation = 'talk-animation';
+                    
+                    // 3秒后隐藏消息
+                    setTimeout(() => {
+                        this.showRobotMessageText = false;
+                        this.robotAnimation = '';
+                    }, 3000);
+                },
+                
+                // 显示机器人消息
+                showRobotMessage() {
+                    const randomIndex = Math.floor(Math.random() * this.robotMessages.length);
+                    this.robotMessage = this.robotMessages[randomIndex];
+                    this.showRobotMessageText = true;
+                    this.robotAnimation = 'happy-animation';
+                    
+                    // 3秒后隐藏消息
+                    setTimeout(() => {
+                        this.showRobotMessageText = false;
+                        this.robotAnimation = '';
+                    }, 3000);
+                },
+                
+                // 初始化视频播放器
+                initVideoPlayer() {
+                    const videoPlayer = document.getElementById('video-player');
+                    if (videoPlayer) {
+                        videoPlayer.addEventListener('timeupdate', () => {
+                            this.currentTime = videoPlayer.currentTime;
+                            this.duration = videoPlayer.duration;
+                        });
+                        
+                        videoPlayer.addEventListener('play', () => {
+                            this.isPlaying = true;
+                        });
+                        
+                        videoPlayer.addEventListener('pause', () => {
+                            this.isPlaying = false;
+                        });
+                        
+                        videoPlayer.addEventListener('loadedmetadata', () => {
+                            this.duration = videoPlayer.duration;
+                        });
+                    }
+                },
+                
+                // 调试视频文件
+                async debugVideoFiles() {
+                    try {
+                        console.log('🔍 开始调试视频文件...');
+                        
+                        // 检查视频文件夹
+                        const videosResponse = await axios.get('/api/debug/videos');
+                        console.log('视频文件夹状态:', videosResponse.data);
+                        
+                        // 检查具体视频文件
+                        const videoResponse = await axios.get('/api/debug/video/英语口语进阶.mp4');
+                        console.log('具体视频文件状态:', videoResponse.data);
+                        
+                        if (videoResponse.data.success) {
+                            console.log('✅ 视频文件存在，可以播放');
+                            // 测试直接访问
+                            const testUrl = videoResponse.data.url;
+                            console.log('测试访问URL:', testUrl);
+                            
+                            // 测试视频加载
+                            const video = new Audio();
+                            video.src = testUrl;
+                            video.onloadeddata = () => {
+                                console.log('🎯 视频可以正常加载！');
+                                this.showMessage('视频文件正常，可以播放', 'success');
+                            };
+                            video.onerror = (e) => {
+                                console.error('❌ 视频加载错误:', e);
+                                this.showMessage('视频加载错误: ' + e.message, 'error');
+                            };
+                        } else {
+                            console.error('❌ 视频文件不存在或无法访问');
+                            this.showMessage('视频文件不存在: ' + videoResponse.data.message, 'error');
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ 调试失败:', error);
+                        this.showMessage('调试失败: ' + error.message, 'error');
+                    }
+                },
+                
+                // 显示消息
+                showMessage(message, type) {
+                    // 这里可以添加一个消息提示组件
+                    alert(`${type === 'success' ? '✅' : '❌'} ${message}`);
+                },
+                
+                // 修改打开视频模态框方法，添加错误处理
+                async openVideoModal(course) {
+                    console.log('🎬 尝试打开视频:', course);
+                    
+                    // 先调试视频文件
+                    await this.debugVideoFiles();
+                    
+                    this.currentVideo = course;
+                    this.showVideoModal = true;
+                    
+                    // 重置播放器状态
+                    this.isPlaying = false;
+                    this.currentTime = 0;
+                    this.zoom = 1;
+                    
+                    // 延迟初始化播放器，确保DOM已更新
+                    this.$nextTick(() => {
+                        this.initVideoPlayerWithRetry();
+                    });
+                },
+                
+                // 增强的视频播放器初始化，带重试机制
+                initVideoPlayerWithRetry() {
+                    const videoPlayer = document.getElementById('video-player');
+                    if (!videoPlayer) {
+                        console.error('❌ 视频播放器元素未找到');
+                        return;
+                    }
+                    
+                    console.log('🎯 初始化视频播放器:', this.currentVideo.videoUrl);
+                    
+                    // 设置视频源
+                    videoPlayer.src = this.currentVideo.videoUrl;
+                    
+                    // 添加详细的事件监听
+                    videoPlayer.addEventListener('error', (e) => {
+                        console.error('❌ 视频播放错误:', e);
+                        console.error('错误详情:', videoPlayer.error);
+                        
+                        // 尝试备用方案
+                        this.tryAlternativeVideoSources(videoPlayer);
+                    });
+                    
+                    videoPlayer.addEventListener('loadstart', () => {
+                        console.log('📥 开始加载视频...');
+                    });
+                    
+                    videoPlayer.addEventListener('loadeddata', () => {
+                        console.log('✅ 视频数据加载完成');
+                    });
+                    
+                    videoPlayer.addEventListener('canplay', () => {
+                        console.log('🎮 视频可以播放');
+                    });
+                    
+                    videoPlayer.addEventListener('stalled', () => {
+                        console.log('⚠️ 视频加载停滞');
+                    });
+                    
+                    videoPlayer.addEventListener('waiting', () => {
+                        console.log('⏳ 视频等待数据');
+                    });
+                    
+                    // 尝试加载
+                    videoPlayer.load();
+                },
+                
+                // 尝试备用视频源
+                tryAlternativeVideoSources(videoPlayer) {
+                    console.log('🔄 尝试备用视频源...');
+                    
+                    const alternatives = [
+                        `/videos/${this.currentVideo.videoUrl.split('/').pop()}`,
+                        `./videos/${this.currentVideo.videoUrl.split('/').pop()}`,
+                        `videos/${this.currentVideo.videoUrl.split('/').pop()}`,
+                        `/videos/英语口语进阶.mp4`,
+                        `./videos/英语口语进阶.mp4`,
+                        `videos/英语口语进阶.mp4`
+                    ];
+                    
+                    let currentTry = 0;
+                    
+                    const tryNextSource = () => {
+                        if (currentTry >= alternatives.length) {
+                            console.error('❌ 所有备用源都失败了');
+                            this.showMessage('无法播放视频，请检查文件是否存在', 'error');
+                            return;
+                        }
+                        
+                        const altSource = alternatives[currentTry];
+                        console.log(`🔄 尝试备用源 ${currentTry + 1}: ${altSource}`);
+                        
+                        videoPlayer.src = altSource;
+                        videoPlayer.load();
+                        
+                        currentTry++;
+                        
+                        // 设置超时检查
+                        setTimeout(() => {
+                            if (videoPlayer.error) {
+                                tryNextSource();
+                            }
+                        }, 2000);
+                    };
+                    
+                    tryNextSource();
+                },
+                
+                // 关闭视频模态框
+                closeVideoModal() {
+                    this.showVideoModal = false;
+                    const videoPlayer = document.getElementById('video-player');
+                    if (videoPlayer) {
+                        videoPlayer.pause();
+                    }
+                },
+                
+                // 切换播放/暂停
+                togglePlayPause() {
+                    const videoPlayer = document.getElementById('video-player');
+                    if (videoPlayer) {
+                        if (videoPlayer.paused) {
+                            videoPlayer.play();
+                        } else {
+                            videoPlayer.pause();
+                        }
+                    }
+                },
+                
+                // 放大视频
+                zoomIn() {
+                    if (this.zoom < 2) {
+                        this.zoom += 0.1;
+                        this.updateVideoZoom();
+                    }
+                },
+                
+                // 缩小视频
+                zoomOut() {
+                    if (this.zoom > 0.5) {
+                        this.zoom -= 0.1;
+                        this.updateVideoZoom();
+                    }
+                },
+                
+                // 更新视频缩放
+                updateVideoZoom() {
+                    const videoPlayer = document.getElementById('video-player');
+                    if (videoPlayer) {
+                        videoPlayer.style.transform = `scale(${this.zoom})`;
+                    }
+                },
+                
+                // 切换全屏
+                toggleFullscreen() {
+                    const videoModal = document.getElementById('video-modal');
+                    if (!document.fullscreenElement) {
+                        if (videoModal.requestFullscreen) {
+                            videoModal.requestFullscreen();
+                        }
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                },
+                
+                // 格式化时间
+                formatTime(seconds) {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                },
+                
+                // 进入虚拟场景
+                enterVirtualScene() {
+                    // 查找适合当前视频的虚拟场景
+                    const suitableScene = this.virtualScenes.find(scene => 
+                        scene.videoIds.includes(this.currentVideo.id)
+                    ) || this.virtualScenes[0];
+                    
+                    this.currentScene = suitableScene;
+                    this.showVideoModal = false;
+                    this.showVirtualSceneModal = true;
+                    
+                    // 延迟初始化场景视频播放器
+                    this.$nextTick(() => {
+                        const sceneVideo = document.querySelector('.scene-video-player');
+                        if (sceneVideo) {
+                            sceneVideo.play();
+                            this.isSceneVideoPlaying = true;
+                        }
+                    });
+                },
+                
+                // 打开虚拟场景
+                openVirtualScene(scene) {
+                    this.currentScene = scene;
+                    this.showVirtualSceneModal = true;
+                    
+                    // 延迟初始化场景视频播放器
+                    this.$nextTick(() => {
+                        const sceneVideo = document.querySelector('.scene-video-player');
+                        if (sceneVideo) {
+                            sceneVideo.play();
+                            this.isSceneVideoPlaying = true;
+                        }
+                    });
+                },
+                
+                // 关闭虚拟场景模态框
+                closeVirtualSceneModal() {
+                    this.showVirtualSceneModal = false;
+                    const sceneVideo = document.querySelector('.scene-video-player');
+                    if (sceneVideo) {
+                        sceneVideo.pause();
+                    }
+                },
+                
+                // 退出虚拟场景
+                exitVirtualScene() {
+                    this.closeVirtualSceneModal();
+                    this.showVideoModal = true;
+                },
+                
+                // 切换场景视频播放状态
+                toggleSceneVideoPlay() {
+                    const sceneVideo = document.querySelector('.scene-video-player');
+                    if (sceneVideo) {
+                        if (sceneVideo.paused) {
+                            sceneVideo.play();
+                            this.isSceneVideoPlaying = true;
+                        } else {
+                            sceneVideo.pause();
+                            this.isSceneVideoPlaying = false;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

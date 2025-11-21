@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2021_12",
+    "exam_type": "CET-6",
+    "year": 2021,
+    "month": 12,
+    "title": "2021年12月英语六级听力真题",
+    "audio_file": "cet6_2021_12.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "What was the man doing recently?",
+      "options": [
+        {"option": "A", "text": "He was enjoying his holiday."},
+        {"option": "B", "text": "He was recovering in hospital."},
+        {"option": "C", "text": "He was busy writing his essays."},
+        {"option": "D", "text": "He was fighting a throat infection."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 30,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What happened to David?",
+      "options": [
+        {"option": "A", "text": "He broke his wrist."},
+        {"option": "B", "text": "He lost his antibiotics."},
+        {"option": "C", "text": "He slipped on ice and fell."},
+        {"option": "D", "text": "He was laughed at by some girls."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 30,
+      "audio_end_time": 60,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What will the woman probably do with her broken laptop?",
+      "options": [
+        {"option": "A", "text": "Turn to her father for help."},
+        {"option": "B", "text": "Call the repair shop to fix it."},
+        {"option": "C", "text": "Ask the manufacturer for repairs."},
+        {"option": "D", "text": "Replace it with a brand-new one."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 60,
+      "audio_end_time": 90,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What does the woman offer to do for David?",
+      "options": [
+        {"option": "A", "text": "Help David retrieve his essays."},
+        {"option": "B", "text": "Introduce David to her parents."},
+        {"option": "C", "text": "Offer David some refreshments."},
+        {"option": "D", "text": "Accompany David to his home."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 90,
+      "audio_end_time": 120,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What do we learn about the woman?",
+      "options": [
+        {"option": "A", "text": "She is a critic of works on military affairs."},
+        {"option": "B", "text": "She is an acclaimed hostess of Book Talk."},
+        {"option": "C", "text": "She is a researcher of literary genres."},
+        {"option": "D", "text": "She is a historian of military history."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 120,
+      "audio_end_time": 150,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What does the woman say about her new book?",
+      "options": [
+        {"option": "A", "text": "It is about the military history of Europe."},
+        {"option": "B", "text": "It is set in the 18th and 19th centuries."},
+        {"option": "C", "text": "It is her fifth book of military history."},
+        {"option": "D", "text": "It is a war novel set in the future."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 150,
+      "audio_end_time": 180,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "What did the woman do for her research?",
+      "options": [
+        {"option": "A", "text": "She visited soldiers' wives and mothers."},
+        {"option": "B", "text": "She conducted surveys of many soldiers."},
+        {"option": "C", "text": "She met a large number of soldiers in person."},
+        {"option": "D", "text": "She looked into the personal lives of soldiers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 180,
+      "audio_end_time": 210,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What difficulty does the woman have in writing military history?",
+      "options": [
+        {"option": "A", "text": "She doesn't have much freedom for imagination."},
+        {"option": "B", "text": "It is not easy to make her readers believe in her."},
+        {"option": "C", "text": "It is difficult to attract young readers."},
+        {"option": "D", "text": "She has to combine fact with fiction."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 210,
+      "audio_end_time": 240,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "What was originally printed on the bottle of a famous drink?",
+      "options": [
+        {"option": "A", "text": "Santa Claus."},
+        {"option": "B", "text": "A polar bear."},
+        {"option": "C", "text": "Cocoa seeds."},
+        {"option": "D", "text": "A glass bottle."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 240,
+      "audio_end_time": 270,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "Why did the drink company change its bottle design?",
+      "options": [
+        {"option": "A", "text": "To attract customer attention."},
+        {"option": "B", "text": "To keep up with the times."},
+        {"option": "C", "text": "To combat counterfeits."},
+        {"option": "D", "text": "To promote its sales."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 270,
+      "audio_end_time": 300,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "What does the new bottle look like?",
+      "options": [
+        {"option": "A", "text": "It resembles a picture in the encyclopedia."},
+        {"option": "B", "text": "It appears in the shape of a cocoa seed."},
+        {"option": "C", "text": "It has the drink's logo in the middle."},
+        {"option": "D", "text": "It displays the image of Santa Claus."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 300,
+      "audio_end_time": 330,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "What does the speaker say about small talk?",
+      "options": [
+        {"option": "A", "text": "It often occurs among commuters."},
+        {"option": "B", "text": "It promotes mutual understanding."},
+        {"option": "C", "text": "It improves their mood considerably."},
+        {"option": "D", "text": "It takes a great deal of effort to sustain."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 330,
+      "audio_end_time": 360,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What prevents some people from starting small talk?",
+      "options": [
+        {"option": "A", "text": "Social anxiety."},
+        {"option": "B", "text": "Excessive caution."},
+        {"option": "C", "text": "Lack of social skills."},
+        {"option": "D", "text": "Preference for solitude."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 360,
+      "audio_end_time": 390,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "Why do people remember negative experiences in conversations?",
+      "options": [
+        {"option": "A", "text": "People usually regard it as an unforgettable lesson."},
+        {"option": "B", "text": "Human brains tend to dwell on negative events."},
+        {"option": "C", "text": "Negative events often hurt people deeply."},
+        {"option": "D", "text": "People generally resent being rejected."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 390,
+      "audio_end_time": 420,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "What does the speaker say about the fear of small talk?",
+      "options": [
+        {"option": "A", "text": "Contagious."},
+        {"option": "B", "text": "Temporary."},
+        {"option": "C", "text": "Unpredictable."},
+        {"option": "D", "text": "Measurable."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 420,
+      "audio_end_time": 450,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What does the speaker say about the economy of the Dominican Republic?",
+      "options": [
+        {"option": "A", "text": "It depends heavily on tourism."},
+        {"option": "B", "text": "It is flourishing in foreign trade."},
+        {"option": "C", "text": "It is mainly based on agriculture."},
+        {"option": "D", "text": "It relies chiefly on mineral export."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 450,
+      "audio_end_time": 480,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "What is the most important agricultural export of the Dominican Republic?",
+      "options": [
+        {"option": "A", "text": "Tobacco."},
+        {"option": "B", "text": "Bananas."},
+        {"option": "C", "text": "Coffee."},
+        {"option": "D", "text": "Sugar."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 480,
+      "audio_end_time": 510,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "What does the speaker say about the wealthy people in the Dominican Republic?",
+      "options": [
+        {"option": "A", "text": "They toil on farms."},
+        {"option": "B", "text": "They live a poor life."},
+        {"option": "C", "text": "They live in Spanish-style houses."},
+        {"option": "D", "text": "They hire people to do housework."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 510,
+      "audio_end_time": 540,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "What does the speaker say about children who get everything they want?",
+      "options": [
+        {"option": "A", "text": "They will be more demanding of their next generation."},
+        {"option": "B", "text": "They will end up lonely, dependent and dissatisfied."},
+        {"option": "C", "text": "They will experience more setbacks than successes."},
+        {"option": "D", "text": "They will find it difficult to get along with others."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 540,
+      "audio_end_time": 570,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "What do parents often fail to do according to the speaker?",
+      "options": [
+        {"option": "A", "text": "Failure to pay due attention to their behavior."},
+        {"option": "B", "text": "Unwillingness to allow them to play with toys."},
+        {"option": "C", "text": "Unwillingness to satisfy their wishes immediately."},
+        {"option": "D", "text": "Failure to spend sufficient quality time with them."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 570,
+      "audio_end_time": 600,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "What does the speaker say about letting children experience frustration?",
+      "options": [
+        {"option": "A", "text": "It will enable them to learn from mistakes."},
+        {"option": "B", "text": "It will help them to handle disappointment."},
+        {"option": "C", "text": "It will do much good to their mental health."},
+        {"option": "D", "text": "It will build their ability to endure hardships."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 600,
+      "audio_end_time": 630,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "What is the most common mistake job applicants make in interviews?",
+      "options": [
+        {"option": "A", "text": "Failing to make sufficient preparations."},
+        {"option": "B", "text": "Looking away from the hiring manager."},
+        {"option": "C", "text": "Saying the wrong thing at the wrong time."},
+        {"option": "D", "text": "Making a wrong judgment of the interview."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 630,
+      "audio_end_time": 660,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "What should job applicants avoid doing in an interview?",
+      "options": [
+        {"option": "A", "text": "Complaining about their previous job."},
+        {"option": "B", "text": "Inquiring about their salary to be paid."},
+        {"option": "C", "text": "Exaggerating their academic background."},
+        {"option": "D", "text": "Understating their previous achievements."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 660,
+      "audio_end_time": 690,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "What kind of employees do employers prefer?",
+      "options": [
+        {"option": "A", "text": "Those who have both skill and experience."},
+        {"option": "B", "text": "Those who get along well with colleagues."},
+        {"option": "C", "text": "Those who take initiative in their work."},
+        {"option": "D", "text": "Those who are loyal to their managers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 690,
+      "audio_end_time": 720,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "What do employers value most in job applicants?",
+      "options": [
+        {"option": "A", "text": "Ability to shoulder new responsibilities."},
+        {"option": "B", "text": "Experience of performing multiple roles."},
+        {"option": "C", "text": "Readiness to work to flexible schedules."},
+        {"option": "D", "text": "Skills to communicate with colleagues."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 720,
+      "audio_end_time": 750,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

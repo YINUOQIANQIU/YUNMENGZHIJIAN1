@@ -1,0 +1,3021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单词爆破手 - Word Buster</title>
+    <!-- 引入与日记界面相同的CSS框架 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        error: '#EF4444'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #F0F7FF 0%, #E3F2FF 100%);
+            color: #1A237E;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: inherit;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 菜单样式 - 与日记界面风格统一 */
+        .menu-container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.15);
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .menu-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #2962FF;
+            font-weight: 700;
+        }
+
+        .menu-container p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .menu-btn {
+            background: #2962FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 8px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .menu-btn:hover {
+            background: #1A237E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(41, 98, 255, 0.3);
+        }
+
+        .difficulty-selector {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(41, 98, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .difficulty-selector label {
+            margin-right: 10px;
+            color: #1A237E;
+            font-weight: 500;
+        }
+
+        .difficulty-selector select {
+            background: white;
+            border: 1px solid rgba(41, 98, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* 游戏界面样式 */
+        #gameScreen {
+            flex-direction: column;
+            background: #0f3460; /* 保持游戏背景不变 */
+        }
+
+        #gameCanvas {
+            border: 2px solid #4ECDC4;
+            border-radius: 10px;
+            background: #0f3460;
+        }
+
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #4ECDC4;
+            color: white;
+        }
+
+        .ui-item {
+            margin: 5px 0;
+            font-size: 1.1em;
+            color: #4ECDC4;
+        }
+
+        /* 答题区域样式 */
+        #answerContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #2962FF;
+            min-width: 500px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.15);
+        }
+
+        #questionText {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #1A237E;
+            font-weight: 600;
+        }
+
+        .answer-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .answer-btn {
+            background: #2962FF;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .answer-btn:hover {
+            background: #1A237E;
+            transform: translateY(-2px);
+        }
+
+        /* 游戏结束界面 */
+        .game-over-container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.15);
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .game-over-container h2 {
+            font-size: 2.2em;
+            color: #2962FF;
+            margin-bottom: 20px;
+        }
+
+        .final-score, .combo-record {
+            font-size: 1.3em;
+            margin: 15px 0;
+            color: #1A237E;
+        }
+
+        .game-over-buttons {
+            margin-top: 30px;
+        }
+
+        /* 成就界面 */
+        .achievements-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.15);
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+
+        .achievements-list {
+            margin: 20px 0;
+        }
+
+        .achievement-item {
+            background: rgba(41, 98, 255, 0.05);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #2962FF;
+        }
+
+        .achievement-item.unlocked {
+            border-left-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .achievement-item.locked {
+            border-left-color: #9CA3AF;
+            background: rgba(156, 163, 175, 0.1);
+            opacity: 0.7;
+        }
+
+        .achievement-item h3 {
+            color: #1A237E;
+            margin-bottom: 5px;
+        }
+
+        .achievement-item span {
+            float: right;
+            font-weight: bold;
+        }
+
+        .achievement-item.unlocked span {
+            color: #10B981;
+        }
+
+        .achievement-item.locked span {
+            color: #9CA3AF;
+        }
+
+        /* 词汇管理界面 */
+        .vocabulary-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(41, 98, 255, 0.15);
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+
+        .vocabulary-stats, .vocabulary-actions {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(41, 98, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: rgba(41, 98, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+            color: #2962FF;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .file-upload-area {
+            background: rgba(41, 98, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed #2962FF;
+        }
+
+        .upload-options {
+            margin: 15px 0;
+        }
+
+        .upload-options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            color: #1A237E;
+        }
+
+        .operation-result {
+            background: rgba(41, 98, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .result-message {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .result-message.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+
+        .result-message.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border: 1px solid #EF4444;
+        }
+
+        .result-message.info {
+            background: rgba(245, 158, 11, 0.2);
+            color: #F59E0B;
+            border: 1px solid #F59E0B;
+        }
+
+        .vocabulary-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* 已导入文件查看样式 */
+        .imported-files-container {
+            background: rgba(41, 98, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .files-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .files-list-container {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .files-header {
+            display: grid;
+            grid-template-columns: 40px 2fr 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(41, 98, 255, 0.1);
+            font-weight: bold;
+            border-bottom: 1px solid rgba(41, 98, 255, 0.2);
+            color: #1A237E;
+        }
+
+        .files-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: grid;
+            grid-template-columns: 40px 2fr 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(41, 98, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(41, 98, 255, 0.05);
+        }
+
+        .file-item.selected {
+            background: rgba(41, 98, 255, 0.1);
+            border-left: 3px solid #2962FF;
+        }
+
+        .file-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-checkbox input {
+            cursor: pointer;
+        }
+
+        .file-name {
+            font-weight: 500;
+            word-break: break-all;
+            color: #1A237E;
+        }
+
+        .file-size, .file-date, .file-words {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .file-status {
+            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+        }
+
+        .status-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #F59E0B;
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+        }
+
+        .no-files {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(41, 98, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(41, 98, 255, 0.1);
+            background: linear-gradient(to right, #2962FF, #1A237E);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: white;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(41, 98, 255, 0.1);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .file-info {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(41, 98, 255, 0.05);
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #2962FF;
+        }
+
+        .info-value {
+            flex: 1;
+            word-break: break-all;
+            color: #1A237E;
+        }
+
+        .file-preview h4 {
+            margin-bottom: 10px;
+            color: #1A237E;
+        }
+
+        .preview-content {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .menu-container, .game-over-container, 
+            .achievements-container, .vocabulary-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .menu-container h1 {
+                font-size: 2em;
+            }
+            
+            #answerContainer {
+                min-width: 90%;
+                margin: 10px;
+            }
+            
+            .answer-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid, .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .files-header, .file-item {
+                grid-template-columns: 30px 1fr;
+                gap: 5px;
+            }
+            
+            .file-size, .file-date, .file-words, .file-status {
+                display: none;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10px;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(41, 98, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2962FF;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1A237E;
+        }
+
+        /* 添加动画效果 */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 主菜单界面 -->
+    <div id="menuScreen" class="screen">
+        <div class="menu-container fade-in">
+            <h1>单词爆破手</h1>
+            <p>用知识击败错误，用智慧守护语法！</p>
+            <button id="startButton" class="menu-btn">开始游戏</button>
+            <button id="viewAchievements" class="menu-btn">我的成就</button>
+            <button id="vocabularyManager" class="menu-btn">词汇管理</button>
+            <div class="difficulty-selector">
+                <label>难度：</label>
+                <select id="difficultySelect">
+                    <option value="easy">简单</option>
+                    <option value="medium" selected>中等</option>
+                    <option value="hard">困难</option>
+                </select>
+            </div>
+            <!-- 添加调试按钮 -->
+            <button id="debugButton" class="menu-btn" style="background: #666; margin-top: 20px;">调试信息</button>
+            <!-- 添加返回首页按钮 -->
+            <button id="backToHome" class="menu-btn" style="background: #F59E0B; margin-top: 10px;">返回首页</button>
+        </div>
+    </div>
+
+    <!-- 游戏进行界面 -->
+    <div id="gameScreen" class="screen hidden">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="ui">
+            <div class="ui-item">得分: <span id="score">0</span></div>
+            <div class="ui-item">连击: <span id="combo">0</span></div>
+            <div class="ui-item">生命: <span id="lives">3</span></div>
+            <div class="ui-item">关卡: <span id="level">1</span></div>
+            <div class="ui-item">时间: <span id="timer">60</span>s</div>
+        </div>
+        
+        <!-- 答题选项区域 -->
+        <div id="answerContainer" class="hidden">
+            <p id="questionText"></p>
+            <div id="answerButtons" class="answer-buttons"></div>
+        </div>
+    </div>
+
+    <!-- 游戏结束界面 -->
+    <div id="gameOverScreen" class="screen hidden">
+        <div class="game-over-container fade-in">
+            <h2>游戏结束!</h2>
+            <p class="final-score">你的最终得分: <span id="finalScore">0</span></p>
+            <p class="combo-record">最高连击: <span id="maxCombo">0</span></p>
+            <div class="game-over-buttons">
+                <button id="restartButton" class="menu-btn">再玩一次</button>
+                <button id="menuButton" class="menu-btn">返回主菜单</button>
+                <button id="resetDataButton" class="menu-btn" style="background: #EF4444;">重置数据</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成就界面 -->
+    <div id="achievementsScreen" class="screen hidden">
+        <div class="achievements-container fade-in">
+            <h2>我的成就</h2>
+            <div id="achievementsList" class="achievements-list"></div>
+            <button id="backToMenu" class="menu-btn">返回主菜单</button>
+        </div>
+    </div>
+
+    <!-- 词汇管理界面 -->
+    <div id="vocabularyScreen" class="screen hidden">
+        <div class="vocabulary-container fade-in">
+            <h2>词汇管理系统</h2>
+            
+            <div class="vocabulary-stats">
+                <h3>词汇统计</h3>
+                <div id="vocabularyStats" class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">总词汇量:</span>
+                        <span id="totalWords" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">CET-4词汇:</span>
+                        <span id="cet4Words" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">CET-6词汇:</span>
+                        <span id="cet6Words" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vocabulary-actions">
+                <h3>数据管理</h3>
+                <div class="action-buttons">
+                    <button id="importVocabulary" class="menu-btn">导入词汇JSON</button>
+                    <button id="exportVocabulary" class="menu-btn">导出词汇数据</button>
+                    <button id="generateSample" class="menu-btn">生成示例数据</button>
+                    <button id="checkIntegrity" class="menu-btn">检查数据完整性</button>
+                    <button id="cleanupData" class="menu-btn" style="background: #EF4444;">清理所有数据</button>
+                </div>
+            </div>
+
+            <!-- 已导入文件查看区域 -->
+            <div class="imported-files-container">
+                <h3>已导入文件</h3>
+                <div class="files-actions">
+                    <button id="refreshFiles" class="menu-btn">刷新文件列表</button>
+                    <button id="viewFileDetails" class="menu-btn" disabled>查看文件详情</button>
+                    <button id="deleteSelectedFile" class="menu-btn" style="background: #EF4444;" disabled>删除选中文件</button>
+                </div>
+                
+                <div class="files-list-container">
+                    <div class="files-header">
+                        <span class="file-checkbox"><input type="checkbox" id="selectAllFiles"></span>
+                        <span class="file-name">文件名</span>
+                        <span class="file-size">大小</span>
+                        <span class="file-date">导入时间</span>
+                        <span class="file-words">词汇数量</span>
+                        <span class="file-status">状态</span>
+                    </div>
+                    <div id="filesList" class="files-list">
+                        <!-- 文件列表将在这里动态生成 -->
+                        <div class="no-files">暂无已导入的文件</div>
+                    </div>
+                </div>
+                
+                <!-- 文件详情模态框 -->
+                <div id="fileDetailsModal" class="modal hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>文件详情</h3>
+                            <button id="closeFileDetails" class="close-btn">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="file-info">
+                                <div class="info-row">
+                                    <span class="info-label">文件名:</span>
+                                    <span id="detailFileName" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">文件大小:</span>
+                                    <span id="detailFileSize" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">导入时间:</span>
+                                    <span id="detailImportTime" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">词汇数量:</span>
+                                    <span id="detailWordCount" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">文件路径:</span>
+                                    <span id="detailFilePath" class="info-value"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="file-preview">
+                                <h4>文件内容预览</h4>
+                                <div id="filePreview" class="preview-content">
+                                    <!-- 文件内容预览将在这里显示 -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="exportSelectedFile" class="menu-btn">导出此文件</button>
+                            <button id="closeModal" class="menu-btn" style="background: #666;">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 修复：文件上传区域，添加拖放功能 -->
+            <div class="file-upload-area" id="fileUploadArea" style="display: none;">
+                <h4>上传词汇文件</h4>
+                
+                <!-- 修复：添加拖放区域和文件列表显示 -->
+                <div class="upload-drop-zone" id="uploadDropZone" 
+                     style="border: 2px dashed #2962FF; padding: 40px; text-align: center; border-radius: 10px; margin-bottom: 20px; cursor: pointer;">
+                    <p>📁 点击选择文件或拖放文件到这里</p>
+                    <p style="font-size: 0.9em; opacity: 0.7;">支持多个JSON文件同时上传</p>
+                </div>
+                
+                <input type="file" id="vocabularyFile" accept=".json" multiple style="display: none;">
+                
+                <!-- 修复：显示选中的文件列表 -->
+                <div id="selectedFiles" style="margin: 15px 0; display: none;">
+                    <h5>已选择的文件:</h5>
+                    <div id="fileList" style="max-height: 200px; overflow-y: auto; background: rgba(41,98,255,0.05); padding: 10px; border-radius: 5px;"></div>
+                </div>
+                
+                <div class="upload-options">
+                    <label>
+                        <input type="radio" name="importMode" value="update" checked> 更新现有词汇
+                    </label>
+                    <label>
+                        <input type="radio" name="importMode" value="skip"> 跳过现有词汇
+                    </label>
+                </div>
+                <button id="confirmImport" class="menu-btn">确认导入</button>
+                <button id="cancelImport" class="menu-btn" style="background: #666;">取消</button>
+            </div>
+
+            <div class="operation-result" id="operationResult" style="display: none;">
+                <h4>操作结果</h4>
+                <div id="resultMessage" class="result-message"></div>
+            </div>
+
+            <div class="vocabulary-buttons">
+                <button id="backToMenuFromVocab" class="menu-btn">返回主菜单</button>
+                <button id="refreshStats" class="menu-btn">刷新统计</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 动态获取服务器地址 - 修改为相对路径
+        const baseURL = '';
+        window.gameBaseURL = baseURL;
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('使用相对路径API调用');
+            
+            // 添加返回首页按钮事件处理
+            const backToHomeBtn = document.getElementById('backToHome');
+            if (backToHomeBtn) {
+                backToHomeBtn.addEventListener('click', function() {
+                    // 跳转到云梦智间首页
+                    window.location.href = '云梦智间首页.html';
+                });
+            }
+            
+            // 词汇管理按钮
+            const vocabManagerBtn = document.getElementById('vocabularyManager');
+            const vocabScreen = document.getElementById('vocabularyScreen');
+            const backToMenuFromVocabBtn = document.getElementById('backToMenuFromVocab');
+            
+            if (vocabManagerBtn && vocabScreen && backToMenuFromVocabBtn) {
+                vocabManagerBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.screen').forEach(screen => {
+                        screen.classList.add('hidden');
+                    });
+                    vocabScreen.classList.remove('hidden');
+                    loadVocabularyStats();
+                    initFileManagement(); // 初始化文件管理
+                });
+                
+                backToMenuFromVocabBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.screen').forEach(screen => {
+                        screen.classList.add('hidden');
+                    });
+                    document.getElementById('menuScreen').classList.remove('hidden');
+                });
+            }
+            
+            // 词汇管理功能
+            const importVocabBtn = document.getElementById('importVocabulary');
+            const exportVocabBtn = document.getElementById('exportVocabulary');
+            const generateSampleBtn = document.getElementById('generateSample');
+            const checkIntegrityBtn = document.getElementById('checkIntegrity');
+            const cleanupDataBtn = document.getElementById('cleanupData');
+            const refreshStatsBtn = document.getElementById('refreshStats');
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const confirmImportBtn = document.getElementById('confirmImport');
+            const cancelImportBtn = document.getElementById('cancelImport');
+            const operationResult = document.getElementById('operationResult');
+            const resultMessage = document.getElementById('resultMessage');
+            
+            // 导入词汇
+            if (importVocabBtn) {
+                importVocabBtn.addEventListener('click', function() {
+                    fileUploadArea.style.display = 'block';
+                    operationResult.style.display = 'none';
+                });
+            }
+            
+            // 修复：文件选择和拖放功能
+            const uploadDropZone = document.getElementById('uploadDropZone');
+            const vocabularyFile = document.getElementById('vocabularyFile');
+            const selectedFiles = document.getElementById('selectedFiles');
+            const fileList = document.getElementById('fileList');
+
+            // 点击拖放区域触发文件选择
+            if (uploadDropZone) {
+                uploadDropZone.addEventListener('click', () => {
+                    vocabularyFile.click();
+                });
+            }
+
+            // 文件选择变化事件
+            if (vocabularyFile) {
+                vocabularyFile.addEventListener('change', function(e) {
+                    updateFileList(this.files);
+                });
+            }
+
+            // 拖放功能
+            if (uploadDropZone) {
+                // 防止默认拖放行为
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    uploadDropZone.addEventListener(eventName, preventDefaults, false);
+                    document.body.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                // 高亮拖放区域
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadDropZone.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    uploadDropZone.addEventListener(eventName, unhighlight, false);
+                });
+                
+                // 处理文件拖放
+                uploadDropZone.addEventListener('drop', handleDrop, false);
+            }
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function highlight() {
+                uploadDropZone.style.backgroundColor = 'rgba(41, 98, 255, 0.1)';
+                uploadDropZone.style.borderColor = '#F59E0B';
+            }
+
+            function unhighlight() {
+                uploadDropZone.style.backgroundColor = '';
+                uploadDropZone.style.borderColor = '#2962FF';
+            }
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                vocabularyFile.files = files;
+                updateFileList(files);
+            }
+
+            // 更新文件列表显示
+            function updateFileList(files) {
+                if (!files || files.length === 0) {
+                    selectedFiles.style.display = 'none';
+                    fileList.innerHTML = '';
+                    return;
+                }
+                
+                fileList.innerHTML = '';
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const fileItem = document.createElement('div');
+                    fileItem.style.padding = '8px';
+                    fileItem.style.borderBottom = '1px solid rgba(41,98,255,0.1)';
+                    fileItem.style.display = 'flex';
+                    fileItem.style.justifyContent = 'space-between';
+                    fileItem.style.alignItems = 'center';
+                    
+                    fileItem.innerHTML = `
+                        <div>
+                            <span style="font-weight: bold;">${file.name}</span>
+                            <span style="font-size: 0.8em; opacity: 0.7; margin-left: 10px;">
+                                (${(file.size / 1024).toFixed(2)} KB)
+                            </span>
+                        </div>
+                        <span style="color: #2962FF;">✓</span>
+                    `;
+                    
+                    fileList.appendChild(fileItem);
+                }
+                
+                selectedFiles.style.display = 'block';
+            }
+            
+            // 修复：确认导入按钮事件处理
+            if (confirmImportBtn) {
+                confirmImportBtn.addEventListener('click', async function() {
+                    const files = vocabularyFile.files;
+                    const importMode = document.querySelector('input[name="importMode"]:checked').value;
+                    
+                    if (files.length === 0) {
+                        showResult('请选择要导入的文件', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        showResult('正在导入词汇数据...', 'info');
+                        
+                        const formData = new FormData();
+                        for (let i = 0; i < files.length; i++) {
+                            formData.append('files', files[i]);
+                        }
+                        formData.append('mode', importMode);
+                        
+                        // 修改API路径 - 使用相对路径
+                        const response = await fetch(`/api/game/vocabulary/import-vocabulary-multiple`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            showResult(result.message, 'success');
+                            loadVocabularyStats();
+                            loadImportedFiles(); // 刷新文件列表
+                            
+                            // 清空文件选择
+                            vocabularyFile.value = '';
+                            selectedFiles.style.display = 'none';
+                            fileList.innerHTML = '';
+                        } else {
+                            showResult(`导入失败: ${result.message}`, 'error');
+                        }
+                    } catch (error) {
+                        showResult(`导入错误: ${error.message}`, 'error');
+                    }
+                });
+            }
+            
+            // 取消导入
+            if (cancelImportBtn) {
+                cancelImportBtn.addEventListener('click', function() {
+                    fileUploadArea.style.display = 'none';
+                    vocabularyFile.value = '';
+                    selectedFiles.style.display = 'none';
+                    fileList.innerHTML = '';
+                });
+            }
+            
+            // 导出词汇
+            if (exportVocabBtn) {
+                exportVocabBtn.addEventListener('click', function() {
+                    // 直接打开下载链接
+                    const downloadLink = document.createElement('a');
+                    // 修改API路径 - 使用相对路径
+                    downloadLink.href = `/api/game/vocabulary/export-vocabulary-json`;
+                    downloadLink.download = 'vocabulary-export.json';
+                    downloadLink.click();
+                });
+            }
+            
+            // 生成示例数据
+            if (generateSampleBtn) {
+                generateSampleBtn.addEventListener('click', async function() {
+                    try {
+                        showResult('正在生成示例数据...', 'info');
+                        
+                        // 修改API路径 - 使用相对路径
+                        const response = await fetch(`/api/game/vocabulary/generate-vocabulary-sample`, {
+                            method: 'POST'
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            showResult('示例数据生成成功，文件已保存到服务器', 'success');
+                            loadVocabularyStats();
+                            loadImportedFiles(); // 刷新文件列表
+                        } else {
+                            showResult(`生成失败: ${result.message}`, 'error');
+                        }
+                    } catch (error) {
+                        showResult(`生成错误: ${error.message}`, 'error');
+                    }
+                });
+            }
+            
+            // 检查数据完整性
+            if (checkIntegrityBtn) {
+                checkIntegrityBtn.addEventListener('click', async function() {
+                    try {
+                        showResult('正在检查数据完整性...', 'info');
+                        
+                        // 修改API路径 - 使用相对路径
+                        const response = await fetch(`/api/game/vocabulary/check-vocabulary-integrity`);
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            const data = result.data;
+                            showResult(`数据完整性检查完成: 总词汇 ${data.total_words}，有效词汇 ${data.valid_words}，无效词汇 ${data.invalid_words}`, 'success');
+                        } else {
+                            showResult(`检查失败: ${result.message}`, 'error');
+                        }
+                    } catch (error) {
+                        showResult(`检查错误: ${error.message}`, 'error');
+                    }
+                });
+            }
+            
+            // 清理数据
+            if (cleanupDataBtn) {
+                cleanupDataBtn.addEventListener('click', function() {
+                    if (confirm('确定要清理所有词汇数据吗？此操作不可逆！')) {
+                        cleanupVocabularyData();
+                    }
+                });
+            }
+            
+            // 刷新统计
+            if (refreshStatsBtn) {
+                refreshStatsBtn.addEventListener('click', loadVocabularyStats);
+            }
+            
+            // 加载词汇统计
+            async function loadVocabularyStats() {
+                try {
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(`/api/game/vocabulary/vocabulary-statistics`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        const stats = result.data;
+                        const totalWords = stats.total_words?.[0]?.count || 0;
+                        const wordsByLevel = stats.words_by_level || [];
+                        
+                        document.getElementById('totalWords').textContent = totalWords;
+                        
+                        const cet4Count = wordsByLevel.find(item => item.level === 'CET-4')?.count || 0;
+                        const cet6Count = wordsByLevel.find(item => item.level === 'CET-6')?.count || 0;
+                        
+                        document.getElementById('cet4Words').textContent = cet4Count;
+                        document.getElementById('cet6Words').textContent = cet6Count;
+                    }
+                } catch (error) {
+                    console.error('加载词汇统计失败:', error);
+                    showResult('加载词汇统计失败，请检查服务器连接', 'error');
+                }
+            }
+            
+            // 清理词汇数据
+            async function cleanupVocabularyData() {
+                try {
+                    showResult('正在清理数据...', 'info');
+                    
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(`/api/game/vocabulary/cleanup-vocabulary-data`, {
+                        method: 'POST'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showResult('数据清理完成', 'success');
+                        loadVocabularyStats();
+                    } else {
+                        showResult(`清理失败: ${result.message}`, 'error');
+                    }
+                } catch (error) {
+                    showResult(`清理错误: ${error.message}`, 'error');
+                }
+            }
+            
+            // 显示操作结果
+            function showResult(message, type) {
+                operationResult.style.display = 'block';
+                resultMessage.textContent = message;
+                resultMessage.className = 'result-message ' + type;
+                
+                // 3秒后自动隐藏成功消息
+                if (type === 'success') {
+                    setTimeout(() => {
+                        operationResult.style.display = 'none';
+                    }, 3000);
+                }
+            }
+            
+            // 文件管理功能
+            let selectedFile = null;
+            let allFiles = [];
+
+            // 初始化文件管理事件
+            function initFileManagement() {
+                const refreshFilesBtn = document.getElementById('refreshFiles');
+                const viewFileDetailsBtn = document.getElementById('viewFileDetails');
+                const deleteSelectedFileBtn = document.getElementById('deleteSelectedFile');
+                const selectAllFilesCheckbox = document.getElementById('selectAllFiles');
+                const closeFileDetailsBtn = document.getElementById('closeFileDetails');
+                const closeModalBtn = document.getElementById('closeModal');
+                const exportSelectedFileBtn = document.getElementById('exportSelectedFile');
+                
+                if (refreshFilesBtn) {
+                    refreshFilesBtn.addEventListener('click', loadImportedFiles);
+                }
+                
+                if (viewFileDetailsBtn) {
+                    viewFileDetailsBtn.addEventListener('click', viewFileDetails);
+                }
+                
+                if (deleteSelectedFileBtn) {
+                    deleteSelectedFileBtn.addEventListener('click', deleteSelectedFile);
+                }
+                
+                if (selectAllFilesCheckbox) {
+                    selectAllFilesCheckbox.addEventListener('change', toggleSelectAllFiles);
+                }
+                
+                if (closeFileDetailsBtn) {
+                    closeFileDetailsBtn.addEventListener('click', closeFileDetailsModal);
+                }
+                
+                if (closeModalBtn) {
+                    closeModalBtn.addEventListener('click', closeFileDetailsModal);
+                }
+                
+                if (exportSelectedFileBtn) {
+                    exportSelectedFileBtn.addEventListener('click', exportSelectedFile);
+                }
+                
+                // 初始加载文件列表
+                loadImportedFiles();
+            }
+
+            // 加载已导入的文件
+            async function loadImportedFiles() {
+                try {
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(`/api/game/vocabulary/get-imported-files`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        allFiles = result.files;
+                        displayFilesList(allFiles);
+                    } else {
+                        showResult(`加载文件列表失败: ${result.message}`, 'error');
+                    }
+                } catch (error) {
+                    showResult(`加载文件列表失败: ${error.message}`, 'error');
+                }
+            }
+
+            // 显示文件列表
+            function displayFilesList(files) {
+                const filesList = document.getElementById('filesList');
+                
+                if (!filesList) return;
+                
+                if (files.length === 0) {
+                    filesList.innerHTML = '<div class="no-files">暂无已导入的文件</div>';
+                    return;
+                }
+                
+                filesList.innerHTML = '';
+                
+                files.forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.dataset.index = index;
+                    
+                    const fileSize = formatFileSize(file.size);
+                    const modifiedDate = new Date(file.modified).toLocaleString();
+                    const wordCount = file.wordCount || '未知';
+                    
+                    fileItem.innerHTML = `
+                        <span class="file-checkbox">
+                            <input type="checkbox" class="file-checkbox-input" data-file-path="${file.path}">
+                        </span>
+                        <span class="file-name" title="${file.name}">${file.name}</span>
+                        <span class="file-size">${fileSize}</span>
+                        <span class="file-date">${modifiedDate}</span>
+                        <span class="file-words">${wordCount}</span>
+                        <span class="file-status ${getStatusClass(file.status)}">${getStatusText(file.status)}</span>
+                    `;
+                    
+                    // 添加点击事件
+                    fileItem.addEventListener('click', (e) => {
+                        if (!e.target.classList.contains('file-checkbox-input')) {
+                            toggleFileSelection(fileItem, file);
+                        }
+                    });
+                    
+                    // 添加复选框事件
+                    const checkbox = fileItem.querySelector('.file-checkbox-input');
+                    checkbox.addEventListener('change', (e) => {
+                        e.stopPropagation();
+                        toggleFileSelection(fileItem, file);
+                    });
+                    
+                    filesList.appendChild(fileItem);
+                });
+                
+                updateFileActionsState();
+            }
+
+            // 切换文件选择
+            function toggleFileSelection(fileItem, file) {
+                const wasSelected = fileItem.classList.contains('selected');
+                
+                // 清除所有选择
+                document.querySelectorAll('.file-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                document.querySelectorAll('.file-checkbox-input').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                if (!wasSelected) {
+                    fileItem.classList.add('selected');
+                    fileItem.querySelector('.file-checkbox-input').checked = true;
+                    selectedFile = file;
+                } else {
+                    selectedFile = null;
+                }
+                
+                updateFileActionsState();
+            }
+
+            // 切换全选
+            function toggleSelectAllFiles(e) {
+                const checkboxes = document.querySelectorAll('.file-checkbox-input');
+                const isChecked = e.target.checked;
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                
+                document.querySelectorAll('.file-item').forEach(item => {
+                    if (isChecked) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+                });
+                
+                if (isChecked && allFiles.length > 0) {
+                    selectedFile = allFiles[0]; // 选择第一个文件
+                } else {
+                    selectedFile = null;
+                }
+                
+                updateFileActionsState();
+            }
+
+            // 更新文件操作按钮状态
+            function updateFileActionsState() {
+                const viewFileDetailsBtn = document.getElementById('viewFileDetails');
+                const deleteSelectedFileBtn = document.getElementById('deleteSelectedFile');
+                
+                if (viewFileDetailsBtn) {
+                    viewFileDetailsBtn.disabled = !selectedFile;
+                }
+                
+                if (deleteSelectedFileBtn) {
+                    deleteSelectedFileBtn.disabled = !selectedFile;
+                }
+            }
+
+            // 查看文件详情
+            async function viewFileDetails() {
+                if (!selectedFile) return;
+                
+                try {
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(`/api/game/vocabulary/get-file-details?filePath=${encodeURIComponent(selectedFile.path)}`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        displayFileDetails(result.data);
+                    } else {
+                        showResult(`获取文件详情失败: ${result.message}`, 'error');
+                    }
+                } catch (error) {
+                    showResult(`获取文件详情失败: ${error.message}`, 'error');
+                }
+            }
+
+            // 显示文件详情
+            function displayFileDetails(fileDetails) {
+                const modal = document.getElementById('fileDetailsModal');
+                const fileName = document.getElementById('detailFileName');
+                const fileSize = document.getElementById('detailFileSize');
+                const importTime = document.getElementById('detailImportTime');
+                const wordCount = document.getElementById('detailWordCount');
+                const filePath = document.getElementById('detailFilePath');
+                const filePreview = document.getElementById('filePreview');
+                
+                if (!modal || !fileName) return;
+                
+                fileName.textContent = fileDetails.name;
+                fileSize.textContent = formatFileSize(fileDetails.size);
+                importTime.textContent = new Date(fileDetails.modified).toLocaleString();
+                wordCount.textContent = fileDetails.wordCount || '未知';
+                filePath.textContent = fileDetails.path;
+                
+                // 显示文件内容预览
+                try {
+                    const jsonContent = JSON.parse(fileDetails.content);
+                    filePreview.textContent = JSON.stringify(jsonContent, null, 2);
+                } catch (e) {
+                    filePreview.textContent = fileDetails.content;
+                }
+                
+                modal.classList.remove('hidden');
+            }
+
+            // 关闭文件详情模态框
+            function closeFileDetailsModal() {
+                const modal = document.getElementById('fileDetailsModal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            // 删除选中的文件
+            async function deleteSelectedFile() {
+                if (!selectedFile) return;
+                
+                if (!confirm(`确定要删除文件 "${selectedFile.name}" 吗？此操作不可恢复！`)) {
+                    return;
+                }
+                
+                try {
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(`/api/game/vocabulary/delete-imported-file`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            fileName: selectedFile.name,
+                            filePath: selectedFile.path
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showResult(result.message, 'success');
+                        loadImportedFiles(); // 刷新文件列表
+                        selectedFile = null;
+                    } else {
+                        showResult(`删除文件失败: ${result.message}`, 'error');
+                    }
+                } catch (error) {
+                    showResult(`删除文件失败: ${error.message}`, 'error');
+                }
+            }
+
+            // 导出选中的文件
+            function exportSelectedFile() {
+                if (!selectedFile) return;
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(new Blob([selectedFile.content], { type: 'application/json' }));
+                downloadLink.download = selectedFile.name;
+                downloadLink.click();
+                URL.revokeObjectURL(downloadLink.href);
+            }
+
+            // 工具函数：格式化文件大小
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 B';
+                
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            // 工具函数：获取状态类名
+            function getStatusClass(status) {
+                switch (status) {
+                    case 'uploaded':
+                        return 'status-success';
+                    case 'exported':
+                        return 'status-warning';
+                    default:
+                        return 'status-error';
+                }
+            }
+
+            // 工具函数：获取状态文本
+            function getStatusText(status) {
+                switch (status) {
+                    case 'uploaded':
+                        return '已上传';
+                    case 'exported':
+                        return '已导出';
+                    default:
+                        return '未知';
+                }
+            }
+            
+            // 添加调试按钮功能
+            const debugButton = document.getElementById('debugButton');
+            if (debugButton) {
+                debugButton.addEventListener('click', function() {
+                    if (window.gameServer) {
+                        window.gameServer.debugInfo();
+                    } else {
+                        console.log('游戏服务器未初始化');
+                    // 尝试从全局访问
+                        if (typeof gameServer !== 'undefined') {
+                            gameServer.debugInfo();
+                        } else {
+                            console.log('请先启动服务器');
+                        }
+                    }
+                });
+            }
+            
+            // 添加重置数据按钮功能
+            const resetDataButton = document.getElementById('resetDataButton');
+            if (resetDataButton) {
+                resetDataButton.addEventListener('click', function() {
+                    if (confirm('确定要重置所有游戏数据吗？这将清除得分、成就和统计信息。')) {
+                        // 清除本地存储数据
+                        localStorage.removeItem('wordBusterAchievements');
+                        localStorage.removeItem('questionStats');
+                        localStorage.removeItem('playerStats');
+                        
+                        alert('游戏数据已重置');
+                        
+                        // 如果服务器可用，也重置服务器数据
+                        if (typeof gameServer !== 'undefined') {
+                            gameServer.resetGameData();
+                        }
+                    }
+                });
+            }
+            
+            // 初始化时加载统计
+            loadVocabularyStats();
+            
+            console.log('🎮 单词爆破手游戏加载完成');
+            console.log('📚 词汇管理系统已集成');
+            console.log('📁 已导入文件查看功能已启用');
+            console.log('💡 在控制台输入 gameServer.debugInfo() 查看调试信息');
+        });
+    </script>
+
+    <!-- 游戏核心逻辑 -->
+    <script>
+        // 玩家类
+        class Player {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = 40;
+                this.height = 60;
+                this.color = '#4ECDC4';
+                this.gunColor = '#FF6B6B';
+                this.rotation = 0;
+                this.targetRotation = 0;
+                this.health = 100;
+                this.isShooting = false;
+                this.shootCooldown = 0;
+                this.maxCooldown = 0.2; // 射击冷却时间（秒）
+            }
+
+            update(deltaTime) {
+                // 更新射击冷却
+                if (this.shootCooldown > 0) {
+                    this.shootCooldown -= deltaTime;
+                }
+
+                // 平滑旋转炮台
+                this.rotation += (this.targetRotation - this.rotation) * 0.1;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                
+                // 绘制炮台底座
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+                
+                // 绘制炮台细节
+                ctx.fillStyle = '#45B7AF';
+                ctx.fillRect(-this.width / 2 + 5, -this.height / 2 + 5, this.width - 10, 10);
+                
+                // 绘制炮管
+                ctx.rotate(this.rotation);
+                ctx.fillStyle = this.gunColor;
+                ctx.fillRect(-5, -25, 10, 30);
+                
+                // 绘制炮口闪光（射击时）
+                if (this.isShooting) {
+                    ctx.fillStyle = '#FFFF00';
+                    ctx.fillRect(-3, -35, 6, 10);
+                    this.isShooting = false;
+                }
+                
+                ctx.restore();
+                
+                // 绘制玩家生命条
+                this.drawHealthBar(ctx);
+            }
+
+            drawHealthBar(ctx) {
+                const barWidth = 60;
+                const barHeight = 6;
+                const barX = this.x - barWidth / 2;
+                const barY = this.y + this.height / 2 + 10;
+                
+                // 背景
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                ctx.fillRect(barX, barY, barWidth, barHeight);
+                
+                // 生命值
+                const healthWidth = (this.health / 100) * barWidth;
+                ctx.fillStyle = this.getHealthColor();
+                ctx.fillRect(barX, barY, healthWidth, barHeight);
+                
+                // 边框
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(barX, barY, barWidth, barHeight);
+            }
+
+            getHealthColor() {
+                if (this.health > 70) return '#4ECDC4';
+                if (this.health > 30) return '#FFE66D';
+                return '#FF6B6B';
+            }
+
+            setTargetRotation(angle) {
+                this.targetRotation = angle;
+            }
+
+            shoot() {
+                if (this.shootCooldown <= 0) {
+                    this.isShooting = true;
+                    this.shootCooldown = this.maxCooldown;
+                    return true;
+                }
+                return false;
+            }
+
+            takeDamage(amount) {
+                this.health = Math.max(0, this.health - amount);
+                return this.health <= 0;
+            }
+
+            heal(amount) {
+                this.health = Math.min(100, this.health + amount);
+            }
+        }
+
+        // 敌人类
+        class Enemy {
+            constructor(question) {
+                this.question = question;
+                this.type = question.type;
+                this.radius = 25;
+                this.x = Math.random() * (800 - this.radius * 2) + this.radius;
+                this.y = -this.radius;
+                this.speed = this.getBaseSpeed();
+                this.color = this.getColorByType();
+                this.hitPoints = 1;
+                this.maxHitPoints = 1;
+                this.isActive = true;
+                this.waveOffset = Math.random() * Math.PI * 2;
+                this.waveSpeed = Math.random() * 2 + 1;
+                this.waveAmplitude = Math.random() * 20 + 10;
+                this.startX = this.x;
+                
+                // 特殊效果
+                this.effectTimer = 0;
+                this.isFlashing = false;
+            }
+
+            getBaseSpeed() {
+                const baseSpeeds = {
+                    'spelling': 1.5,
+                    'fillBlank': 2.0,
+                    'synonym': 1.8,
+                    'grammar': 1.2
+                };
+                return baseSpeeds[this.type] || 2.0;
+            }
+
+            getColorByType() {
+                const colors = {
+                    'spelling': '#FF6B6B',    // 红色 - 拼写错误
+                    'fillBlank': '#4ECDC4',   // 青色 - 填空
+                    'synonym': '#FFE66D',     // 黄色 - 同义词
+                    'grammar': '#6A0572'      // 紫色 - 语法
+                };
+                return colors[this.type] || '#95E1D3';
+            }
+
+            update(deltaTime) {
+                // 基础移动
+                this.y += this.speed;
+                
+                // 波浪移动
+                this.x = this.startX + Math.sin(this.waveOffset + this.y * 0.01 * this.waveSpeed) * this.waveAmplitude;
+                
+                // 更新特效计时器
+                if (this.effectTimer > 0) {
+                    this.effectTimer -= deltaTime;
+                    this.isFlashing = this.effectTimer > 0 && Math.floor(this.effectTimer * 10) % 2 === 0;
+                }
+                
+                // 屏幕边界检查
+                if (this.x < this.radius) this.x = this.radius;
+                if (this.x > 800 - this.radius) this.x = 800 - this.radius;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                
+                // 绘制敌人主体
+                if (this.isFlashing) {
+                    ctx.fillStyle = '#FFFFFF';
+                } else {
+                    ctx.fillStyle = this.color;
+                }
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 绘制敌人边框
+                ctx.strokeStyle = '#2C2C54';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // 绘制生命条（如果有多条命）
+                if (this.hitPoints > 1) {
+                    this.drawHealthBar(ctx);
+                }
+                
+                // 绘制类型图标
+                this.drawTypeIcon(ctx);
+                
+                // 绘制问题文本
+                this.drawQuestionText(ctx);
+                
+                ctx.restore();
+            }
+
+            drawHealthBar(ctx) {
+                const barWidth = 30;
+                const barHeight = 4;
+                const barX = this.x - barWidth / 2;
+                const barY = this.y - this.radius - 10;
+                
+                // 背景
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                ctx.fillRect(barX, barY, barWidth, barHeight);
+                
+                // 生命值
+                const healthWidth = (this.hitPoints / this.maxHitPoints) * barWidth;
+                ctx.fillStyle = this.getHealthColor();
+                ctx.fillRect(barX, barY, healthWidth, barHeight);
+            }
+
+            getHealthColor() {
+                const ratio = this.hitPoints / this.maxHitPoints;
+                if (ratio > 0.7) return '#4ECDC4';
+                if (ratio > 0.3) return '#FFE66D';
+                return '#FF6B6B';
+            }
+
+            drawTypeIcon(ctx) {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const icons = {
+                    'spelling': '✏️',
+                    'fillBlank': '📝',
+                    'synonym': '🔄',
+                    'grammar': '⚡'
+                };
+                
+                ctx.fillText(icons[this.type] || '❓', this.x, this.y);
+            }
+
+            drawQuestionText(ctx) {
+                ctx.fillStyle = '#2C2C54';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                
+                // 简化的题目显示
+                const displayText = this.getDisplayText();
+                const lines = this.wrapText(ctx, displayText, this.radius * 1.8);
+                
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, this.x, this.y + this.radius + 5 + index * 14);
+                });
+            }
+
+            getDisplayText() {
+                switch (this.type) {
+                    case 'spelling':
+                        return `拼写: ${this.question.displayText || this.question.wrongSpelling}`;
+                    case 'fillBlank':
+                        return `填空: ${this.question.sentence}`;
+                    case 'synonym':
+                        return `同义词: ${this.question.word}`;
+                    case 'grammar':
+                        return `语法: ${this.question.sentence.substring(0, 20)}...`;
+                    default:
+                        return this.question.text.substring(0, 25);
+                }
+            }
+
+            wrapText(ctx, text, maxWidth) {
+                const words = text.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    const word = words[i];
+                    const width = ctx.measureText(currentLine + " " + word).width;
+                    if (width < maxWidth) {
+                        currentLine += " " + word;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+
+            takeDamage(amount = 1) {
+                this.hitPoints -= amount;
+                this.effectTimer = 0.3; // 受伤闪烁效果
+                return this.hitPoints <= 0;
+            }
+
+            setSpeedMultiplier(multiplier) {
+                this.speed *= multiplier;
+            }
+
+            // 特殊敌人行为
+            activateSpecialBehavior() {
+                switch (this.type) {
+                    case 'spelling':
+                        // 拼写敌人会分裂
+                        this.speed *= 0.7;
+                        break;
+                    case 'grammar':
+                        // 语法敌人更耐打
+                        this.hitPoints = 3;
+                        this.maxHitPoints = 3;
+                        break;
+                }
+            }
+        }
+
+        // 粒子效果类
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4;
+                this.radius = Math.random() * 3 + 1;
+                this.color = color;
+                this.alpha = 1;
+                this.life = 1.0;
+                this.decay = 0.02 + Math.random() * 0.02;
+                this.text = null;
+            }
+
+            update(deltaTime) {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.1; // 重力
+                this.life -= this.decay;
+                this.alpha = this.life;
+            }
+
+            draw(ctx) {
+                if (this.text) {
+                    // 绘制文字粒子
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.font = 'bold 16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(this.text, this.x, this.y);
+                    ctx.restore();
+                } else {
+                    // 绘制圆形粒子
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+        }
+
+        // 题目管理系统
+        class QuestionManager {
+            static generateQuestion(difficulty = 'medium') {
+                const questionTypes = ['spelling', 'fillBlank', 'synonym', 'grammar'];
+                const weights = this.getWeightsByDifficulty(difficulty);
+                
+                const type = this.getWeightedRandomType(questionTypes, weights);
+                
+                let question;
+                let attempts = 0;
+                const maxAttempts = 5;
+                
+                // 尝试生成有效的题目
+                do {
+                    switch (type) {
+                        case 'spelling':
+                            question = this.generateSpellingQuestion(difficulty);
+                            break;
+                        case 'fillBlank':
+                            question = this.generateFillBlankQuestion(difficulty);
+                            break;
+                        case 'synonym':
+                            question = this.generateSynonymQuestion(difficulty);
+                            break;
+                        case 'grammar':
+                            question = this.generateGrammarQuestion(difficulty);
+                            break;
+                        default:
+                            question = this.generateSpellingQuestion(difficulty);
+                    }
+                    attempts++;
+                } while (!this.validateQuestion(question) && attempts < maxAttempts);
+                
+                // 如果还是无效，返回一个默认的拼写题
+                if (!this.validateQuestion(question)) {
+                    console.warn('无法生成有效题目，返回默认题目');
+                    question = this.generateSpellingQuestion('easy');
+                }
+                
+                return question;
+            }
+
+            // 根据难度获取权重
+            static getWeightsByDifficulty(difficulty) {
+                const weights = {
+                    easy: [0.4, 0.3, 0.2, 0.1],      // 更多拼写题
+                    medium: [0.3, 0.3, 0.2, 0.2],    // 平衡分布
+                    hard: [0.2, 0.25, 0.25, 0.3]     // 更多语法题
+                };
+                return weights[difficulty] || weights.medium;
+            }
+
+            // 加权随机选择题目类型
+            static getWeightedRandomType(types, weights) {
+                const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+                let random = Math.random() * totalWeight;
+                
+                for (let i = 0; i < types.length; i++) {
+                    random -= weights[i];
+                    if (random <= 0) {
+                        return types[i];
+                    }
+                }
+                return types[0];
+            }
+
+            // 生成拼写题目
+            static generateSpellingQuestion(difficulty) {
+                const wordPools = {
+                    easy: [
+                        { word: "receive", wrong: "recieve" },
+                        { word: "separate", wrong: "seperate" },
+                        { word: "definitely", wrong: "definately" },
+                        { word: "accommodation", wrong: "acommodation" },
+                        { word: "necessary", wrong: "neccessary" },
+                        { word: "government", wrong: "goverment" },
+                        { word: "environment", wrong: "enviroment" },
+                        { word: "library", wrong: "libary" }
+                    ],
+                    medium: [
+                        { word: "embarrass", wrong: "embarass" },
+                        { word: "millennium", wrong: "millenium" },
+                        { word: "maintenance", wrong: "maintainance" },
+                        { word: "conscience", wrong: "concience" },
+                        { word: "rhythm", wrong: "rythm" },
+                        { word: "privilege", wrong: "priviledge" },
+                        { word: "calendar", wrong: "calender" }
+                    ],
+                    hard: [
+                        { word: "pneumonia", wrong: "neumonia" },
+                        { word: "psychology", wrong: "sycology" },
+                        { word: "mnemonic", wrong: "nemonik" },
+                        { word: "pharaoh", wrong: "farao" },
+                        { word: "dilemma", wrong: "dilema" },
+                        { word: "minuscule", wrong: "miniscule" }
+                    ]
+                };
+
+                const pool = wordPools[difficulty] || wordPools.medium;
+                const item = pool[Math.floor(Math.random() * pool.length)];
+                
+                // 生成干扰项
+                const options = this.generateSpellingOptions(item.word, item.wrong, pool);
+                
+                return {
+                    type: 'spelling',
+                    text: `找出正确的单词拼写：`,
+                    displayText: item.wrong,
+                    wrongSpelling: item.wrong,
+                    options: options,
+                    correctAnswer: item.word,
+                    difficulty: difficulty
+                };
+            }
+
+            // 生成拼写选项
+            static generateSpellingOptions(correct, wrong, pool) {
+                const options = [correct, wrong];
+                
+                // 添加其他干扰项
+                while (options.length < 4) {
+                    const randomWord = pool[Math.floor(Math.random() * pool.length)].word;
+                    if (!options.includes(randomWord)) {
+                        options.push(randomWord);
+                    }
+                }
+                
+                return this.shuffleArray(options);
+            }
+
+            // 生成填空题
+            static generateFillBlankQuestion(difficulty) {
+                const sentencePools = {
+                    easy: [
+                        { sentence: "I ____ to school every day.", correct: "go", options: ["go", "went", "have gone", "going"] },
+                        { sentence: "She ____ reading a book now.", correct: "is", options: ["is", "are", "am", "be"] },
+                        { sentence: "They ____ playing football yesterday.", correct: "were", options: ["were", "was", "are", "is"] },
+                        { sentence: "We ____ dinner at 7 PM every day.", correct: "eat", options: ["eat", "ate", "eaten", "eating"] }
+                    ],
+                    medium: [
+                        { sentence: "If I ____ you, I would study harder.", correct: "were", options: ["were", "was", "am", "be"] },
+                        { sentence: "By next year, I ____ English for five years.", correct: "will have studied", options: ["will have studied", "will study", "studied", "have studied"] },
+                        { sentence: "He wishes he ____ more time to travel.", correct: "had", options: ["had", "has", "have", "will have"] }
+                    ],
+                    hard: [
+                        { sentence: "Not only ____ late, but he also forgot the documents.", correct: "was he", options: ["was he", "he was", "did he be", "he were"] },
+                        { sentence: "Had I known earlier, I ____ differently.", correct: "would have acted", options: ["would have acted", "would act", "acted", "will act"] },
+                        { sentence: "Such ____ the case, we had to reconsider our position.", correct: "being", options: ["being", "was", "is", "to be"] }
+                    ]
+                };
+
+                const pool = sentencePools[difficulty] || sentencePools.medium;
+                const item = pool[Math.floor(Math.random() * pool.length)];
+                
+                return {
+                    type: 'fillBlank',
+                    text: `选择正确的单词完成句子：\n"${item.sentence}"`,
+                    sentence: item.sentence,
+                    options: this.shuffleArray([...item.options]),
+                    correctAnswer: item.correct,
+                    difficulty: difficulty
+                };
+            }
+
+            // 生成同义词题
+            static generateSynonymQuestion(difficulty) {
+                const synonymPools = {
+                    easy: [
+                        { word: "happy", correct: "joyful", options: ["joyful", "sad", "angry", "tired"] },
+                        { word: "big", correct: "large", options: ["large", "small", "tiny", "little"] },
+                        { word: "smart", correct: "intelligent", options: ["intelligent", "stupid", "slow", "lazy"] },
+                        { word: "beautiful", correct: "pretty", options: ["pretty", "ugly", "plain", "ordinary"] }
+                    ],
+                    medium: [
+                        { word: "difficult", correct: "challenging", options: ["challenging", "easy", "simple", "basic"] },
+                        { word: "important", correct: "significant", options: ["significant", "unimportant", "trivial", "minor"] },
+                        { word: "quick", correct: "rapid", options: ["rapid", "slow", "sluggish", "delayed"] }
+                    ],
+                    hard: [
+                        { word: "ambiguous", correct: "vague", options: ["vague", "clear", "obvious", "definite"] },
+                        { word: "benevolent", correct: "kind", options: ["kind", "cruel", "mean", "selfish"] },
+                        { word: "concur", correct: "agree", options: ["agree", "disagree", "oppose", "reject"] }
+                    ]
+                };
+
+                const pool = synonymPools[difficulty] || synonymPools.medium;
+                const item = pool[Math.floor(Math.random() * pool.length)];
+                
+                return {
+                    type: 'synonym',
+                    text: `选择 "${item.word}" 的同义词：`,
+                    word: item.word,
+                    options: this.shuffleArray([...item.options]),
+                    correctAnswer: item.correct,
+                    difficulty: difficulty
+                };
+            }
+
+            // 生成语法题
+            static generateGrammarQuestion(difficulty) {
+                const grammarPools = {
+                    easy: [
+                        { 
+                            sentence: "She don't like coffee.", 
+                            corrected: "She doesn't like coffee.",
+                            explanation: "第三人称单数要用 doesn't"
+                        },
+                        { 
+                            sentence: "I have two cat.", 
+                            corrected: "I have two cats.",
+                            explanation: "复数名词要加-s"
+                        }
+                    ],
+                    medium: [
+                        { 
+                            sentence: "Between you and I, this is wrong.", 
+                            corrected: "Between you and me, this is wrong.",
+                            explanation: "介词后面要用宾格 me"
+                        },
+                        { 
+                            sentence: "Neither of the students have finished.", 
+                            corrected: "Neither of the students has finished.",
+                            explanation: "Neither 接单数动词"
+                        }
+                    ],
+                    hard: [
+                        { 
+                            sentence: "The team are winning their game.", 
+                            corrected: "The team is winning its game.",
+                            explanation: "集体名词 team 作为单数看待"
+                        },
+                        { 
+                            sentence: "If I was you, I would go.", 
+                            corrected: "If I were you, I would go.",
+                            explanation: "虚拟语气要用 were"
+                        }
+                    ]
+                };
+
+                const pool = grammarPools[difficulty] || grammarPools.medium;
+                const item = pool[Math.floor(Math.random() * pool.length)];
+                
+                // 生成错误选项
+                const options = this.generateGrammarOptions(item.corrected, item.sentence);
+                
+                return {
+                    type: 'grammar',
+                    text: `选择正确的句子：`,
+                    sentence: item.sentence,
+                    options: options,
+                    correctAnswer: item.corrected,
+                    explanation: item.explanation,
+                    difficulty: difficulty
+                };
+            }
+
+            // 生成语法选项
+            static generateGrammarOptions(correct, wrong) {
+                const options = [correct, wrong];
+                
+                // 添加其他语法变体作为干扰项
+                const variations = [
+                    correct.replace(" doesn't ", " don't "),
+                    correct.replace(" has ", " have "),
+                    correct.replace(" is ", " are "),
+                    correct.replace(" were ", " was ")
+                ];
+                
+                for (const variation of variations) {
+                    if (variation !== correct && !options.includes(variation) && options.length < 4) {
+                        options.push(variation);
+                    }
+                }
+                
+                // 如果选项不够，添加一些通用干扰项（修复空选项问题）
+                const fallbackOptions = [
+                    "This is correct.",
+                    "That is right.",
+                    "It should be this.",
+                    "The correct one."
+                ];
+                
+                while (options.length < 4) {
+                    const randomOption = fallbackOptions[options.length % fallbackOptions.length];
+                    if (!options.includes(randomOption)) {
+                        options.push(randomOption);
+                    } else {
+                        // 如果还是重复，添加一个带数字的选项
+                        const numberedOption = `Option ${options.length + 1}`;
+                        options.push(numberedOption);
+                    }
+                    
+                    // 防止无限循环
+                    if (options.length >= 10) break;
+                }
+                
+                return this.shuffleArray(options);
+            }
+
+            // 数组洗牌
+            static shuffleArray(array) {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            }
+
+            // 获取题目统计信息
+            static getQuestionStats() {
+                const stats = JSON.parse(localStorage.getItem('questionStats') || '{}');
+                return stats;
+            }
+
+            // 更新题目统计
+            static updateQuestionStats(questionType, isCorrect) {
+                const stats = this.getQuestionStats();
+                
+                if (!stats[questionType]) {
+                    stats[questionType] = { total: 0, correct: 0 };
+                }
+                
+                stats[questionType].total++;
+                if (isCorrect) {
+                    stats[questionType].correct++;
+                }
+                
+                localStorage.setItem('questionStats', JSON.stringify(stats));
+            }
+
+            // 获取用户的薄弱环节
+            static getWeakAreas() {
+                const stats = this.getQuestionStats();
+                const areas = [];
+                
+                for (const [type, data] of Object.entries(stats)) {
+                    const accuracy = data.correct / data.total;
+                    if (accuracy < 0.7) { // 正确率低于70%视为薄弱环节
+                        areas.push({
+                            type: type,
+                            accuracy: accuracy,
+                            totalAttempts: data.total
+                        });
+                    }
+                }
+                
+                return areas.sort((a, b) => a.accuracy - b.accuracy);
+            }
+
+            // 添加题目验证方法
+            static validateQuestion(question) {
+                if (!question) return false;
+                if (!question.options || !Array.isArray(question.options)) return false;
+                if (question.options.length < 2) return false;
+                if (!question.correctAnswer) return false;
+                if (!question.options.includes(question.correctAnswer)) return false;
+                return true;
+            }
+        }
+
+        // 游戏主类
+        class Game {
+            constructor() {
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.currentScreen = 'menu';
+                
+                // 动态获取服务器地址 - 修改为相对路径
+                this.baseURL = '';
+                
+                // 游戏状态
+                this.score = 0;
+                this.combo = 0;
+                this.maxCombo = 0;
+                this.lives = 3;
+                this.level = 1;
+                this.timer = 60;
+                this.gameTime = 0;
+                this.isPaused = false;
+                this.gameOver = false;
+                
+                // 游戏对象
+                this.player = new Player(this.canvas.width / 2, this.canvas.height - 50);
+                this.enemies = [];
+                this.bullets = [];
+                this.particles = [];
+                
+                // 游戏设置
+                this.difficulty = 'medium';
+                this.enemySpawnRate = 0.02; // 敌人生成概率
+                this.gameLoopId = null;
+                this.lastTime = 0;
+                
+                // 当前激活的敌人（需要回答问题的敌人）
+                this.activeEnemy = null;
+                
+                this.initializeEventListeners();
+                this.loadAchievements();
+            }
+
+            initializeEventListeners() {
+                // 菜单按钮 - 修复：确保按钮存在后再添加事件监听器
+                const startButton = document.getElementById('startButton');
+                const viewAchievements = document.getElementById('viewAchievements');
+                const restartButton = document.getElementById('restartButton');
+                const menuButton = document.getElementById('menuButton');
+                const backToMenu = document.getElementById('backToMenu');
+                
+                if (startButton) {
+                    startButton.addEventListener('click', () => this.startGame());
+                    console.log('开始游戏按钮事件绑定成功');
+                } else {
+                    console.error('未找到开始游戏按钮');
+                }
+                
+                if (viewAchievements) {
+                    viewAchievements.addEventListener('click', () => this.showAchievements());
+                    console.log('我的成就按钮事件绑定成功');
+                } else {
+                    console.error('未找到我的成就按钮');
+                }
+                
+                if (restartButton) {
+                    restartButton.addEventListener('click', () => this.restartGame());
+                }
+                
+                if (menuButton) {
+                    menuButton.addEventListener('click', () => this.showScreen('menu'));
+                }
+                
+                if (backToMenu) {
+                    backToMenu.addEventListener('click', () => this.showScreen('menu'));
+                }
+                
+                // 难度选择 - 修复事件监听
+                const difficultySelect = document.getElementById('difficultySelect');
+                if (difficultySelect) {
+                    difficultySelect.addEventListener('change', (e) => {
+                        this.difficulty = e.target.value;
+                        console.log('难度设置为:', this.difficulty); // 调试用
+                    });
+                    
+                    // 设置初始难度
+                    this.difficulty = difficultySelect.value;
+                } else {
+                    console.warn('未找到难度选择元素，使用默认难度');
+                    this.difficulty = 'medium';
+                }
+
+                // 键盘控制
+                document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+                
+                // 鼠标移动控制炮台
+                this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                
+                // 触摸屏支持
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const mouseEvent = new MouseEvent('mousemove', {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                    this.canvas.dispatchEvent(mouseEvent);
+                });
+            }
+
+            async startGame() {
+                console.log('开始游戏，难度:', this.difficulty);
+                console.log('服务器地址:', this.baseURL);
+                
+                // 检查词汇库是否为空
+                try {
+                    const isEmpty = await this.checkVocabularyEmpty();
+                    if (isEmpty) {
+                        alert('词汇库为空！请先导入词汇数据再开始游戏。');
+                        this.showScreen('vocabulary');
+                        return;
+                    }
+                } catch (error) {
+                    console.error('检查词汇库失败:', error);
+                    alert('检查词汇库失败，请确保服务器正常运行');
+                    return;
+                }
+                
+                // 验证难度设置
+                const validDifficulties = ['easy', 'medium', 'hard'];
+                if (!validDifficulties.includes(this.difficulty)) {
+                    console.warn('无效难度，重置为中等难度');
+                    this.difficulty = 'medium';
+                }
+                
+                // 重置游戏前先清除所有状态
+                if (this.gameLoopId) {
+                    cancelAnimationFrame(this.gameLoopId);
+                }
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                }
+                
+                this.resetGame();
+                this.showScreen('game');
+                this.lastTime = performance.now();
+                this.gameLoopId = requestAnimationFrame((time) => this.gameLoop(time));
+                
+                // 开始计时器
+                this.timerInterval = setInterval(() => {
+                    if (!this.isPaused && !this.gameOver) {
+                        this.timer--;
+                        this.updateUI();
+                        
+                        if (this.timer <= 0) {
+                            this.levelUp();
+                        }
+                    }
+                }, 1000);
+            }
+
+            /**
+             * 检查词汇库是否为空
+             */
+            async checkVocabularyEmpty() {
+                try {
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(`/api/game/vocabulary/vocabulary-statistics`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        const totalWords = result.data.total_words?.[0]?.count || 0;
+                        return totalWords === 0;
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    console.error('检查词汇库失败:', error);
+                    throw error;
+                }
+            }
+
+            /**
+             * 从服务器生成敌人题目
+             */
+            async generateEnemyQuestion() {
+                try {
+                    // 修改API路径 - 使用相对路径
+                    const response = await fetch(
+                        `/api/game/questions?difficulty=${this.difficulty}&limit=1`
+                    );
+                    
+                    if (response.ok) {
+                        const questions = await response.json();
+                        if (questions.length > 0) {
+                            return questions[0];
+                        }
+                    }
+                } catch (error) {
+                    console.warn('从服务器获取题目失败，使用本地题目:', error);
+                }
+                
+                // 回退到本地生成的题目
+                return QuestionManager.generateQuestion(this.difficulty);
+            }
+
+            gameLoop(currentTime) {
+                if (this.gameOver) return;
+                
+                const deltaTime = (currentTime - this.lastTime) / 1000;
+                this.lastTime = currentTime;
+                this.gameTime += deltaTime;
+
+                if (!this.isPaused) {
+                    this.update(deltaTime);
+                    this.render();
+                }
+                
+                this.gameLoopId = requestAnimationFrame((time) => this.gameLoop(time));
+            }
+
+            update(deltaTime) {
+                // 生成敌人
+                this.spawnEnemies();
+                
+                // 更新敌人
+                this.updateEnemies(deltaTime);
+                
+                // 更新子弹
+                this.updateBullets(deltaTime);
+                
+                // 更新粒子效果
+                this.updateParticles(deltaTime);
+                
+                // 检测碰撞
+                this.checkCollisions();
+                
+                // 检查游戏结束条件
+                this.checkGameOver();
+            }
+
+            spawnEnemies() {
+                const baseRates = {
+                    easy: 0.015,
+                    medium: 0.02,
+                    hard: 0.025
+                };
+                
+                const baseRate = baseRates[this.difficulty] || 0.02;
+                const levelMultiplier = 1 + (this.level - 1) * 0.15; // 降低等级增长系数
+                const currentRate = baseRate * levelMultiplier;
+                
+                // 限制最大敌人数量和生成概率
+                const maxEnemies = {
+                    easy: 8,
+                    medium: 10,
+                    hard: 12
+                };
+                
+                const currentMaxEnemies = maxEnemies[this.difficulty] || 10;
+                
+                if (Math.random() < currentRate && this.enemies.length < currentMaxEnemies) {
+                    // 使用异步方式生成敌人
+                    this.generateEnemyQuestion().then(question => {
+                        if (question && question.options && question.options.length >= 2) {
+                            const enemy = new Enemy(question);
+                            this.enemies.push(enemy);
+                        } else {
+                            console.warn('生成的题目无效，跳过敌人创建');
+                        }
+                    }).catch(error => {
+                        console.error('生成敌人题目失败:', error);
+                        // 如果生成题目失败，使用本地题目
+                        try {
+                            const question = QuestionManager.generateQuestion(this.difficulty);
+                            if (question && question.options && question.options.length >= 2) {
+                                const enemy = new Enemy(question);
+                                this.enemies.push(enemy);
+                            }
+                        } catch (fallbackError) {
+                            console.error('备用题目生成也失败:', fallbackError);
+                        }
+                    });
+                }
+            }
+
+            updateEnemies(deltaTime) {
+                for (let i = this.enemies.length - 1; i >= 0; i--) {
+                    const enemy = this.enemies[i];
+                    enemy.update(deltaTime);
+                    
+                    // 检查敌人是否到达底部
+                    if (enemy.y > this.canvas.height) {
+                        this.lives--;
+                        this.enemies.splice(i, 1);
+                        this.updateUI();
+                        this.createParticleEffect(enemy.x, enemy.y, '#ff0000');
+                    }
+                }
+            }
+
+            updateBullets(deltaTime) {
+                for (let i = this.bullets.length - 1; i >= 0; i--) {
+                    const bullet = this.bullets[i];
+                    bullet.update(deltaTime);
+                    
+                    // 移除超出屏幕的子弹
+                    if (bullet.y < 0 || bullet.x < 0 || bullet.x > this.canvas.width) {
+                        this.bullets.splice(i, 1);
+                    }
+                }
+            }
+
+            updateParticles(deltaTime) {
+                for (let i = this.particles.length - 1; i >= 0; i--) {
+                    const particle = this.particles[i];
+                    particle.update(deltaTime);
+                    
+                    if (particle.alpha <= 0) {
+                        this.particles.splice(i, 1);
+                    }
+                }
+            }
+
+            checkCollisions() {
+                // 子弹与敌人碰撞检测
+                for (let i = this.bullets.length - 1; i >= 0; i--) {
+                    const bullet = this.bullets[i];
+                    
+                    for (let j = this.enemies.length - 1; j >= 0; j--) {
+                        const enemy = this.enemies[j];
+                        
+                        if (this.isColliding(bullet, enemy)) {
+                            // 击中敌人，显示问题
+                            this.showQuestion(enemy);
+                            this.bullets.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            isColliding(obj1, obj2) {
+                const dx = obj1.x - obj2.x;
+                const dy = obj1.y - obj2.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                return distance < (obj1.radius + obj2.radius);
+            }
+
+            showQuestion(enemy) {
+                if (!enemy || !enemy.question) {
+                    console.error('无效的敌人或题目');
+                    this.isPaused = false;
+                    return;
+                }
+                
+                try {
+                    this.activeEnemy = enemy;
+                    this.isPaused = true;
+                    
+                    const questionText = document.getElementById('questionText');
+                    const answerButtons = document.getElementById('answerButtons');
+                    const answerContainer = document.getElementById('answerContainer');
+                    
+                    if (!questionText || !answerButtons || !answerContainer) {
+                        console.error('未找到答题界面元素');
+                        this.isPaused = false;
+                        return;
+                    }
+                    
+                    questionText.textContent = enemy.question.text || '请选择正确答案：';
+                    answerButtons.innerHTML = '';
+                    
+                    // 创建答案按钮
+                    if (enemy.question.options && Array.isArray(enemy.question.options)) {
+                        enemy.question.options.forEach((option, index) => {
+                            const button = document.createElement('button');
+                            button.textContent = option || `选项 ${index + 1}`;
+                            button.className = 'answer-btn';
+                            button.addEventListener('click', () => this.handleAnswer(option));
+                            answerButtons.appendChild(button);
+                        });
+                    } else {
+                        console.error('题目选项无效');
+                        this.isPaused = false;
+                        return;
+                    }
+                    
+                    answerContainer.classList.remove('hidden');
+                } catch (error) {
+                    console.error('显示题目时出错:', error);
+                    this.isPaused = false;
+                }
+            }
+
+            handleAnswer(selectedAnswer) {
+                const answerContainer = document.getElementById('answerContainer');
+                answerContainer.classList.add('hidden');
+                this.isPaused = false;
+                
+                if (this.activeEnemy && this.activeEnemy.question.correctAnswer === selectedAnswer) {
+                    // 回答正确
+                    this.combo++;
+                    this.maxCombo = Math.max(this.maxCombo, this.combo);
+                    const points = 10 * this.combo; // 连击加分
+                    this.score += points;
+                    
+                    // 移除敌人并创建特效
+                    const enemyIndex = this.enemies.indexOf(this.activeEnemy);
+                    if (enemyIndex > -1) {
+                        this.createParticleEffect(this.activeEnemy.x, this.activeEnemy.y, '#00ff00');
+                        this.enemies.splice(enemyIndex, 1);
+                    }
+                    
+                    // 显示得分飘字
+                    this.createScorePopup(this.activeEnemy.x, this.activeEnemy.y, `+${points}`);
+                    
+                } else {
+                    // 回答错误
+                    this.combo = 0;
+                    this.createParticleEffect(this.activeEnemy.x, this.activeEnemy.y, '#ff6b6b');
+                }
+                
+                this.activeEnemy = null;
+                this.updateUI();
+                this.checkAchievements();
+            }
+
+            createParticleEffect(x, y, color) {
+                for (let i = 0; i < 15; i++) {
+                    this.particles.push(new Particle(x, y, color));
+                }
+            }
+
+            createScorePopup(x, y, text) {
+                const particle = new Particle(x, y, '#ffff00');
+                particle.vx = (Math.random() - 0.5) * 2;
+                particle.vy = -2;
+                particle.text = text;
+                particle.life = 1.0;
+                this.particles.push(particle);
+            }
+
+            handleKeyDown(e) {
+                if (this.currentScreen !== 'game') return;
+                
+                if (e.code === 'Space' && !this.isPaused) {
+                    this.shoot();
+                } else if (e.code === 'Escape') {
+                    this.isPaused = !this.isPaused;
+                }
+            }
+
+            handleMouseMove(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                this.player.x = Math.max(20, Math.min(this.canvas.width - 20, mouseX));
+            }
+
+            shoot() {
+                const bullet = {
+                    x: this.player.x,
+                    y: this.player.y - 20,
+                    radius: 4, // 修复：使用冒号而不是等号
+                    speed: 8,
+                    color: '#ffff00',
+                    update: function(deltaTime) {
+                        this.y -= this.speed;
+                    },
+                    draw: function(ctx) {
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // 子弹拖尾效果
+                        ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y + 5, this.radius * 1.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                };
+                
+                this.bullets.push(bullet);
+            }
+
+            render() {
+                // 清空画布
+                this.ctx.fillStyle = '#1a1a2e';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // 绘制背景网格
+                this.drawGrid();
+                
+                // 绘制所有游戏对象
+                this.particles.forEach(particle => particle.draw(this.ctx));
+                this.enemies.forEach(enemy => enemy.draw(this.ctx));
+                this.bullets.forEach(bullet => bullet.draw(this.ctx));
+                this.player.draw(this.ctx);
+                
+                // 绘制连击特效
+                if (this.combo >= 3) {
+                    this.drawComboEffect();
+                }
+            }
+
+            drawGrid() {
+                this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                this.ctx.lineWidth = 1;
+                
+                // 垂直线
+                for (let x = 0; x <= this.canvas.width; x += 50) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(x, 0);
+                    this.ctx.lineTo(x, this.canvas.height);
+                    this.ctx.stroke();
+                }
+                
+                // 水平线
+                for (let y = 0; y <= this.canvas.height; y += 50) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(0, y);
+                    this.ctx.lineTo(this.canvas.width, y);
+                    this.ctx.stroke();
+                }
+            }
+
+            drawComboEffect() {
+                const intensity = Math.min(this.combo / 10, 1);
+                this.ctx.strokeStyle = `rgba(255, 215, 0, ${intensity * 0.5})`;
+                this.ctx.lineWidth = 3 + intensity * 2;
+                this.ctx.strokeRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+
+            levelUp() {
+                this.level++;
+                this.timer = 60;
+                this.enemySpawnRate *= 1.2; // 增加敌人生成率
+                
+                // 等级提升特效
+                this.createParticleEffect(this.canvas.width / 2, this.canvas.height / 2, '#ff00ff');
+                this.createScorePopup(this.canvas.width / 2, this.canvas.height / 2, `Level ${this.level}!`);
+            }
+
+            checkGameOver() {
+                if (this.lives <= 0) {
+                    this.endGame();
+                }
+            }
+
+            endGame() {
+                this.gameOver = true;
+                cancelAnimationFrame(this.gameLoopId);
+                clearInterval(this.timerInterval);
+                
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('maxCombo').textContent = this.maxCombo;
+                this.showScreen('gameOver');
+                
+                this.saveAchievements();
+            }
+
+            updateUI() {
+                document.getElementById('score').textContent = this.score;
+                document.getElementById('combo').textContent = this.combo;
+                document.getElementById('lives').textContent = this.lives;
+                document.getElementById('level').textContent = this.level;
+                document.getElementById('timer').textContent = this.timer;
+            }
+
+            showScreen(screenName) {
+                this.currentScreen = screenName;
+                
+                // 隐藏所有屏幕
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.add('hidden');
+                });
+                
+                // 显示目标屏幕
+                document.getElementById(screenName + 'Screen').classList.remove('hidden');
+            }
+
+            resetGame() {
+                this.score = 0;
+                this.combo = 0;
+                this.maxCombo = 0;
+                this.lives = 3;
+                this.level = 1;
+                this.timer = 60;
+                this.gameTime = 0;
+                this.isPaused = false;
+                this.gameOver = false;
+                
+                this.enemies = [];
+                this.bullets = [];
+                this.particles = [];
+                this.activeEnemy = null;
+                
+                this.enemySpawnRate = 0.02;
+                this.updateUI();
+            }
+
+            restartGame() {
+                this.resetGame();
+                this.startGame();
+            }
+
+            // 成就系统
+            loadAchievements() {
+                this.achievements = JSON.parse(localStorage.getItem('wordBusterAchievements') || '{}');
+            }
+
+            saveAchievements() {
+                localStorage.setItem('wordBusterAchievements', JSON.stringify(this.achievements));
+            }
+
+            checkAchievements() {
+                const newAchievements = [];
+                
+                if (this.score >= 1000 && !this.achievements.score1000) {
+                    this.achievements.score1000 = true;
+                    newAchievements.push('得分达人：获得1000分');
+                }
+                
+                if (this.maxCombo >= 10 && !this.achievements.combo10) {
+                    this.achievements.combo10 = true;
+                    newAchievements.push('连击大师：达成10连击');
+                }
+                
+                if (this.level >= 5 && !this.achievements.level5) {
+                    this.achievements.level5 = true;
+                    newAchievements.push('进阶高手：达到第5关');
+                }
+                
+                if (newAchievements.length > 0) {
+                    this.showAchievementPopup(newAchievements);
+                    this.saveAchievements();
+                }
+            }
+
+            showAchievementPopup(achievements) {
+                achievements.forEach(achievement => {
+                    console.log('成就解锁：', achievement);
+                    // 这里可以添加成就弹窗效果
+                });
+            }
+
+            showAchievements() {
+                this.showScreen('achievements');
+                const list = document.getElementById('achievementsList');
+                list.innerHTML = '';
+                
+                const allAchievements = [
+                    { id: 'score1000', name: '得分达人', desc: '获得1000分' },
+                    { id: 'combo10', name: '连击大师', desc: '达成10连击' },
+                    { id: 'level5', name: '进阶高手', desc: '达到第5关' }
+                ];
+                
+                allAchievements.forEach(ach => {
+                    const div = document.createElement('div');
+                    div.className = `achievement-item ${this.achievements[ach.id] ? 'unlocked' : 'locked'}`;
+                    div.innerHTML = `
+                        <h3>${ach.name}</h3>
+                        <p>${ach.desc}</p>
+                        <span>${this.achievements[ach.id] ? '✓ 已解锁' : '🔒 未解锁'}</span>
+                    `;
+                    list.appendChild(div);
+                });
+            }
+        }
+
+        // 初始化游戏
+        document.addEventListener('DOMContentLoaded', () => {
+            window.game = new Game();
+        });
+    </script>
+</body>
+</html>

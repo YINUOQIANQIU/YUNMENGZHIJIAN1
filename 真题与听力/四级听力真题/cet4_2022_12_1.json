@@ -1,0 +1,255 @@
+{
+  "exam_paper": {
+    "exam_type": "CET-4",
+    "year": 2022,
+    "month": 12,
+    "paper_number": 1,
+    "title": "2022年12月大学英语四级考试真题（一）",
+    "total_score": 710,
+    "time_allowed": 125,
+    "description": "2022年12月大学英语四级考试完整试卷",
+    "sections": [
+      {
+        "section_type": "writing",
+        "section_name": "Part I Writing",
+        "section_order": 1,
+        "time_allowed": "30 minutes",
+        "directions": "In this task, you are to write an essay on the role of physical exercise in achieving success at college. You will have 30 minutes for the task. You should write at least 120 words but no more than 180 words.",
+        "content": "{\"essay_title\": \"The Role of Physical Exercise in Achieving Success at College\", \"requirements\": {\"min_words\": 120, \"max_words\": 180}}",
+        "questions": []
+      },
+      {
+        "section_type": "listening",
+        "section_name": "Part II Listening Comprehension",
+        "section_order": 2,
+        "time_allowed": "25 minutes",
+        "directions": "听力理解部分，包含新闻报告、长对话和短文理解",
+        "content": "{\"subsections\": [{\"subsection_name\": \"Section A\", \"directions\": \"In this section, you will hear three news reports. At the end of each news report, you will hear two or three questions. Both the news report and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.\", \"questions_range\": \"1 to 7\"}, {\"subsection_name\": \"Section B\", \"directions\": \"In this section, you will hear two long conversations. At the end of each conversation, you will hear four questions. Both the conversation and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.\", \"questions_range\": \"8 to 15\"}, {\"subsection_name\": \"Section C\", \"directions\": \"In this section, you will hear three passages. At the end of each passage, you will hear three or four questions. Both the passage and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.\", \"questions_range\": \"16 to 18\"}]}",
+        "questions": [
+          {
+            "question_type": "single_choice",
+            "question_number": 1,
+            "question_text": "Part of its dam wall collapsed.",
+            "options": "[\"Part of its dam wall collapsed.\", \"It was destroyed by an earthquake.\", \"It released a lot of harmful gases.\", \"Some miners were trapped underground.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 1
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 2,
+            "question_text": "It posed a safety threat to the miners.",
+            "options": "[\"It posed a safety threat to the miners.\", \"It caused damage too heavy to assess.\", \"It brought the mine's operations to a halt.\", \"It was followed by two more earthquakes.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 2
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 3,
+            "question_text": "It made ample preparations for various possibilities.",
+            "options": "[\"It prepared beds for all the six new citizens.\", \"It assigned a team of doctors for each expected baby.\", \"It made ample preparations for various possibilities.\", \"It brought in the most advanced instruments.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 3
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 4,
+            "question_text": "They could go home together with their mother a day later.",
+            "options": "[\"They had to undergo 2-3 physical checkups.\", \"They were all of normal size except the sixth.\", \"They could go home together with their mother a day later.\", \"They needed to stay in the hospital for a couple of months.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 4
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 5,
+            "question_text": "It has been turned into a public park.",
+            "options": "[\"It is owned by the local government.\", \"It has been turned into a public park.\", \"It has been bought by an American.\", \"It is a perfect tourist destination.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 5
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 6,
+            "question_text": "Its unspoiled beaches.",
+            "options": "[\"Its seafood.\", \"Its unusual coastline.\", \"Its unspoiled beaches.\", \"Its architecture.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 6
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 7,
+            "question_text": "It has an unmatched location.",
+            "options": "[\"It has an unmatched location.\", \"It is worth over 18 million euros.\", \"It has beautiful weather all year round.\", \"It is an ideal place to meet famous stars.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 7
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 8,
+            "question_text": "She has been attending some group classes.",
+            "options": "[\"She has been attending some group classes.\", \"She has registered for two new gym classes.\", \"She became a member of the gym two months ago.\", \"She is entitled to a discount on all the gym exercises.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 8
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 9,
+            "question_text": "Offering existing members a discount off two new classes.",
+            "options": "[\"Considering the promotion of its regular classes.\", \"Taking measures to expand its exercise programs.\", \"Recruiting coaches for hot yoga and advanced spinning.\", \"Offering existing members a discount off two new classes.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 9
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 10,
+            "question_text": "She missed out on the gym's general discount.",
+            "options": "[\"She missed the deadline for the 10-week course.\", \"She missed out on the gym's general discount.\", \"She didn't sign up for membership in time.\", \"She wasn't so much interested in hot yoga.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 10
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 11,
+            "question_text": "She doesn't want to reveal her card details over the phone.",
+            "options": "[\"She doesn't want to reveal her card details over the phone.\", \"She doesn't think it wise to pay before attending any class.\", \"She might have to cancel her registration any minute.\", \"She prefers to have the fee added to her monthly bill.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 11
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 12,
+            "question_text": "To open a new office.",
+            "options": "[\"To make investments.\", \"To sign a business contract.\", \"To research new markets.\", \"To open a new office.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 12
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 13,
+            "question_text": "Amsterdam.",
+            "options": "[\"Dubai.\", \"Beijing.\", \"Amsterdam.\", \"Earl's Court.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 13
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 14,
+            "question_text": "Rent a bike for him to get around the town.",
+            "options": "[\"Rent a bike for him to get around the town.\", \"Reserve a meeting room in the head office.\", \"Help him prepare his presentation.\", \"Send him a map of the hotel area.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 14
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 15,
+            "question_text": "Keep all his receipts.",
+            "options": "[\"Bring his projector.\", \"Keep all his receipts.\", \"Submit his claims form.\", \"Pay with his credit card.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 15
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 16,
+            "question_text": "Whether a country's protection of women's rights is related to its public health.",
+            "options": "[\"Whether a country's educational level is linked to women's rights.\", \"Whether women's rights are making good progress around the world.\", \"Whether a country's protection of women's rights is related to its public health.\", \"Whether women's rights are more often overlooked in less-developed countries.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 16
+          },
+          {
+            "question_type": "single_choice",
+            "question_number": 17,
+            "question_text": "Their people still have better health if women's rights are respected.",
+            "options": "[\"Their people still have better health if women's rights are respected.\", \"They must make efforts to increase women's access to health care.\", \"Their public health will improve with economic growth.\", \"Their people's health is generally not so good.\"]",
+            "correct_answer": "",
+            "analysis": "",
+            "explanation": "",
+            "audio_start_time": 0,
+            "audio_end_time": 0,
+            "question_order": 17
+          }
+        ]
+      },
+      {
+        "section_type": "reading",
+        "section_name": "Part III Reading Comprehension",
+        "section_order": 3,
+        "time_allowed": "40 minutes",
+        "directions": "阅读部分包含选词填空、段落匹配和阅读理解",
+        "content": "{\"subsections\": [{\"subsection_name\": \"Section A\", \"directions\": \"In this section, there is a passage with ten blanks. You are required to select one word for each blank from a list of choices given in a word bank following the passage. Read the passage through carefully before making your choices. Each choice in the bank is identified by a letter. Please mark the corresponding letter for each item on Answer Sheet 2 with a single line through the centre. You may not use any of the words in the bank more than once.\", \"content\": {\"passage\": \"Loneliness and social isolation may be a greater public health hazard than obesity, and their impact has been growing and will continue to grow, according to research. Being connected to others socially is widely considered a fundamental human need—crucial to both well-being and survival. Extreme examples show infants in custodial care who lack human contact fail to thrive and often die, and indeed, social isolation or solitary confinement has been used as a form of punishment.\\n\\nYet an increasing portion of the U.S. population now experiences isolation regularly. A recent study presented at the 125th Annual Convention of the American Psychological Association found that loneliness and social isolation could increase the risk of premature death by up to 50 percent.\\n\\nThe study was a meta-analysis of 218 studies into the health effects of loneliness and social isolation. It found that social isolation increased the risk of premature death, while obesity increased the risk of death by 30 percent. The researchers therefore concluded that social isolation and loneliness are a greater public health hazard than obesity.\\n\\nThe scientists found that loneliness and social isolation increased the __29__ risk of having a heart attack or a death from heart disease by 29 percent, and the risk of stroke by 32 percent. There were no __30__ between men and women.\\n\\n\\\"People have tended to focus from a policy point of view on __31__ lonely people to make them more __32__,\\\" said the lead author, Nicole K. Valtorta, a research fellow at the University of York in England. \\\"Our study __33__ that if this is a risk factor, then we should be trying to prevent the risk factor in the first place.\\\"\\n\\nThe authors __34__ that this was a review of observational studies and did not __35__ cause and effect.\", \"word_bank\": {\"A\": \"acknowledge\", \"B\": \"certificates\", \"C\": \"connected\", \"D\": \"demonstrates\", \"E\": \"differences\", \"F\": \"establish\", \"G\": \"formats\", \"H\": \"measured\", \"I\": \"narrow\", \"J\": \"permanent\", \"K\": \"produces\", \"L\": \"ranging\", \"M\": \"relative\", \"N\": \"submitting\", \"O\": \"targeting\"}, \"blanks\": [29, 30, 31, 32, 33, 34, 35]}}, {\"subsection_name\": \"Section B\", \"directions\": \"In this section, you are going to read a passage with ten statements attached to it. Each statement contains information given in one of the paragraphs. Identify the paragraph from which the information is derived. You may choose a paragraph more than once. Each paragraph is marked with a letter. Answer the questions by marking the corresponding letter on Answer Sheet 2.\", \"content\": {\"passage_title\": \"The hidden costs colleges don't want you to know about\", \"paragraphs\": [{\"letter\": \"A\", \"content\": \"This fall, thousands of college students from across the country will begin their undergraduate studies at colleges around the nation. They will inevitably pack too much to fit in their tiny dorm rooms. They will also carry with them a huge student loan debt, in addition to countless \\\"hidden\\\" out-of-pocket costs paid for by their bank accounts and the bank accounts of their families.\"}, {\"letter\": \"B\", \"content\": \"At my well-respected, private, four-year university in Washington, D.C., which boasts a yearly tuition of $44,046 not including room and board, I receive over $57,000 yearly in financial aid. As a student from a family that is struggling to make ends meet, my financial aid package is a combination of federal grants and federal work study, university merit scholarships and financial aid awards, and about $8,000 yearly in federally subsidized and unsubsidized loans. On paper, my expenses and my financial aid just about even out. Off paper, they don't.\"}, {\"letter\": \"C\", \"content\": \"Universities today are in the business of making money, and mine is no exception. They hit me right out of gate with a $160 fee to attend my freshman orientation, a price which does not include the cost of travel to and from the District. Almost every class has an associated fee not included in the cost of tuition, most between $40 and $100. Fees for lab science classes are the highest, and all students at my university are required to take at least one lab before they graduate. Buying a laptop proved a necessity and, thankfully, a relative bought me one as a gift. Renting a mini-fridge for my dorm room costs my roommates and me about $140 a year.\"}, {\"letter\": \"D\", \"content\": \"Schools will charge you whatever they can. The costs of any damage to the dorm, including elevators, bathrooms, and common areas, are billed to every person on a dorm floor, or even the entire building if they do not know who caused the damage. After I fell out of my bed twice during my freshman year, the university installed a railing—for $20, billed to my student account. My financial aid did not anticipate any of these costs, and so it did not cover them.\"}, {\"letter\": \"E\", \"content\": \"An Internet search of \\\"hidden costs\\\" of college turns up a host of articles on parent-centered websites on the college application process. These articles are almost always geared towards upper- and middle-class families. For students already struggling to pay tuition, these costs may be the least of their worries.\"}, {\"letter\": \"F\", \"content\": \"So what hidden costs should low-income students really be paying attention to? My college experience offers a few examples.\"}, {\"letter\": \"G\", \"content\": \"If you are a low-income student who will be attending school out-of-state, make sure you know if you can use your state benefits, such as the Supplemental Nutrition Assistance Program, or SNAP. It wasn't until after I had accepted admission to an out-of-state school that I learned that I could not use my Ohio Medicaid on campus for anything other than emergency care. My benefits became invalid the second I moved out of Ohio. After my freshman year, I had to opt for the school's insurance plan, which costs around $2,000 a year. Even if your school offers a flat-rate fee for a doctor's appointment at the student health center (mine is $20 a visit), these fees often do not include extra fees for lab tests or prescription medications.\"}, {\"letter\": \"H\", \"content\": \"If you plan on paying off bills in your student account with a credit card, be aware of any additional costs. My school charges an additional fee for the use of a credit card to settle outstanding charges, which can add upwards of 3% of the balance to your bill.\"}, {\"letter\": \"I\", \"content\": \"There is another depressing reality hidden within even the largest financial aid packages: Colleges often offer the most generous packages during freshman year as a way to attract new students. My family was careful to ask about the chances of financial aid being taken away after my freshman year. We were assured that, except for low grades or a raise in family income, no money would be taken away. We did not know to ask—and the school did not readily point out—that even if tuition rises, my financial aid package will stay the same. So when my university voted to raise tuition costs 3% at the end of my freshman year, my financial aid package remained the same and I was suddenly responsible for an additional $1,200 for the next year. The university administration will likely vote to raise costs at least once more before my graduation.\"}, {\"letter\": \"J\", \"content\": \"Yes, I chose to attend an expensive university far from my hometown. Yes, there were cheaper options. But there are promising students from struggling families across the nation who should not rule out their dream schools entirely. All things considered, I am paying significantly less than the ticket price of my university, and having an educational experience in Washington, D.C., that I would not have had anywhere else. As a low-income student from a down-and-out Rust Belt community, these educational experiences have enormous potential to brighten my future—and my family's future.\"}, {\"letter\": \"K\", \"content\": \"The key is to make sure that students and their families understand that hidden costs exist, and that they may prove problematic. Fill out a more comprehensive checklist, and be wary of listed prices that seem too low. Understand just how complicated the financial aid process is.\"}, {\"letter\": \"L\", \"content\": \"Students and families must also understand their ability to self-advocate. They should not pay student bills or excess fees blindly. If something does not look right, ask about it. If it still doesn't look right, negotiate it. In cases where parents are working multiple jobs, are less knowledgeable about college bureaucracies, have limited English language skills, or are not contributing financially to their child's education, the burden of self-advocacy will fall on the student. I understand the difficulty, and the embarrassment. But it is necessary.\"}, {\"letter\": \"M\", \"content\": \"In the grand scheme of things, however, colleges also must come to understand that the hidden fees they ask for may prove unmanageable for the very kinds of low-income or first-generation students they are trying desperately to attract.\"}], \"questions\": [{\"number\": 36, \"content\": \"Students' financial aid remains unchanged even when tuition rises.\", \"answer_paragraph\": \"I\"}, {\"number\": 37, \"content\": \"Students may not be able to enjoy their state benefits when they go to college out of the state.\", \"answer_paragraph\": \"G\"}, {\"number\": 38, \"content\": \"The financial aid the author receives is supposed to cover all her college expenses.\", \"answer_paragraph\": \"B\"}, {\"number\": 39, \"content\": \"When the person who damages dorm facilities is not identified, students are required to share the cost.\", \"answer_paragraph\": \"D\"}, {\"number\": 40, \"content\": \"Though it is difficult and embarrassing, students should make inquiries about what fees they have to pay and why.\", \"answer_paragraph\": \"L\"}, {\"number\": 41, \"content\": \"Today, many Americans have to go to college on student loans.\", \"answer_paragraph\": \"A\"}, {\"number\": 42, \"content\": \"Receiving education in a private university in the nation's capital may change the author's future life and that of her family's.\", \"answer_paragraph\": \"J\"}, {\"number\": 43, \"content\": \"Students may no longer be qualified for financial aid if they perform poorly in school or if their family income has increased.\", \"answer_paragraph\": \"I\"}, {\"number\": 44, \"content\": \"In addition to tuition, college students have to pay extra fees for the courses they take.\", \"answer_paragraph\": \"C\"}, {\"number\": 45, \"content\": \"Some schools charge students a fee to their student accounts for using credit cards to pay bills.\", \"answer_paragraph\": \"H\"}]}}, {\"subsection_name\": \"Section C\", \"directions\": \"There are 2 passages in this section. Each passage is followed by some questions or unfinished statements. For each of them there are four choices marked A), B), C) and D). You should decide on the best choice and mark the corresponding letter on Answer Sheet 2 with a single line through the centre.\", \"content\": {\"passages\": [{\"title\": \"Passage One\", \"content\": \"To write his 2010 book, The 5-Factor World Diet, nutritionist Harley Pasternak traveled to the healthiest countries around the world to learn more about what made their meals extra nourishing.\\n\\nHe noted that Japanese people ate a wonderful variety of seaweeds, and that Chinese people tried to include at least five different colors in every meal. Pasternak also came away with some valuable observations about how different the North American way of life was, compared with many other countries.\\n\\nFor starters, Americans eat much bigger portions than people in other countries. \\\"We don't prioritize eating seasonally or locally, and we also add lots of salt, sugar and thickening agents to our foods,\\\" explained Pasternak. Contrast that to the healthy Mediterranean, Nordic and Okinawan diets listed in Pasternak's book. They all seem to stick to the ethos of regional, seasonal produce.\\n\\nFor example, a traditional Mediterranean diet includes fruits, vegetables, whole grains, nuts and olive oil as the main components of nutritional intake. Fish, chicken and red wine make moderate appearances, while red meat, salt and sugar are used much less often. The benefits of a traditional Mediterranean diet have been studied since the 1970s, and researchers have found that living that olive oil life can help people lose weight, lower their heart disease risk and reverse diabetes.\\n\\nMost other healthy eating cultures also make meals an event—say, multiple courses around the family table, or a glass or two of red wine at a long lunch—as opposed to hastily wolfing down handfuls of cereal above the kitchen sink and calling it dinner. Each of the healthy eating cultures has its own unique feature. But Pasternak did take note of one unifying factor in all of the healthy societies he observed. \\\"The only overlapping feature in most of these healthy countries is that they all walk way more than the average American,\\\" said Pasternak. \\\"So really, regardless of what you're eating, if someone's walking four miles more than you each day, they're going to be a lot thinner and live a lot longer than you.\\\"\", \"questions\": [{\"number\": 46, \"content\": \"What characterizes Japanese and Chinese foods?\", \"options\": [\"Variety.\", \"Flavor.\", \"Color.\", \"Naturalness.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 47, \"content\": \"What is typical of Americans in the way of eating?\", \"options\": [\"They emphasize nutrition.\", \"They tend to eat quite a lot.\", \"They prioritize convenience.\", \"They care about flavors.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 48, \"content\": \"What features in Mediterranean, Nordic and Okinawan diets?\", \"options\": [\"Fruits and vegetables.\", \"Olive oil and red wine.\", \"Seasonal local produce.\", \"Unprocessed ingredients.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 49, \"content\": \"What do people in most healthy eating cultures have in common?\", \"options\": [\"They get the whole family to eat at a table.\", \"They eat their meals regularly and punctually.\", \"They consume plenty of cereal for breakfast.\", \"They attach great importance to their meals.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 50, \"content\": \"Compared with the average American, people in healthy societies ______.\", \"options\": [\"walk at least 4 miles a day\", \"do considerably more walking\", \"pay more attention to body shape\", \"consume a lot more organic food\"], \"correct_answer\": \"\", \"analysis\": \"\"}]}, {\"title\": \"Passage Two\", \"content\": \"Recognizing when a friend or colleague feels sad, angry or surprised is key to getting along with others. But a new study suggests that being sensitive to people's feelings may sometimes come with an extra dose of stress. This and other research challenge the prevailing view that emotional intelligence is uniformly beneficial to its bearer.\\n\\nIn a study, psychologist Myriam Bechtoldt of the Frankfurt School of Finance and Management in Germany asked 166 male university students a series of questions to measure their emotional intelligence. For example, they showed the students photographs of people's faces and asked them to what extent feelings such as happiness or disgust were being expressed. The students then had to give job talks in front of judges who displayed serious facial expressions. The scientists measured concentrations of stress hormones in the students' saliva before and after the talk.\\n\\nIn students who were rated more emotionally intelligent, the stress measures increased more during the experiment and took longer to go back to baseline. The findings suggest that some people may be too emotionally clever for their own good, says Bechtoldt. \\\"Sometimes you can be so good at something that it causes trouble,\\\" she notes.\\n\\nIndeed, the study adds to previous research hinting at a dark side of emotional intelligence. A study published in 2002 in Personality and Individual Differences suggested that emotionally perceptive people might be particularly influenced by feelings of depression and hopelessness. Furthermore, several studies have implied that emotional intelligence can be used to manipulate others for personal gains.\\n\\nMore research is needed to see how exactly the relation between emotional intelligence and stress would play out in women and in people of different ages and education levels. Nevertheless, emotional intelligence is a useful skill to have, as long as you learn to also properly cope with emotions—both others' and your own, says Bechtoldt. For example, some sensitive individuals may assume responsibility for other people's sadness or anger, which ultimately stresses them out. Remember, as Bechtoldt says, \\\"you are not responsible for how other people feel.\\\"\", \"questions\": [{\"number\": 51, \"content\": \"What is the finding of the new study?\", \"options\": [\"Emotional intelligence helps people get along with others.\", \"Emotional intelligence is generally beneficial to its bearer.\", \"People who are aware of others' feelings may experience more stress.\", \"People who are emotionally stressed may have trouble making friends.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 52, \"content\": \"What was the purpose of psychologist Myriam Bechtoldt's experiment?\", \"options\": [\"To define different types of human feelings.\", \"To assess the impacts of being emotionally clever.\", \"To demonstrate how to distinguish different feelings.\", \"To identify gender differences in emotional intelligence.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 53, \"content\": \"What does the finding of Myriam Bechtoldt's study indicate?\", \"options\": [\"Greater emotional cleverness means less trouble in one's life.\", \"Emotional intelligence helps people succeed in job interviews.\", \"People's psychological wellbeing is related to various factors.\", \"People may suffer from having a high emotional intelligence.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 54, \"content\": \"What do we learn about emotional intelligence from a number of studies?\", \"options\": [\"People suffering from depression are emotionally immature.\", \"People who look at the dark side of life often feel depressed.\", \"Some people may take advantage of it and benefit themselves.\", \"Some people may lack it and are easily manipulated by others.\"], \"correct_answer\": \"\", \"analysis\": \"\"}, {\"number\": 55, \"content\": \"What does the author suggest sensitive individuals do?\", \"options\": [\"Avoid burdening themselves with others' feelings.\", \"Rid themselves of worries over worldly affairs.\", \"Learn to cope with people's negative feelings.\", \"Help people to deal with their troubles in life.\"], \"correct_answer\": \"\", \"analysis\": \"\"}]}]}]}",
+        "questions": []
+      },
+      {
+        "section_type": "translation",
+        "section_name": "Part IV Translation",
+        "section_order": 4,
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to translate a passage from Chinese into English. You should write your answer on Answer Sheet 2.",
+        "content": "{\"translation_content\": \"在中国农历中，立秋(Start of Autumn)意味着夏天的结束和秋天的开始。立秋带来的首先是天气的变化，气温逐渐下降。人们看到树叶开始变黄或落时，知道秋天已经来临，这就是所谓的\\\"一叶知秋\\\"。但此时酷热的天气并未完全结束，高温通常还会持续一段时间，被称为\\\"秋老虎\\\"。立秋对农民意义重大，这时各种秋季作物迅速生长、开始成熟，收获的季节即将到来。\", \"requirements\": {\"min_words\": 100, \"max_words\": 200}}",
+        "questions": []
+      }
+    ]
+  }
+}

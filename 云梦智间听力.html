@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>听力练习 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 统一认证系统 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e3f2ff 100%);
+            min-height: 100vh;
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        .correct {
+            border: 2px solid #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .incorrect {
+            border: 2px solid #EF4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn-primary {
+            background: #2962FF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #1A237E;
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .guest-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            z-index: 10;
+        }
+        .login-required-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        .login-required-card i {
+            font-size: 3rem;
+            color: #9CA3AF;
+            margin-bottom: 1rem;
+        }
+        .login-required-card p {
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 听力练习专用样式 */
+        .paper-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .paper-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .option-item {
+            transition: all 0.2s ease;
+        }
+        .option-item:hover {
+            background-color: #f8faff;
+        }
+        .option-item.selected {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+        #listening-audio {
+            border-radius: 8px;
+        }
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+        }
+        .audio-controls button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .audio-controls button:hover {
+            transform: translateY(-1px);
+        }
+        .progress-container {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #3b82f6;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .question-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .question-nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d1d5db;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .question-nav-btn:hover {
+            background: #f3f4f6;
+        }
+        .question-nav-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .question-nav-btn.answered {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        .result-item {
+            transition: all 0.2s;
+        }
+        .result-item:hover {
+            transform: translateX(5px);
+        }
+        
+        /* 改进的按钮样式 */
+        .start-practice-btn {
+            background: linear-gradient(135deg, #4F46E5 0%, #7E22CE 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .start-practice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4);
+        }
+        .start-practice-btn:active {
+            transform: translateY(0);
+        }
+        
+        .start-paper-btn {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+            transition: all 0.2s ease;
+        }
+        .start-paper-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .action-btn.primary {
+            background: #3B82F6;
+            color: white;
+        }
+        .action-btn.primary:hover {
+            background: #2563EB;
+        }
+        .action-btn.secondary {
+            background: #6B7280;
+            color: white;
+        }
+        .action-btn.secondary:hover {
+            background: #4B5563;
+        }
+        .action-btn.success {
+            background: #10B981;
+            color: white;
+        }
+        .action-btn.success:hover {
+            background: #059669;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 - 已修改为与首页完全一致 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-2xl font-bold tracking-tight" style="color: #2962FF;">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 - 已修改为与首页完全一致 -->
+        <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+            <div id="login-btn-container">
+                <a href="云梦智间登录.html" class="flex items-center px-4 lg:px-6 py-2 bg-blue-50 text-primary rounded-button hover:bg-blue-100 transition-colors">
+                    <span class="whitespace-nowrap font-medium text-sm lg:text-base">登录</span>
+                </a>
+            </div>
+            <a href="云梦智间AI聊天.html" class="flex items-center px-4 lg:px-6 py-2 bg-primary text-white rounded-button hover:bg-secondary transition-colors">
+                <span class="whitespace-nowrap font-medium text-sm lg:text-base">免费试用</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 全局学习通知 -->
+    <div id="learning-global-notifications" class="fixed top-20 right-6 z-50 space-y-2"></div>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 max-w-[1440px] mx-auto px-6">
+        <!-- 听力练习头部 -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 fade-in">
+            <div>
+                <h1 class="text-2xl lg:text-3xl font-bold text-secondary mb-2">听力真题练习</h1>
+                <p class="text-gray-600">基于真实四级听力真题，提升听力理解能力</p>
+            </div>
+            <div class="flex gap-3 mt-4 md:mt-0">
+                <button id="start-listening-practice" class="start-practice-btn">
+                    <i class="fas fa-play-circle"></i>
+                    <span>开始练习</span>
+                </button>
+                <button id="show-stats" class="start-practice-btn" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>学习统计</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 试卷列表容器 -->
+        <div id="papers-container">
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-blue-50 mb-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-secondary">听力真题试卷</h3>
+                    <div id="audio-status" class="text-sm text-gray-500">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <span>准备加载试卷</span>
+                    </div>
+                </div>
+                <div id="papers-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- 动态加载试卷列表 -->
+                    <div class="text-center py-8">
+                        <i class="fas fa-spinner fa-spin text-2xl text-gray-300 mb-2"></i>
+                        <p class="text-gray-500">加载中...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 练习界面容器 -->
+        <div id="practice-container" class="hidden">
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-blue-50 mb-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 id="practice-title" class="text-lg font-semibold text-secondary">听力练习</h3>
+                    <button id="back-to-list" class="action-btn secondary">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>返回列表</span>
+                    </button>
+                </div>
+                
+                <!-- 音频播放器 -->
+                <div id="audio-player-container" class="mb-6">
+                    <!-- 动态加载音频播放器 -->
+                </div>
+                
+                <!-- 题目导航 -->
+                <div id="question-navigation" class="mb-6">
+                    <!-- 动态加载题目导航 -->
+                </div>
+                
+                <!-- 题目容器 -->
+                <div id="question-container">
+                    <!-- 动态加载题目 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 结果界面容器 -->
+        <div id="results-container" class="hidden">
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-blue-50">
+                <div id="results-content">
+                    <!-- 动态加载结果 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 游客模式遮罩 -->
+        <div id="listening-guest-overlay" class="guest-overlay hidden">
+            <div class="text-center p-8">
+                <i class="fas fa-lock text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">听力练习</h3>
+                <p class="text-gray-500 mb-6">请登录后使用听力真题练习功能</p>
+                <button onclick="listeningManager.handleLogin()" class="btn-primary">
+                    <i class="fas fa-sign-in-alt mr-2"></i>立即登录
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 学习统计模态框 -->
+    <div id="stats-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="stats-overlay"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-xl max-w-4xl w-full mx-auto max-h-[80vh] overflow-y-auto transform transition-all fade-in">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200 bg-gradient-to-r from-primary to-secondary">
+                    <h3 class="text-lg font-semibold text-white">听力学习统计</h3>
+                    <button id="close-stats-modal" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div id="stats-content">
+                        <!-- 动态加载统计内容 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="message-toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg border-l-4 p-4 min-w-80 transform transition-all fade-in">
+            <div class="flex items-center">
+                <i class="fas fa-info-circle text-primary text-xl mr-3" id="message-icon"></i>
+                <div class="flex-1">
+                    <p class="font-medium text-gray-800" id="message-text"></p>
+                </div>
+                <button onclick="hideMessage()" class="text-gray-400 hover:text-gray-600 ml-4">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 听力练习管理器
+        class ListeningPracticeManager {
+            constructor() {
+                this.currentPaper = null;
+                this.currentQuestions = [];
+                this.currentQuestionIndex = 0;
+                this.userAnswers = {};
+                this.audioPlayer = null;
+                this.isPlaying = false;
+                this.isAuthenticated = false;
+                this.currentUser = null;
+                this.audioProgressInterval = null;
+                this.audioProgressBar = null;
+                
+                this.init();
+            }
+
+            async init() {
+                console.log('🎧 初始化听力练习管理器');
+                this.bindEvents();
+                await this.checkAuthentication();
+                this.updateAuthUI();
+                
+                if (this.isAuthenticated) {
+                    await this.loadListeningPapers();
+                }
+            }
+
+            // 检查认证状态
+            async checkAuthentication() {
+                try {
+                    // 使用统一认证系统检查状态
+                    if (window.unifiedAuthManager) {
+                        this.isAuthenticated = window.unifiedAuthManager.isLoggedIn();
+                        this.currentUser = window.unifiedAuthManager.getCurrentUser();
+                    } else if (window.uiManager && window.uiManager.authManager) {
+                        this.isAuthenticated = window.uiManager.authManager.isLoggedIn();
+                        this.currentUser = window.uiManager.authManager.getCurrentUser();
+                    } else {
+                        // 降级：检查本地存储
+                        const token = localStorage.getItem('auth_token');
+                        const userData = localStorage.getItem('user_data');
+                        this.isAuthenticated = !!(token && userData);
+                        if (userData) {
+                            try {
+                                this.currentUser = JSON.parse(userData);
+                            } catch (e) {
+                                console.error('解析用户数据失败:', e);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('认证检查失败:', error);
+                }
+            }
+
+            // 更新认证UI
+            updateAuthUI() {
+                if (this.isAuthenticated && this.currentUser) {
+                    this.showAuthenticatedUI();
+                } else {
+                    this.showLoginRequired();
+                }
+            }
+
+            // 显示已登录UI
+            showAuthenticatedUI() {
+                console.log('✅ 显示已登录状态UI - 听力');
+                this.enableAllFeatures();
+                this.hideGuestOverlays();
+            }
+
+            // 显示登录要求
+            showLoginRequired() {
+                console.log('🔐 显示登录要求 - 听力');
+                this.disableAllFeatures();
+                this.showGuestOverlays();
+                this.showLoginRequiredContent();
+            }
+
+            // 启用功能
+            enableAllFeatures() {
+                const practiceButtons = document.querySelectorAll('#start-listening-practice, #show-stats');
+                practiceButtons.forEach(btn => {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
+                });
+            }
+
+            // 禁用功能
+            disableAllFeatures() {
+                const practiceButtons = document.querySelectorAll('#start-listening-practice, #show-stats');
+                practiceButtons.forEach(btn => {
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                });
+            }
+
+            // 隐藏游客遮罩
+            hideGuestOverlays() {
+                const overlay = document.getElementById('listening-guest-overlay');
+                if (overlay) {
+                    overlay.classList.add('hidden');
+                }
+            }
+
+            // 显示游客遮罩
+            showGuestOverlays() {
+                const overlay = document.getElementById('listening-guest-overlay');
+                if (overlay) {
+                    overlay.classList.remove('hidden');
+                }
+            }
+
+            // 显示登录要求内容
+            showLoginRequiredContent() {
+                const containers = ['papers-list', 'practice-container', 'results-container'];
+                containers.forEach(containerId => {
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.innerHTML = this.getLoginRequiredCardHTML('听力练习');
+                    }
+                });
+            }
+
+            // 获取登录要求卡片HTML
+            getLoginRequiredCardHTML(title) {
+                return `
+                    <div class="login-required-card text-center py-8">
+                        <i class="fas fa-user-lock text-4xl text-gray-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">${title}</h3>
+                        <p class="text-gray-500 mb-4">请登录后使用听力练习功能</p>
+                        <button onclick="listeningManager.handleLogin()" class="btn-primary">
+                            <i class="fas fa-sign-in-alt mr-2"></i>立即登录
+                        </button>
+                    </div>
+                `;
+            }
+
+            // 处理登录
+            handleLogin() {
+                window.location.href = '云梦智间登录.html';
+            }
+
+            // 绑定事件
+            bindEvents() {
+                // 开始练习按钮
+                const startPracticeBtn = document.getElementById('start-listening-practice');
+                if (startPracticeBtn) {
+                    startPracticeBtn.addEventListener('click', () => {
+                        if (!this.isAuthenticated) {
+                            this.showLoginRequired();
+                            return;
+                        }
+                        this.startPractice();
+                    });
+                }
+
+                // 显示统计按钮
+                const showStatsBtn = document.getElementById('show-stats');
+                if (showStatsBtn) {
+                    showStatsBtn.addEventListener('click', () => {
+                        if (!this.isAuthenticated) {
+                            this.showLoginRequired();
+                            return;
+                        }
+                        this.showStats();
+                    });
+                }
+
+                // 返回列表按钮
+                const backToListBtn = document.getElementById('back-to-list');
+                if (backToListBtn) {
+                    backToListBtn.addEventListener('click', () => {
+                        this.showPapersList();
+                    });
+                }
+
+                // 关闭统计模态框
+                const closeStatsBtn = document.getElementById('close-stats-modal');
+                const statsOverlay = document.getElementById('stats-overlay');
+                if (closeStatsBtn) {
+                    closeStatsBtn.addEventListener('click', () => {
+                        this.hideStatsModal();
+                    });
+                }
+                if (statsOverlay) {
+                    statsOverlay.addEventListener('click', () => {
+                        this.hideStatsModal();
+                    });
+                }
+
+                // 设置认证监听器
+                this.setupAuthListeners();
+            }
+
+            // 设置认证监听器
+            setupAuthListeners() {
+                if (window.unifiedAuthManager) {
+                    window.unifiedAuthManager.addAuthListener((isLoggedIn, user) => {
+                        this.isAuthenticated = isLoggedIn;
+                        this.currentUser = user;
+                        this.updateAuthUI();
+                        
+                        if (isLoggedIn) {
+                            this.loadListeningPapers();
+                        }
+                    });
+                }
+                
+                if (window.uiManager && window.uiManager.authManager) {
+                    window.uiManager.authManager.addAuthListener((isLoggedIn, user) => {
+                        this.isAuthenticated = isLoggedIn;
+                        this.currentUser = user;
+                        this.updateAuthUI();
+                        
+                        if (isLoggedIn) {
+                            this.loadListeningPapers();
+                        }
+                    });
+                }
+            }
+
+            // 加载听力试卷列表 - 修复版
+            async loadListeningPapers() {
+                try {
+                    const response = await fetch('/api/listening/papers', {
+                        headers: window.unifiedAuthManager.getAuthHeaders()
+                    });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.renderPapersList(result.data);
+                    } else {
+                        this.showMessage('加载试卷列表失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('加载听力试卷失败:', error);
+                    this.showMessage('网络错误，请重试', 'error');
+                }
+            }
+
+            // 渲染试卷列表 - 修复字段映射
+            renderPapersList(papers) {
+                const container = document.getElementById('papers-list');
+                if (!container) return;
+
+                if (papers.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-8 col-span-3">
+                            <i class="fas fa-headphones text-4xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">暂无听力真题</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = papers.map(paper => `
+                    <div class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer paper-item" data-paper-id="${paper.id}">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">${paper.title}</h4>
+                                <p class="text-sm text-gray-600">${paper.year}年${paper.month}月 • ${paper.listening_questions_count || 0} 题</p>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full mb-1">${paper.exam_type}</span>
+                                <span class="px-2 py-1 ${paper.has_audio ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'} text-xs rounded-full">
+                                    ${paper.has_audio ? '有音频' : '无音频'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span class="flex items-center">
+                                <i class="fas ${paper.has_audio ? 'fa-volume-up text-green-500' : 'fa-volume-mute text-yellow-500'} mr-1"></i>
+                                ${paper.audio_file || '音频文件'}
+                            </span>
+                            <button class="start-paper-btn">
+                                开始练习
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // 绑定试卷点击事件
+                document.querySelectorAll('.paper-item').forEach(item => {
+                    const paperId = item.dataset.paperId;
+                    const startBtn = item.querySelector('.start-paper-btn');
+                    
+                    if (startBtn) {
+                        startBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.startPaperPractice(paperId);
+                        });
+                    }
+                    
+                    item.addEventListener('click', () => {
+                        this.startPaperPractice(paperId);
+                    });
+                });
+            }
+
+            // 开始试卷练习 - 修复版
+            async startPaperPractice(paperId) {
+                try {
+                    const response = await fetch(`/api/listening/papers/${paperId}`, {
+                        headers: window.unifiedAuthManager.getAuthHeaders()
+                    });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.currentPaper = result.data.paper;
+                        this.currentQuestions = result.data.questions;
+                        this.currentQuestionIndex = 0;
+                        this.userAnswers = {};
+                        
+                        this.showPracticeInterface();
+                        this.loadCurrentQuestion();
+                        
+                        // 自动处理音频文件
+                        await this.handleAudioSetup();
+                    } else {
+                        this.showMessage('加载试卷失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('开始练习失败:', error);
+                    this.showMessage('网络错误，请重试', 'error');
+                }
+            }
+
+            // 自动处理音频文件
+            async autoProcessAudio(paper) {
+                try {
+                    // 如果试卷已经有音频信息，直接使用
+                    if (paper.audio_url && paper.has_audio) {
+                        console.log('✅ 使用已有的音频文件:', paper.audio_url);
+                        return paper.audio_url;
+                    }
+                    
+                    // 否则尝试重新查找音频
+                    const response = await fetch(`/api/listening/check-audio-file?filename=${encodeURIComponent(paper.audio_file)}`, {
+                        headers: window.unifiedAuthManager.getAuthHeaders()
+                    });
+                    const result = await response.json();
+                    
+                    if (result.exists) {
+                        console.log('🔍 找到音频文件:', result.web_url);
+                        return result.web_url;
+                    } else {
+                        console.log('❌ 音频文件未找到:', paper.audio_file);
+                        return null;
+                    }
+                } catch (error) {
+                    console.error('音频处理失败:', error);
+                    return null;
+                }
+            }
+
+            // 处理音频设置
+            async handleAudioSetup() {
+                if (!this.currentPaper) return;
+                
+                const audioStatus = document.getElementById('audio-status');
+                if (!audioStatus) return;
+                
+                // 自动处理音频文件
+                const audioUrl = await this.autoProcessAudio(this.currentPaper);
+                
+                if (audioUrl) {
+                    audioStatus.innerHTML = `
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span>音频文件可用</span>
+                    `;
+                    this.setupAudioPlayer(audioUrl);
+                } else {
+                    audioStatus.innerHTML = `
+                        <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                        <span>音频文件未找到: ${this.currentPaper.audio_file}</span>
+                    `;
+                    this.showAudioHelpInfo();
+                }
+            }
+
+            // 显示音频帮助信息
+            showAudioHelpInfo() {
+                const audioContainer = document.getElementById('audio-player-container');
+                if (!audioContainer) return;
+                
+                audioContainer.innerHTML += `
+                    <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <h5 class="font-semibold text-yellow-700 mb-2">音频文件未找到</h5>
+                                <p class="text-yellow-600 text-sm mb-2">
+                                    系统正在查找文件: <code class="bg-yellow-100 px-1 rounded">${this.currentPaper.audio_file}</code>
+                                </p>
+                                <p class="text-yellow-600 text-sm">
+                                    请确保音频文件已放置在 <code class="bg-yellow-100 px-1 rounded">真题与听力/四级听力/</code> 目录中
+                                </p>
+                                <div class="mt-2">
+                                    <button onclick="listeningManager.rescanAudio()" class="text-xs bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition-colors">
+                                        重新扫描音频
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 重新扫描音频
+            async rescanAudio() {
+                try {
+                    this.showMessage('正在重新扫描音频文件...', 'info');
+                    
+                    const response = await fetch('/api/listening/rescan-audio', {
+                        method: 'POST',
+                        headers: window.unifiedAuthManager.getAuthHeaders()
+                    });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.showMessage(`扫描完成: ${result.data.matched_papers}/${result.data.total_papers} 套试卷匹配成功`, 'success');
+                        // 重新加载试卷列表
+                        await this.loadListeningPapers();
+                    } else {
+                        this.showMessage('重新扫描失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('重新扫描音频失败:', error);
+                    this.showMessage('重新扫描失败', 'error');
+                }
+            }
+
+            // 设置音频播放器 - 使用新的API端点
+            setupAudioPlayer(audioUrl) {
+                // 使用新的API端点
+                const actualAudioUrl = `/api/listening/audio/${this.currentPaper.audio_file}`;
+                
+                const audioContainer = document.getElementById('audio-player-container');
+                if (!audioContainer) return;
+
+                audioContainer.innerHTML = `
+                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-semibold text-gray-800">听力音频</h4>
+                            <span class="text-sm text-gray-500">${this.currentPaper.audio_file}</span>
+                        </div>
+                        <audio id="listening-audio" controls class="w-full">
+                            <source src="${actualAudioUrl}" type="audio/mpeg">
+                            您的浏览器不支持音频播放。
+                        </audio>
+                        <div class="progress-container mt-2">
+                            <div class="progress-bar" id="audio-progress"></div>
+                        </div>
+                        <div class="audio-controls mt-3">
+                            <button id="play-audio" class="bg-primary text-white">
+                                <i class="fas fa-play mr-2"></i>播放
+                            </button>
+                            <button id="pause-audio" class="bg-gray-500 text-white">
+                                <i class="fas fa-pause mr-2"></i>暂停
+                            </button>
+                            <button id="replay-audio" class="bg-blue-500 text-white">
+                                <i class="fas fa-redo mr-2"></i>重播
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                this.audioPlayer = document.getElementById('listening-audio');
+                this.audioProgressBar = document.getElementById('audio-progress');
+                
+                if (!this.audioPlayer) {
+                    console.error('音频播放器元素未找到');
+                    return;
+                }
+                
+                // 更新进度条
+                this.audioPlayer.addEventListener('timeupdate', () => {
+                    if (this.audioPlayer.duration) {
+                        const percent = (this.audioPlayer.currentTime / this.audioPlayer.duration) * 100;
+                        if (this.audioProgressBar) {
+                            this.audioProgressBar.style.width = percent + '%';
+                        }
+                    }
+                });
+                
+                // 绑定音频控制事件
+                const playBtn = document.getElementById('play-audio');
+                const pauseBtn = document.getElementById('pause-audio');
+                const replayBtn = document.getElementById('replay-audio');
+                
+                if (playBtn) {
+                    playBtn.addEventListener('click', () => {
+                        this.audioPlayer.play();
+                        this.isPlaying = true;
+                    });
+                }
+                
+                if (pauseBtn) {
+                    pauseBtn.addEventListener('click', () => {
+                        this.audioPlayer.pause();
+                        this.isPlaying = false;
+                    });
+                }
+                
+                if (replayBtn) {
+                    replayBtn.addEventListener('click', () => {
+                        this.audioPlayer.currentTime = 0;
+                        this.audioPlayer.play();
+                        this.isPlaying = true;
+                    });
+                }
+
+                // 音频结束事件
+                this.audioPlayer.addEventListener('ended', () => {
+                    this.isPlaying = false;
+                });
+                
+                console.log('✅ 音频播放器设置完成');
+            }
+
+            // 显示练习界面
+            showPracticeInterface() {
+                document.getElementById('papers-container').classList.add('hidden');
+                document.getElementById('practice-container').classList.remove('hidden');
+                
+                // 更新练习标题
+                const practiceTitle = document.getElementById('practice-title');
+                if (practiceTitle && this.currentPaper) {
+                    practiceTitle.textContent = `听力练习 - ${this.currentPaper.title}`;
+                }
+            }
+
+            // 显示试卷列表
+            showPapersList() {
+                document.getElementById('practice-container').classList.add('hidden');
+                document.getElementById('results-container').classList.add('hidden');
+                document.getElementById('papers-container').classList.remove('hidden');
+                
+                // 停止音频播放
+                if (this.audioPlayer) {
+                    this.audioPlayer.pause();
+                    this.isPlaying = false;
+                }
+            }
+
+            // 加载当前题目 - 修复版
+            loadCurrentQuestion() {
+                if (this.currentQuestions.length === 0) return;
+                
+                const question = this.currentQuestions[this.currentQuestionIndex];
+                const container = document.getElementById('question-container');
+                const navigationContainer = document.getElementById('question-navigation');
+                
+                if (!container) return;
+
+                // 更新题目导航
+                if (navigationContainer) {
+                    navigationContainer.innerHTML = `
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            ${this.currentQuestions.map((_, index) => `
+                                <button class="question-nav-btn ${index === this.currentQuestionIndex ? 'active' : ''} ${this.userAnswers[index] ? 'answered' : ''}" data-index="${index}">
+                                    ${index + 1}
+                                </button>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    // 绑定导航按钮事件
+                    navigationContainer.querySelectorAll('.question-nav-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const index = parseInt(btn.dataset.index);
+                            this.currentQuestionIndex = index;
+                            this.loadCurrentQuestion();
+                        });
+                    });
+                }
+
+                // 确保选项是数组格式
+                let options = [];
+                if (question.options && Array.isArray(question.options)) {
+                    options = question.options;
+                } else if (typeof question.options === 'string') {
+                    try {
+                        options = JSON.parse(question.options);
+                    } catch (e) {
+                        console.warn('选项解析失败，尝试备用解析:', e);
+                        if (question.options.includes(',')) {
+                            options = question.options.split(',').map(opt => opt.trim());
+                        } else {
+                            options = [question.options];
+                        }
+                    }
+                }
+                
+                container.innerHTML = `
+                    <div class="bg-white rounded-lg border border-gray-200 p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-semibold text-gray-800">题目 ${this.currentQuestionIndex + 1}/${this.currentQuestions.length}</h4>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded">${question.section_type || '听力'}</span>
+                        </div>
+                        
+                        <div class="mb-4 p-3 bg-gray-50 rounded">
+                            <p class="text-gray-700">${question.question_text || '题目内容'}</p>
+                        </div>
+                        
+                        <div class="space-y-2 mb-6">
+                            ${options.length > 0 ? options.map((option, index) => {
+                                const optionLetter = String.fromCharCode(65 + index); // A, B, C, D
+                                const isSelected = this.userAnswers[this.currentQuestionIndex] === optionLetter;
+                                return `
+                                    <label class="flex items-center p-3 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer option-item ${isSelected ? 'selected' : ''}">
+                                        <input type="radio" name="answer" value="${optionLetter}" class="mr-3" ${isSelected ? 'checked' : ''}>
+                                        <span class="flex-1">${option}</span>
+                                    </label>
+                                `;
+                            }).join('') : '<p class="text-gray-500">暂无选项</p>'}
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <div class="text-sm text-gray-500">
+                                已选择: <span id="selected-answer">${this.userAnswers[this.currentQuestionIndex] || '未选择'}</span>
+                            </div>
+                            <div class="flex gap-2">
+                                ${this.currentQuestionIndex > 0 ? `
+                                    <button id="prev-question" class="action-btn secondary">
+                                        上一题
+                                    </button>
+                                ` : ''}
+                                ${this.currentQuestionIndex < this.currentQuestions.length - 1 ? `
+                                    <button id="next-question" class="action-btn primary">
+                                        下一题
+                                    </button>
+                                ` : `
+                                    <button id="submit-practice" class="action-btn success">
+                                        提交答案
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // 绑定选项选择事件
+                document.querySelectorAll('.option-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        document.querySelectorAll('.option-item').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        item.classList.add('selected');
+                        
+                        const selectedValue = item.querySelector('input').value;
+                        document.getElementById('selected-answer').textContent = selectedValue;
+                        this.userAnswers[this.currentQuestionIndex] = selectedValue;
+                        
+                        // 更新导航按钮状态
+                        const navBtn = document.querySelector(`.question-nav-btn[data-index="${this.currentQuestionIndex}"]`);
+                        if (navBtn) {
+                            navBtn.classList.add('answered');
+                        }
+                    });
+                });
+
+                // 绑定导航按钮事件
+                if (this.currentQuestionIndex > 0) {
+                    document.getElementById('prev-question').addEventListener('click', () => {
+                        this.currentQuestionIndex--;
+                        this.loadCurrentQuestion();
+                    });
+                }
+
+                if (this.currentQuestionIndex < this.currentQuestions.length - 1) {
+                    document.getElementById('next-question').addEventListener('click', () => {
+                        this.currentQuestionIndex++;
+                        this.loadCurrentQuestion();
+                    });
+                } else {
+                    document.getElementById('submit-practice').addEventListener('click', () => {
+                        this.submitPractice();
+                    });
+                }
+            }
+
+            // 提交练习
+            submitPractice() {
+                const totalQuestions = this.currentQuestions.length;
+                const answeredQuestions = Object.keys(this.userAnswers).length;
+                
+                if (answeredQuestions < totalQuestions) {
+                    if (!confirm(`您还有 ${totalQuestions - answeredQuestions} 题未作答，确定要提交吗？`)) {
+                        return;
+                    }
+                }
+
+                this.calculateResults();
+            }
+
+            // 计算结果
+            calculateResults() {
+                let correctCount = 0;
+                const results = [];
+
+                this.currentQuestions.forEach((question, index) => {
+                    const userAnswer = this.userAnswers[index];
+                    const isCorrect = userAnswer === question.correct_answer;
+                    
+                    if (isCorrect) correctCount++;
+                    
+                    results.push({
+                        question: question.question_text || `题目 ${index + 1}`,
+                        userAnswer: userAnswer || '未作答',
+                        correctAnswer: question.correct_answer || '未知',
+                        isCorrect: isCorrect,
+                        options: question.options || [],
+                        explanation: question.explanation || '暂无解析'
+                    });
+                });
+
+                const score = Math.round((correctCount / this.currentQuestions.length) * 100);
+                
+                this.showResults(score, correctCount, results);
+            }
+
+            // 显示结果
+            showResults(score, correctCount, results) {
+                document.getElementById('practice-container').classList.add('hidden');
+                document.getElementById('results-container').classList.remove('hidden');
+                
+                const resultsContainer = document.getElementById('results-content');
+                if (!resultsContainer) return;
+
+                resultsContainer.innerHTML = `
+                    <div class="bg-white rounded-lg border border-gray-200 p-6">
+                        <div class="text-center mb-6">
+                            <div class="w-24 h-24 mx-auto mb-4 relative">
+                                <svg class="w-full h-full" viewBox="0 0 36 36">
+                                    <circle cx="18" cy="18" r="16" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                                    <circle cx="18" cy="18" r="16" fill="none" stroke="#4F46E5" stroke-width="2" 
+                                            stroke-dasharray="100" stroke-dashoffset="${100 - score}" 
+                                            stroke-linecap="round" transform="rotate(-90 18 18)"/>
+                                </svg>
+                                <span class="absolute inset-0 flex items-center justify-center font-bold text-2xl text-primary">
+                                    ${score}%
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">练习完成</h3>
+                            <p class="text-gray-600">正确: ${correctCount}/${this.currentQuestions.length} 题</p>
+                        </div>
+                        
+                        <div class="space-y-4 max-h-96 overflow-y-auto mb-6">
+                            ${results.map((result, index) => `
+                                <div class="p-4 border rounded-lg result-item ${result.isCorrect ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'}">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="font-medium">第 ${index + 1} 题</span>
+                                        <span class="px-2 py-1 text-xs rounded-full ${result.isCorrect ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}">
+                                            ${result.isCorrect ? '正确' : '错误'}
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-2">${result.question}</p>
+                                    <div class="text-sm mb-2">
+                                        <div class="flex justify-between">
+                                            <span>您的答案: ${result.userAnswer}</span>
+                                            <span>正确答案: ${result.correctAnswer}</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm text-gray-600">
+                                        <strong>解析:</strong> ${result.explanation}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button id="review-practice" class="action-btn primary">
+                                重新练习
+                            </button>
+                            <button id="back-to-papers" class="action-btn secondary">
+                                返回试卷列表
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // 绑定结果页面按钮事件
+                document.getElementById('review-practice').addEventListener('click', () => {
+                    this.currentQuestionIndex = 0;
+                    this.userAnswers = {};
+                    this.showPracticeInterface();
+                    this.loadCurrentQuestion();
+                });
+
+                document.getElementById('back-to-papers').addEventListener('click', () => {
+                    this.showPapersList();
+                });
+            }
+
+            // 开始练习
+            startPractice() {
+                // 默认选择第一套试卷开始练习
+                const firstPaper = document.querySelector('.paper-item');
+                if (firstPaper) {
+                    const paperId = firstPaper.dataset.paperId;
+                    this.startPaperPractice(paperId);
+                } else {
+                    this.showMessage('请先加载试卷', 'warning');
+                }
+            }
+
+            // 显示统计
+            showStats() {
+                const statsModal = document.getElementById('stats-modal');
+                const statsContent = document.getElementById('stats-content');
+                
+                if (statsModal && statsContent) {
+                    statsContent.innerHTML = `
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                <h4 class="font-semibold text-blue-700 mb-2">练习次数</h4>
+                                <p class="text-2xl font-bold text-blue-600">12</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg text-center">
+                                <h4 class="font-semibold text-green-700 mb-2">平均正确率</h4>
+                                <p class="text-2xl font-bold text-green-600">78%</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg text-center">
+                                <h4 class="font-semibold text-purple-700 mb-2">总练习题目</h4>
+                                <p class="text-2xl font-bold text-purple-600">156</p>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-800 mb-3">最近练习记录</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-2 hover:bg-gray-50 rounded">
+                                    <span>2023年6月四级听力</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 text-sm rounded">85%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 hover:bg-gray-50 rounded">
+                                    <span>2023年12月四级听力</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 text-sm rounded">76%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 hover:bg-gray-50 rounded">
+                                    <span>2022年12月四级听力</span>
+                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-sm rounded">65%</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    statsModal.classList.remove('hidden');
+                }
+            }
+
+            // 隐藏统计模态框
+            hideStatsModal() {
+                const statsModal = document.getElementById('stats-modal');
+                if (statsModal) {
+                    statsModal.classList.add('hidden');
+                }
+            }
+
+            // 显示消息
+            showMessage(message, type = 'info') {
+                const toast = document.getElementById('message-toast');
+                const icon = document.getElementById('message-icon');
+                const text = document.getElementById('message-text');
+                
+                if (!toast || !icon || !text) return;
+                
+                // 设置图标和颜色
+                const icons = {
+                    success: 'fa-check-circle text-green-500',
+                    error: 'fa-exclamation-circle text-red-500',
+                    warning: 'fa-exclamation-triangle text-yellow-500',
+                    info: 'fa-info-circle text-blue-500'
+                };
+                
+                const borderColors = {
+                    success: 'border-green-500',
+                    error: 'border-red-500', 
+                    warning: 'border-yellow-500',
+                    info: 'border-blue-500'
+                };
+                
+                icon.className = `fas ${icons[type] || icons.info} text-xl mr-3`;
+                text.textContent = message;
+                toast.className = `fixed top-4 right-4 z-50 bg-white rounded-lg shadow-lg ${borderColors[type] || borderColors.info} border-l-4 p-4 min-w-80 transform transition-all fade-in`;
+                
+                toast.classList.remove('hidden');
+                
+                // 3秒后自动隐藏
+                setTimeout(() => {
+                    this.hideMessage();
+                }, 3000);
+            }
+
+            hideMessage() {
+                const toast = document.getElementById('message-toast');
+                if (toast) {
+                    toast.classList.add('hidden');
+                }
+            }
+        }
+
+        // 全局函数
+        function hideMessage() {
+            if (window.listeningManager) {
+                window.listeningManager.hideMessage();
+            }
+        }
+
+        // 初始化听力管理器
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎧 听力页面加载完成，初始化听力练习管理器');
+            window.listeningManager = new ListeningPracticeManager();
+        });
+    </script>
+</body>
+</html>

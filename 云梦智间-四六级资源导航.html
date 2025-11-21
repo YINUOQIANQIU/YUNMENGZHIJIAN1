@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四六级资源导航 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入认证和UI管理脚本 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <script src="云梦智间主入口.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #F0F7FF 0%, #E3F2FF 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(41, 98, 255, 0.1);
+        }
+        .resource-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .resource-card:hover {
+            box-shadow: 0 10px 20px rgba(41, 98, 255, 0.15);
+        }
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        .category-btn.active, .category-btn:hover {
+            background: #2962FF;
+            color: white;
+        }
+        .user-dropdown {
+            transition: all 0.2s ease;
+        }
+        .user-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+        }
+        .official-badge {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .highlight-card {
+            border: 2px solid #2962FF;
+            box-shadow: 0 5px 15px rgba(41, 98, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- 导航栏 - 与云梦智间其他页面保持一致 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-2xl font-bold tracking-tight" style="color: #2962FF;">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间首页.html" class="text-gray-700 hover:text-primary transition-colors font-medium">首页</a>
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="#" class="text-primary font-medium border-b-2 border-primary">资源导航</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 -->
+        <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+            <div id="login-btn-container">
+                <a href="云梦智间登录.html" class="flex items-center px-4 lg:px-6 py-2 bg-blue-50 text-primary rounded-button hover:bg-blue-100 transition-colors">
+                    <span class="whitespace-nowrap font-medium text-sm lg:text-base">登录</span>
+                </a>
+            </div>
+            <a href="云梦智间AI聊天.html" class="flex items-center px-4 lg:px-6 py-2 bg-primary text-white rounded-button hover:bg-secondary transition-colors">
+                <span class="whitespace-nowrap font-medium text-sm lg:text-base">免费试用</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="pt-16 min-h-screen">
+        <!-- 头部区域 -->
+        <div class="bg-white px-6 lg:px-12 py-8 lg:py-12">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">四六级资源导航</h1>
+                <p class="text-lg text-gray-600 max-w-3xl">精选优质四六级学习资源，一站式获取考试所需的所有工具和资料</p>
+                
+                <!-- 搜索框 -->
+                <div class="mt-8 max-w-2xl">
+                    <div class="relative">
+                        <input type="text" placeholder="搜索四六级资源..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <button class="absolute right-2 top-2 px-4 py-1 bg-primary text-white rounded-md hover:bg-secondary transition-colors">搜索</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 官方重要链接 -->
+        <div class="px-6 lg:px-12 py-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-xl font-bold text-secondary mb-4">官方重要链接</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="resource-card rounded-xl p-6 highlight-card">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-xl">
+                                📝
+                            </div>
+                            <span class="official-badge">官方</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">四六级报名官网</h3>
+                        <p class="text-gray-600 text-sm mb-4">全国大学英语四、六级考试(CET)报名网站，提供考试报名、准考证打印等服务。</p>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-block px-2 py-1 bg-red-50 text-red-500 text-xs rounded">考试报名</span>
+                            <a href="https://cet-bm.neea.edu.cn/" target="_blank" class="flex items-center gap-2 text-primary hover:text-secondary transition-colors text-sm font-medium">
+                                访问网站
+                                <i class="fas fa-external-link-alt text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="resource-card rounded-xl p-6 highlight-card">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-xl">
+                                📊
+                            </div>
+                            <span class="official-badge">官方</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">四六级成绩查询</h3>
+                        <p class="text-gray-600 text-sm mb-4">全国大学英语四、六级考试(CET)成绩查询网站，提供考试成绩查询、成绩证明等服务。</p>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-block px-2 py-1 bg-green-50 text-green-500 text-xs rounded">成绩查询</span>
+                            <a href="http://cet.neea.edu.cn/cet/" target="_blank" class="flex items-center gap-2 text-primary hover:text-secondary transition-colors text-sm font-medium">
+                                访问网站
+                                <i class="fas fa-external-link-alt text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分类筛选 -->
+        <div class="px-6 lg:px-12 py-6 bg-blue-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-wrap gap-3" id="categories">
+                    <button class="category-btn active px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">全部资源</button>
+                    <button class="category-btn px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">真题下载</button>
+                    <button class="category-btn px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">在线练习</button>
+                    <button class="category-btn px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">词汇记忆</button>
+                    <button class="category-btn px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">听力训练</button>
+                    <button class="category-btn px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">写作指导</button>
+                    <button class="category-btn px-4 py-2 bg-white text-gray-700 rounded-lg font-medium">考试资讯</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 资源卡片网格 -->
+        <div class="px-6 lg:px-12 py-8 lg:py-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resources-grid">
+                    <!-- 资源卡片将通过JS动态生成 -->
+                </div>
+                
+                <!-- 加载更多 -->
+                <div class="mt-12 text-center">
+                    <button id="load-more" class="px-6 py-3 bg-white text-primary border border-primary rounded-lg hover:bg-blue-50 transition-colors">
+                        加载更多资源
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="bg-gray-50 px-6 lg:px-12 py-12 lg:py-16">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                <div>
+                    <h3 class="text-lg lg:text-xl font-bold text-secondary mb-4 lg:mb-6">云梦智间</h3>
+                    <p class="text-gray-600 text-sm lg:text-base mb-4 lg:mb-6">专业的英语四六级在线学习平台，致力于帮助大学生高效备考，轻松通过考试。</p>
+                    <div class="flex gap-4 lg:gap-6">
+                        <a href="#" class="text-gray-500 hover:text-primary transition-colors">
+                            <i class="fab fa-weixin text-lg lg:text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-primary transition-colors">
+                            <i class="fab fa-weibo text-lg lg:text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-primary transition-colors">
+                            <i class="fab fa-qq text-lg lg:text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-base lg:text-lg font-semibold text-secondary mb-4 lg:mb-6">学习资源</h4>
+                    <ul class="space-y-2 lg:space-y-3">
+                        <li><a href="云梦智间真题.html" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">历年真题</a></li>
+                        <li><a href="云梦智间词汇.html" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">词汇手册</a></li>
+                        <li><a href="云梦智间写作.html" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">写作模板</a></li>
+                        <li><a href="云梦智间听力.html" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">听力素材</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-base lg:text-lg font-semibold text-secondary mb-4 lg:mb-6">关于我们</h4>
+                    <ul class="space-y-2 lg:space-y-3">
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">公司介绍</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">师资团队</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">加入我们</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary transition-colors text-sm lg:text-base">联系我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-base lg:text-lg font-semibold text-secondary mb-4 lg:mb-6">联系我们</h4>
+                    <ul class="space-y-2 lg:space-y-3">
+                        <li class="flex items-center gap-2 text-gray-600 text-sm lg:text-base">
+                            <i class="fas fa-envelope text-primary"></i>
+                            <span>contact@moyuzhixue.com</span>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-600 text-sm lg:text-base">
+                            <i class="fas fa-phone text-primary"></i>
+                            <span>400-123-4567</span>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-600 text-sm lg:text-base">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            <span>北京市海淀区中关村科技园</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-8 lg:mt-12 pt-8 lg:pt-12 text-center">
+                <p class="text-gray-500 text-xs lg:text-sm">© 2023 云梦智间 版权所有 京ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 资源数据
+        const resourcesData = [
+            {
+                id: 1,
+                title: "四六级真题库",
+                description: "提供历年四六级考试真题及答案解析，支持在线练习和下载。",
+                url: "https://cet.neea.edu.cn/",
+                category: "真题下载",
+                icon: "📚",
+                rating: 4.8,
+                visits: 12500
+            },
+            {
+                id: 2,
+                title: "英语听力网",
+                description: "专业英语听力训练平台，包含四六级听力专项练习和模拟测试。",
+                url: "https://www.listeningexpress.com/",
+                category: "听力训练",
+                icon: "🎧",
+                rating: 4.6,
+                visits: 8900
+            },
+            {
+                id: 3,
+                title: "写作范文库",
+                description: "收录四六级写作高分范文、模板和技巧，提升写作水平。",
+                url: "https://www.51test.net/cet/",
+                category: "写作指导",
+                icon: "📝",
+                rating: 4.7,
+                visits: 10200
+            },
+            {
+                id: 4,
+                title: "词汇记忆助手",
+                description: "科学的词汇记忆工具，包含四六级核心词汇和记忆方法。",
+                url: "https://www.vocabulary.com/",
+                category: "词汇记忆",
+                icon: "📖",
+                rating: 4.5,
+                visits: 7600
+            },
+            {
+                id: 5,
+                title: "考试资讯中心",
+                description: "最新四六级考试动态、报名信息和政策解读。",
+                url: "https://cet-bm.neea.edu.cn/",
+                category: "考试资讯",
+                icon: "🔍",
+                rating: 4.9,
+                visits: 15300
+            },
+            {
+                id: 6,
+                title: "在线模拟测试",
+                description: "全真四六级模拟考试系统，提供智能评分和错题分析。",
+                url: "https://www.examcoo.com/",
+                category: "在线练习",
+                icon: "💻",
+                rating: 4.4,
+                visits: 6800
+            },
+            {
+                id: 7,
+                title: "移动学习APP",
+                description: "四六级学习手机应用，随时随地练习和复习。",
+                url: "https://www.shanbay.com/",
+                category: "在线练习",
+                icon: "📱",
+                rating: 4.7,
+                visits: 11200
+            },
+            {
+                id: 8,
+                title: "名师讲堂",
+                description: "四六级名师视频课程，系统讲解考试重点和解题技巧。",
+                url: "https://www.koolearn.com/",
+                category: "在线练习",
+                icon: "🎓",
+                rating: 4.6,
+                visits: 9400
+            },
+            {
+                id: 9,
+                title: "语法大全",
+                description: "系统讲解英语语法知识，包含四六级考试重点语法点。",
+                url: "https://www.grammarly.com/",
+                category: "在线练习",
+                icon: "📘",
+                rating: 4.5,
+                visits: 7100
+            },
+            {
+                id: 10,
+                title: "口语训练营",
+                description: "四六级口语考试专项训练，提升口语表达能力。",
+                url: "https://www.hellotalk.com/",
+                category: "在线练习",
+                icon: "🗣️",
+                rating: 4.3,
+                visits: 5200
+            },
+            {
+                id: 11,
+                title: "阅读技巧指南",
+                description: "四六级阅读解题技巧和方法，提高阅读理解能力。",
+                url: "https://www.readingrockets.org/",
+                category: "在线练习",
+                icon: "📰",
+                rating: 4.6,
+                visits: 8300
+            },
+            {
+                id: 12,
+                title: "翻译练习平台",
+                description: "中英翻译专项练习，提升四六级翻译题得分能力。",
+                url: "https://www.deepl.com/translator",
+                category: "在线练习",
+                icon: "🌐",
+                rating: 4.4,
+                visits: 6100
+            }
+        ];
+
+        // 页面初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染资源卡片
+            renderResources(resourcesData);
+            
+            // 绑定分类筛选事件
+            bindCategoryEvents();
+            
+            // 绑定搜索事件
+            bindSearchEvents();
+            
+            // 绑定加载更多事件
+            bindLoadMoreEvents();
+        });
+
+        // 渲染资源卡片
+        function renderResources(resources) {
+            const grid = document.getElementById('resources-grid');
+            grid.innerHTML = '';
+            
+            resources.forEach(resource => {
+                const card = createResourceCard(resource);
+                grid.appendChild(card);
+            });
+        }
+
+        // 创建资源卡片
+        function createResourceCard(resource) {
+            const card = document.createElement('div');
+            card.className = 'resource-card rounded-xl p-6 card-hover';
+            card.innerHTML = `
+                <div class="flex items-start justify-between mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-xl">
+                        ${resource.icon}
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <span>${resource.rating}</span>
+                        <i class="fas fa-eye ml-2"></i>
+                        <span>${formatNumber(resource.visits)}</span>
+                    </div>
+                </div>
+                <h3 class="text-lg font-semibold text-secondary mb-2">${resource.title}</h3>
+                <p class="text-gray-600 text-sm mb-4">${resource.description}</p>
+                <div class="flex items-center justify-between">
+                    <span class="inline-block px-2 py-1 bg-blue-50 text-primary text-xs rounded">${resource.category}</span>
+                    <a href="${resource.url}" target="_blank" class="flex items-center gap-2 text-primary hover:text-secondary transition-colors text-sm font-medium">
+                        访问网站
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // 格式化数字
+        function formatNumber(num) {
+            if (num >= 10000) {
+                return (num / 10000).toFixed(1) + '万';
+            }
+            return num.toString();
+        }
+
+        // 绑定分类筛选事件
+        function bindCategoryEvents() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // 为当前按钮添加active类
+                    this.classList.add('active');
+                    
+                    // 获取选中的分类
+                    const category = this.textContent;
+                    
+                    // 筛选资源
+                    if (category === '全部资源') {
+                        renderResources(resourcesData);
+                    } else {
+                        const filteredResources = resourcesData.filter(
+                            resource => resource.category === category
+                        );
+                        renderResources(filteredResources);
+                    }
+                });
+            });
+        }
+
+        // 绑定搜索事件
+        function bindSearchEvents() {
+            const searchInput = document.querySelector('input[type="text"]');
+            const searchButton = document.querySelector('button');
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const query = searchInput.value.trim().toLowerCase();
+                
+                if (query === '') {
+                    renderResources(resourcesData);
+                    return;
+                }
+                
+                const filteredResources = resourcesData.filter(resource => 
+                    resource.title.toLowerCase().includes(query) ||
+                    resource.description.toLowerCase().includes(query) ||
+                    resource.category.toLowerCase().includes(query)
+                );
+                
+                renderResources(filteredResources);
+            }
+        }
+
+        // 绑定加载更多事件
+        function bindLoadMoreEvents() {
+            const loadMoreButton = document.getElementById('load-more');
+            
+            // 实际项目中这里应该从服务器加载更多数据
+            // 这里只是模拟效果
+            loadMoreButton.addEventListener('click', function() {
+                // 显示加载中状态
+                loadMoreButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>加载中...';
+                loadMoreButton.disabled = true;
+                
+                // 模拟网络请求延迟
+                setTimeout(() => {
+                    // 在实际项目中，这里应该从服务器获取更多数据
+                    // 这里只是复制现有数据以模拟更多内容
+                    const moreResources = [...resourcesData, ...resourcesData.slice(0, 4).map(resource => ({
+                        ...resource,
+                        id: resource.id + 100
+                    }))];
+                    
+                    renderResources(moreResources);
+                    
+                    // 恢复按钮状态
+                    loadMoreButton.innerHTML = '加载更多资源';
+                    loadMoreButton.disabled = false;
+                    
+                    // 显示提示信息
+                    if (window.uiManager) {
+                        window.uiManager.showMessage('已加载更多资源', 'success');
+                    }
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

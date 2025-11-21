@@ -1,0 +1,50 @@
+{
+  "exam_paper": {
+    "exam_type": "CET-4",
+    "year": 2023,
+    "month": 3,
+    "paper_number": 3,
+    "title": "2023年3月大学英语四级考试真题（三）",
+    "total_score": 710,
+    "time_allowed": 125,
+    "description": "2023年3月大学英语四级考试完整试卷",
+    "sections": [
+      {
+        "section_type": "writing",
+        "section_name": "Part I Writing",
+        "section_order": 1,
+        "time_allowed": "30 minutes",
+        "directions": "Suppose you have attended a lecture delivered by a famous scholar. Write a report to the campus newspaper, summarizing its most important points. You should write at least 120 words but no more than 180 words.",
+        "content": "{\"essay_title\": \"Lecture Report\", \"requirements\": {\"min_words\": 120, \"max_words\": 180}}",
+        "questions": []
+      },
+      {
+        "section_type": "listening",
+        "section_name": "Part II Listening Comprehension",
+        "section_order": 2,
+        "time_allowed": "25 minutes",
+        "directions": "听力理解部分，包含新闻报告、长对话和短文理解",
+        "content": "{\"subsections\": [{\"subsection_name\": \"Section A\", \"directions\": \"In this section, you will hear three news reports. At the end of each news report, you will hear two or three questions. Both the news report and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.\", \"questions_range\": \"1 to 7\"}, {\"subsection_name\": \"Section B\", \"directions\": \"In this section, you will hear two long conversations. At the end of each conversation, you will hear four questions. Both the conversation and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.\", \"questions_range\": \"8 to 15\"}, {\"subsection_name\": \"Section C\", \"directions\": \"In this section, you will hear three passages. At the end of each passage, you will hear three or four questions. Both the passage and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.\", \"questions_range\": \"16 to 25\"}]}",
+        "questions": []
+      },
+      {
+        "section_type": "reading",
+        "section_name": "Part III Reading Comprehension",
+        "section_order": 3,
+        "time_allowed": "40 minutes",
+        "directions": "阅读部分包含选词填空、段落匹配和阅读理解",
+        "content": "{\"subsections\": [{\"subsection_name\": \"Section A\", \"directions\": \"In this section, there is a passage with ten blanks. You are required to select one word for each blank from a list of choices given in a word bank following the passage. Read the passage through carefully before making your choices. Each choice in the bank is identified by a letter. Please mark the corresponding letter for each item on Answer Sheet 2 with a single line through the centre. You may not use any of the words in the bank more than once.\", \"content\": {\"passage\": \"\", \"word_bank\": {}, \"blanks\": []}}, {\"subsection_name\": \"Section B\", \"directions\": \"In this section, you are going to read a passage with ten statements attached to it. Each statement contains information given in one of the paragraphs. Identify the paragraph from which the information is derived. You may choose a paragraph more than once. Each paragraph is marked with a letter. Answer the questions by marking the corresponding letter on Answer Sheet 2.\", \"content\": {\"passage_title\": \"\", \"paragraphs\": [], \"questions\": []}}, {\"subsection_name\": \"Section C\", \"directions\": \"There are 2 passages in this section. Each passage is followed by some questions or unfinished statements. For each of them there are four choices marked A), B), C) and D). You should decide on the best choice and mark the corresponding letter on Answer Sheet 2 with a single line through the centre.\", \"content\": {\"passages\": []}}]}",
+        "questions": []
+      },
+      {
+        "section_type": "translation",
+        "section_name": "Part IV Translation",
+        "section_order": 4,
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to translate a passage from Chinese into English. You should write your answer on Answer Sheet 2.",
+        "content": "{\"translation_content\": \"近年来，越来越多的年轻人喜爱各种形式的自助旅游。许多自助旅游者选择徒步或者骑自行车出游。他们自己设计路线、自带帐篷、厨具以及其他必备的生活用品。在旅途中，自助旅游者能够发现一些新的美丽景点，但有时也会遇见意想不到的困难或突发事件。游客在旅行中拥抱自然、欣赏美景，同时也增强了自己克服困难的勇气和野外生存的能力。\", \"requirements\": {\"min_words\": 100, \"max_words\": 200}}",
+        "questions": []
+      }
+    ]
+  }
+}

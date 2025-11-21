@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2022_06",
+    "exam_type": "CET-6",
+    "year": 2022,
+    "month": 6,
+    "title": "2022年6月英语六级听力真题（第一套）",
+    "audio_file": "cet6_2022_06.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "What do we learn about the man?",
+      "options": [
+        {"option": "A", "text": "He is a staff writer."},
+        {"option": "B", "text": "He is an adventurer."},
+        {"option": "C", "text": "He is an author of fiction."},
+        {"option": "D", "text": "He is a father of four kids."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 30,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What does the man say about his children?",
+      "options": [
+        {"option": "A", "text": "They are interested in fairy tales."},
+        {"option": "B", "text": "They are curious and autonomous."},
+        {"option": "C", "text": "They are a headache to their parents."},
+        {"option": "D", "text": "They are ignorant of politics."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 30,
+      "audio_end_time": 60,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What does the man do to help his children with their writing?",
+      "options": [
+        {"option": "A", "text": "He offers them ample editorial guidance."},
+        {"option": "B", "text": "He recommends model essays to them."},
+        {"option": "C", "text": "He gives them encouragement."},
+        {"option": "D", "text": "He teaches them proofreading."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 60,
+      "audio_end_time": 90,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What happened to the man's daughter after she read a book about a refugee?",
+      "options": [
+        {"option": "A", "text": "Her tastes in books changed."},
+        {"option": "B", "text": "She realized the power of reading."},
+        {"option": "C", "text": "Her reading opened her eyes to the world."},
+        {"option": "D", "text": "She began to perceive the world differently."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 90,
+      "audio_end_time": 120,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What do we learn about the woman?",
+      "options": [
+        {"option": "A", "text": "She is a website designer."},
+        {"option": "B", "text": "She is a university graduate."},
+        {"option": "C", "text": "She is a main street store owner."},
+        {"option": "D", "text": "She is a successful entrepreneur."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 120,
+      "audio_end_time": 150,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What does the woman say about her early attempts at making clothes?",
+      "options": [
+        {"option": "A", "text": "They were repeatedly rejected by shops."},
+        {"option": "B", "text": "They were popular with her classmates."},
+        {"option": "C", "text": "They showed her natural talent."},
+        {"option": "D", "text": "They were mostly failures."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 150,
+      "audio_end_time": 180,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "Why did the woman start making her own clothes?",
+      "options": [
+        {"option": "A", "text": "She had a strong interest in doing it."},
+        {"option": "B", "text": "She did not like ready-made clothes."},
+        {"option": "C", "text": "She could not find clothes of her size."},
+        {"option": "D", "text": "She found clothes in shops unaffordable."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 180,
+      "audio_end_time": 210,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What does the woman plan to do next?",
+      "options": [
+        {"option": "A", "text": "Study fashion design at college."},
+        {"option": "B", "text": "Improve her marketing strategy."},
+        {"option": "C", "text": "Add designs for women."},
+        {"option": "D", "text": "Expand her business."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 210,
+      "audio_end_time": 240,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "What have researchers at the Massachusetts Institute of Technology done recently?",
+      "options": [
+        {"option": "A", "text": "Utilizing artificial intelligence to find a powerful new antibiotic."},
+        {"option": "B", "text": "Discovering bacteria which are resistant to all known antibiotics."},
+        {"option": "C", "text": "Identifying bacterial strains that are most harmful to human health."},
+        {"option": "D", "text": "Removing a deadly strain of bacteria in humans with a new antibiotic."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 240,
+      "audio_end_time": 270,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "What is the challenge facing scientists in developing new antibiotics?",
+      "options": [
+        {"option": "A", "text": "Ever increasing strains of bacteria."},
+        {"option": "B", "text": "Bacteria's resistance to antibiotics."},
+        {"option": "C", "text": "The similarity between known drugs."},
+        {"option": "D", "text": "The growing threat of bacteria to health."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 270,
+      "audio_end_time": 300,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "What can the new computer model do?",
+      "options": [
+        {"option": "A", "text": "Dispense with experimental testing."},
+        {"option": "B", "text": "Predict whether compounds are toxic."},
+        {"option": "C", "text": "Foresee human reaction to antibiotics."},
+        {"option": "D", "text": "Combat bacteria's resistance to antibiotics."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 300,
+      "audio_end_time": 330,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "How do people normally detect lies according to the passage?",
+      "options": [
+        {"option": "A", "text": "By theorization."},
+        {"option": "B", "text": "By generalization."},
+        {"option": "C", "text": "By observation."},
+        {"option": "D", "text": "By conversation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 330,
+      "audio_end_time": 360,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What does the passage say about people's beliefs concerning liars' behavior?",
+      "options": [
+        {"option": "A", "text": "They are easy to detect."},
+        {"option": "B", "text": "They are well intended."},
+        {"option": "C", "text": "They are groundless."},
+        {"option": "D", "text": "They are harmless."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 360,
+      "audio_end_time": 390,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "What does the passage say about people's detection of lies?",
+      "options": [
+        {"option": "A", "text": "Mostly by chance."},
+        {"option": "B", "text": "Basically objective."},
+        {"option": "C", "text": "Subject to their mental alertness."},
+        {"option": "D", "text": "Dependent on their analytical ability."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 390,
+      "audio_end_time": 420,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "What are people advised to do to detect lies effectively?",
+      "options": [
+        {"option": "A", "text": "Looking the speaker in the eye."},
+        {"option": "B", "text": "Listening carefully to the speaker."},
+        {"option": "C", "text": "Measuring the speaker's breathing rate."},
+        {"option": "D", "text": "Focusing on the speaker's facial expressions."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 420,
+      "audio_end_time": 450,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What does the speaker say about social workers?",
+      "options": [
+        {"option": "A", "text": "They don't treat patients with due respect."},
+        {"option": "B", "text": "They witness a lot of doctor-patient conflicts."},
+        {"option": "C", "text": "They have to deal with social workers' strikes."},
+        {"option": "D", "text": "They don't care how much patients have to pay."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 450,
+      "audio_end_time": 480,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "What are patients advised to do in order to receive better treatment?",
+      "options": [
+        {"option": "A", "text": "Appear submissive and grateful to doctors and nurses."},
+        {"option": "B", "text": "Express a strong desire to be consulted or informed."},
+        {"option": "C", "text": "Refrain from saying anything that sounds negative."},
+        {"option": "D", "text": "Note down the names of all the doctors and nurses."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 480,
+      "audio_end_time": 510,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "What kind of patients are medical staff more willing to help?",
+      "options": [
+        {"option": "A", "text": "Cooperative."},
+        {"option": "B", "text": "Appreciative."},
+        {"option": "C", "text": "Passive."},
+        {"option": "D", "text": "Responsive."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 510,
+      "audio_end_time": 540,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "What does the speaker say about a successful team?",
+      "options": [
+        {"option": "A", "text": "Its members work together despite risks of failure."},
+        {"option": "B", "text": "It prioritizes recruiting young energetic members."},
+        {"option": "C", "text": "Its members stay in touch even after it breaks up."},
+        {"option": "D", "text": "It grows more and more mature professionally."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 540,
+      "audio_end_time": 570,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "What have researchers found about team members?",
+      "options": [
+        {"option": "A", "text": "Their differences are likely to impact productivity."},
+        {"option": "B", "text": "Their similarity is conducive to future collaboration."},
+        {"option": "C", "text": "Their connections strengthen with the passage of time."},
+        {"option": "D", "text": "Their mutual understanding stems from a common goal."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 570,
+      "audio_end_time": 600,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "What does the speaker say about the team he studied?",
+      "options": [
+        {"option": "A", "text": "It is characterized by diversity."},
+        {"option": "B", "text": "Its goals are quite inconsistent."},
+        {"option": "C", "text": "Its members have similar backgrounds."},
+        {"option": "D", "text": "It is connected by a unique mechanism."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 600,
+      "audio_end_time": 630,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "What does the speaker say is the secret to wealth?",
+      "options": [
+        {"option": "A", "text": "Putting aside twenty percent of one's earnings."},
+        {"option": "B", "text": "Spending in anticipation of becoming wealthy."},
+        {"option": "C", "text": "Living off a small proportion of one's income."},
+        {"option": "D", "text": "Saving as much as one can possibly manage."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 630,
+      "audio_end_time": 660,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "What is the advantage of having a financial plan according to the speaker?",
+      "options": [
+        {"option": "A", "text": "It empowers them to cope with irrational emotions."},
+        {"option": "B", "text": "It will guarantee the profits from their investments."},
+        {"option": "C", "text": "It will turn them into successful financial planners."},
+        {"option": "D", "text": "It enables them to focus on long term investments."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 660,
+      "audio_end_time": 690,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "What do wealthy people do when their investments don't work out?",
+      "options": [
+        {"option": "A", "text": "They count on others to take the responsibility."},
+        {"option": "B", "text": "They change their investment strategy in time."},
+        {"option": "C", "text": "They think they themselves are to blame."},
+        {"option": "D", "text": "They persist rather than get discouraged."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 690,
+      "audio_end_time": 720,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "What does the speaker say wealthy people don't do?",
+      "options": [
+        {"option": "A", "text": "They do not resist novel lifestyles."},
+        {"option": "B", "text": "They do not try to keep up with others."},
+        {"option": "C", "text": "They do not care what they have acquired."},
+        {"option": "D", "text": "They do not pressure themselves to get rich."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 720,
+      "audio_end_time": 750,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2021_06_2",
+    "exam_type": "CET-6",
+    "year": 2021,
+    "month": 6,
+    "title": "2021年6月英语六级听力真题（第二套）",
+    "audio_file": "cet6_2021_06_2.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Weird."},
+        {"option": "B", "text": "Efficient."},
+        {"option": "C", "text": "Tolerant."},
+        {"option": "D", "text": "Toxic."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are arrogant."},
+        {"option": "B", "text": "They are ignorant."},
+        {"option": "C", "text": "They are ambitious."},
+        {"option": "D", "text": "They are accommodating."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They can think big."},
+        {"option": "B", "text": "They can air their views."},
+        {"option": "C", "text": "They can break conventions."},
+        {"option": "D", "text": "They can work flexible hours."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It can alter people's mindsets."},
+        {"option": "B", "text": "It can lead to new discoveries."},
+        {"option": "C", "text": "It enables people to learn and grow."},
+        {"option": "D", "text": "It is conducive to critical thinking."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He kept looking for the best place to stay."},
+        {"option": "B", "text": "He met many tourists from other countries."},
+        {"option": "C", "text": "He had a great time sightseeing and relaxing."},
+        {"option": "D", "text": "He managed to visit a different city each day."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Prioritize what is essential to their best advantage."},
+        {"option": "B", "text": "Stretch out the process in search of the optimal."},
+        {"option": "C", "text": "Deliberate the consequences that may occur."},
+        {"option": "D", "text": "Take all relevant factors into consideration."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Time pressure."},
+        {"option": "B", "text": "Tight budget."},
+        {"option": "C", "text": "Modern technology."},
+        {"option": "D", "text": "Fierce competition."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Research as many different options as possible."},
+        {"option": "B", "text": "Avoid going over the same options repeatedly."},
+        {"option": "C", "text": "Focus on what is practical."},
+        {"option": "D", "text": "Trust their gut instinct."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is beneficial to poor as well as rich communities."},
+        {"option": "B", "text": "It is conducive to children's future development."},
+        {"option": "C", "text": "It is welcome to parents but not to children."},
+        {"option": "D", "text": "It is not of much help to younger children."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It may put some students in remote areas at a disadvantage."},
+        {"option": "B", "text": "It gives the majority of students ready access to their teachers."},
+        {"option": "C", "text": "It effectively improves the learning quality of students in rural areas."},
+        {"option": "D", "text": "It can bridge the learning gap between kids of different backgrounds."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Diligent students tend to do their homework independently."},
+        {"option": "B", "text": "The focus of homework should always be on school subjects."},
+        {"option": "C", "text": "Doing homework exerts a positive effect on kids' personality development."},
+        {"option": "D", "text": "The benefits of doing homework vary widely from individual to individual."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It was something he apologized for later."},
+        {"option": "B", "text": "It was ridiculed by the New York Times."},
+        {"option": "C", "text": "It was a forty-nine-year plan."},
+        {"option": "D", "text": "It was considered visionary."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It was of great significance to rocket science."},
+        {"option": "B", "text": "It was completed in the state of New Mexico."},
+        {"option": "C", "text": "It was somehow delayed about 12 minutes."},
+        {"option": "D", "text": "It failed due to a sudden change of weather."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "A laboratory and test range was already set up there."},
+        {"option": "B", "text": "Its climate was ideal for year-round rocket launching."},
+        {"option": "C", "text": "A weather expert invited him to go there for his mission."},
+        {"option": "D", "text": "Its remote valleys were appealing to him and his family."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He won an award from the US government for his work."},
+        {"option": "B", "text": "He gained recognition from rocket scientists worldwide."},
+        {"option": "C", "text": "He was granted over 200 patents in rocket technology."},
+        {"option": "D", "text": "He boosted the military strength of the United States."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It requires entrepreneurial experience."},
+        {"option": "B", "text": "It is usually financially rewarding."},
+        {"option": "C", "text": "It can be quite frustrating."},
+        {"option": "D", "text": "It can be rather risky."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It contributes to rapid business expansion."},
+        {"option": "B", "text": "It inspires willingness to make sacrifices."},
+        {"option": "C", "text": "It reduces conflict among team members."},
+        {"option": "D", "text": "It encourages creation and innovation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have unrealistic expectations."},
+        {"option": "B", "text": "They often work without any pay."},
+        {"option": "C", "text": "Few can find willing investors."},
+        {"option": "D", "text": "Many are idealistic dreamers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have better dietary habits."},
+        {"option": "B", "text": "They bear fewer social responsibilities."},
+        {"option": "C", "text": "They are born with a stronger ability to socialize."},
+        {"option": "D", "text": "They are better able to survive or handle disease."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have a limited reproductive ability."},
+        {"option": "B", "text": "They depend on adequate sleep to thrive."},
+        {"option": "C", "text": "They keep dividing throughout one's life."},
+        {"option": "D", "text": "They strengthen with regular exercise."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The process of ageing can ultimately be brought under control."},
+        {"option": "B", "text": "Improved health care for the elderly will contribute to longevity."},
+        {"option": "C", "text": "Prevention of heart disease and stroke will increase life expectancy."},
+        {"option": "D", "text": "The resolution of age-related diseases will solve the mystery of ageing."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are reluctant to follow instructions."},
+        {"option": "B", "text": "They fail to answer emails promptly."},
+        {"option": "C", "text": "They cannot understand directives."},
+        {"option": "D", "text": "They do not show due respect."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have not been trained to follow the rules."},
+        {"option": "B", "text": "They are not satisfied with the management."},
+        {"option": "C", "text": "They want to avoid unnecessary losses."},
+        {"option": "D", "text": "They find their voice go unheeded."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "When they are on good terms with their managers."},
+        {"option": "B", "text": "When they find their job goals easily attainable."},
+        {"option": "C", "text": "When they find their supervisors helpful."},
+        {"option": "D", "text": "When they are financially motivated."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are a useless tool for managers to change employee behavior."},
+        {"option": "B", "text": "They prove to be a good means for managers to give instructions."},
+        {"option": "C", "text": "They should be reserved for urgent communication."},
+        {"option": "D", "text": "They are seldom used for sharing confidential data."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

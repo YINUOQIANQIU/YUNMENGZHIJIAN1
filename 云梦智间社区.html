@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习社区 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1',
+                        secondary: '#38BDF8',
+                        accent: '#A78BFA',
+                        dark: '#0F172A',
+                        light: '#F8FAFC'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '2px',
+                        DEFAULT: '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        'full': '9999px',
+                        'button': '4px'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #F8FAFC;
+        }
+        .neural-bg {
+            background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1471&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background-color: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+            border-color: rgba(167, 139, 250, 0.3);
+        }
+        .community-post {
+            transition: all 0.2s ease;
+        }
+        .community-post:hover {
+            background-color: rgba(99, 102, 241, 0.15);
+        }
+        .tag-hover:hover {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: #38BDF8;
+        }
+        .active-tab {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: #38BDF8;
+            font-weight: 600;
+        }
+        .active-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #38BDF8;
+            border-radius: 3px;
+        }
+        .scene-preview {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .scene-preview:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(167, 139, 250, 0.3);
+        }
+        .scene-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 50%);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+        .glow-text {
+            text-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+        }
+        .gradient-border {
+            position: relative;
+            border-radius: 12px;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, #6366F1, #38BDF8);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .ai-assistant-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(56, 189, 248, 0.15));
+            border: 1px solid rgba(167, 139, 250, 0.2);
+        }
+        
+        /* 帖子详情模态框 */
+        .post-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .post-detail-content {
+            background: #1E293B;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .comment-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 0;
+        }
+        
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .post-content {
+            line-height: 1.6;
+        }
+        
+        .post-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .post-content ul, .post-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 glass-effect fixed top-0 left-0 right-0 z-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-secondary text-2xl font-bold tracking-tight glow-text">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-300 hover:text-accent transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-300 hover:text-accent transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试练习.html" class="text-gray-300 hover:text-accent transition-colors font-medium">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-300 hover:text-accent transition-colors font-medium text-secondary">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 -->
+        <div class="flex items-center gap-4 lg:gap-6" id="auth-section">
+            <div id="login-btn-container">
+                <a href="云梦智间登录.html" class="flex items-center px-4 lg:px-6 py-2 bg-white/10 text-white rounded-button hover:bg-white/20 transition-colors">
+                    <span class="whitespace-nowrap font-medium text-sm lg:text-base">登录</span>
+                </a>
+            </div>
+            <a href="云梦智间聊天.html" class="flex items-center px-4 lg:px-6 py-2 bg-secondary text-dark rounded-button hover:bg-accent transition-colors">
+                <span class="whitespace-nowrap font-medium text-sm lg:text-base">免费试用</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 max-w-[1440px] mx-auto px-6">
+        <!-- 社区头部 -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <div>
+                <h1 class="text-2xl lg:text-3xl font-bold text-secondary mb-2 glow-text">AI 学习社区</h1>
+                <p class="text-gray-400">与全球学习者交流心得，分享经验，共同进步</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <button id="new-post-btn" class="flex items-center gap-2 px-4 lg:px-6 py-2 bg-gradient-to-r from-primary to-secondary text-dark rounded-button hover:opacity-90 transition-all pulse-animation">
+                    <i class="fas fa-plus"></i>
+                    <span>发布新话题</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 社区内容 -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- 左侧内容 - 主讨论区 -->
+            <div class="lg:col-span-3 space-y-6">
+                <!-- 分类标签 -->
+                <div class="glass-effect rounded-xl p-4 gradient-border">
+                    <div class="flex flex-wrap gap-2" id="category-tabs">
+                        <button class="px-3 py-1 bg-white/5 text-secondary rounded-full text-sm active-tab relative" data-category="全部">
+                            全部
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="四级备考">
+                            四级备考
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="六级备考">
+                            六级备考
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="词汇学习">
+                            词汇学习
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="听力技巧">
+                            听力技巧
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="写作指导">
+                            写作指导
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="翻译技巧">
+                            翻译技巧
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="学习工具">
+                            学习工具
+                        </button>
+                        <button class="px-3 py-1 bg-white/5 text-gray-300 rounded-full text-sm hover:bg-secondary/10 hover:text-secondary transition-colors tag-hover" data-category="经验分享">
+                            经验分享
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 虚拟学习场景 -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="scene-preview rounded-lg h-32 cursor-pointer" style="background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1470&auto=format&fit=crop')">
+                        <div class="absolute bottom-0 left-0 p-4 z-10">
+                            <h3 class="font-semibold">图书馆</h3>
+                            <p class="text-xs text-gray-300">专注学习</p>
+                        </div>
+                    </div>
+                    <div class="scene-preview rounded-lg h-32 cursor-pointer" style="background-image: url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?q=80&w=1471&auto=format&fit=crop')">
+                        <div class="absolute bottom-0 left-0 p-4 z-10">
+                            <h3 class="font-semibold">咖啡厅</h3>
+                            <p class="text-xs text-gray-300">轻松交流</p>
+                        </div>
+                    </div>
+                    <div class="scene-preview rounded-lg h-32 cursor-pointer" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1494&auto=format&fit=crop')">
+                        <div class="absolute bottom-0 left-0 p-4 z-10">
+                            <h3 class="font-semibold">星空</h3>
+                            <p class="text-xs text-gray-300">创意空间</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 帖子列表 -->
+                <div class="space-y-4" id="posts-container">
+                    <!-- 帖子将通过JavaScript动态加载 -->
+                </div>
+
+                <!-- 分页 -->
+                <div class="flex justify-center mt-8" id="pagination-container">
+                    <!-- 分页将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 右侧边栏 -->
+            <div class="space-y-6">
+                <!-- 热门话题 -->
+                <div class="glass-effect rounded-xl p-6 gradient-border">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-white">热门话题</h3>
+                        <button class="text-xs text-gray-400 hover:text-secondary transition-colors">查看更多</button>
+                    </div>
+                    <div class="space-y-3" id="hot-topics-container">
+                        <!-- 热门话题将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 活跃用户 -->
+                <div class="glass-effect rounded-xl p-6 gradient-border">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-white">活跃用户</h3>
+                        <button class="text-xs text-gray-400 hover:text-secondary transition-colors">查看全部</button>
+                    </div>
+                    <div class="space-y-4" id="active-users-container">
+                        <!-- 活跃用户将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 学习数据 -->
+                <div class="glass-effect rounded-xl p-6 gradient-border">
+                    <h3 class="text-lg font-semibold text-white mb-4">社区数据</h3>
+                    <div class="h-48">
+                        <canvas id="communityChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-4 text-center" id="stats-container">
+                        <!-- 统计数据将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+
+                <!-- AI助手提示 -->
+                <div class="ai-assistant-card rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                            <i class="fas fa-robot text-dark"></i>
+                        </div>
+                        <h3 class="font-semibold text-white">AI 学习助手</h3>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">遇到学习问题？我们的AI助手24小时在线为您解答疑问，提供个性化学习建议。</p>
+                    <div class="flex flex-col gap-2">
+                        <a href="云梦智间聊天.html" class="w-full px-4 py-2 bg-gradient-to-r from-primary to-secondary text-dark rounded-button hover:opacity-90 transition-all text-center">
+                            立即咨询
+                        </a>
+                        <button class="w-full px-4 py-2 bg-white/5 text-white rounded-button hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-magic"></i>
+                            <span>智能学习诊断</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 近期活动 -->
+                <div class="glass-effect rounded-xl p-6 gradient-border">
+                    <h3 class="text-lg font-semibold text-white mb-4">近期活动</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-2 rounded-lg hover:bg-secondary/10 transition-colors">
+                            <div class="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center text-accent">
+                                <i class="fas fa-calendar-alt text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-white">听力训练营</h4>
+                                <p class="text-xs text-gray-400">6月15日 · 线上直播</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-2 rounded-lg hover:bg-secondary/10 transition-colors">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fas fa-trophy text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-white">写作大赛</h4>
+                                <p class="text-xs text-gray-400">报名截止: 6月20日</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-2 rounded-lg hover:bg-secondary/10 transition-colors">
+                            <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                                <i class="fas fa-users text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-white">学习小组招募</h4>
+                                <p class="text-xs text-gray-400">每日打卡 · 互相监督</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 发布新帖子模态框 -->
+    <div id="new-post-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="glass-effect rounded-xl p-6 w-full max-w-2xl mx-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold text-white">发布新话题</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="new-post-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">标题</label>
+                    <input type="text" id="post-title" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-secondary" placeholder="请输入帖子标题" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">分类</label>
+                    <select id="post-category" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-secondary" required>
+                        <option value="">选择分类</option>
+                        <option value="四级备考">四级备考</option>
+                        <option value="六级备考">六级备考</option>
+                        <option value="词汇学习">词汇学习</option>
+                        <option value="听力技巧">听力技巧</option>
+                        <option value="写作指导">写作指导</option>
+                        <option value="翻译技巧">翻译技巧</option>
+                        <option value="学习工具">学习工具</option>
+                        <option value="经验分享">经验分享</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">内容</label>
+                    <textarea id="post-content" rows="6" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-secondary" placeholder="请输入帖子内容..." required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">标签 (可选，用逗号分隔)</label>
+                    <input type="text" id="post-tags" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-secondary" placeholder="例如: 听力技巧,四级备考">
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button type="button" id="cancel-post" class="flex-1 px-4 py-3 bg-white/5 text-white rounded-lg hover:bg-white/10 transition-colors">取消</button>
+                    <button type="submit" class="flex-1 px-4 py-3 bg-gradient-to-r from-primary to-secondary text-dark rounded-lg hover:opacity-90 transition-all">发布</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 帖子详情模态框 -->
+    <div id="post-detail-modal" class="post-detail-modal hidden">
+        <div class="post-detail-content glass-effect">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-white">帖子详情</h3>
+                    <button id="close-detail-modal" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="post-detail-content">
+                    <!-- 帖子详情内容将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心认证系统 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+
+    <!-- 页面特定功能 -->
+    <script src="云梦智间社区认证.js"></script>
+    <script src="云梦智间社区.js"></script>
+
+    <!-- 主入口（可选） -->
+    <script src="云梦智间主入口.js"></script>
+</body>
+</html>

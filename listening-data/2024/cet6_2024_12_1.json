@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2024_12_1",
+    "exam_type": "CET-6",
+    "year": 2024,
+    "month": 12,
+    "title": "2024年12月英语六级听力真题（第一套）",
+    "audio_file": "cet6_2024_12_1.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Preparing for a job interview."},
+        {"option": "B", "text": "Writing a work report together."},
+        {"option": "C", "text": "Going through a couple of issues the company faces."},
+        {"option": "D", "text": "Discussing the woman's annual performance review."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The overall culture of the company."},
+        {"option": "B", "text": "The instruction from her supervisor."},
+        {"option": "C", "text": "The honesty of the manager."},
+        {"option": "D", "text": "The recognition of her merits."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Her inadequate language proficiency."},
+        {"option": "B", "text": "Her inability to interact with colleagues properly."},
+        {"option": "C", "text": "Her inappropriate behavior at company meetings."},
+        {"option": "D", "text": "Her simplistic approach to dealing with others."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To avoid offending the recipients."},
+        {"option": "B", "text": "To show her unique writing style."},
+        {"option": "C", "text": "To save time."},
+        {"option": "D", "text": "To be frank."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Provide medical service to the community."},
+        {"option": "B", "text": "Make healthcare in her hometown the best."},
+        {"option": "C", "text": "Obtain a doctoral degree in internal medicine."},
+        {"option": "D", "text": "Have a profound impact on people around her."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have constantly urged her to study hard."},
+        {"option": "B", "text": "They have worked hard to finance her education."},
+        {"option": "C", "text": "They have tried to create a positive learning environment."},
+        {"option": "D", "text": "They have pursued the family's dreams together with her."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is a key medical branch conducive to realizing her dreams."},
+        {"option": "B", "text": "It connects many other specialties with its broad coverage."},
+        {"option": "C", "text": "It has a long history in the man's prestigious institution."},
+        {"option": "D", "text": "It is a medical branch both of her parents specialize in."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Problematic."},
+        {"option": "B", "text": "Competitive."},
+        {"option": "C", "text": "Inconsistent."},
+        {"option": "D", "text": "Trustworthy."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To prevent hackers from cracking our secret codes."},
+        {"option": "B", "text": "To show that all the guidelines are being followed."},
+        {"option": "C", "text": "To provide evidence that passwords are forgotten."},
+        {"option": "D", "text": "To convince our computer that we are human."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Put an end to the hacking phenomenon."},
+        {"option": "B", "text": "Help people remember their passwords."},
+        {"option": "C", "text": "Reduce the intricacy of the password itself."},
+        {"option": "D", "text": "Explain the need for different email accounts."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Innovate technologies to ensure the safety of users' accounts."},
+        {"option": "B", "text": "Provide incentives for the application of creative passwords."},
+        {"option": "C", "text": "Explore the possibility of using simpler secret codes."},
+        {"option": "D", "text": "Take steps to encourage users to log in more often."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Her work no longer interested her."},
+        {"option": "B", "text": "Her training app did not fit her."},
+        {"option": "C", "text": "Her fitness fell into a slump."},
+        {"option": "D", "text": "Her business deteriorated."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Help users keep track of their fitness levels."},
+        {"option": "B", "text": "Strengthen ties among users worldwide."},
+        {"option": "C", "text": "Design personalised training programmes."},
+        {"option": "D", "text": "Select well-qualified human coaches."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are never repeated."},
+        {"option": "B", "text": "They are of no extreme intensity."},
+        {"option": "C", "text": "They help enrich her life."},
+        {"option": "D", "text": "They keep her focused on her goal."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They will not be able to take the place of human personal trainers."},
+        {"option": "B", "text": "They will not be able to comprehend some of the profiles users put in."},
+        {"option": "C", "text": "They cannot lead to optimal results with their mathematical approach."},
+        {"option": "D", "text": "They cannot match humans in arranging meticulous workout schedules."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "All societies are built upon the cornerstones of basic values."},
+        {"option": "B", "text": "Everyone everywhere demonstrates seven character traits."},
+        {"option": "C", "text": "All societies are kept together by seven basic moral rules."},
+        {"option": "D", "text": "Everyone everywhere shares a universal moral standard."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Ascertain whether deferring to authority was confined to right-wing people."},
+        {"option": "B", "text": "Find out whether different societies had different versions of morality."},
+        {"option": "C", "text": "Make clear whether all societies faced the same moral issues."},
+        {"option": "D", "text": "Find out whether left-wing people still had a group loyalty."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Make independent descriptions of cultures around the world."},
+        {"option": "B", "text": "Strive to understand the basic differences between peoples."},
+        {"option": "C", "text": "Appreciate the foundational value of the existing data."},
+        {"option": "D", "text": "Carry out systematic field studies to gather new data."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They might be the most important part of our eating experience."},
+        {"option": "B", "text": "They can activate our brain functions in a most direct fashion."},
+        {"option": "C", "text": "They can be viewed as the windows to our soul."},
+        {"option": "D", "text": "They could mislead us in more ways than one."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It attracts food companies' growing attention."},
+        {"option": "B", "text": "It adversely impacts one's eating experience."},
+        {"option": "C", "text": "It invariably determines how food sells."},
+        {"option": "D", "text": "It changes the way people taste food."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Enhance the taste."},
+        {"option": "B", "text": "Make predictions."},
+        {"option": "C", "text": "Identify distinct flavors."},
+        {"option": "D", "text": "Enrich the eating experience."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Social status."},
+        {"option": "B", "text": "Financial resources."},
+        {"option": "C", "text": "Meaning."},
+        {"option": "D", "text": "Happiness."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their effect on people's happiness has long been overstated."},
+        {"option": "B", "text": "Their influence on people's life varies with social contexts."},
+        {"option": "C", "text": "They can affect people's experience of meaning."},
+        {"option": "D", "text": "They can ensure people's overall well-being."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It used questions totally different from those in their first study."},
+        {"option": "B", "text": "It focused on the sense of meaning of French participants."},
+        {"option": "C", "text": "It analysed cases from a daily poll of US residents."},
+        {"option": "D", "text": "It examined data collected from multiple countries."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They might have more access to external sources of happiness."},
+        {"option": "B", "text": "They might focus on an individual sense of satisfaction or meaning."},
+        {"option": "C", "text": "They might be less easily affected by a community's overall feeling."},
+        {"option": "D", "text": "They might be less adversely impacted by failure to achieve a purpose."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

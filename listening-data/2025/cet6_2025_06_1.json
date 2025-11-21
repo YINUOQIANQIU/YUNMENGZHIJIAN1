@@ -1,0 +1,458 @@
+{
+  "paper": {
+    "id": "cet6_2025_06_1",
+    "exam_type": "CET-6",
+    "year": 2025,
+    "month": 6,
+    "title": "2025年6月英语六级听力真题（第一套）",
+    "audio_file": "cet6_2025_06_1.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "What did the woman do?",
+      "options": [
+        {"option": "A", "text": "Met the computer technician."},
+        {"option": "B", "text": "Told the man about her trouble."},
+        {"option": "C", "text": "Called the man's company."},
+        {"option": "D", "text": "Visited Alpha Maintenance."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What did the man say he had done?",
+      "options": [
+        {"option": "A", "text": "Consulted someone in charge."},
+        {"option": "B", "text": "Came as soon as possible."},
+        {"option": "C", "text": "Informed the central office at once."},
+        {"option": "D", "text": "Designated an engineer to the case."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What did the woman feel about the situation?",
+      "options": [
+        {"option": "A", "text": "Frustration."},
+        {"option": "B", "text": "Intimidation."},
+        {"option": "C", "text": "Desperation."},
+        {"option": "D", "text": "Indignation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What are the speakers discussing?",
+      "options": [
+        {"option": "A", "text": "Whether the contents have been backed up."},
+        {"option": "B", "text": "Whether they can find help somewhere else."},
+        {"option": "C", "text": "Whether all data stored on the hard drive has got lost."},
+        {"option": "D", "text": "Whether they need to wipe the system directories clean."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What does the woman think of her job?",
+      "options": [
+        {"option": "A", "text": "It's boring."},
+        {"option": "B", "text": "It's challenging."},
+        {"option": "C", "text": "It's a beautiful thing."},
+        {"option": "D", "text": "It's unlike most jobs."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What is the woman's job?",
+      "options": [
+        {"option": "A", "text": "Arbitrating between disagreeing solicitors."},
+        {"option": "B", "text": "Preventing disputes from escalating."},
+        {"option": "C", "text": "Buying and selling property."},
+        {"option": "D", "text": "Mediating land disputes."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "What does the woman say about courts?",
+      "options": [
+        {"option": "A", "text": "Courts are intended for fixing major legal disputes."},
+        {"option": "B", "text": "Courts are getting too bureaucratic to function."},
+        {"option": "C", "text": "Courts can be frustrating and expensive."},
+        {"option": "D", "text": "Courts can be frightening and arbitrary."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What skills does the woman think are important for her job?",
+      "options": [
+        {"option": "A", "text": "The ability to make arguments in a unique way."},
+        {"option": "B", "text": "The skill of preventing conflicts between parties concerned."},
+        {"option": "C", "text": "The skill of foreseeing any potential stakes in their work."},
+        {"option": "D", "text": "The ability to express themselves clearly and forcefully."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "What did the recent studies do?",
+      "options": [
+        {"option": "A", "text": "They looked into the relationship between one's prior knowledge and creativity."},
+        {"option": "B", "text": "They offered novel ways to help older adults to keep their memories from aging."},
+        {"option": "C", "text": "They proposed an explanation for old people's difficulty in retrieving memories."},
+        {"option": "D", "text": "They advanced a new model concerning human information storage and retrieval."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "What do the researchers find about older adults?",
+      "options": [
+        {"option": "A", "text": "Young adults rely on memory while older adults keep notes as a reminder."},
+        {"option": "B", "text": "Older adults often retrieve irrelevant memories along with what they want."},
+        {"option": "C", "text": "Young adults accumulate knowledge much more quickly than older adults."},
+        {"option": "D", "text": "Older adults generally perform cognitive tasks much slower than young adults."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "What does the speaker say about older adults?",
+      "options": [
+        {"option": "A", "text": "They show preserved, and sometimes enhanced, creativity."},
+        {"option": "B", "text": "They frequently suffer from disorderly crowded memories."},
+        {"option": "C", "text": "They can rely on their accumulated wisdom in an emergency."},
+        {"option": "D", "text": "They may well be served by forgetting their prior knowledge."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "What does the speaker say about workers?",
+      "options": [
+        {"option": "A", "text": "They are actually proud of the goods and services they produce."},
+        {"option": "B", "text": "They are worried about being alienated from the outside world."},
+        {"option": "C", "text": "They are rarely in control of many things related to their work."},
+        {"option": "D", "text": "They are longing to share the profits made from their work."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What is the downside of the Industrial Revolution?",
+      "options": [
+        {"option": "A", "text": "The steady decrease in productivity."},
+        {"option": "B", "text": "The adverse effect on physical health."},
+        {"option": "C", "text": "The feeling of being time poor."},
+        {"option": "D", "text": "The rising economic inequality."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "What does the speaker say about automation?",
+      "options": [
+        {"option": "A", "text": "It alters the structure of work."},
+        {"option": "B", "text": "It puts jobs and wages at risk."},
+        {"option": "C", "text": "It liberates people from tedious and laborious work."},
+        {"option": "D", "text": "It creates new work opportunities in the IT industry."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "What is important for workers' well-being according to the speaker?",
+      "options": [
+        {"option": "A", "text": "Finding meaning in work."},
+        {"option": "B", "text": "Prioritizing life over work."},
+        {"option": "C", "text": "Improving relationships in the community."},
+        {"option": "D", "text": "Realizing one's social value in the workplace."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What does the speaker say about grit?",
+      "options": [
+        {"option": "A", "text": "Affect our attitude to novel tasks."},
+        {"option": "B", "text": "Distinguish us in the social world."},
+        {"option": "C", "text": "Outweigh IQ in importance."},
+        {"option": "D", "text": "Impact academic achievements."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "How could babies turn on the music player?",
+      "options": [
+        {"option": "A", "text": "By pressing a hidden button."},
+        {"option": "B", "text": "By pushing a big button on top."},
+        {"option": "C", "text": "By pressing two buttons at the same time."},
+        {"option": "D", "text": "By helping the babies push the right button."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "What did the experiment show about babies?",
+      "options": [
+        {"option": "A", "text": "Perform difficult tasks successfully just by observing how adults acted."},
+        {"option": "B", "text": "Make generalizable inferences about persistence from a few examples."},
+        {"option": "C", "text": "Adapt themselves to different social contexts."},
+        {"option": "D", "text": "Work hard to interact with experimenters."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "What is the speaker doing?",
+      "options": [
+        {"option": "A", "text": "Offering advice on overcoming habitual lateness."},
+        {"option": "B", "text": "Exemplifying various recreational opportunities."},
+        {"option": "C", "text": "Scrutinizing individuals' defining traits."},
+        {"option": "D", "text": "Suggesting ways for setting priorities."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "What is recommended to ensure a timely departure in the morning?",
+      "options": [
+        {"option": "A", "text": "Make the breakfast simpler."},
+        {"option": "B", "text": "Take the alarms seriously."},
+        {"option": "C", "text": "Ready yourself in the early dawn."},
+        {"option": "D", "text": "Get prepared the night before."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "What does the speaker advise us to do?",
+      "options": [
+        {"option": "A", "text": "Finish the prior task 30 minutes earlier."},
+        {"option": "B", "text": "Keep ourselves from hitting a bump."},
+        {"option": "C", "text": "Leave time in between activities."},
+        {"option": "D", "text": "Try to avoid possible hold-ups."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "What do we learn about Proper Bostonians?",
+      "options": [
+        {"option": "A", "text": "Their lifestyles vary."},
+        {"option": "B", "text": "Their traits vary."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "How do Proper Bostonians differ from Parisians and New Yorkers?",
+      "options": [
+        {"option": "A", "text": "They are not as willing to help strangers."},
+        {"option": "B", "text": "They are not as patient with one another."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "What does the speaker say about Boston's traditional culture?",
+      "options": [
+        {"option": "A", "text": "It was practiced by Boston's founding fathers."},
+        {"option": "B", "text": "It is not deemed exotic by Proper Bostonians."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "What does the speaker suggest Boston do?",
+      "options": [
+        {"option": "A", "text": "Stick to its own way of showing courtesy to strangers."},
+        {"option": "B", "text": "Follow the examples set by Paris and New York City."},
+        {"option": "C", "text": "Learn from the world's major cities in promoting tourism."},
+        {"option": "D", "text": "Take pride in its history and adhere to its cultural tradition."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

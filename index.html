@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云梦智间 - 专业英语学习平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- 使用 Tailwind CSS 生产版本 -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a75ff',
+                        secondary: '#0d47a1',
+                        accent: '#00b0ff',
+                        day: {
+                            primary: '#1a75ff',
+                            secondary: '#0d47a1',
+                            accent: '#00b0ff',
+                            text: '#1a237e'
+                        },
+                        night: {
+                            primary: '#9c27b0',
+                            secondary: '#6a1b9a',
+                            accent: '#e91e63',
+                            text: '#f3e5f5'
+                        }
+                    },
+                    fontFamily: {
+                        elegant: ['Cormorant Garamond', 'serif'],
+                        display: ['Playfair Display', 'serif'],
+                        artistic: ['"Alex Brush"', 'cursive']
+                    }
+                }
+            },
+            // 生产环境优化
+            corePlugins: {
+                preflight: true,
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d47a1 0%, #1a75ff 50%, #00b0ff 100%);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            transition: all 1s ease;
+            color: white;
+        }
+        
+        body.night-mode {
+            background: linear-gradient(135deg, #6a1b9a 0%, #9c27b0 50%, #e91e63 100%);
+        }
+        
+        .dream-scene {
+            background-image: url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s ease;
+        }
+
+        .night-mode .dream-scene {
+            background-image: url('https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            filter: brightness(0.8) contrast(1.1) hue-rotate(-10deg);
+        }
+
+        .dream-scene::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(13, 71, 161, 0.7) 0%, 
+                rgba(26, 117, 255, 0.6) 30%,
+                rgba(0, 176, 255, 0.4) 60%,
+                rgba(13, 71, 161, 0.3) 100%);
+            backdrop-filter: blur(2px);
+            transition: all 1s ease;
+        }
+
+        .night-mode .dream-scene::before {
+            background: linear-gradient(135deg, 
+                rgba(106, 27, 154, 0.7) 0%, 
+                rgba(156, 39, 176, 0.6) 30%,
+                rgba(233, 30, 99, 0.4) 60%,
+                rgba(106, 27, 154, 0.3) 100%);
+        }
+
+        /* 日夜切换按钮 */
+        .daynight-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .night-mode .daynight-toggle {
+            background: rgba(106, 27, 154, 0.3);
+            justify-content: flex-end;
+        }
+        
+        .toggle-handle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ff9e00;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 10px #ff9e00, 0 0 20px rgba(255, 158, 0, 0.5);
+        }
+        
+        .night-mode .toggle-handle {
+            background: #f3e5f5;
+            box-shadow: 0 0 10px #f3e5f5, 0 0 20px rgba(243, 229, 245, 0.5);
+        }
+
+        /* 模式指示器 */
+        .mode-indicator {
+            position: fixed;
+            top: 60px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .night-mode .mode-indicator {
+            background: rgba(106, 27, 154, 0.3);
+        }
+        
+        .mode-indicator i {
+            font-size: 0.9rem;
+        }
+        
+        .mode-indicator.auto-mode {
+            background: rgba(76, 175, 80, 0.3);
+        }
+        
+        .night-mode .mode-indicator.auto-mode {
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        /* 飘落元素 */
+        .falling-element {
+            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatElement linear infinite;
+        }
+        
+        @keyframes floatElement {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            70% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(110vh) rotate(var(--rotate-end, 120deg));
+                opacity: 0;
+            }
+        }
+
+        /* 白天飘落元素 - 几何形状 */
+        .geometric-day {
+            width: 20px;
+            height: 20px;
+            background: rgba(26, 117, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(26, 117, 255, 0.5);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .geometric-day.circle {
+            border-radius: 50%;
+            background: rgba(0, 176, 255, 0.6);
+            clip-path: none;
+            box-shadow: 0 0 15px rgba(0, 176, 255, 0.5);
+        }
+
+        .geometric-day.triangle {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 夜晚飘落元素 - 羽毛 */
+        .feather-night {
+            width: 30px;
+            height: auto;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+        }
+
+        /* 按钮样式 */
+        .crystal-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 30px rgba(26, 117, 255, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 0 15px rgba(255, 255, 255, 0.3);
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            padding: 1.25rem 2.5rem;
+            font-size: 1.25rem;
+        }
+
+        .night-mode .crystal-button {
+            box-shadow: 
+                0 10px 30px rgba(156, 39, 176, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .crystal-button:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 
+                0 15px 35px rgba(26, 117, 255, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+        }
+        
+        .night-mode .crystal-button:hover {
+            box-shadow: 
+                0 15px 35px rgba(156, 39, 176, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .crystal-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            animation: shine 4s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+        
+        /* 标题发光效果 */
+        .title-glow {
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(26, 117, 255, 0.5),
+                0 0 40px rgba(26, 117, 255, 0.3);
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-family: 'Alex Brush', cursive;
+            font-size: 5.5rem;
+        }
+        
+        .night-mode .title-glow {
+            text-shadow: 
+                0 0 10px rgba(243, 229, 245, 0.8),
+                0 0 20px rgba(156, 39, 176, 0.6),
+                0 0 30px rgba(233, 30, 99, 0.5),
+                0 0 40px rgba(106, 27, 154, 0.3);
+        }
+
+        /* 艺术字效果 */
+        .artistic-text {
+            font-family: 'Alex Brush', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffffff, #bbdefb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .night-mode .artistic-text {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 分隔线 */
+        .divider {
+            height: 2px;
+            width: 100px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.5), 
+                transparent);
+            margin: 1.5rem auto;
+        }
+        
+        .night-mode .divider {
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(243, 229, 245, 0.5), 
+                transparent);
+        }
+
+        /* 薄雾效果 */
+        .subtle-mist {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .mist-layer {
+            position: absolute;
+            width: 120%;
+            height: 30%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 80%,
+                transparent 100%);
+            animation: mistMove 20s linear infinite;
+            opacity: 0.3;
+            filter: blur(8px);
+        }
+        
+        .night-mode .mist-layer {
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(243, 229, 245, 0.1) 20%,
+                rgba(156, 39, 176, 0.2) 50%,
+                rgba(243, 229, 245, 0.1) 80%,
+                transparent 100%);
+        }
+        
+        @keyframes mistMove {
+            0% {
+                transform: translateX(-20%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* 按钮悬停效果 */
+        @keyframes sparkle {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* 星星样式 */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* 云梦智间logo样式 */
+        .moyu-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s ease;
+        }
+        
+        .moyu-icon {
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: all 1s ease;
+        }
+        
+        .night-mode .moyu-icon {
+            color: rgba(243, 229, 245, 0.9);
+            text-shadow: 0 0 20px rgba(156, 39, 176, 0.5);
+        }
+        
+        /* 脉冲动画效果 */
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+        
+        .moyu-icon {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 日夜切换按钮 -->
+    <div class="daynight-toggle" id="daynightToggle">
+        <div class="toggle-handle"></div>
+    </div>
+    
+    <!-- 模式指示器 -->
+    <div class="mode-indicator" id="modeIndicator">
+        <i class="fas fa-sun"></i>
+        <span>白天模式</span>
+    </div>
+    
+    <div class="dream-scene" id="dreamScene">
+        <!-- 飘落元素将在这里生成 -->
+        <div class="subtle-mist">
+            <div class="mist-layer" style="top: 10%; animation-duration: 25s; animation-delay: 0s;"></div>
+            <div class="mist-layer" style="top: 40%; animation-duration: 20s; animation-delay: -5s;"></div>
+            <div class="mist-layer" style="top: 70%; animation-duration: 30s; animation-delay: -10s;"></div>
+        </div>
+        
+        <div class="text-center relative z-10 px-4">
+            <div class="mb-12">
+                <!-- 云梦智间logo -->
+                <div class="moyu-logo">
+                    <i class="fas fa-graduation-cap moyu-icon"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-7xl md:text-8xl font-display text-white title-glow mb-6">
+                云梦智间
+            </h1>
+            
+            <div class="divider"></div>
+            
+            <p class="text-2xl md:text-3xl text-white mb-6 font-light artistic-text tracking-wider">
+                让 AI 为你开启沉浸式英语学习之旅
+            </p>
+            
+            <p class="text-xl md:text-2xl text-white mb-10 max-w-2xl mx-auto leading-relaxed">
+                独创智能学习规划，全程跟踪辅导，助你轻松通过考试
+            </p>
+            
+            <!-- 修改：将按钮链接指向云梦智间首页 -->
+            <a href="云梦智间首页.html" class="crystal-button px-12 py-5 rounded-lg text-xl text-white font-medium mx-auto relative overflow-hidden inline-block">
+                <span class="relative z-10">开始学习</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 防止扩展脚本干扰
+        if (typeof window.attachEvent !== 'undefined') {
+            window.attachEvent = null;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const scene = document.getElementById('dreamScene');
+            const daynightToggle = document.getElementById('daynightToggle');
+            const modeIndicator = document.getElementById('modeIndicator');
+            
+            let isNightMode = false;
+            let isAutoMode = true; // 默认启用自动模式
+            let fallingElements = [];
+            
+            // 获取北京时间
+            function getBeijingTime() {
+                const now = new Date();
+                // 北京时间是UTC+8
+                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+                return new Date(utc + (3600000 * 8));
+            }
+            
+            // 检查当前时间是否为夜晚（18:00到次日6:00）
+            function isNightTime() {
+                const beijingTime = getBeijingTime();
+                const hours = beijingTime.getHours();
+                // 修复：正确判断夜晚时间（18:00到次日6:00）
+                return hours >= 18 || hours < 6;
+            }
+            
+            // 更新模式指示器
+            function updateModeIndicator() {
+                const icon = modeIndicator.querySelector('i');
+                const text = modeIndicator.querySelector('span');
+                
+                if (isAutoMode) {
+                    modeIndicator.classList.add('auto-mode');
+                    icon.className = isNightMode ? 'fas fa-moon' : 'fas fa-sun';
+                    text.textContent = isNightMode ? '夜间模式 (自动)' : '白天模式 (自动)';
+                } else {
+                    modeIndicator.classList.remove('auto-mode');
+                    icon.className = isNightMode ? 'fas fa-moon' : 'fas fa-sun';
+                    text.textContent = isNightMode ? '夜间模式 (手动)' : '白天模式 (手动)';
+                }
+            }
+            
+            // 切换日夜模式
+            function toggleNightMode(forceNight = null) {
+                const shouldBeNightMode = forceNight !== null ? forceNight : !isNightMode;
+                
+                if (shouldBeNightMode !== isNightMode) {
+                    isNightMode = shouldBeNightMode;
+                    
+                    if (isNightMode) {
+                        body.classList.add('night-mode');
+                        createStars();
+                    } else {
+                        body.classList.remove('night-mode');
+                        removeStars();
+                    }
+                    
+                    updateFallingElements();
+                    updateModeIndicator();
+                    
+                    // 保存用户手动选择的模式
+                    if (!isAutoMode) {
+                        localStorage.setItem('userModePreference', isNightMode ? 'night' : 'day');
+                    }
+                }
+            }
+            
+            // 创建星星（夜晚模式）
+            function createStars() {
+                removeStars(); // 先清除现有的星星
+                for (let i = 0; i < 50; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.top = Math.random() * 100 + 'vh';
+                    star.style.width = (Math.random() * 3 + 1) + 'px';
+                    star.style.height = star.style.width;
+                    star.style.animationDelay = (Math.random() * 4) + 's';
+                    scene.appendChild(star);
+                }
+            }
+            
+            // 移除星星
+            function removeStars() {
+                document.querySelectorAll('.star').forEach(star => star.remove());
+            }
+            
+            // 更新飘落元素
+            function updateFallingElements() {
+                // 清除现有元素
+                fallingElements.forEach(el => {
+                    if (el.timeout) clearTimeout(el.timeout);
+                });
+                document.querySelectorAll('.falling-element').forEach(el => el.remove());
+                fallingElements = [];
+                
+                // 根据日夜模式创建新元素
+                const elementCount = isNightMode ? 20 : 25;
+                
+                for (let i = 0; i < elementCount; i++) {
+                    setTimeout(() => {
+                        createFallingElement();
+                    }, Math.random() * 2000);
+                }
+            }
+            
+            // 创建单个飘落元素
+            function createFallingElement() {
+                const element = document.createElement('div');
+                element.classList.add('falling-element');
+                
+                // 设置元素样式
+                if (isNightMode) {
+                    // 夜晚模式 - 羽毛
+                    element.classList.add('feather-night');
+                    element.innerHTML = '<svg viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg"><path d="M25,0 Q30,15 25,30 Q20,45 25,60 Q30,75 25,90 Q20,95 25,100 Q30,95 25,90 Q30,75 25,60 Q30,45 25,30 Q30,15 25,0 Z" fill="#f3e5f5" opacity="0.7"/></svg>';
+                    
+                    // 随机大小和旋转
+                    const size = Math.random() * 15 + 20;
+                    element.style.width = size + 'px';
+                    element.style.setProperty('--rotate-end', (Math.random() * 360) + 'deg');
+                } else {
+                    // 白天模式 - 几何元素
+                    const types = ['diamond', 'circle', 'triangle'];
+                    const type = types[Math.floor(Math.random() * types.length)];
+                    
+                    element.classList.add('geometric-day', type);
+                    
+                    // 随机大小和旋转
+                    const size = Math.random() * 10 + 15;
+                    element.style.width = size + 'px';
+                    element.style.height = size + 'px';
+                    element.style.setProperty('--rotate-end', (Math.random() * 360) + 'deg');
+                }
+                
+                // 随机位置和动画
+                element.style.left = Math.random() * 100 + 'vw';
+                const duration = Math.random() * 15 + 15;
+                element.style.animationDuration = duration + 's';
+                element.style.animationDelay = '-' + (Math.random() * 15) + 's';
+                
+                scene.appendChild(element);
+                
+                // 动画结束后重新创建元素
+                const timeout = setTimeout(() => {
+                    if (element.parentNode) {
+                        element.remove();
+                    }
+                    createFallingElement();
+                }, duration * 1000);
+                
+                fallingElements.push({ element, timeout });
+            }
+            
+            // 日夜模式切换按钮点击事件
+            daynightToggle.addEventListener('click', function() {
+                // 切换到手动模式
+                isAutoMode = false;
+                localStorage.setItem('autoMode', 'false');
+                localStorage.removeItem('userModePreference'); // 清除用户偏好，使用当前切换状态
+                
+                // 切换日夜模式
+                toggleNightMode();
+            });
+            
+            // 检查并应用时间模式
+            function checkAndApplyTimeBasedMode() {
+                if (isAutoMode) {
+                    const shouldBeNight = isNightTime();
+                    if (shouldBeNight !== isNightMode) {
+                        toggleNightMode(shouldBeNight);
+                    }
+                }
+            }
+            
+            // 初始化
+            function init() {
+                // 检查本地存储中的用户偏好
+                const autoModeSetting = localStorage.getItem('autoMode');
+                const userModePreference = localStorage.getItem('userModePreference');
+                
+                if (autoModeSetting !== null) {
+                    isAutoMode = autoModeSetting === 'true';
+                }
+                
+                if (!isAutoMode && userModePreference) {
+                    // 应用用户手动选择的模式
+                    toggleNightMode(userModePreference === 'night');
+                } else {
+                    // 自动模式，根据时间设置模式
+                    isAutoMode = true;
+                    localStorage.setItem('autoMode', 'true');
+                    toggleNightMode(isNightTime());
+                }
+                
+                updateModeIndicator();
+                
+                // 每分钟检查一次时间，以便在自动模式下更新日夜模式
+                setInterval(checkAndApplyTimeBasedMode, 60000);
+                
+                // 添加调试信息
+                console.log('云梦智间页面初始化完成');
+                console.log('当前模式:', isNightMode ? '夜间模式' : '白天模式');
+                console.log('自动模式:', isAutoMode);
+            }
+            
+            // 延迟初始化，确保所有资源加载完成
+            setTimeout(init, 100);
+            
+            // 按钮悬停效果
+            const button = document.querySelector('.crystal-button');
+            if (button) {
+                button.addEventListener('mouseover', function() {
+                    // 添加额外效果
+                    for (let i = 0; i < 5; i++) {
+                        const spark = document.createElement('div');
+                        spark.style.position = 'absolute';
+                        spark.style.width = '6px';
+                        spark.style.height = '6px';
+                        spark.style.background = 'white';
+                        spark.style.borderRadius = '50%';
+                        spark.style.boxShadow = '0 0 10px white';
+                        spark.style.left = Math.random() * 100 + '%';
+                        spark.style.top = Math.random() * 100 + '%';
+                        spark.style.setProperty('--tx', (Math.random() * 100 - 50) + 'px');
+                        spark.style.setProperty('--ty', (Math.random() * 100 - 50) + 'px');
+                        spark.style.animation = 'sparkle 1.5s ease-out forwards';
+                        button.appendChild(spark);
+                        
+                        setTimeout(() => {
+                            if (spark.parentNode) {
+                                spark.remove();
+                            }
+                        }, 1500);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

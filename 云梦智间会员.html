@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订阅服务 - 云梦智间</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2962FF',
+                        secondary: '#1A237E',
+                        success: '#4CAF50',
+                        error: '#F44336'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '2px',
+                        DEFAULT: '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        'full': '9999px',
+                        'button': '4px'
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background-color: #F5F7FF;
+        }
+        
+        /* 内容区域最大宽度和响应式调整 */
+        .content-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .content-container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .content-container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .content-container {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+        
+        /* 订阅计划卡片样式 */
+        .subscription-plan-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .subscription-plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(41, 98, 255, 0.15);
+            border-color: #2962FF;
+        }
+        
+        /* 功能卡片交互样式 */
+        .feature-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(41, 98, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card-hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(41, 98, 255, 0.15);
+            border-color: #2962FF;
+        }
+
+        .feature-card:active {
+            transform: scale(0.98);
+        }
+
+        /* 新增：点击时的边框动画效果 */
+        .feature-card.active {
+            border-color: #2962FF;
+            animation: borderPulse 0.6s ease-out;
+        }
+
+        @keyframes borderPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(41, 98, 255, 0.4);
+                border-color: rgba(41, 98, 255, 0.8);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(41, 98, 255, 0);
+                border-color: rgba(41, 98, 255, 1);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(41, 98, 255, 0);
+                border-color: rgba(41, 98, 255, 0);
+            }
+        }
+
+        /* 订阅计划高亮效果 */
+        .plan-highlighted {
+            animation: planPulse 2s ease-in-out;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.3);
+            border-color: #2962FF;
+        }
+
+        @keyframes planPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(41, 98, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(41, 98, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(41, 98, 255, 0);
+            }
+        }
+
+        /* 点击涟漪效果 */
+        .feature-card .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(41, 98, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .feature-card {
+                margin-bottom: 1rem;
+            }
+            
+            .subscription-plan-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            /* 移动端调整字体大小 */
+            .mobile-text-lg {
+                font-size: 1.125rem;
+            }
+            
+            .mobile-text-xl {
+                font-size: 1.25rem;
+            }
+            
+            .mobile-text-2xl {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-text-3xl {
+                font-size: 1.875rem;
+            }
+        }
+        
+        /* 确保内容不会被导航栏遮挡 */
+        main {
+            padding-top: 6rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- 统一导航栏 -->
+    <nav class="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-4 lg:gap-8">
+            <a href="云梦智间首页.html" class="flex items-center gap-2">
+                <span class="text-primary text-xl sm:text-2xl font-bold tracking-tight">云梦智间</span>
+            </a>
+            <div class="hidden md:flex items-center gap-4 lg:gap-6">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 动态登录/用户区域 -->
+        <div class="flex items-center gap-2 lg:gap-4" id="auth-section">
+            <div id="login-btn-container">
+                <!-- 由UI管理器动态填充 -->
+            </div>
+        </div>
+    </nav>
+
+    <main class="content-container pt-20 pb-12">
+        <!-- 页面标题 -->
+        <div class="text-center mb-12">
+            <h1 class="mobile-text-3xl text-4xl font-bold text-gray-900 mb-4">订阅服务</h1>
+            <p class="mobile-text-lg text-lg text-gray-600 max-w-2xl mx-auto px-4">选择适合您的订阅方案，解锁全部功能，让英语学习更高效</p>
+            
+            <!-- 用户订阅状态显示 -->
+            <div id="user-subscription-status" class="mt-6 inline-block bg-white px-4 py-3 rounded-lg shadow-sm border">
+                <!-- 动态显示用户订阅状态 -->
+            </div>
+        </div>
+
+        <!-- 功能特性展示 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" id="feature-cards-container">
+            <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-comments text-primary text-xl"></i>
+                </div>
+                <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">无限次智能对话</h3>
+                <p class="text-gray-600 text-sm sm:text-base">享受无限次的 AI 助手对话服务，随时获得学习指导</p>
+            </div>
+            <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-book text-primary text-xl"></i>
+                </div>
+                <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">专属学习计划</h3>
+                <p class="text-gray-600 text-sm sm:text-base">根据个人情况定制专属学习路径，提高学习效率</p>
+            </div>
+            <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-chart-line text-primary text-xl"></i>
+                </div>
+                <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">高级学习分析</h3>
+                <p class="text-gray-600 text-sm sm:text-base">深度学习分析与进度追踪，掌握学习情况</p>
+            </div>
+            <div class="feature-card bg-white p-6 rounded-lg shadow-lg">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-headset text-primary text-xl"></i>
+                </div>
+                <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">优先客服支持</h3>
+                <p class="text-gray-600 text-sm sm:text-base">专属客服通道，问题快速响应解决</p>
+            </div>
+        </div>
+
+        <!-- 订阅计划 -->
+        <div class="mb-16">
+            <h2 class="mobile-text-2xl text-2xl font-bold text-gray-900 mb-8 text-center">选择订阅方案</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" id="subscription-plans-container">
+                <!-- 动态生成订阅计划卡片 -->
+            </div>
+        </div>
+
+        <!-- 常见问题 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-16">
+            <h2 class="mobile-text-2xl text-2xl font-bold text-gray-900 mb-6 sm:mb-8">常见问题</h2>
+            <div class="space-y-6">
+                <div class="border-b pb-6">
+                    <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">支持哪些支付方式？</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">我们支持微信支付、支付宝、银联等主流支付方式，确保支付安全便捷。</p>
+                </div>
+                <div class="border-b pb-6">
+                    <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">是否支持自动续费？</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">开通订阅时可选择是否开启自动续费功能，到期前将自动提醒，保障服务不中断。</p>
+                </div>
+                <div class="border-b pb-6">
+                    <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">如何申请退款？</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">购买后 7 天内未使用可申请全额退款，请联系客服处理。</p>
+                </div>
+                <div class="border-b pb-6">
+                    <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">可以随时取消订阅吗？</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">可以随时在账户设置中取消自动续费，已订阅周期将继续享受服务至到期。</p>
+                </div>
+                <div>
+                    <h3 class="mobile-text-lg text-lg font-semibold text-gray-900 mb-2">订阅权益详情</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">订阅用户可享受无限次 AI 对话、专属学习计划、高级学习分析等多项特权服务。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 支付安全保障 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-16">
+            <h2 class="mobile-text-2xl text-2xl font-bold text-gray-900 mb-6 sm:mb-8">支付安全保障</h2>
+            <div class="flex items-center gap-4 sm:gap-6 mb-6 sm:mb-8 flex-wrap">
+                <div class="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-lg">
+                    <i class="fab fa-weixin text-[#07C160] text-2xl sm:text-3xl"></i>
+                </div>
+                <div class="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-lg">
+                    <i class="fab fa-alipay text-[#1677FF] text-2xl sm:text-3xl"></i>
+                </div>
+                <div class="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-lg">
+                    <i class="fas fa-credit-card text-gray-600 text-2xl sm:text-3xl"></i>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-center">
+                <div class="p-4">
+                    <i class="fas fa-shield-alt text-primary text-xl sm:text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">银行级安全</h4>
+                    <p class="text-gray-600 text-xs sm:text-sm">采用银行级别加密技术，保障支付安全</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-lock text-primary text-xl sm:text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">隐私保护</h4>
+                    <p class="text-gray-600 text-xs sm:text-sm">严格保护用户隐私，不泄露任何个人信息</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-medal text-primary text-xl sm:text-2xl mb-3"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2 text-sm sm:text-base">认证支付</h4>
+                    <p class="text-gray-600 text-xs sm:text-sm">所有支付均通过国家认证的支付机构处理</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 引入必要的JavaScript文件 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    <script src="云梦智间主入口.js"></script>
+    <script src="js/subscription-manager.js"></script>
+
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 等待认证系统初始化
+            await window.unifiedAuthManager.init();
+            
+            // 初始化订阅管理器
+            await window.subscriptionManager.init();
+            
+            // 更新用户订阅状态显示
+            updateUserSubscriptionStatus();
+            
+            // 初始化功能卡片点击效果
+            initFeatureCards();
+        });
+
+        // 初始化功能卡片点击效果
+        function initFeatureCards() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            featureCards.forEach(card => {
+                // 点击事件 - 添加边框动画
+                card.addEventListener('click', function(e) {
+                    // 移除其他卡片的active类
+                    featureCards.forEach(c => c.classList.remove('active'));
+                    
+                    // 为当前卡片添加active类
+                    this.classList.add('active');
+                    
+                    // 0.6秒后移除active类（动画时长）
+                    setTimeout(() => {
+                        this.classList.remove('active');
+                    }, 600);
+                    
+                    // 创建涟漪效果
+                    createRippleEffect(e, this);
+                });
+            });
+        }
+        
+        // 创建涟漪效果
+        function createRippleEffect(event, element) {
+            const ripple = document.createElement('span');
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            element.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // 更新用户订阅状态显示
+        function updateUserSubscriptionStatus() {
+            const statusContainer = document.getElementById('user-subscription-status');
+            if (!statusContainer) return;
+
+            const authManager = window.unifiedAuthManager;
+            const subscriptionManager = window.subscriptionManager;
+
+            if (!authManager.isLoggedIn()) {
+                statusContainer.innerHTML = `
+                    <div class="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
+                        <i class="fas fa-info-circle text-blue-500"></i>
+                        <span>登录后查看您的订阅状态</span>
+                    </div>
+                `;
+                return;
+            }
+
+            if (subscriptionManager.userSubscription && subscriptionManager.userSubscription.is_active) {
+                const plan = subscriptionManager.userSubscription.current_plan;
+                const expiryDate = new Date(subscriptionManager.userSubscription.expiry_date).toLocaleDateString();
+                
+                statusContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-green-600 text-sm"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900 text-sm sm:text-base">${plan.name} 用户</div>
+                            <div class="text-xs sm:text-sm text-gray-500">有效期至 ${expiryDate}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                statusContainer.innerHTML = `
+                    <div class="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <span>免费用户 - 升级订阅解锁更多功能</span>
+                    </div>
+                `;
+            }
+        }
+
+        // 监听认证状态变化
+        document.addEventListener('authSystemReady', function() {
+            updateUserSubscriptionStatus();
+        });
+
+        document.addEventListener('uiAuthStateUpdated', function() {
+            updateUserSubscriptionStatus();
+        });
+    </script>
+</body>
+</html>

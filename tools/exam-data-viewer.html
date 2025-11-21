@@ -1,0 +1,285 @@
+<!-- tools/exam-data-viewer.html -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真题数据查看器 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .paper-card { transition: all 0.3s ease; }
+        .paper-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .question-item { border-left: 3px solid; }
+        .question-item.correct { border-left-color: #10b981; }
+        .question-item.incorrect { border-left-color: #ef4444; }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">真题数据查看器</h1>
+            <p class="text-gray-600">直观查看数据库中的真题试卷和题目</p>
+        </div>
+
+        <!-- 控制面板 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <div class="flex flex-wrap gap-4 items-center">
+                <button onclick="loadAllPapers()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    加载所有试卷
+                </button>
+                <button onclick="loadStatistics()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    刷新统计
+                </button>
+                <select id="examTypeFilter" onchange="filterPapers()" class="px-3 py-2 border rounded-lg">
+                    <option value="all">所有类型</option>
+                    <option value="CET-4">CET-4</option>
+                    <option value="CET-6">CET-6</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="搜索试卷..." class="px-3 py-2 border rounded-lg flex-1">
+            </div>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white p-4 rounded-lg shadow text-center">
+                <div id="totalPapers" class="text-2xl font-bold text-blue-600">0</div>
+                <div class="text-sm text-gray-600">总试卷数</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow text-center">
+                <div id="totalQuestions" class="text-2xl font-bold text-green-600">0</div>
+                <div class="text-sm text-gray-600">总题目数</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow text-center">
+                <div id="cet4Count" class="text-2xl font-bold text-purple-600">0</div>
+                <div class="text-sm text-gray-600">CET-4试卷</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow text-center">
+                <div id="cet6Count" class="text-2xl font-bold text-orange-600">0</div>
+                <div class="text-sm text-gray-600">CET-6试卷</div>
+            </div>
+        </div>
+
+        <!-- 试卷列表 -->
+        <div id="papersContainer" class="space-y-6">
+            <div class="text-center py-12 text-gray-500">
+                点击"加载所有试卷"查看数据库中的真题数据
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allPapers = [];
+
+        // 加载所有试卷
+        async function loadAllPapers() {
+            try {
+                const response = await fetch('/api/exam/papers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ exam_type: 'all', year: 'all' })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    allPapers = result.data.papers;
+                    displayPapers(allPapers);
+                    updateStatistics();
+                } else {
+                    alert('加载试卷失败: ' + result.message);
+                }
+            } catch (error) {
+                console.error('加载试卷错误:', error);
+                alert('加载失败: ' + error.message);
+            }
+        }
+
+        // 显示试卷列表
+        function displayPapers(papers) {
+            const container = document.getElementById('papersContainer');
+            
+            if (papers.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 bg-white rounded-lg shadow">
+                        <div class="text-gray-500 text-lg">没有找到试卷数据</div>
+                        <div class="text-sm text-gray-400 mt-2">请先导入真题数据</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = papers.map(paper => `
+                <div class="paper-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6 border-b">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">${paper.title}</h3>
+                                <div class="flex items-center mt-2 space-x-4 text-sm text-gray-600">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded">${paper.exam_type}</span>
+                                    <span>${paper.year}年${paper.month}月</span>
+                                    <span>${paper.questions_count || 0} 题</span>
+                                    <span>${paper.total_score || 710} 分</span>
+                                </div>
+                            </div>
+                            <button onclick="loadPaperDetail(${paper.id})" 
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                查看详情
+                            </button>
+                        </div>
+                        ${paper.description ? `<p class="mt-3 text-gray-600">${paper.description}</p>` : ''}
+                    </div>
+                    <div id="paperDetail-${paper.id}" class="hidden"></div>
+                </div>
+            `).join('');
+        }
+
+        // 加载试卷详情
+        async function loadPaperDetail(paperId) {
+            const detailContainer = document.getElementById(`paperDetail-${paperId}`);
+            
+            // 如果已经展开，则收起
+            if (detailContainer.style.display !== 'none') {
+                detailContainer.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/exam/paper/${paperId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const paper = result.data;
+                    let html = `<div class="p-6 bg-gray-50 border-t">`;
+                    
+                    // 显示各部分
+                    paper.sections.forEach(section => {
+                        const sectionQuestions = paper.questions.filter(q => 
+                            paper.sections.find(s => s.id === q.section_id)?.section_type === section.section_type
+                        );
+                        
+                        html += `
+                            <div class="mb-6">
+                                <h4 class="font-semibold text-lg text-gray-800 mb-3">
+                                    ${section.section_name} (${section.section_type})
+                                    <span class="text-sm text-gray-500 ml-2">${sectionQuestions.length} 题</span>
+                                </h4>
+                                ${section.directions ? `<p class="text-gray-600 mb-3 text-sm">${section.directions}</p>` : ''}
+                                
+                                <div class="space-y-3">
+                                    ${sectionQuestions.map(question => `
+                                        <div class="question-item bg-white p-4 rounded-lg border">
+                                            <div class="flex justify-between items-start">
+                                                <div class="flex-1">
+                                                    <div class="font-medium text-gray-800">
+                                                        ${question.question_number}. ${question.question_text}
+                                                    </div>
+                                                    ${question.options && question.options.length > 0 ? `
+                                                        <div class="mt-2 space-y-1">
+                                                            ${question.options.map((option, index) => `
+                                                                <div class="text-sm ${String.fromCharCode(65 + index) === question.correct_answer ? 'text-green-600 font-medium' : 'text-gray-600'}">
+                                                                    ${String.fromCharCode(65 + index)}. ${option}
+                                                                </div>
+                                                            `).join('')}
+                                                        </div>
+                                                    ` : ''}
+                                                    ${question.correct_answer ? `
+                                                        <div class="mt-2 text-sm">
+                                                            <span class="font-medium">正确答案:</span>
+                                                            <span class="text-green-600 ml-2">${question.correct_answer}</span>
+                                                        </div>
+                                                    ` : ''}
+                                                    ${question.analysis ? `
+                                                        <div class="mt-2 text-sm text-gray-600">
+                                                            <span class="font-medium">解析:</span> ${question.analysis}
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                                <div class="ml-4 text-xs text-gray-500">
+                                                    ${question.question_type}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                    detailContainer.innerHTML = html;
+                    detailContainer.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('加载试卷详情错误:', error);
+                detailContainer.innerHTML = `<div class="p-4 text-red-600">加载详情失败</div>`;
+                detailContainer.classList.remove('hidden');
+            }
+        }
+
+        // 更新统计信息
+        function updateStatistics() {
+            const totalPapers = allPapers.length;
+            const totalQuestions = allPapers.reduce((sum, paper) => sum + (paper.questions_count || 0), 0);
+            const cet4Count = allPapers.filter(p => p.exam_type === 'CET-4').length;
+            const cet6Count = allPapers.filter(p => p.exam_type === 'CET-6').length;
+
+            document.getElementById('totalPapers').textContent = totalPapers;
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+            document.getElementById('cet4Count').textContent = cet4Count;
+            document.getElementById('cet6Count').textContent = cet6Count;
+        }
+
+        // 过滤试卷
+        function filterPapers() {
+            const typeFilter = document.getElementById('examTypeFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = allPapers;
+            
+            if (typeFilter !== 'all') {
+                filtered = filtered.filter(paper => paper.exam_type === typeFilter);
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(paper => 
+                    paper.title.toLowerCase().includes(searchTerm) ||
+                    (paper.description && paper.description.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            displayPapers(filtered);
+        }
+
+        // 加载统计
+        async function loadStatistics() {
+            try {
+                const response = await fetch('/api/tools/exam-statistics');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const stats = result.data;
+                    document.getElementById('totalPapers').textContent = stats.total_papers?.count || 0;
+                    document.getElementById('totalQuestions').textContent = stats.total_questions?.count || 0;
+                    
+                    // 更新CET-4/6计数
+                    const typeStats = stats.papers_by_type || [];
+                    const cet4 = typeStats.find(t => t.exam_type === 'CET-4');
+                    const cet6 = typeStats.find(t => t.exam_type === 'CET-6');
+                    document.getElementById('cet4Count').textContent = cet4?.count || 0;
+                    document.getElementById('cet6Count').textContent = cet6?.count || 0;
+                }
+            } catch (error) {
+                console.error('加载统计错误:', error);
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStatistics();
+            
+            // 添加搜索输入监听
+            document.getElementById('searchInput').addEventListener('input', filterPapers);
+        });
+    </script>
+</body>
+</html>

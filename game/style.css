@@ -1,0 +1,392 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 菜单样式 */
+.menu-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.menu-container h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #4ECDC4, #FF6B6B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.menu-container p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+.menu-btn {
+    background: linear-gradient(45deg, #4ECDC4, #45B7AF);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.menu-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-selector {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.difficulty-selector label {
+    margin-right: 10px;
+}
+
+.difficulty-selector select {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* 游戏界面样式 */
+#gameScreen {
+    flex-direction: column;
+}
+
+#gameCanvas {
+    border: 2px solid #4ECDC4;
+    border-radius: 10px;
+    background: #0f3460;
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #4ECDC4;
+}
+
+.ui-item {
+    margin: 5px 0;
+    font-size: 1.1em;
+    color: #4ECDC4;
+}
+
+/* 答题区域样式 */
+#answerContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #FF6B6B;
+    min-width: 500px;
+    text-align: center;
+}
+
+#questionText {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #FFE66D;
+}
+
+.answer-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.answer-btn {
+    background: linear-gradient(45deg, #6A0572, #8E44AD);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer-btn:hover {
+    background: linear-gradient(45deg, #8E44AD, #6A0572);
+    transform: scale(1.05);
+}
+
+/* 游戏结束界面 */
+.game-over-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-over-container h2 {
+    font-size: 2.5em;
+    color: #FF6B6B;
+    margin-bottom: 20px;
+}
+
+.final-score, .combo-record {
+    font-size: 1.3em;
+    margin: 15px 0;
+    color: #4ECDC4;
+}
+
+.game-over-buttons {
+    margin-top: 30px;
+}
+
+/* 成就界面 */
+.achievements-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.achievements-list {
+    margin: 20px 0;
+}
+
+.achievement-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border-left: 4px solid #4ECDC4;
+}
+
+.achievement-item.unlocked {
+    border-left-color: #4ECDC4;
+    background: rgba(78, 205, 196, 0.2);
+}
+
+.achievement-item.locked {
+    border-left-color: #666;
+    background: rgba(102, 102, 102, 0.2);
+    opacity: 0.7;
+}
+
+.achievement-item h3 {
+    color: #FFE66D;
+    margin-bottom: 5px;
+}
+
+.achievement-item span {
+    float: right;
+    font-weight: bold;
+}
+
+.achievement-item.unlocked span {
+    color: #4ECDC4;
+}
+
+.achievement-item.locked span {
+    color: #666;
+}
+
+/* 词汇管理界面 */
+.vocabulary-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.vocabulary-stats, .vocabulary-actions {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    background: rgba(78, 205, 196, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    color: #4ECDC4;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.file-upload-area {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 2px dashed #4ECDC4;
+}
+
+.upload-options {
+    margin: 15px 0;
+}
+
+.upload-options label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.operation-result {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.result-message {
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.result-message.success {
+    background: rgba(78, 205, 196, 0.3);
+    color: #4ECDC4;
+    border: 1px solid #4ECDC4;
+}
+
+.result-message.error {
+    background: rgba(255, 107, 107, 0.3);
+    color: #FF6B6B;
+    border: 1px solid #FF6B6B;
+}
+
+.result-message.info {
+    background: rgba(255, 230, 109, 0.3);
+    color: #FFE66D;
+    border: 1px solid #FFE66D;
+}
+
+.vocabulary-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .menu-container, .game-over-container, 
+    .achievements-container, .vocabulary-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .menu-container h1 {
+        font-size: 2em;
+    }
+    
+    #answerContainer {
+        min-width: 90%;
+        margin: 10px;
+    }
+    
+    .answer-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid, .action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4ECDC4;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #45B7AF;
+}

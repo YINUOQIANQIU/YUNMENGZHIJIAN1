@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多维能力评估测试 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/assessment-utils.js"></script>
+    <script src="js/ai-learning-analysis.js"></script>
+    <!-- 添加新的分析流程JS -->
+    <script src="js/test-analysis-flow.js"></script>
+    <style>
+        /* 样式保持不变 */
+        .exam-type-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .exam-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .exam-type-card.selected {
+            border-width: 3px;
+            transform: scale(1.02);
+        }
+        .test-container {
+            transition: all 0.3s ease;
+        }
+        .question-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+        }
+        .option-card {
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .option-card:hover {
+            border-color: #2962FF;
+            transform: translateY(-2px);
+        }
+        .option-card.selected {
+            border-color: #2962FF;
+            background-color: #2962FF;
+            color: white;
+        }
+        .dimension-progress.active {
+            background-color: #2962FF;
+            color: white;
+        }
+        .test-timer.warning {
+            background-color: #EF4444;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        /* 调试样式 */
+        .debug-border {
+            border: 2px solid red !important;
+        }
+        .question-loaded {
+            border-left: 4px solid #10B981 !important;
+        }
+        .option-selected {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        /* 加载状态 */
+        .loading-question {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .loading-question::after {
+            content: '加载中...';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #6B7280;
+            font-size: 1.2rem;
+        }
+        /* 添加新的动画样式 */
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-bounce-in {
+            animation: bounce-in 0.6s ease-out;
+        }
+
+        /* AI分析状态样式 */
+        .ai-status-processing {
+            border-left: 4px solid #3B82F6;
+        }
+
+        .ai-status-success {
+            border-left: 4px solid #10B981;
+        }
+
+        .ai-status-error {
+            border-left: 4px solid #EF4444;
+        }
+
+        /* 脉冲动画 */
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 修改后的导航栏 - 与首页保持一致 -->
+    <nav class="flex items-center justify-between px-6 lg:px-12 h-16 bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-blue-50">
+        <div class="flex items-center gap-8 lg:gap-16">
+            <a href="云梦智间首页.html" class="flex items-center gap-3">
+                <span class="text-2xl font-bold tracking-tight" style="color: #2962FF;">云梦智间</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="云梦智间计划.html" class="text-gray-700 hover:text-primary transition-colors font-medium">备考规划</a>
+                <a href="云梦智间教学.html" class="text-gray-700 hover:text-primary transition-colors font-medium">在线教学</a>
+                <a href="云梦智间真题考试.html" class="text-gray-700 hover:text-primary transition-colors font-medium">真题考试</a>
+                <a href="云梦智间社区.html" class="text-gray-700 hover:text-primary transition-colors font-medium">学习社区</a>
+            </div>
+        </div>
+        
+        <!-- 右侧区域 - 包含计时器和认证区域 -->
+        <div class="flex items-center gap-4 lg:gap-6">
+            <!-- 测试计时器 -->
+            <div class="test-timer bg-red-50 text-red-600 px-3 py-1 rounded-lg font-mono text-lg hidden" id="test-timer">
+                30:00
+            </div>
+            
+            <!-- 动态认证区域 -->
+            <div id="auth-section">
+                <!-- 动态认证区域 -->
+            </div>
+            
+            <!-- AI聊天入口 -->
+            <a href="云梦智间AI聊天.html" class="flex items-center px-4 lg:px-6 py-2 bg-primary text-white rounded-button hover:bg-secondary transition-colors">
+                <span class="whitespace-nowrap font-medium text-sm lg:text-base">免费试用</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 - 添加顶部内边距以避开固定导航栏 -->
+    <div class="max-w-6xl mx-auto pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <!-- 测试选择阶段 -->
+        <div id="test-selection" class="test-container">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">英语能力多维评估</h1>
+                <p class="text-gray-600 text-xl">基于CEFR标准和四六级考试大纲的全面能力诊断</p>
+            </div>
+            
+            <!-- 用户状态提示 -->
+            <div id="user-status-alert" class="hidden mb-8 p-6 bg-blue-50 border border-blue-200 rounded-xl">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-500 text-xl mr-4 mt-1"></i>
+                    <div class="flex-1">
+                        <p class="font-semibold text-blue-800 text-lg" id="status-message"></p>
+                        <p class="text-blue-600 mt-2" id="status-detail"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 考试类型选择 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- 四级考试模块 -->
+                <div class="exam-type-card bg-white border-2 border-blue-300 rounded-2xl p-8 transition-all duration-300"
+                     onclick="selectExamType('CET4')">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="font-bold text-2xl text-blue-900">大学英语四级评估</h3>
+                            <p class="text-blue-700 mt-2">适合准备四级考试或达到中级英语水平的学习者</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold">B1水平</span>
+                    </div>
+                    
+                    <div class="space-y-3 text-blue-600 mb-6">
+                        <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                            <span class="font-medium">测试时长</span>
+                            <span class="font-semibold">30分钟</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                            <span class="font-medium">题目数量</span>
+                            <span class="font-semibold">20题</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-blue-100">
+                            <span class="font-medium">能力维度</span>
+                            <span class="font-semibold">4个维度</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="font-medium">测试内容</span>
+                            <span class="font-semibold">词汇/语法/阅读/翻译</span>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="startTest('CET4')" class="w-full py-4 bg-blue-600 text-white rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors">
+                            开始四级能力评估
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 六级考试模块 -->
+                <div class="exam-type-card bg-white border-2 border-purple-300 rounded-2xl p-8 transition-all duration-300"
+                     onclick="selectExamType('CET6')">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="font-bold text-2xl text-purple-900">大学英语六级评估</h3>
+                            <p class="text-purple-700 mt-2">适合准备六级考试或达到中高级英语水平的学习者</p>
+                        </div>
+                        <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold">B2水平</span>
+                    </div>
+                    
+                    <div class="space-y-3 text-purple-600 mb-6">
+                        <div class="flex justify-between items-center py-2 border-b border-purple-100">
+                            <span class="font-medium">测试时长</span>
+                            <span class="font-semibold">35分钟</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-purple-100">
+                            <span class="font-medium">题目数量</span>
+                            <span class="font-semibold">20题</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-purple-100">
+                            <span class="font-medium">能力维度</span>
+                            <span class="font-semibold">4个维度</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="font-medium">测试内容</span>
+                            <span class="font-semibold">词汇/语法/阅读/翻译</span>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="startTest('CET6')" class="w-full py-4 bg-purple-600 text-white rounded-xl font-semibold text-lg hover:bg-purple-700 transition-colors">
+                            开始六级能力评估
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 测试说明 -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
+                <h4 class="font-bold text-2xl mb-6 flex items-center">
+                    <i class="fas fa-info-circle mr-3"></i>
+                    测试说明
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-4 text-green-300 text-xl"></i>
+                        <span>基于CEFR标准和四六级考试大纲的科学评估</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-4 text-green-300 text-xl"></i>
+                        <span>涵盖4个关键能力维度的全面诊断</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-4 text-green-300 text-xl"></i>
+                        <span>智普AI生成个性化三维能力图谱</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-4 text-green-300 text-xl"></i>
+                        <span>基于遗忘曲线的智能复习计划</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 测试进行中阶段 -->
+        <div id="test-in-progress" class="test-container hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- 左侧进度面板 -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-lg p-6 sticky top-6">
+                        <h3 class="font-bold text-gray-900 text-lg mb-6">测试进度</h3>
+                        
+                        <!-- 维度进度 -->
+                        <div class="space-y-3 mb-6" id="dimension-progress">
+                            <!-- 动态生成 -->
+                        </div>
+                        
+                        <!-- 总体进度 -->
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <div class="flex justify-between text-sm text-blue-800 font-medium mb-2">
+                                <span>总体进度</span>
+                                <span id="completed-count">0/4</span>
+                            </div>
+                            <div class="w-full bg-blue-200 rounded-full h-3">
+                                <div id="overall-progress" class="bg-blue-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 当前维度信息 -->
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 mb-2" id="current-dimension-name">词汇能力</h4>
+                            <p class="text-sm text-gray-600" id="current-dimension-desc">测试您的词汇掌握程度</p>
+                            <div class="flex items-center justify-between mt-3 text-sm">
+                                <span>本部分进度</span>
+                                <span class="font-semibold" id="dimension-question-progress">1/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧题目区域 -->
+                <div class="lg:col-span-3">
+                    <div class="question-card rounded-xl shadow-lg p-8">
+                        <!-- 题目头部 -->
+                        <div class="flex justify-between items-start mb-8 pb-6 border-b border-gray-200">
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900" id="question-title">题目</h2>
+                                <p class="text-gray-600 mt-2" id="question-description">请仔细阅读题目并选择答案</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-gray-500 mb-1">剩余时间</div>
+                                <div class="text-xl font-bold text-red-600" id="time-remaining">30:00</div>
+                            </div>
+                        </div>
+
+                        <!-- 题目内容 -->
+                        <div id="question-content" class="mb-8">
+                            <!-- 动态加载题目 -->
+                        </div>
+
+                        <!-- 导航按钮 -->
+                        <div class="flex justify-between pt-6 border-t border-gray-200">
+                            <button onclick="previousQuestion()" class="px-8 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 flex items-center font-medium transition-colors" id="prev-btn">
+                                <i class="fas fa-arrow-left mr-3"></i>
+                                上一题
+                            </button>
+                            <button onclick="nextQuestion()" class="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 flex items-center font-medium transition-colors" id="next-btn">
+                                下一题
+                                <i class="fas fa-arrow-right ml-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 测试完成阶段 -->
+        <div id="test-completed" class="test-container hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-12 text-center max-w-3xl mx-auto">
+                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-4xl mx-auto mb-8">
+                    <i class="fas fa-check"></i>
+                </div>
+                
+                <!-- 动态分析状态显示 -->
+                <div id="analysis-status">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">测试完成!</h2>
+                    <p class="text-gray-600 text-lg mb-8">正在使用智普AI分析您的测试结果，生成个性化学习路径...</p>
+                </div>
+                
+                <!-- AI分析进度 -->
+                <div class="flex justify-center mb-8">
+                    <div id="analysis-progress" class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
+                </div>
+
+                <!-- AI分析状态详情 -->
+                <div id="analysis-details" class="space-y-4 mb-8 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-brain text-blue-600 mr-2"></i>
+                                <span class="font-semibold">能力图谱</span>
+                            </div>
+                            <div id="ability-map-status" class="text-blue-700">生成中...</div>
+                        </div>
+                        <div class="p-3 bg-orange-50 rounded-lg">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-exclamation-triangle text-orange-600 mr-2"></i>
+                                <span class="font-semibold">薄弱点分析</span>
+                            </div>
+                            <div id="weakpoints-status" class="text-orange-700">分析中...</div>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-chart-line text-green-600 mr-2"></i>
+                                <span class="font-semibold">学习路径</span>
+                            </div>
+                            <div id="learning-path-status" class="text-green-700">规划中...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成功提示 -->
+                <div id="success-message" class="hidden">
+                    <div class="bg-gradient-to-r from-green-600 to-green-500 rounded-xl p-6 text-white mb-6">
+                        <div class="flex items-center justify-center mb-4">
+                            <i class="fas fa-check-circle text-3xl mr-3"></i>
+                            <h3 class="text-2xl font-bold">分析成功!</h3>
+                        </div>
+                        <p class="text-lg">智普AI已完成深度分析，生成个性化学习方案</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 justify-center">
+                    <button onclick="viewDetailedAnalysis()" class="px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold text-lg">
+                        查看详细分析报告
+                    </button>
+                    <a href="云梦智间首页.html" class="px-8 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-semibold text-lg">
+                        返回首页
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入必要的JS文件 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+    
+    <!-- 直接在HTML中嵌入题目数据 -->
+    <script>
+        // 本地题目数据 - 直接从database.js中提取的80道题目
+        window.localQuestions = {
+            CET4: {
+                vocabulary: [
+                    {
+                        question: "The company is looking for ______ employees who can adapt to changing situations.",
+                        options: ['A) flexible', 'B) rigid', 'C) stubborn', 'D) traditional'],
+                        correctAnswer: 'A',
+                        explanation: 'flexible意为"灵活的"，符合语境。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Choose the word closest in meaning: The project was abandoned due to lack of funding.",
+                        options: ['A) given up', 'B) expanded', 'C) completed', 'D) delayed'],
+                        correctAnswer: 'A',
+                        explanation: 'abandoned意为"放弃，抛弃"，与given up意思相近。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Her ______ to learn English impressed everyone.",
+                        options: ['A) determination', 'B) determined', 'C) determine', 'D) determining'],
+                        correctAnswer: 'A',
+                        explanation: 'determination是名词，意为"决心"，在句中作主语。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Select the correct phrasal verb: We need to ______ a solution to this problem as soon as possible.",
+                        options: ['A) work out', 'B) work on', 'C) work up', 'D) work over'],
+                        correctAnswer: 'A',
+                        explanation: 'work out意为"想出，制定出"，符合语境。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The research provided ______ evidence for the theory.",
+                        options: ['A) compelling', 'B) weak', 'C) doubtful', 'D) questionable'],
+                        correctAnswer: 'A',
+                        explanation: 'compelling意为"令人信服的"，符合语境。',
+                        type: 'single_choice'
+                    }
+                ],
+                grammar: [
+                    {
+                        question: "Choose the correct tense: By the time you arrive, I ______ the report.",
+                        options: ['A) will have finished', 'B) will finish', 'C) finish', 'D) am finishing'],
+                        correctAnswer: 'A',
+                        explanation: '将来完成时表示在将来某个时间之前已经完成的动作。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Select the correct subjunctive mood: If I ______ you, I would accept the job offer.",
+                        options: ['A) were', 'B) am', 'C) will be', 'D) have been'],
+                        correctAnswer: 'A',
+                        explanation: '虚拟语气中，be动词的过去式用were，不管主语是什么。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Choose the correct passive voice: The new policy ______ by the government last month.",
+                        options: ['A) was implemented', 'B) implemented', 'C) has implemented', 'D) is implementing'],
+                        correctAnswer: 'A',
+                        explanation: '被动语态表示动作的执行者是政府，且时间是上个月。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Select the correct conditional: If she ______ harder, she would have passed the exam.",
+                        options: ['A) had studied', 'B) studied', 'C) would study', 'D) studies'],
+                        correctAnswer: 'A',
+                        explanation: '与过去事实相反的虚拟语气，用过去完成时。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Choose the correct relative clause: This is the book ______ I was talking about.",
+                        options: ['A) that', 'B) who', 'C) when', 'D) where'],
+                        correctAnswer: 'A',
+                        explanation: 'that引导定语从句，修饰物book。',
+                        type: 'single_choice'
+                    }
+                ],
+                reading: [
+                    {
+                        question: "Climate change is one of the most pressing issues of our time. Rising global temperatures are causing sea levels to rise, extreme weather events to become more frequent, and ecosystems to be disrupted. Scientists warn that without immediate action, the consequences could be catastrophic.\n\nWhat is the main idea of the passage?",
+                        options: ['A) Climate change requires immediate action', 'B) Scientists are uncertain about climate change', 'C) Only governments can solve climate change', 'D) Climate change is not a serious problem'],
+                        correctAnswer: 'A',
+                        explanation: '文章强调了气候变化需要立即采取行动。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The invention of the printing press in the 15th century revolutionized the spread of information. Before this, books were copied by hand, making them expensive and rare. The printing press allowed for mass production of books.\n\nWhat was a major effect of the printing press?",
+                        options: ['A) It made books more accessible', 'B) It decreased the importance of writing', 'C) It made books more expensive', 'D) It reduced the spread of new ideas'],
+                        correctAnswer: 'A',
+                        explanation: '印刷机使书籍能够大规模生产，从而让更多人能够接触到书籍。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Regular exercise has numerous benefits for both physical and mental health. It can help control weight, reduce the risk of heart disease, and improve mood. Experts recommend at least 30 minutes of moderate exercise most days of the week.\n\nAccording to the passage, what is NOT mentioned as a benefit of exercise?",
+                        options: ['A) Weight control', 'B) Reduced risk of heart disease', 'C) Improved mood', 'D) Better sleep quality'],
+                        correctAnswer: 'D',
+                        explanation: '文章提到了控制体重、降低心脏病风险和改善情绪，但没有提到改善睡眠质量。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The Great Wall of China, one of the greatest wonders of the world, was built over 2,000 years ago. It stretches for thousands of miles across northern China. Originally constructed to protect against invasions, it now serves as a major tourist attraction.\n\nWhat was the original purpose of the Great Wall?",
+                        options: ['A) Tourist attraction', 'B) Religious ceremonies', 'C) Protection against invasions', 'D) Trade route'],
+                        correctAnswer: 'C',
+                        explanation: '文章明确提到长城最初是为了防御入侵而建造的。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Artificial intelligence is transforming many industries, from healthcare to finance. While it offers many benefits, such as increased efficiency and accuracy, it also raises concerns about job displacement and privacy issues.\n\nWhat is the author's attitude toward artificial intelligence?",
+                        options: ['A) Completely positive', 'B) Completely negative', 'C) Balanced, mentioning both benefits and concerns', 'D) Indifferent'],
+                        correctAnswer: 'C',
+                        explanation: '作者既提到了人工智能的好处，也提到了担忧，态度是平衡的。',
+                        type: 'single_choice'
+                    }
+                ],
+                translation: [
+                    {
+                        question: "Translate to English: 中国有着悠久的历史和丰富的文化。",
+                        correctAnswer: "China has a long history and rich culture.",
+                        explanation: '翻译时注意"悠久的历史"和"丰富的文化"的准确表达。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 随着科技的发展，人们的生活变得越来越便利。",
+                        correctAnswer: "With the development of technology, people's lives are becoming more and more convenient.",
+                        explanation: '注意"随着...的发展"和"越来越..."的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 越来越多的人开始关注环境保护。",
+                        correctAnswer: "More and more people are beginning to pay attention to environmental protection.",
+                        explanation: '注意"越来越多"和"关注"的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 读书对于个人的成长非常重要。",
+                        correctAnswer: "Reading is very important for personal growth.",
+                        explanation: '注意"对于...重要"的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 我们应该养成健康的生活习惯。",
+                        correctAnswer: "We should develop healthy living habits.",
+                        explanation: '注意"养成习惯"的翻译。',
+                        type: 'translation'
+                    }
+                ]
+            },
+            CET6: {
+                vocabulary: [
+                    {
+                        question: "The research findings were ______, challenging long-held assumptions.",
+                        options: ['A) paradigm-shifting', 'B) commonplace', 'C) conventional', 'D) traditional'],
+                        correctAnswer: 'A',
+                        explanation: 'paradigm-shifting意为"范式转变的"，符合挑战长期假设的语境。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Choose the synonym: The government implemented austerity measures to mitigate the crisis.",
+                        options: ['A) alleviate', 'B) aggravate', 'C) ignore', 'D) analyze'],
+                        correctAnswer: 'A',
+                        explanation: 'mitigate意为"减轻，缓和"，与alleviate意思相近。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The company's ______ approach to innovation has kept it ahead of competitors.",
+                        options: ['A) proactive', 'B) reactive', 'C) passive', 'D) inactive'],
+                        correctAnswer: 'A',
+                        explanation: 'proactive意为"积极主动的"，符合语境。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Select the correct word: The agreement is ______ upon approval from both parties.",
+                        options: ['A) contingent', 'B) definite', 'C) absolute', 'D) unconditional'],
+                        correctAnswer: 'A',
+                        explanation: 'contingent意为"依条件而定的"，符合语境。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The professor's ______ analysis revealed subtle patterns in the data.",
+                        options: ['A) nuanced', 'B) superficial', 'C) cursory', 'D) simplistic'],
+                        correctAnswer: 'A',
+                        explanation: 'nuanced意为"细致入微的"，符合语境。',
+                        type: 'single_choice'
+                    }
+                ],
+                grammar: [
+                    {
+                        question: "Select the correct inversion: Not until she finished the project ______ how difficult it had been.",
+                        options: ['A) did she realize', 'B) she realized', 'C) she had realized', 'D) had she realized'],
+                        correctAnswer: 'A',
+                        explanation: 'not until位于句首时，主句要部分倒装。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Choose the correct emphatic structure: It was his dedication to the work ______ impressed the committee.",
+                        options: ['A) that', 'B) which', 'C) what', 'D) who'],
+                        correctAnswer: 'A',
+                        explanation: '强调句型it is/was...that...',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Select the correct participle: ______ by the complexity of the problem, the team sought expert advice.",
+                        options: ['A) Daunted', 'B) Daunting', 'C) Having daunted', 'D) Being daunted'],
+                        correctAnswer: 'A',
+                        explanation: '过去分词daunted表示被动，意为"被吓倒的"。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Choose the correct subjunctive: I recommend that he ______ the opportunity.",
+                        options: ['A) take', 'B) takes', 'C) took', 'D) would take'],
+                        correctAnswer: 'A',
+                        explanation: 'recommend后的宾语从句要用虚拟语气，动词用原形。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Select the correct conditional: Had I known about the meeting, I ______ attended.",
+                        options: ['A) would have', 'B) will have', 'C) had', 'D) have'],
+                        correctAnswer: 'A',
+                        explanation: '与过去事实相反的虚拟语气，条件句用过去完成时，主句用would have done。',
+                        type: 'single_choice'
+                    }
+                ],
+                reading: [
+                    {
+                        question: "The concept of cognitive dissonance, proposed by Leon Festinger, refers to the mental discomfort experienced when holding two or more contradictory beliefs, ideas, or values. This discomfort often leads people to change their attitudes or behaviors to reduce the inconsistency.\n\nWhat is cognitive dissonance according to the passage?",
+                        options: ['A) A state of mental comfort', 'B) Mental discomfort from contradictory beliefs', 'C) A method for solving problems', 'D) A type of memory disorder'],
+                        correctAnswer: 'B',
+                        explanation: '文章明确提到认知失调是指持有矛盾信念时产生的心理不适。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Quantum computing represents a paradigm shift in computational technology. Unlike classical computers that use bits, quantum computers use quantum bits or qubits, which can exist in multiple states simultaneously. This allows them to solve certain complex problems much faster than traditional computers.\n\nWhat is the main advantage of quantum computers mentioned in the passage?",
+                        options: ['A) Lower cost', 'B) Smaller size', 'C) Faster problem-solving for certain tasks', 'D) Easier programming'],
+                        correctAnswer: 'C',
+                        explanation: '文章提到量子计算机可以比传统计算机更快地解决某些复杂问题。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The Anthropocene is a proposed geological epoch dating from the commencement of significant human impact on Earth's geology and ecosystems. This includes changes such as global warming, ocean acidification, and mass species extinction. The term highlights the profound influence humans have on the planet.\n\nWhat does the term 'Anthropocene' refer to?",
+                        options: ['A) A period before human existence', 'B) The current age of significant human impact on Earth', 'C) A future geological epoch', 'D) The age of dinosaurs'],
+                        correctAnswer: 'B',
+                        explanation: '文章明确提到Anthropocene指的是人类对地球产生显著影响的地质时代。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "Epigenetics is the study of heritable changes in gene expression that do not involve changes to the underlying DNA sequence. These changes can be influenced by various factors including environment, lifestyle, and psychological stress. Epigenetic modifications can affect how genes are read and expressed.\n\nWhat is the main focus of epigenetics?",
+                        options: ['A) Changes in DNA sequence', 'B) Heritable changes in gene expression without DNA sequence changes', 'C) The study of genetic diseases', 'D) Environmental factors only'],
+                        correctAnswer: 'B',
+                        explanation: '文章明确提到表观遗传学研究不涉及DNA序列变化的可遗传基因表达变化。',
+                        type: 'single_choice'
+                    },
+                    {
+                        question: "The Dunning-Kruger effect is a cognitive bias wherein people with low ability at a task overestimate their ability. This occurs because the skills needed to produce the right answer are exactly the skills needed to recognize what a right answer is. Conversely, highly skilled individuals may underestimate their relative competence.\n\nWhat is the Dunning-Kruger effect?",
+                        options: ['A) Highly skilled people overestimating their ability', 'B) Low-ability individuals overestimating their ability', 'C) Everyone accurately assessing their ability', 'D) The tendency to avoid difficult tasks'],
+                        correctAnswer: 'B',
+                        explanation: '文章明确提到邓宁-克鲁格效应是指能力不足的人高估自己能力的认知偏差。',
+                        type: 'single_choice'
+                    }
+                ],
+                translation: [
+                    {
+                        question: "Translate to English: 人工智能正在重塑各行各业，从医疗保健到金融服务。",
+                        correctAnswer: "Artificial intelligence is reshaping various industries, from healthcare to financial services.",
+                        explanation: '注意"重塑"和"各行各业"的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 可持续发展要求我们在经济、社会和环境之间取得平衡。",
+                        correctAnswer: "Sustainable development requires us to achieve a balance among economy, society and environment.",
+                        explanation: '注意"可持续发展"和"取得平衡"的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 全球化的深入发展使各国之间的相互依存程度不断加深。",
+                        correctAnswer: "The deepening development of globalization has continuously increased the interdependence among countries.",
+                        explanation: '注意"深入发展"和"相互依存"的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 科技创新是推动经济社会发展的核心动力。",
+                        correctAnswer: "Technological innovation is the core driving force for economic and social development.",
+                        explanation: '注意"核心动力"的翻译。',
+                        type: 'translation'
+                    },
+                    {
+                        question: "Translate to English: 应对气候变化需要国际社会的共同努力。",
+                        correctAnswer: "Addressing climate change requires the joint efforts of the international community.",
+                        explanation: '注意"应对"和"共同努力"的翻译。',
+                        type: 'translation'
+                    }
+                ]
+            }
+        };
+    </script>
+    
+    <script>
+        // 分析状态管理器
+        const analysisState = {
+            updateStatus: function(stage, message) {
+                console.log(`🔄 AI分析状态: ${stage} - ${message}`);
+                
+                const statusElement = document.getElementById('analysis-status');
+                const detailsElement = document.getElementById('analysis-details');
+                const successElement = document.getElementById('success-message');
+                const progressElement = document.getElementById('analysis-progress');
+                
+                if (!statusElement) return;
+                
+                switch(stage) {
+                    case 'start':
+                        statusElement.innerHTML = `
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">AI分析启动</h2>
+                            <p class="text-gray-600 text-lg mb-8">${message}</p>
+                        `;
+                        if (detailsElement) detailsElement.classList.remove('hidden');
+                        break;
+                        
+                    case 'processing':
+                        statusElement.innerHTML = `
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">AI分析进行中</h2>
+                            <p class="text-gray-600 text-lg mb-8">${message}</p>
+                        `;
+                        // 更新具体状态
+                        if (message.includes('能力图谱')) {
+                            document.getElementById('ability-map-status').textContent = '生成中...';
+                        } else if (message.includes('薄弱点')) {
+                            document.getElementById('ability-map-status').textContent = '已完成';
+                            document.getElementById('weakpoints-status').textContent = '分析中...';
+                        } else if (message.includes('学习路径')) {
+                            document.getElementById('weakpoints-status').textContent = '已完成';
+                            document.getElementById('learning-path-status').textContent = '规划中...';
+                        }
+                        break;
+                        
+                    case 'success':
+                        statusElement.classList.add('hidden');
+                        if (successElement) successElement.classList.remove('hidden');
+                        if (progressElement) progressElement.classList.add('hidden');
+                        if (detailsElement) {
+                            document.getElementById('ability-map-status').textContent = '已完成';
+                            document.getElementById('weakpoints-status').textContent = '已完成'; 
+                            document.getElementById('learning-path-status').textContent = '已完成';
+                        }
+                        
+                        // 显示成功动画
+                        this.showSuccessAnimation();
+                        break;
+                        
+                    case 'error':
+                        statusElement.innerHTML = `
+                            <h2 class="text-3xl font-bold text-red-600 mb-4">分析遇到问题</h2>
+                            <p class="text-gray-600 text-lg mb-8">${message}</p>
+                        `;
+                        if (progressElement) {
+                            progressElement.className = 'rounded-full h-16 w-16 border-2 border-red-600 flex items-center justify-center';
+                            progressElement.innerHTML = '<i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>';
+                        }
+                        break;
+                }
+            },
+            
+            showSuccessAnimation: function() {
+                const successIcon = document.createElement('div');
+                successIcon.className = 'fixed inset-0 flex items-center justify-center z-50 pointer-events-none';
+                successIcon.innerHTML = `
+                    <div class="animate-bounce-in">
+                        <div class="w-32 h-32 bg-green-500 rounded-full flex items-center justify-center shadow-2xl">
+                            <i class="fas fa-check text-white text-4xl"></i>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(successIcon);
+                
+                setTimeout(() => {
+                    successIcon.remove();
+                }, 2000);
+            }
+        };
+
+        // 修复后的测试状态管理
+        const testState = {
+            currentExamType: null,
+            currentDimensionIndex: 0,
+            currentQuestionIndex: 0,
+            answers: {},
+            startTime: null,
+            timerInterval: null,
+            timeRemaining: 0,
+            userId: null,
+            questions: {},
+            dimensions: ['vocabulary', 'grammar', 'reading', 'translation'],
+            config: null,
+            
+            get currentDimension() {
+                return this.dimensions[this.currentDimensionIndex];
+            },
+            
+            get currentQuestions() {
+                return this.questions[this.currentDimension] || [];
+            },
+            
+            get currentQuestion() {
+                return this.currentQuestions[this.currentQuestionIndex];
+            },
+            
+            initializeConfig(examType) {
+                this.config = {
+                    CET4: {
+                        totalTime: 1800,
+                        dimensions: {
+                            vocabulary: { count: 5, time: 300 },
+                            grammar: { count: 5, time: 300 },
+                            reading: { count: 5, time: 600 },
+                            translation: { count: 5, time: 600 }
+                        }
+                    },
+                    CET6: {
+                        totalTime: 2100,
+                        dimensions: {
+                            vocabulary: { count: 5, time: 300 },
+                            grammar: { count: 5, time: 300 },
+                            reading: { count: 5, time: 600 },
+                            translation: { count: 5, time: 900 }
+                        }
+                    }
+                }[examType];
+            }
+        };
+
+        // 维度显示配置
+        const dimensionConfig = {
+            vocabulary: {
+                name: '词汇能力',
+                description: '测试您的词汇掌握程度和应用能力',
+                icon: 'fas fa-book'
+            },
+            grammar: {
+                name: '语法能力', 
+                description: '评估您的语法知识和句子构造能力',
+                icon: 'fas fa-language'
+            },
+            reading: {
+                name: '阅读理解',
+                description: '考察您的阅读理解和信息提取能力',
+                icon: 'fas fa-book-reader'
+            },
+            translation: {
+                name: '翻译能力',
+                description: '评估您的翻译准确性和语言转换能力',
+                icon: 'fas fa-exchange-alt'
+            }
+        };
+
+        // 调试工具
+        window.debugTestState = function() {
+            console.group('🔍 测试状态调试信息');
+            console.log('当前考试类型:', testState.currentExamType);
+            console.log('当前维度:', testState.currentDimension);
+            console.log('当前题目索引:', testState.currentQuestionIndex);
+            console.log('题目数据:', testState.questions);
+            console.log('当前题目:', testState.currentQuestion);
+            console.log('答案数据:', testState.answers);
+            console.groupEnd();
+        };
+
+        // 在控制台执行 debugTestState() 来查看详细状态信息
+        console.log('🐛 调试工具已加载: 在控制台执行 debugTestState() 查看测试状态');
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 测试页面初始化完成');
+            checkAuthStatus();
+            checkUnfinishedTest();
+        });
+
+        // 检查认证状态
+        function checkAuthStatus() {
+            const authManager = window.unifiedAuthManager || window.authManager;
+            const user = authManager?.getCurrentUser();
+            
+            if (!user) {
+                showAuthRequiredAlert();
+                return false;
+            }
+            testState.userId = user.id;
+            console.log('✅ 用户已登录:', user.name);
+            return true;
+        }
+
+        // 显示认证要求提示
+        function showAuthRequiredAlert() {
+            const alertBox = document.getElementById('user-status-alert');
+            const message = document.getElementById('status-message');
+            const detail = document.getElementById('status-detail');
+            
+            if (alertBox && message && detail) {
+                alertBox.classList.remove('hidden');
+                message.textContent = '请先登录后进行能力评估测试';
+                detail.textContent = '登录后即可开始全面的英语能力诊断，获取个性化学习建议';
+            }
+        }
+
+        // 检查未完成的测试
+        function checkUnfinishedTest() {
+            const lastTest = localStorage.getItem('last_assessment_data');
+            if (lastTest) {
+                try {
+                    const testData = JSON.parse(lastTest);
+                    const testDate = new Date(testData.timestamp);
+                    const today = new Date();
+                    
+                    if (testDate.toDateString() === today.toDateString()) {
+                        showRecentTestAlert(testData);
+                    }
+                } catch (e) {
+                    console.warn('解析历史测试数据失败');
+                }
+            }
+        }
+
+        // 显示最近测试提示
+        function showRecentTestAlert(testData) {
+            const alertBox = document.getElementById('user-status-alert');
+            const message = document.getElementById('status-message');
+            const detail = document.getElementById('status-detail');
+            
+            if (alertBox && message && detail) {
+                alertBox.classList.remove('hidden');
+                alertBox.className = 'mb-8 p-6 bg-yellow-50 border border-yellow-200 rounded-xl';
+                
+                message.textContent = `您今天已经完成过${testData.examType === 'CET4' ? '四级' : '六级'}能力评估`;
+                detail.textContent = `得分: ${testData.overallScore} - 重新测试将覆盖之前的评估结果`;
+                
+                const icon = alertBox.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-exclamation-triangle text-yellow-500 text-xl mr-4 mt-1';
+                }
+            }
+        }
+
+        // 选择考试类型
+        function selectExamType(type) {
+            console.log('🎯 选择考试类型:', type);
+            
+            if (!checkAuthStatus()) {
+                window.location.href = '云梦智间登录.html?redirect=云梦智间测试.html';
+                return;
+            }
+            
+            testState.currentExamType = type;
+            
+            // 更新UI选中状态
+            document.querySelectorAll('.exam-type-card').forEach(card => {
+                card.classList.remove('selected', 'border-blue-500', 'border-purple-500', 'shadow-lg');
+            });
+            
+            const selectedCard = event.currentTarget;
+            selectedCard.classList.add('selected', 'shadow-lg');
+            selectedCard.classList.add(type === 'CET4' ? 'border-blue-500' : 'border-purple-500');
+            
+            // 启用开始按钮
+            document.querySelectorAll('button[onclick*="startTest"]').forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+            });
+        }
+
+        // 开始测试
+        async function startTest(examType) {
+            console.log('🚀 开始测试:', examType);
+            
+            if (!checkAuthStatus()) {
+                window.location.href = '云梦智间登录.html?redirect=云梦智间测试.html';
+                return;
+            }
+            
+            if (!examType) {
+                if (window.uiManager) {
+                    window.uiManager.showMessage('请选择考试类型', 'error');
+                }
+                return;
+            }
+
+            // 显示加载状态
+            if (window.uiManager) {
+                window.uiManager.showLearningProgress('正在准备测试题目...');
+            }
+
+            try {
+                // 初始化测试状态
+                testState.currentExamType = examType;
+                testState.initializeConfig(examType);
+                testState.startTime = new Date();
+                testState.timeRemaining = testState.config.totalTime;
+                testState.answers = {};
+                testState.currentDimensionIndex = 0;
+                testState.currentQuestionIndex = 0;
+                testState.questions = {};
+                
+                // 直接从本地加载题目
+                loadLocalQuestions(examType);
+                
+                // 切换到测试界面
+                showTestInProgress();
+                
+                // 开始计时器
+                startTimer();
+                
+                // 初始化进度显示
+                initializeProgressDisplay();
+                
+                // 加载第一个题目
+                loadCurrentQuestion();
+                
+                console.log('✅ 测试初始化完成，题目数量:', 
+                    Object.keys(testState.questions).reduce((sum, dim) => sum + testState.questions[dim].length, 0));
+                
+            } catch (error) {
+                console.error('开始测试失败:', error);
+                if (window.uiManager) {
+                    window.uiManager.showMessage('测试准备失败，请重试', 'error');
+                }
+            } finally {
+                if (window.uiManager) {
+                    window.uiManager.hideLearningProgress();
+                }
+            }
+        }
+
+        // 从本地加载题目 - 修复版本
+        function loadLocalQuestions(examType) {
+            console.log('📚 加载本地题目:', examType);
+            
+            if (!window.localQuestions || !window.localQuestions[examType]) {
+                console.error('❌ 本地题目数据不存在');
+                if (window.uiManager) {
+                    window.uiManager.showMessage('题目数据加载失败', 'error');
+                }
+                return;
+            }
+            
+            // 深拷贝题目数据
+            testState.questions = JSON.parse(JSON.stringify(window.localQuestions[examType]));
+            
+            // 初始化答案存储结构
+            testState.dimensions.forEach(dimension => {
+                if (testState.questions[dimension]) {
+                    testState.answers[dimension] = new Array(testState.questions[dimension].length).fill(undefined);
+                }
+            });
+            
+            console.log(`✅ 已加载 ${examType} 题目数据:`, 
+                Object.keys(testState.questions).map(dim => `${dim}: ${testState.questions[dim].length}题`).join(', '));
+        }
+
+        // 显示测试进行中界面
+        function showTestInProgress() {
+            document.getElementById('test-selection').classList.add('hidden');
+            document.getElementById('test-in-progress').classList.remove('hidden');
+            document.getElementById('test-timer').classList.remove('hidden');
+            
+            console.log('🔄 切换到测试进行中界面');
+        }
+
+        // 开始计时器
+        function startTimer() {
+            updateTimerDisplay();
+            
+            testState.timerInterval = setInterval(() => {
+                testState.timeRemaining--;
+                updateTimerDisplay();
+                
+                if (testState.timeRemaining <= 0) {
+                    completeTest();
+                }
+                
+                // 最后5分钟警告
+                if (testState.timeRemaining === 300) {
+                    showTimeWarning('还剩5分钟，请合理安排时间！');
+                }
+            }, 1000);
+        }
+
+        // 更新计时器显示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(testState.timeRemaining / 60);
+            const seconds = testState.timeRemaining % 60;
+            const timerElement = document.getElementById('test-timer');
+            const timeRemainingElement = document.getElementById('time-remaining');
+            
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timerElement) timerElement.textContent = timeString;
+            if (timeRemainingElement) timeRemainingElement.textContent = timeString;
+            
+            // 时间紧张时改变样式
+            if (testState.timeRemaining < 300) {
+                if (timerElement) timerElement.classList.add('warning');
+            }
+        }
+
+        // 初始化进度显示
+        function initializeProgressDisplay() {
+            const container = document.getElementById('dimension-progress');
+            if (!container) {
+                console.error('❌ 进度显示容器未找到');
+                return;
+            }
+            
+            let html = '';
+            
+            testState.dimensions.forEach((dimension, index) => {
+                const config = dimensionConfig[dimension];
+                const isActive = index === testState.currentDimensionIndex;
+                const dimensionAnswers = testState.answers[dimension] || [];
+                const isCompleted = dimensionAnswers.length > 0 && dimensionAnswers.every(answer => answer !== undefined);
+                
+                html += `
+                    <div class="dimension-progress p-4 rounded-lg cursor-pointer transition-all duration-300 ${
+                        isActive ? 'active bg-blue-600 text-white' : 'bg-gray-100'
+                    } ${isCompleted ? 'border-2 border-green-500' : ''}" 
+                         onclick="navigateToDimension(${index})">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="${config.icon} mr-3 ${isActive ? 'text-white' : 'text-gray-600'}"></i>
+                                <span class="font-medium">${config.name}</span>
+                            </div>
+                            ${isCompleted ? '<i class="fas fa-check text-green-500"></i>' : ''}
+                        </div>
+                        <div class="text-sm mt-2 ${isActive ? 'text-blue-100' : 'text-gray-500'}">
+                            ${testState.config.dimensions[dimension].count}题 · ${Math.floor(testState.config.dimensions[dimension].time / 60)}分钟
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            updateOverallProgress();
+        }
+
+        // 加载当前题目 - 修复版本
+        function loadCurrentQuestion() {
+            console.log('📝 加载题目:', {
+                dimension: testState.currentDimension,
+                index: testState.currentQuestionIndex,
+                total: testState.currentQuestions.length
+            });
+
+            const question = testState.currentQuestion;
+            if (!question) {
+                console.warn('⚠️ 当前题目不存在，尝试下一题');
+                nextQuestion();
+                return;
+            }
+
+            // 更新维度信息
+            const currentDimensionConfig = dimensionConfig[testState.currentDimension];
+            document.getElementById('current-dimension-name').textContent = currentDimensionConfig.name;
+            document.getElementById('current-dimension-desc').textContent = currentDimensionConfig.description;
+            
+            // 更新题目进度
+            updateDimensionProgress();
+
+            // 渲染题目
+            renderQuestion(question);
+            
+            // 更新导航按钮状态
+            updateNavigationButtons();
+            
+            console.log('✅ 题目加载完成:', question.question.substring(0, 50) + '...');
+        }
+
+        // 渲染题目 - 修复版本
+        function renderQuestion(question) {
+            const container = document.getElementById('question-content');
+            const title = document.getElementById('question-title');
+            
+            if (!container || !title) {
+                console.error('❌ 题目容器未找到');
+                return;
+            }
+            
+            title.textContent = `${dimensionConfig[testState.currentDimension].name} - 第${testState.currentQuestionIndex + 1}题`;
+            
+            if (question.type === 'translation') {
+                renderTranslationQuestion(question, container);
+            } else {
+                renderMultipleChoiceQuestion(question, container);
+            }
+        }
+
+        // 渲染选择题 - 修复版本
+        function renderMultipleChoiceQuestion(question, container) {
+            const currentAnswer = testState.answers[testState.currentDimension] && 
+                            testState.answers[testState.currentDimension][testState.currentQuestionIndex];
+            
+            let html = `
+                <div class="question-content">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6 leading-relaxed">${question.question}</h3>
+                    <div class="space-y-4" id="options-container">
+            `;
+
+            question.options.forEach((option, index) => {
+                const isSelected = currentAnswer === index;
+                const optionLetter = String.fromCharCode(65 + index);
+                
+                html += `
+                    <div class="option-card p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                        isSelected ? 'selected border-blue-600 bg-blue-600 text-white' : 'border-gray-300 hover:border-blue-400'
+                    }" onclick="selectAnswer(${index})">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center mr-4 font-semibold ${
+                                isSelected ? 'bg-white border-white text-blue-600' : 'border-gray-300 text-gray-600'
+                            }">
+                                ${optionLetter}
+                            </div>
+                            <span class="flex-1 text-lg">${option}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // 渲染翻译题 - 修复版本
+        function renderTranslationQuestion(question, container) {
+            const currentAnswer = testState.answers[testState.currentDimension] && 
+                            testState.answers[testState.currentDimension][testState.currentQuestionIndex];
+            
+            container.innerHTML = `
+                <div class="question-content">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4 leading-relaxed">${question.question}</h3>
+                    
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
+                        <h4 class="font-semibold text-yellow-800 text-lg mb-3 flex items-center">
+                            <i class="fas fa-language mr-2"></i>
+                            翻译要求
+                        </h4>
+                        <p class="text-yellow-700">请将中文句子翻译成英文，注意语法准确性和表达自然度。</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <textarea class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors" 
+                                  placeholder="请在此输入您的翻译..." 
+                                  rows="4"
+                                  oninput="updateTranslationAnswer(this)">${currentAnswer || ''}</textarea>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-600 text-sm">
+                            <strong>提示:</strong> 注意时态、语态、词汇选择和句子结构的准确性。
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 选择答案 - 修复版本
+        function selectAnswer(answerIndex) {
+            console.log('✅ 选择答案:', {
+                dimension: testState.currentDimension,
+                questionIndex: testState.currentQuestionIndex,
+                answerIndex: answerIndex
+            });
+            
+            const dimension = testState.currentDimension;
+            if (!testState.answers[dimension]) {
+                testState.answers[dimension] = [];
+            }
+            testState.answers[dimension][testState.currentQuestionIndex] = answerIndex;
+            
+            updateNavigationButtons();
+            
+            // 重新渲染选项以更新选中状态
+            if (testState.currentQuestion && testState.currentQuestion.type !== 'translation') {
+                loadCurrentQuestion();
+            }
+        }
+
+        // 更新翻译答案
+        function updateTranslationAnswer(textarea) {
+            selectAnswer(textarea.value);
+        }
+
+        // 下一题
+        function nextQuestion() {
+            const questions = testState.currentQuestions;
+            console.log('➡️ 下一题:', {
+                currentIndex: testState.currentQuestionIndex,
+                total: questions.length
+            });
+            
+            if (testState.currentQuestionIndex < questions.length - 1) {
+                testState.currentQuestionIndex++;
+                loadCurrentQuestion();
+            } else {
+                nextDimension();
+            }
+        }
+
+        // 上一题
+        function previousQuestion() {
+            console.log('⬅️ 上一题:', {
+                currentIndex: testState.currentQuestionIndex
+            });
+            
+            if (testState.currentQuestionIndex > 0) {
+                testState.currentQuestionIndex--;
+                loadCurrentQuestion();
+            }
+        }
+
+        // 下一个维度
+        function nextDimension() {
+            console.log('🔄 下一个维度:', {
+                currentDimensionIndex: testState.currentDimensionIndex,
+                totalDimensions: testState.dimensions.length
+            });
+            
+            if (testState.currentDimensionIndex < testState.dimensions.length - 1) {
+                testState.currentDimensionIndex++;
+                testState.currentQuestionIndex = 0;
+                initializeProgressDisplay();
+                loadCurrentQuestion();
+            } else {
+                completeTest();
+            }
+        }
+
+        // 跳转到指定维度
+        function navigateToDimension(index) {
+            console.log('📍 跳转到维度:', index);
+            
+            testState.currentDimensionIndex = index;
+            testState.currentQuestionIndex = 0;
+            initializeProgressDisplay();
+            loadCurrentQuestion();
+        }
+
+        // 更新维度进度
+        function updateDimensionProgress() {
+            const questions = testState.currentQuestions;
+            const currentProgress = testState.currentQuestionIndex + 1;
+            const totalQuestions = questions.length;
+            
+            const progressElement = document.getElementById('dimension-question-progress');
+            if (progressElement) {
+                progressElement.textContent = `${currentProgress}/${totalQuestions}`;
+            }
+        }
+
+        // 更新总体进度
+        function updateOverallProgress() {
+            let completedDimensions = 0;
+            testState.dimensions.forEach(dimension => {
+                const dimensionAnswers = testState.answers[dimension] || [];
+                const dimensionConfig = testState.config.dimensions[dimension];
+                const isCompleted = dimensionAnswers.length >= dimensionConfig.count && 
+                              dimensionAnswers.every(answer => answer !== undefined);
+                
+                if (isCompleted) {
+                    completedDimensions++;
+                }
+            });
+            
+            const totalDimensions = testState.dimensions.length;
+            const progressPercent = (completedDimensions / totalDimensions) * 100;
+            
+            const completedCountElement = document.getElementById('completed-count');
+            const overallProgressElement = document.getElementById('overall-progress');
+            
+            if (completedCountElement) {
+                completedCountElement.textContent = `${completedDimensions}/${totalDimensions}`;
+            }
+            
+            if (overallProgressElement) {
+                overallProgressElement.style.width = progressPercent + '%';
+            }
+        }
+
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (!prevBtn || !nextBtn) return;
+            
+            // 上一题按钮状态
+            prevBtn.disabled = testState.currentQuestionIndex === 0;
+            if (prevBtn.disabled) {
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            
+            // 下一题按钮状态
+            const dimension = testState.currentDimension;
+            const hasAnswer = testState.answers[dimension] && 
+                            testState.answers[dimension][testState.currentQuestionIndex] !== undefined;
+            
+            // 对于翻译题，总是可以进入下一题
+            const currentQuestion = testState.currentQuestion;
+            const isTranslation = currentQuestion && currentQuestion.type === 'translation';
+            
+            nextBtn.disabled = !hasAnswer && !isTranslation;
+            if (nextBtn.disabled) {
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // 显示时间警告
+        function showTimeWarning(message) {
+            if (window.uiManager) {
+                window.uiManager.showLearningNotification(message, 'warning', 5000);
+            }
+        }
+
+        // 完成测试 - 修改后的版本，确保正确的执行顺序
+        async function completeTest() {
+            console.log('🎉 完成测试 - 开始数据保存流程');
+            
+            // 检查令牌是否存在
+            const token = getAuthToken();
+            if (!token) {
+                console.error('❌ 认证令牌缺失，无法保存学习记录');
+                if (window.uiManager) {
+                    window.uiManager.showMessage('认证信息丢失，请重新登录', 'error');
+                }
+                
+                // 直接跳转到分析页面，不保存学习记录
+                setTimeout(() => {
+                    enhancedDataTransfer(testState.config.totalTime - testState.timeRemaining);
+                }, 1000);
+                return;
+            }
+            
+            // 停止计时器
+            if (testState.timerInterval) {
+                clearInterval(testState.timerInterval);
+            }
+            
+            // 计算用时
+            const timeSpent = testState.config.totalTime - testState.timeRemaining;
+            
+            // 切换到完成界面
+            document.getElementById('test-in-progress').classList.add('hidden');
+            document.getElementById('test-completed').classList.remove('hidden');
+
+            try {
+                // 1. 首先保存学习活动和签到记录
+                console.log('🔄 步骤1: 保存学习活动和签到记录');
+                await saveLearningActivityAndCheckin(timeSpent);
+                
+                // 2. 生成完整分析数据
+                console.log('🔄 步骤2: 生成分析数据');
+                const completeAnalysisData = await generateCompleteAnalysisData(testState.answers, timeSpent);
+                
+                // 3. 使用增强的数据传递方案
+                console.log('🔄 步骤3: 数据传递');
+                await enhancedDataTransfer(timeSpent);
+                
+                console.log('✅ 所有数据保存完成');
+                
+            } catch (error) {
+                console.error('💥 测试完成处理失败:', error);
+                
+                // 显示错误信息给用户
+                if (window.uiManager) {
+                    window.uiManager.showMessage('部分数据保存失败，但分析报告已生成', 'warning');
+                }
+                
+                // 即使保存失败，也要继续数据传递
+                fallbackDataTransfer();
+            }
+        }
+
+        // 改进的认证token获取函数
+        function getAuthToken() {
+            // 尝试多种方式获取token
+            let token = '';
+            
+            // 1. 首先尝试从统一认证管理器获取
+            const authManager = window.unifiedAuthManager || window.authManager;
+            if (authManager) {
+                if (typeof authManager.getToken === 'function') {
+                    token = authManager.getToken();
+                }
+                // 如果getToken不存在，尝试直接访问token属性
+                else if (authManager.token) {
+                    token = authManager.token;
+                }
+            }
+            
+            // 2. 如果认证管理器没有，尝试从本地存储获取
+            if (!token) {
+                // 尝试所有可能的存储键
+                const possibleKeys = [
+                    'auth_token', 'token', 'user_token', 'access_token',
+                    'authToken', 'userToken', 'accessToken'
+                ];
+                
+                for (const key of possibleKeys) {
+                    token = localStorage.getItem(key) || sessionStorage.getItem(key);
+                    if (token) break;
+                }
+            }
+            
+            // 3. 如果还没有，尝试从当前用户信息获取
+            if (!token && authManager && authManager.getCurrentUser) {
+                const user = authManager.getCurrentUser();
+                if (user && user.token) {
+                    token = user.token;
+                }
+            }
+            
+            // 4. 最后尝试从URL参数获取（如果有）
+            if (!token) {
+                const urlParams = new URLSearchParams(window.location.search);
+                token = urlParams.get('token') || urlParams.get('auth_token');
+            }
+            
+            if (!token) {
+                console.warn('⚠️ 未找到认证token，用户可能未登录');
+                console.log('🔍 调试认证状态:', {
+                    unifiedAuthManager: !!window.unifiedAuthManager,
+                    authManager: !!window.authManager,
+                    localStorageKeys: Object.keys(localStorage).filter(key => 
+                        key.toLowerCase().includes('token') || key.toLowerCase().includes('auth')
+                    )
+                });
+            } else {
+                console.log('✅ Token获取成功，长度:', token.length);
+            }
+            
+            return token;
+        }
+
+        // 修改保存函数，确保正确保存到两个表
+        async function saveLearningActivityAndCheckin(timeSpent) {
+            try {
+                console.log('📊 开始保存学习活动和签到记录...');
+                
+                // 计算分数
+                const scoreResult = calculateScoreFromAnswers(testState.answers, testState.questions);
+                
+                // 1. 保存学习活动记录到 learning_activities 表
+                console.log('💾 保存学习活动记录到 learning_activities 表...');
+                const activityResult = await saveLearningActivity({
+                    activity_type: 'assessment_test',
+                    activity_data: {
+                        exam_type: testState.currentExamType,
+                        overall_score: scoreResult.overallPercentage,
+                        total_questions: scoreResult.totalQuestions,
+                        correct_answers: scoreResult.totalCorrect,
+                        dimensions: scoreResult.dimensionScores,
+                        time_spent: timeSpent,
+                        test_date: new Date().toISOString(),
+                        user_id: testState.userId
+                    },
+                    duration: Math.floor(timeSpent / 60),
+                    time_spent: timeSpent,
+                    score: scoreResult.overallPercentage,
+                    total_questions: scoreResult.totalQuestions,
+                    correct_answers: scoreResult.totalCorrect,
+                    study_words_count: 0,
+                    mastered_words_count: 0,
+                    streak_bonus: 0,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                
+                console.log('✅ 学习活动保存结果:', activityResult);
+                
+                // 2. 更新签到记录到 user_checkins 表
+                console.log('📅 更新签到记录到 user_checkins 表...');
+                const checkinResult = await updateUserCheckin();
+                console.log('✅ 签到记录更新结果:', checkinResult);
+                
+                console.log('🎯 学习活动和签到记录保存成功');
+                return { activityResult, checkinResult };
+                
+            } catch (error) {
+                console.error('❌ 保存学习活动和签到记录失败:', error);
+                throw error;
+            }
+        }
+
+        // 改进的保存学习活动函数，完全匹配数据库结构
+        async function saveLearningActivity(activityData) {
+            const maxRetries = 2;
+            
+            for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                try {
+                    console.log(`📝 尝试保存学习活动 (第${attempt}次)`, activityData);
+                    
+                    const token = getAuthToken();
+                    if (!token) {
+                        console.warn('⚠️ 跳过学习活动保存：无认证令牌');
+                        return { success: false, message: '无认证令牌' };
+                    }
+                    
+                    // 构建完全匹配数据库字段的数据
+                    const requestData = {
+                        activity_type: activityData.activity_type,
+                        activity_data: typeof activityData.activity_data === 'string' 
+                            ? activityData.activity_data 
+                            : JSON.stringify(activityData.activity_data || {}),
+                        duration: parseInt(activityData.duration) || 0,
+                        time_spent: parseInt(activityData.time_spent) || 0,
+                        score: parseFloat(activityData.score) || 0,
+                        total_questions: parseInt(activityData.total_questions) || 0,
+                        correct_answers: parseInt(activityData.correct_answers) || 0,
+                        study_words_count: parseInt(activityData.study_words_count) || 0,
+                        mastered_words_count: parseInt(activityData.mastered_words_count) || 0,
+                        streak_bonus: parseInt(activityData.streak_bonus) || 0,
+                        date: activityData.date || new Date().toISOString().split('T')[0]
+                    };
+
+                    console.log('📤 发送的学习活动数据:', requestData);
+
+                    const response = await fetch('/api/learning/activities', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+
+                    console.log('📡 学习活动API响应状态:', response.status);
+                    
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error(`❌ 学习活动API错误响应 (第${attempt}次):`, errorText);
+                        
+                        if (response.status === 401) {
+                            console.warn('🔐 认证失败，跳过学习活动保存');
+                            return { success: false, message: '认证失败' };
+                        }
+                        
+                        if (attempt === maxRetries) {
+                            throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
+                        }
+                        
+                        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+                        continue;
+                    }
+
+                    const result = await response.json();
+                    console.log('✅ 学习活动记录保存成功:', result);
+                    return result;
+                    
+                } catch (error) {
+                    console.error(`💥 保存学习活动记录失败 (第${attempt}次):`, error);
+                    
+                    if (attempt === maxRetries) {
+                        return { success: false, message: error.message };
+                    }
+                    
+                    await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+                }
+            }
+            
+            return { success: false, message: '保存失败' };
+        }
+
+        // 改进的更新签到函数
+        async function updateUserCheckin() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                
+                console.log('📅 准备更新签到记录，日期:', today);
+                
+                const token = getAuthToken();
+                if (!token) {
+                    console.warn('⚠️ 跳过签到更新：无认证令牌');
+                    return { success: false, message: '无认证令牌' };
+                }
+                
+                const response = await fetch('/api/user/checkin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        checkin_date: today
+                    })
+                });
+
+                console.log('📡 签到API响应状态:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ 签到API错误响应:', errorText);
+                    throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
+                }
+
+                const result = await response.json();
+                console.log('✅ 签到记录更新成功:', result);
+                return result;
+                
+            } catch (error) {
+                console.error('更新签到记录失败:', error);
+                throw error;
+            }
+        }
+
+        // 新增：增强数据传递函数
+        async function enhancedDataTransfer(timeSpent) {
+            console.log('🚀 使用增强数据传递方案...');
+            
+            // 显示分析状态
+            analysisState.updateStatus('start', '正在生成分析报告...');
+            
+            // 1. 生成完整的分析数据
+            const completeAnalysisData = await generateCompleteAnalysisData(testState.answers, timeSpent);
+            console.log('✅ 完整分析数据生成完成', completeAnalysisData);
+            
+            // 2. 多重存储确保数据不丢失
+            const storageKeys = [
+                'current_ai_analysis',
+                'FORCE_ANALYSIS_DATA', 
+                'last_ai_analysis',
+                'analysis_report_data'
+            ];
+            
+            storageKeys.forEach(key => {
+                localStorage.setItem(key, JSON.stringify(completeAnalysisData));
+            });
+            
+            // 3. 保存到sessionStorage
+            sessionStorage.setItem('temp_analysis_data', JSON.stringify(completeAnalysisData));
+            sessionStorage.setItem('backup_analysis_data', JSON.stringify(completeAnalysisData));
+            
+            // 4. 生成详细的分析报告
+            const analysisReport = generateDetailedAnalysisReport(completeAnalysisData);
+            localStorage.setItem('analysis_report', JSON.stringify(analysisReport));
+            
+            // 5. 使用URL参数传递关键信息
+            const urlParams = new URLSearchParams({
+                analysis_id: Date.now().toString(),
+                exam_type: testState.currentExamType,
+                overall_score: completeAnalysisData.assessment.overallScore,
+                timestamp: new Date().getTime().toString(),
+                fresh: 'true',
+                enhanced: 'true'
+            });
+            
+            // 6. 显示成功状态
+            analysisState.updateStatus('success', '分析完成！即将跳转...');
+            
+            // 7. 确保数据保存完成后再跳转
+            setTimeout(() => {
+                const analysisUrl = `云梦智间学习分析.html?${urlParams.toString()}`;
+                console.log('🔗 跳转到分析页面:', analysisUrl);
+                window.location.href = analysisUrl;
+            }, 1500);
+        }
+
+        // 新增：备用数据传递方案
+        function fallbackDataTransfer() {
+            console.log('🔄 使用备用数据传递方案');
+            
+            const basicData = generateBasicAnalysisData();
+            
+            // 多重存储
+            localStorage.setItem('current_ai_analysis', JSON.stringify(basicData));
+            localStorage.setItem('FORCE_ANALYSIS_DATA', JSON.stringify(basicData));
+            sessionStorage.setItem('temp_analysis_data', JSON.stringify(basicData));
+            
+            analysisState.updateStatus('success', '使用基础分析数据...');
+            
+            setTimeout(() => {
+                window.location.href = '云梦智间学习分析.html?fallback=true';
+            }, 1500);
+        }
+
+        // ====================================================================
+        // 数据生成函数
+        // ====================================================================
+
+        // 生成完整的分析数据
+        async function generateCompleteAnalysisData(answers, timeSpent) {
+            // 计算分数
+            const scoreResult = calculateScoreFromAnswers(answers, testState.questions);
+            
+            // 生成能力图谱数据
+            const abilityMap = generateAbilityMapData(scoreResult.dimensionScores);
+            
+            // 生成薄弱点分析
+            const weakPoints = generateWeakPointsAnalysis(scoreResult.dimensionScores);
+            
+            // 生成学习路径
+            const learningPath = generateLearningPath(weakPoints, scoreResult.overallPercentage);
+            
+            // 生成详细学习计划
+            const detailedLearningPlan = generateDetailedLearningPlan(weakPoints, scoreResult.overallPercentage);
+            
+            // 生成抗遗忘复习计划
+            const reviewPlan = generateAntiForgettingReviewPlan(weakPoints, scoreResult.dimensionScores);
+            
+            return {
+                metadata: {
+                    timestamp: new Date().toISOString(),
+                    examType: testState.currentExamType,
+                    generatedBy: 'enhanced_system_v2',
+                    dataVersion: '3.0',
+                    userId: testState.userId,
+                    timeSpent: timeSpent
+                },
+                
+                assessment: {
+                    overallScore: scoreResult.overallPercentage,
+                    overallPercentage: scoreResult.overallPercentage,
+                    level: getCEFRLevel(scoreResult.overallPercentage),
+                    dimensionScores: scoreResult.dimensionScores,
+                    examType: testState.currentExamType,
+                    testDate: new Date().toISOString(),
+                    timeSpent: timeSpent
+                },
+                
+                abilityAnalysis: {
+                    overallScore: scoreResult.overallPercentage,
+                    level: getCEFRLevel(scoreResult.overallPercentage),
+                    abilityMap: abilityMap,
+                    weakPoints: weakPoints
+                },
+                
+                abilityMap: abilityMap,
+                weakPoints: weakPoints,
+                learningPath: {
+                    ...learningPath,
+                    weeklyPlans: detailedLearningPlan.weeklyPlans
+                },
+                detailedLearningPlan: detailedLearningPlan,
+                reviewPlan: reviewPlan,
+                
+                recommendations: [
+                    {
+                        message: generateRecommendationMessage(scoreResult.overallPercentage, weakPoints),
+                        actions: generateRecommendedActions(weakPoints),
+                        priority: 'high'
+                    }
+                ]
+            };
+        }
+
+        // 生成能力图谱数据
+        function generateAbilityMapData(dimensionScores) {
+            const dimensions = ['vocabulary', 'grammar', 'reading', 'translation'];
+            const dataPoints = dimensions.map(dimension => {
+                const score = dimensionScores[dimension]?.percentage || 70;
+                return {
+                    dimension: dimension,
+                    displayName: dimensionConfig[dimension].name,
+                    score: score,
+                    weight: 0.25
+                };
+            });
+            
+            return { dataPoints };
+        }
+
+        // 生成薄弱点分析
+        function generateWeakPointsAnalysis(dimensionScores) {
+            const weakPoints = [];
+            Object.entries(dimensionScores).forEach(([dimension, scoreInfo]) => {
+                if (scoreInfo.percentage < 70) {
+                    weakPoints.push({
+                        dimension: dimension,
+                        displayName: dimensionConfig[dimension].name,
+                        score: scoreInfo.percentage,
+                        priority: scoreInfo.percentage < 60 ? 'high' : 'medium',
+                        knowledgeGaps: generateKnowledgeGaps(dimension),
+                        recommendedActions: generateDimensionActions(dimension)
+                    });
+                }
+            });
+            
+            return weakPoints;
+        }
+
+        // 生成学习路径
+        function generateLearningPath(weakPoints, overallScore) {
+            const focusAreas = weakPoints.length > 0 ? 
+                weakPoints.map(wp => wp.displayName) : ['综合能力提升'];
+            
+            return {
+                duration: "4周",
+                focusAreas: focusAreas,
+                expectedImprovement: "+15-20分"
+            };
+        }
+
+        // 生成详细学习计划
+        function generateDetailedLearningPlan(weakPoints, overallScore) {
+            const weeklyPlans = [];
+            const focusAreas = weakPoints.length > 0 ? 
+                weakPoints.map(wp => wp.displayName) : ['综合能力提升'];
+            
+            for (let week = 1; week <= 4; week++) {
+                const dailyTasks = [];
+                for (let day = 1; day <= 7; day++) {
+                    const tasks = [];
+                    
+                    // 根据周数调整任务难度
+                    if (week <= 2) {
+                        // 基础巩固周
+                        tasks.push(
+                            { type: 'grammar', duration: 30, content: '基础语法练习' },
+                            { type: 'vocabulary', duration: 25, content: '核心词汇记忆' },
+                            { type: 'reading', duration: 20, content: '短文阅读理解' }
+                        );
+                    } else {
+                        // 能力提升周
+                        tasks.push(
+                            { type: 'grammar', duration: 35, content: '高级语法应用' },
+                            { type: 'vocabulary', duration: 30, content: '高级词汇拓展' },
+                            { type: 'reading', duration: 25, content: '长篇文章分析' },
+                            { type: 'translation', duration: 20, content: '中英互译练习' }
+                        );
+                    }
+                    
+                    dailyTasks.push({
+                        day: day,
+                        tasks: tasks,
+                        completed: false
+                    });
+                }
+                
+                weeklyPlans.push({
+                    week: week,
+                    focus: week <= 2 ? '基础巩固' : '能力提升',
+                    focusAreas: focusAreas,
+                    dailyTasks: dailyTasks,
+                    weeklyGoals: [
+                        `掌握${week * 3}个新知识点`,
+                        `完成${week * 5}个练习任务`,
+                        `提升${week * 5}分能力得分`
+                    ],
+                    progress: 0
+                });
+            }
+            
+            return {
+                duration: "4周",
+                totalTasks: 28,
+                completedTasks: 0,
+                weeklyPlans: weeklyPlans,
+                focusAreas: focusAreas
+            };
+        }
+
+        // 生成抗遗忘复习计划
+        function generateAntiForgettingReviewPlan(weakPoints, dimensionScores) {
+            const reviewSchedule = [];
+            const today = new Date();
+            
+            // 遗忘曲线复习间隔：1天、2天、4天、7天、15天
+            const intervals = [1, 2, 4, 7, 15];
+            
+            weakPoints.forEach((weakPoint, index) => {
+                intervals.forEach(interval => {
+                    const reviewDate = new Date(today);
+                    reviewDate.setDate(today.getDate() + interval);
+                    
+                    reviewSchedule.push({
+                        id: `review-${index}-${interval}`,
+                        knowledgePoint: weakPoint.displayName,
+                        dimension: weakPoint.dimension,
+                        dueDate: reviewDate.toISOString(),
+                        status: 'pending',
+                        priority: weakPoint.priority,
+                        reviewType: getReviewType(interval),
+                        estimatedTime: getReviewTime(weakPoint.priority),
+                        materials: generateReviewMaterials(weakPoint.dimension)
+                    });
+                });
+            });
+            
+            // 如果没有薄弱点，生成通用复习计划
+            if (reviewSchedule.length === 0) {
+                intervals.forEach(interval => {
+                    const reviewDate = new Date(today);
+                    reviewDate.setDate(today.getDate() + interval);
+                    
+                    reviewSchedule.push({
+                        id: `general-${interval}`,
+                        knowledgePoint: '综合能力复习',
+                        dimension: 'general',
+                        dueDate: reviewDate.toISOString(),
+                        status: 'pending',
+                        priority: 'medium',
+                        reviewType: getReviewType(interval),
+                        estimatedTime: 30,
+                        materials: ['综合练习题', '模拟测试', '错题回顾']
+                    });
+                });
+            }
+            
+            return {
+                totalReviews: reviewSchedule.length,
+                completedReviews: 0,
+                nextReview: reviewSchedule[0]?.dueDate || today.toISOString(),
+                schedule: reviewSchedule
+            };
+        }
+
+        // 辅助函数
+        function getReviewType(interval) {
+            const types = {
+                1: '短期记忆巩固',
+                2: '中期记忆强化', 
+                4: '长期记忆建立',
+                7: '深度记忆巩固',
+                15: '永久记忆强化'
+            };
+            return types[interval] || '常规复习';
+        }
+
+        function getReviewTime(priority) {
+            const times = {
+                high: 45,
+                medium: 30,
+                low: 20
+            };
+            return times[priority] || 25;
+        }
+
+        function generateReviewMaterials(dimension) {
+            const materials = {
+                vocabulary: ['词汇卡片', '同义词练习', '词根词缀记忆'],
+                grammar: ['语法专项练习', '句子改错', '语法填空'],
+                reading: ['阅读理解练习', '速读训练', '主旨概括'],
+                translation: ['翻译练习', '地道表达积累', '文化背景学习'],
+                general: ['综合练习题', '模拟测试', '错题回顾']
+            };
+            return materials[dimension] || materials.general;
+        }
+
+        // 生成知识缺口
+        function generateKnowledgeGaps(dimension) {
+            const gaps = {
+                vocabulary: ['高级词汇', '固定搭配', '词义辨析'],
+                grammar: ['复杂句型', '时态语态', '虚拟语气'],
+                reading: ['长难句分析', '推理判断', '主旨概括'],
+                translation: ['地道表达', '文化差异', '句式转换']
+            };
+            return gaps[dimension] || ['基础知识点'];
+        }
+
+        // 生成维度行动建议
+        function generateDimensionActions(dimension) {
+            const actions = {
+                vocabulary: ['每日词汇记忆', '阅读扩展', '词汇应用练习'],
+                grammar: ['语法专项训练', '句子改错', '语法填空'],
+                reading: ['精读训练', '速读练习', '阅读理解技巧'],
+                translation: ['中英互译练习', '地道表达积累', '文化背景学习']
+            };
+            return actions[dimension] || ['专项练习', '模拟测试'];
+        }
+
+        // 生成推荐消息
+        function generateRecommendationMessage(overallScore, weakPoints) {
+            if (overallScore >= 85) {
+                return '您的英语能力优秀，建议继续保持并拓展高级应用能力';
+            } else if (overallScore >= 70) {
+                return '您的英语能力良好，建议针对薄弱环节进行专项提升';
+            } else {
+                return '您的英语能力需要系统提升，建议从基础开始逐步加强';
+            }
+        }
+
+        // 生成推荐行动
+        function generateRecommendedActions(weakPoints) {
+            const actions = ['每日坚持学习', '定期模拟测试'];
+            if (weakPoints.length > 0) {
+                actions.push('薄弱环节专项训练');
+            }
+            return actions;
+        }
+
+        // 生成详细分析报告
+        function generateDetailedAnalysisReport(analysisData) {
+            return {
+                summary: `您的${analysisData.assessment.examType === 'CET4' ? '四级' : '六级'}评估得分: ${analysisData.assessment.overallScore}分`,
+                strengths: analysisData.weakPoints.length === 0 ? ['各项能力均衡发展'] : 
+                    Object.entries(analysisData.assessment.dimensionScores)
+                        .filter(([_, score]) => score.percentage >= 80)
+                        .map(([dim]) => dimensionConfig[dim].name),
+                improvementAreas: analysisData.weakPoints.map(wp => wp.displayName),
+                studyPlan: analysisData.learningPath
+            };
+        }
+
+        // 计算分数
+        function calculateScoreFromAnswers(answers, questions) {
+            let totalCorrect = 0;
+            let totalQuestions = 0;
+            const dimensionScores = {};
+
+            Object.keys(questions).forEach(dimension => {
+                const dimensionQuestions = questions[dimension];
+                const dimensionAnswers = answers[dimension] || [];
+                
+                let correctCount = 0;
+                dimensionQuestions.forEach((question, index) => {
+                    if (index < dimensionAnswers.length) {
+                        const userAnswer = dimensionAnswers[index];
+                        const isCorrect = checkAnswer(userAnswer, question.correctAnswer);
+                        if (isCorrect) correctCount++;
+                        totalQuestions++;
+                    }
+                });
+                
+                const percentage = dimensionQuestions.length > 0 ? 
+                    Math.round((correctCount / dimensionQuestions.length) * 100) : 70;
+                
+                dimensionScores[dimension] = {
+                    percentage: percentage,
+                    correct: correctCount,
+                    total: dimensionQuestions.length,
+                    score: percentage
+                };
+                
+                totalCorrect += correctCount;
+            });
+
+            const overallPercentage = totalQuestions > 0 ? 
+                Math.round((totalCorrect / totalQuestions) * 100) : 70;
+
+            return {
+                overallPercentage: overallPercentage,
+                dimensionScores: dimensionScores,
+                totalCorrect: totalCorrect,
+                totalQuestions: totalQuestions
+            };
+        }
+
+        // 检查答案
+        function checkAnswer(userAnswer, correctAnswer) {
+            // 对于选择题，比较选项索引
+            if (typeof userAnswer === 'number') {
+                const optionLetters = ['A', 'B', 'C', 'D'];
+                const userAnswerLetter = optionLetters[userAnswer];
+                return userAnswerLetter === correctAnswer;
+            }
+            // 对于翻译题，简单比较（实际应该使用更复杂的算法）
+            else if (typeof userAnswer === 'string') {
+                return userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
+            }
+            return false;
+        }
+
+        // 获取CEFR等级
+        function getCEFRLevel(score) {
+            if (score >= 90) return 'C2';
+            if (score >= 80) return 'C1';
+            if (score >= 70) return 'B2';
+            if (score >= 60) return 'B1';
+            if (score >= 50) return 'A2';
+            return 'A1';
+        }
+
+        // 基础分析数据（降级用）
+        function generateBasicAnalysisData() {
+            return {
+                metadata: {
+                    timestamp: new Date().toISOString(),
+                    examType: 'CET4',
+                    generatedBy: 'basic_fallback',
+                    dataVersion: '1.0'
+                },
+                assessment: {
+                    overallScore: 75,
+                    level: 'B1',
+                    examType: 'CET4',
+                    testDate: new Date().toISOString()
+                },
+                abilityAnalysis: {
+                    overallScore: 75,
+                    level: 'B1',
+                    abilityMap: {
+                        dataPoints: [
+                            { dimension: 'vocabulary', displayName: '词汇能力', score: 75, weight: 0.25 },
+                            { dimension: 'grammar', displayName: '语法能力', score: 68, weight: 0.25 },
+                            { dimension: 'reading', displayName: '阅读理解', score: 82, weight: 0.25 },
+                            { dimension: 'translation', displayName: '翻译能力', score: 71, weight: 0.25 }
+                        ]
+                    },
+                    weakPoints: [
+                        {
+                            dimension: 'grammar',
+                            displayName: '语法能力',
+                            score: 68,
+                            priority: 'medium',
+                            knowledgeGaps: ['时态语态', '从句结构'],
+                            recommendedActions: ['语法专项练习', '句子改错训练']
+                        }
+                    ]
+                }
+            };
+        }
+
+        // 查看详细分析
+        function viewDetailedAnalysis() {
+            window.location.href = '云梦智间学习分析.html';
+        }
+    </script>
+</body>
+</html>

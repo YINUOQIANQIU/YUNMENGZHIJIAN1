@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2024_12_2",
+    "exam_type": "CET-6",
+    "year": 2024,
+    "month": 12,
+    "title": "2024年12月英语六级听力真题（第二套）",
+    "audio_file": "cet6_2024_12_2.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Changing his major."},
+        {"option": "B", "text": "His family situation."},
+        {"option": "C", "text": "Revising his graduation thesis."},
+        {"option": "D", "text": "His passion for Art History."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He doesn't think it legitimate to depend on his father."},
+        {"option": "B", "text": "He thinks his financial situation has now changed."},
+        {"option": "C", "text": "He doesn't think it will provide him with a living."},
+        {"option": "D", "text": "He thinks it nourishes the financially secure only."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Try his best to socialize and build a network in the art industry."},
+        {"option": "B", "text": "Seek financially viable employment opportunities after graduation."},
+        {"option": "C", "text": "Investigate all possible ways to become a celebrity in the art world."},
+        {"option": "D", "text": "Strike a balance between intellectual pursuits and financial security."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Money."},
+        {"option": "B", "text": "Time."},
+        {"option": "C", "text": "Determination."},
+        {"option": "D", "text": "Optimism."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their decision on investigating beef consumption."},
+        {"option": "B", "text": "Their original ideas about the domestic market."},
+        {"option": "C", "text": "Their different approaches to a case study."},
+        {"option": "D", "text": "Their end-of-semester business projects."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Expanding farmland out west."},
+        {"option": "B", "text": "Importing most of the beef."},
+        {"option": "C", "text": "Raising cattle domestically."},
+        {"option": "D", "text": "Continuing to boost economic growth."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Technical equipment."},
+        {"option": "B", "text": "Business consultancy."},
+        {"option": "C", "text": "Beef."},
+        {"option": "D", "text": "Car washing."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Car owners of all walks of life."},
+        {"option": "B", "text": "High-end customers in big cities."},
+        {"option": "C", "text": "Consumers craving for professional service."},
+        {"option": "D", "text": "Well-off dealers seeking a profitable markup."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Parents' talking with them during TV time raises their curiosity levels."},
+        {"option": "B", "text": "Their daily television exposure cuts parent-child conversation time."},
+        {"option": "C", "text": "The more TV they watch the poorer their progress in development."},
+        {"option": "D", "text": "Their socioeconomic levels impact their academic achievement."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Kids' enhanced learning."},
+        {"option": "B", "text": "Kids' curiosity levels."},
+        {"option": "C", "text": "Kids' reading and math."},
+        {"option": "D", "text": "Kids' behavioral development."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It can hinder kids from getting on with their peers."},
+        {"option": "B", "text": "It can cut into kids' time on exploratory activities."},
+        {"option": "C", "text": "It can arouse kids' interest in how people interact in real life."},
+        {"option": "D", "text": "It can widen the gap between kids from different economic statuses."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Exerting ourselves too hard in order to attain our life's goals."},
+        {"option": "B", "text": "Being possessed with a single thought of professional success."},
+        {"option": "C", "text": "Trying every means to beat others in terms of personal aspirations."},
+        {"option": "D", "text": "Being mindlessly driven to possess more and more material things."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "We might isolate ourselves from our fellow beings."},
+        {"option": "B", "text": "We might acquire an incorrect sense of well-being."},
+        {"option": "C", "text": "We might end up pursuing all the wrong things."},
+        {"option": "D", "text": "We might make a mess of our personal lives."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They should be based on solid theoretical concepts."},
+        {"option": "B", "text": "They should take personal interests into account."},
+        {"option": "C", "text": "They should include goals to help other people."},
+        {"option": "D", "text": "They should increase our sense of worthiness."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Drifting through life aimlessly."},
+        {"option": "B", "text": "Abandoning all that life has to offer."},
+        {"option": "C", "text": "Giving up the chance to fulfill yourself."},
+        {"option": "D", "text": "Spoiling your character and integrity."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Grade-raising ways and means."},
+        {"option": "B", "text": "Pressure-alleviating exercise."},
+        {"option": "C", "text": "Revision-conducting approaches."},
+        {"option": "D", "text": "Brain-boosting food and drink."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Buying it from coffee shops."},
+        {"option": "B", "text": "Building up a tolerance of it."},
+        {"option": "C", "text": "Drinking it after 2 pm."},
+        {"option": "D", "text": "Consuming it with sugar."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "By taking varied vitamin supplements."},
+        {"option": "B", "text": "By consuming a rich variety of foods."},
+        {"option": "C", "text": "By eating both oranges and frozen berries."},
+        {"option": "D", "text": "By getting components packaged in tablets."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Many people across advanced economies think the world is going from bad to worse."},
+        {"option": "B", "text": "The news focuses on reporting catastrophes that occur across the world."},
+        {"option": "C", "text": "A significant part of the world is experiencing another great recession."},
+        {"option": "D", "text": "Many people have no idea of those living under miserable conditions."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It has experienced ups and downs like any other historical trend."},
+        {"option": "B", "text": "It is hailed as a miracle by both economists and ordinary people."},
+        {"option": "C", "text": "It is the only way for all countries to share economic prosperity."},
+        {"option": "D", "text": "It has given more and more countries a rare chance to thrive."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their fortunes may take a downturn."},
+        {"option": "B", "text": "They can be classified as middle class."},
+        {"option": "C", "text": "Their living standards have been deteriorating."},
+        {"option": "D", "text": "They are experiencing a radical transformation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Why smells can activate emotional memories."},
+        {"option": "B", "text": "How powerful the sense of smell can become."},
+        {"option": "C", "text": "How scent particles revive memories forgotten."},
+        {"option": "D", "text": "Why the scent of bread has a strong mental impact."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The brain cells' processing of memories experienced as strongly emotional."},
+        {"option": "B", "text": "The activation of the brain's emotion processing area by chemical particles."},
+        {"option": "C", "text": "The interaction between chemical particles and the brain cells responsible for smell."},
+        {"option": "D", "text": "The sensations of scents going directly to the brain's emotional and memory centers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Imagination."},
+        {"option": "B", "text": "Association."},
+        {"option": "C", "text": "Experience."},
+        {"option": "D", "text": "Context."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Inaccuracy and alterability."},
+        {"option": "B", "text": "Being personal and individualistic."},
+        {"option": "C", "text": "Susceptibility to polar interpretations."},
+        {"option": "D", "text": "Being dependent on relevant scenarios."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

@@ -1,0 +1,560 @@
+{
+  "exam_paper": {
+    "exam_name": "2024年6月英语六级真题及答案解析（第二套）",
+    "sections": [
+      {
+        "section_name": "Part I Writing",
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to write an essay that begins with the sentence \"Nowadays more and more college students have come to realize social practice and academic learning are equally important.\" You can make comments, cite examples or use your personal experiences to develop your essay. You should write at least 150 words but no more than 200 words.",
+        "content": {
+          "essay_requirement": "You should copy the sentence given in quotes at the beginning of your essay."
+        }
+      },
+      {
+        "section_name": "Part II Listening Comprehension",
+        "time_allowed": "30 minutes",
+        "subsections": [
+          {
+            "subsection_name": "Section A",
+            "directions": "In this section, you will hear two long conversations. At the end of each conversation, you will hear four questions. Both the conversation and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.",
+            "conversations": [
+              {
+                "questions_range": "1 to 4",
+                "questions": [
+                  {
+                    "number": 1,
+                    "options": [
+                      "Read numerous comments users put online.",
+                      "Blended all his food without using a machine.",
+                      "Searched for the state-of-the-art models of blenders",
+                      "Did thorough research on the price of kitchen appliances"
+                    ]
+                  },
+                  {
+                    "number": 2,
+                    "options": [
+                      "Eating any blended food.",
+                      "Buying a blender herself.",
+                      "Using machines to do her cooking.",
+                      "Making soups and juices for herself."
+                    ]
+                  },
+                  {
+                    "number": 3,
+                    "options": [
+                      "Cooking every meal creatively in the kitchen",
+                      "Paying due attention to his personal hygiene.",
+                      "Eating breakfast punctually every morning.",
+                      "Making his own fresh fruit juice regularly"
+                    ]
+                  },
+                  {
+                    "number": 4,
+                    "options": [
+                      "One-tenth of it is sugar",
+                      "It looks healthy and attractive.",
+                      "One's fancy may be tickled by it.",
+                      "It contains an assortment of nutrients."
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "5 to 8",
+                "questions": [
+                  {
+                    "number": 5,
+                    "options": [
+                      "How he has made himself popular as the mayor of Berkton",
+                      "How the residents will turn Berkton into a tourist attraction.",
+                      "How charming he himself considers the village of Berkton to be.",
+                      "How he has led people of Berkton to change the village radically."
+                    ]
+                  },
+                  {
+                    "number": 6,
+                    "options": [
+                      "It was developed only to a limited extent",
+                      "It was totally isolated as a sleepy village.",
+                      "It was relatively unknown to the outside",
+                      "It was endowed with rare natural resources."
+                    ]
+                  },
+                  {
+                    "number": 7,
+                    "options": [
+                      "The people in Berkton were in a harmonious atmosphere",
+                      "The majority of residents lived in harmony with their neighbors",
+                      "The majority of residents enjoyed cosy housing conditions",
+                      "All the houses in Berkton looked aesthetically similar."
+                    ]
+                  },
+                  {
+                    "number": 8,
+                    "options": [
+                      "They have helped boost the local economy.",
+                      "They have made the residents unusually proud.",
+                      "They have contributed considerably to its popularity.",
+                      "They have brought happiness to everyone in the village."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "subsection_name": "Section B",
+            "directions": "In this section, you will hear two passages. At the end of each passage, you will hear three or four questions. Both the passage and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.",
+            "passages": [
+              {
+                "questions_range": "9 to 11",
+                "questions": [
+                  {
+                    "number": 9,
+                    "options": [
+                      "They have created the smallest remote-controlled walking robot in the world.",
+                      "They are going to publish their research findings in the journal Science Robotics.",
+                      "They are the first to build a robot that can bend, crawl, walk, turn and even jump.",
+                      "They are engaged in research on a remote-controlled robot which uses special power."
+                    ]
+                  },
+                  {
+                    "number": 10,
+                    "options": [
+                      "It changes its shape by complex hardware",
+                      "It is operated by a special type of tiny motor",
+                      "It moves from one place to another by memory",
+                      "It is powered by the elastic property of its body."
+                    ]
+                  },
+                  {
+                    "number": 11,
+                    "options": [
+                      "Replace humans in exploratory tasks",
+                      "Perform tasks in tightly confined spaces.",
+                      "Explore the structure of clogged arteries.",
+                      "Assist surgeons in highly complex surgery"
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "12 to 15",
+                "questions": [
+                  {
+                    "number": 12,
+                    "options": [
+                      "She threw up in the bathroom.",
+                      "She slept during the entire ride.",
+                      "She dozed off for a few minutes.",
+                      "She boasted of her marathon race."
+                    ]
+                  },
+                  {
+                    "number": 13,
+                    "options": [
+                      "They are mostly immune to cognitive impairment.",
+                      "They can sleep soundly during a rough ride at sea.",
+                      "They are genetically determined to need less sleep",
+                      "They constitute about 13 percent of the population."
+                    ]
+                  },
+                  {
+                    "number": 14,
+                    "options": [
+                      "Whether there is a way to reach elite status.",
+                      "Whether it is possible to modify one's genes.",
+                      "Whether having a baby impacts one's passion.",
+                      "Whether one can train themselves to sleep less."
+                    ]
+                  },
+                  {
+                    "number": 15,
+                    "options": [
+                      "It is in fact quite possible to nurture a passion for sleep.",
+                      "Babies can severely disrupt their parents' sleep patterns",
+                      "Being forced to rise early differs from being an early bird.",
+                      "New parents are forced to jump out of bed at the crack of dawn"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "subsection_name": "Section C",
+            "directions": "In this section, you will hear three recordings of lectures or talks followed by three or four questions. The recordings will be played only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.",
+            "recordings": [
+              {
+                "questions_range": "16 to 18",
+                "questions": [
+                  {
+                    "number": 16,
+                    "options": [
+                      "We have poor awareness of how many controversial issues are being debated.",
+                      "No one knows better than yourself what you are thinking about at the moment.",
+                      "No one can change your opinions more than those who speak in a convincing tone.",
+                      "We are likely to underestimate how much we can be swayed by a convincing article."
+                    ]
+                  },
+                  {
+                    "number": 17,
+                    "options": [
+                      "Their belief about physical punishment changed",
+                      "Their memory pushed them toward a current belief.",
+                      "The memory of their initial belief came back to them.",
+                      "Their experiences of physical punishment haunted them"
+                    ]
+                  },
+                  {
+                    "number": 18,
+                    "options": [
+                      "They apparently have little to do with moderate beliefs",
+                      "They don't reflect the changes of view on physical punishment",
+                      "They may not apply to changes to extreme or deeply held beliefs.",
+                      "They are unlikely to alter people's position without more evidence"
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "19 to 21",
+                "questions": [
+                  {
+                    "number": 19,
+                    "options": [
+                      "American moms have been increasingly inclined to live alone.",
+                      "The American population has been on the rise in the past 25 years",
+                      "American motherhood has actually been on the decline.",
+                      "The fertility rates in America have in fact been falling sharply."
+                    ]
+                  },
+                  {
+                    "number": 20,
+                    "options": [
+                      "More new mothers tend to take greater care of their children",
+                      "More new mothers are economically able to raise children.",
+                      "A larger proportion of women take pride in their children.",
+                      "A larger proportion of women really enjoy motherhood."
+                    ]
+                  },
+                  {
+                    "number": 21,
+                    "options": [
+                      "The meaning of motherhood has changed considerably.",
+                      "More and more mothers go shopping to treat themselves.",
+                      "More mothers have adult children celebrating the holiday.",
+                      "The number of American mothers has been growing steadily"
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "22 to 25",
+                "questions": [
+                  {
+                    "number": 22,
+                    "options": [
+                      "Add to indoor toxic pollutants.",
+                      "Beautify the home environment.",
+                      "Absorb poisonous chemicals.",
+                      "Soak up surrounding moisture."
+                    ]
+                  },
+                  {
+                    "number": 23,
+                    "options": [
+                      "NASA did experiments in sealed containers resembling the super-insulated offices of 1970s.",
+                      "It was based on experiments under conditions unlike those in most homes or offices.",
+                      "NASA conducted tests in outer space whose environment is different from ours",
+                      "It drew its conclusion without any contrastive data from other experiments."
+                    ]
+                  },
+                  {
+                    "number": 24,
+                    "options": [
+                      "Natural ventilation proves much more efficient for cleaning the air than house plants",
+                      "Houseplants disperse chemical compounds more quickly with people moving around.",
+                      "Natural ventilation turns out to be most effective with doors and windows wide open",
+                      "Houseplants in a normal environment rarely have any adverse impact on the air."
+                    ]
+                  },
+                  {
+                    "number": 25,
+                    "options": [
+                      "The root cause for misinterpretations of scientific findings",
+                      "The difficulty in understanding what's actually happening.",
+                      "The steps to be taken in arriving at any conclusion with certainty.",
+                      "The necessity of continually re-examining and challenging findings."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Part III Reading Comprehension",
+        "subsections": [
+          {
+            "subsection_name": "Section A",
+            "directions": "In this section, there is a passage with ten blanks. You are required to select one word for each blank from a list of choices given in a word bank following the passage. Read the passage through carefully before making your choices. Each choice in the bank is identified by a letter. Please mark the corresponding letter for each item on Answer Sheet 2 with a single line through the centre. You may not use any of the words in the bank more than once.",
+            "passage": "The Sun Is Also a Star is a truly lovely story of love, romance, fate, and destiny. Natasha is a Jamaican-born immigrant living __26__ in America, not by choice exactly. Her parents brought her over and created the situation she __27__ to be out of. Daniel is an American born of Korean immigrants. He believes in true love, fate, and all that other nonsense that Natasha __28__ through scientific reasoning. Daniel and Natasha meet by __29__ on the streets of New York on the day that she is to be __30__. She doesn't tell him that but does allow him to keep her company while he tries to get her to fall in love with him over the course of the day. Natasha is me. I found her so similar to myself. She's scientifically-minded, practical, somewhat cynical, and always __31__. Her obsession with the universe through a scientific lens is infectious and I __32__ Daniel seeing that too Daniel is charming and passionate and has a way with words that even __33__ Natasha's tough outer shell. By the end of the book I fell in love with both of them. I used to find romance stories to always be cheap or laughable. I think now I can see the value in escaping into a story of pure optimism. I got __34__ in The Sun Is Also a Star and finished it cover to cover in a weekend. I couldn't wait to get to what I hoped would be a happy ending. It's nice every once in a while to give in to magic. It doesn't have to be a hard fantasy novel with actual spells, it can be the magic found between two people who just have that special something. That __35__ that causes them to react and spark when they're near each other",
+            "word_bank": {
+              "A": "adore",
+              "B": "appraise",
+              "C": "assaults",
+              "D": "chemistry",
+              "E": "coincidence",
+              "F": "cracks",
+              "G": "deported",
+              "H": "dismisses",
+              "I": "illegally",
+              "J": "lost",
+              "K": "perpetually",
+              "L": "prescribed",
+              "M": "shrewd",
+              "N": "skeptical",
+              "O": "strives"
+            },
+            "blanks": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+          },
+          {
+            "subsection_name": "Section B",
+            "directions": "In this section, you are going to read a passage with ten statements attached to it. Each statement contains information given in one of the paragraphs. Identify the paragraph from which the information is derived. You may choose a paragraph more than once. Each paragraph is marked with a letter. Answer the questions by marking the corresponding letter on Answer Sheet 2.",
+            "passage_title": "These are the habits to avoid if you want to make a behavior change",
+            "paragraphs": [
+              {
+                "letter": "A",
+                "content": "According to recent research, behavioral change involves physical changes in the brain. In the past decade, researchers have shown that when it comes to the duration of making a new behavior a deep-rooted habit there is not a simple answer. Even for the most productive and disciplined among us, undoing something that has become an automatic part of who we are takes more than an overnight effort. Once we've successfully made that change, we then have to make other adjustments to our lives to ensure that we continue to maintain it, which is often a whole other challenge in itself."
+              },
+              {
+                "letter": "B",
+                "content": "At its core, success in changing and maintaining a behavior rarely occurs without the introduction of some sort of system. When there isn't the right framework in place, we face a greater likelihood of derailing our hard-earned progress. To ensure success in changing and maintaining a behavior, we should stay away from some detrimental habits"
+              },
+              {
+                "letter": "C",
+                "content": "The first one to avoid is relying on willpower. Think about the last time you vowed to resist a temptation. Perhaps you didn't want to check your phone every 15 minutes, or you were determined not to reach for a chocolate bar at 3 p.m. Think about how difficult it must have been not to glance at your phone when it was within reach, or not to walk to the vending machine when your afternoon slump hit."
+              },
+              {
+                "letter": "D",
+                "content": "The research on whether we have finite or infinite willpower is inconclusive, but experts do generally agree that you can't change and sustain a habit if you rely on your willpower alone. The old military saying \"You never rise to the occasion, you only sink to the level of training\" also applies to behavior change. The idea is simple—you repeat something so many times that it becomes automatic."
+              },
+              {
+                "letter": "E",
+                "content": "Think about what else you can change about your surrounding that makes it easier for you to perform this change on a daily basis. This is called your \"cue\". Basically, it's a trigger to perform that particular habit. If you don't want to reach for a sugary treat at 3 p.m., have a box of herbal tea ready at your desk. When 3 p.m. comes around, that's your cue to pour yourself a cup of hot water and drink that tea, instead of walking to the vending machine."
+              },
+              {
+                "letter": "F",
+                "content": "The second one to avoid is focusing on negative goals. Sometimes, it's not your process that lets you down, but the habit that you want to change in the first place. For starters, not eating chocolate to beat your afternoon slump is a harder goal than swapping chocolate for herbal tea when you reach the designated time. Your brain wants to find routines that have succeeded in the past and allow you to repeat those actions again in the future without having to think about them explicitly. However, this habit-learning system isn't so effective when it comes to learning not to do something. That's why rather than giving up something, think about introducing something in its place. Focus on actions you are going to take that will ultimately conflict with the behaviors you want to stop. When your attention is on doing something new, you give your habit system a chance to operate."
+              },
+              {
+                "letter": "G",
+                "content": "The third one to avoid is using the same strategies in different circumstances. Because we are creatures of habit, it's natural to assume that when we do manage to adopt and sustain a desirable behavior, that same strategy will work when we want to make another behavior change. But that's not always the case. Sometimes, the system that got you to change one behavior might not work for another."
+              },
+              {
+                "letter": "H",
+                "content": "Sometimes we become accustomed to relying on our guts when it comes to decision-making. This serves us well in certain situations, but can hinder us in others especially when we need to consider metrics and data, rather than letting our instinct override everything. For example, if you want to stop checking your email first thing in the morning, you might decide to substitute another activity in its place. But if you want to stop indulging in video games, simply deciding you will go for a run might not be as effective. You might need to introduce another reinforcement, such as meeting a friend and booking an exercise class together"
+              },
+              {
+                "letter": "I",
+                "content": "The fourth one to avoid is not forgiving ourselves for slipping up. Of course, even the best-laid plans fail sometimes. You might have stuck to your screen-free nighttime routine for five days, and then a big project landed on your desk and you found yourself in bed with your laptop before you went to sleep. Or you prepared meals on Sunday and stuck to eating healthy dinners at home, but by Friday you found yourself so exhausted and opted to order greasy takeout. Life happens and even if your behavior change is small, every single day can prove pretty inflexible, and at some point your luck may run out, even if just for a day. The perfectionist in you might be screaming to abandon your goals altogether, but try to see it in the bigger picture. Just because you might have temporarily strayed off course doesn't mean you can't start afresh the next day."
+              },
+              {
+                "letter": "J",
+                "content": "The final one to avoid is discounting small progress. There's a habit that many perfectionists tend to fall into when they try to establish a behavior change. They focus too much on the big goal and don't take the time to celebrate the small progress they make in the process. Your brain responds to rewards. The basal ganglia, the brain region linked to our performance of habits, is most active at the beginning of a behavior, when the habit is cued, and at the end, when it's rewarded. Say your goal is to run five miles three times a week, and this week you ran one mile on Monday, Wednesday, and Friday. Rather than focusing on how far you've gone toward your goal, think about how you can reward yourself for the progress you've made. It doesn't have to be big or expensive; it can be something as simple as making your favorite fruit juice after your run. Whatever your reward, it has to be more than just the activity itself to get you going."
+              },
+              {
+                "letter": "K",
+                "content": "Initiating a new behavior usually seems like the hardest part of the process of change. However, people often fail to adequately prepare for maintaining it. One of the reasons for this is because we mistakenly believe the strategies we used to initiate the change will be equally effective in helping us continue the change. But they won't. Where changing a strongly deep-rooted habit requires changing our belief about that habit that penetrates deeply into our lives, continually manifesting that wisdom requires that we maintain a positive outlook. If our mood is low, the wisdom to behave differently seems to disappear and we go back to eating more and exercising less. The key, then, to maintaining new behaviors is to be happy! Which is why it's so hard to maintain new behaviors."
+              },
+              {
+                "letter": "L",
+                "content": "Remember, overcoming the behavioral inertia that prevents us from implementing new changes, like eating a healthy diet or exercising, can benefit us in the long run and can improve our physical and mental health. No one was born with habits. They were all learned, and can all, therefore, be unlearned. The question is: how badly do you really want to change?"
+              }
+            ],
+            "statements": [
+              {
+                "number": 36,
+                "content": "There is general consensus among experts that willpower alone cannot guarantee one's success in changing and maintaining a habit.",
+                "answer_paragraph": "D"
+              },
+              {
+                "number": 37,
+                "content": "One need not abandon their goals completely just because they missed their target temporarily; they can start anew.",
+                "answer_paragraph": "I"
+              },
+              {
+                "number": 38,
+                "content": "Research shows it is quite another challenge to maintain a behavioral change after you have initiated it.",
+                "answer_paragraph": "A"
+              },
+              {
+                "number": 39,
+                "content": "It is wrong to assume the strategies we use to start a change of behavior will work equally well in helping maintain it.",
+                "answer_paragraph": "K"
+              },
+              {
+                "number": 40,
+                "content": "Sometimes, it may not be successful to simply substitute one activity with another to effect a change of habit; you may need extra reinforcement",
+                "answer_paragraph": "H"
+              },
+              {
+                "number": 41,
+                "content": "One should introduce something new to replace an old habit instead of simply kicking it",
+                "answer_paragraph": "F"
+              },
+              {
+                "number": 42,
+                "content": "Perfectionists focus too much on their big target and neglect celebrating the small gains they make in the process.",
+                "answer_paragraph": "J"
+              },
+              {
+                "number": 43,
+                "content": "It is of great benefit to us in the long term to conquer the inertia that stops us from making behavioral changes.",
+                "answer_paragraph": "L"
+              },
+              {
+                "number": 44,
+                "content": "The strategy that successfully changed one of your behaviors may not work for some other behavior of yours.",
+                "answer_paragraph": "G"
+              },
+              {
+                "number": 45,
+                "content": "Without a happy mood, it seems that our wisdom to adopt a different behavior vanishes",
+                "answer_paragraph": "K"
+              }
+            ]
+          },
+          {
+            "subsection_name": "Section C",
+            "directions": "There are 2 passages in this section. Each passage is followed by some questions or unfinished statements. For each of them there are four choices marked A), B), C) and D). You should decide on the best choice and mark the corresponding letter on Answer Sheet 2 with a single line through the centre.",
+            "passages": [
+              {
+                "title": "Passage One",
+                "questions_range": "46 to 50",
+                "content": "The \"American Dream\" promises that in the Land of Opportunity, any individual can climb the economic ladder and prosper through hard work and ambition alone. And yet. young Americans today are struggling to earn more than their parents did at the same age, and upward mobility in the US actually compares unfavourably to that of other industrialised nations. So why does the idea of the American Dream persist? A new study in the American Journal of Political Science identifies one factor that has been overlooked: the influence of reality TV. Reality shows have come to dominate US television over the past 20 years, notes Eunji Kim from Vanderbilt University. And the overwhelming majority of these have a \"rags-to-riches\" storyline: they feature ordinary Americans who work hard to achieve great economic success. And while these programmes are regularly among the most-watched shows, news broadcasts—which paint a more realistic view of the economic hardship faced by millions of Americans—get a much smaller proportion of the viewership Rags-to-riches stories are ubiquitous (无处不在的) on TV—but does watching these programmes actually convince people that economic mobility is easily attainable? To find out, Kim's team had participants watch a 5-minute clip from a reality show with a rags-to-riches storyline. Control participants watched a clip from a reality show that didn't have a rags-to-riches story. After watching the shows, participants rated how much they agreed with four statements relating to the American Dream The results showed that those who'd watched a rags-to-riches clip did indeed have a significantly greater belief in the American Dream. Interestingly, when participants were separated by party affiliation, this effect was significant among existing socioeconomic beliefs. Kim also conducted a survey of 3,000 US residents. They also rated the extent to which they believed success in life is related to various internal factors (such as ambition) and external factors (such as family wealth). Finally, they read a list of TV programmes and indicated which they regularly watched. Participants who were heavy viewers of rags-to-riches programmes or frequent viewers had a stronger belief in the American Dream than those who never watched such shows. Kim concludes that \"rags-to-riches entertainment media are an important cultural force that promotes and perpetuates beliefs in upward mobility\". And here's the problem: if people mistakenly believe that hard work is all that is needed for individuals to make a better life for themselves, they may be less supportive of policies that could actually combat inequality. \"In this era of choice, entertainment media are what captures hearts and minds,\" Kim writes. \"Its political consequences are anything but trivial\".",
+                "questions": [
+                  {
+                    "number": 46,
+                    "content": "What do we learn from the passage about young Americans of today?",
+                    "options": [
+                      "They have greater ambitions than their parents.",
+                      "They find it difficult to achieve upward mobility.",
+                      "They have overtaken their parents in terms of earnings",
+                      "They envy the opportunities in other industrialised nations"
+                    ]
+                  },
+                  {
+                    "number": 47,
+                    "content": "What does Kim's team find about reality TV shows in America?",
+                    "options": [
+                      "They reinterpret the essence of the popular rags-to-riches culture.",
+                      "They urge people to achieve economic success through hard work.",
+                      "They help strengthen people's conviction in the American Dream.",
+                      "They feature ordinary Americans striving for social recognition"
+                    ]
+                  },
+                  {
+                    "number": 48,
+                    "content": "What does the author say about news broadcasts in America?",
+                    "options": [
+                      "They attract far fewer viewers than reality TV.",
+                      "They are bent on reporting the dark side of life.",
+                      "They stand in striking contrast with reality TV.",
+                      "They focus on Americans' economic hardships."
+                    ]
+                  },
+                  {
+                    "number": 49,
+                    "content": "What can we infer from the passage about Republicans in general?",
+                    "options": [
+                      "They believe strongly in the American Dream.",
+                      "They strive to climb the socio-economic ladder",
+                      "They have a very strong affiliation with their party.",
+                      "They tend to watch more rags-to-riches TV shows."
+                    ]
+                  },
+                  {
+                    "number": 50,
+                    "content": "What is stated about people who believe in upward mobility?",
+                    "options": [
+                      "They are likely to blame the government for their plight.",
+                      "They regard political consequences as anything but trivial.",
+                      "They respect individuals striving to climb the social ladder",
+                      "They are less likely to approve of policies to fight inequality."
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Passage Two",
+                "questions_range": "51 to 55",
+                "content": "When someone asks us 'what do you do?' we nearly always reply with our occupation. Work, for many of us, is much more than a job. It is the defining aspect of our identity. For many of us it is through our job that we can define ourselves. \"Without my job I don't know who I am,\" is a sentence that has been uttered on more than a handful of occasions from my office chair. Indeed, it can be one of the most challenging aspects I work on with clients who have lost or been forced into changing their jobs. This loss provokes an identity crisis much greater than the loss of the job itself. One of the things I have come to understand, however, is that our identity is much more complex than we recognise at first glance. If we take the time to reflect we might recognise that as well as our work we can also identify as a friend, a spouse, a son or daughter, a parent, a member of a sports team or religious community. We may recognise that we feel and act differently in these roles and relationships than we do at work. The passive daughter becomes an assertive leader at work. Furthermore, our identities at work are not static. They change over time. I myself have been a shop assistant, a waitress, a student, a graduate, and a clinical psychologist. At each stage my ability to adapt to and develop my career identity has been crucial to my wellbeing. Whilst we like to eliminate uncertainty in our lives at some level we have to manage uncertainty, especially in today's volatile and ever-shifting job market. How we see ourselves is central to the issue of our identity. When we tell ourselves \"I'm good at starting projects but not so great at seeing them through.\" it can become part of our belief system. But if you have the unfortunate experience of an enforced job change you will need to examine those beliefs to see how grounded in reality they are. You will be required to ask yourself how helpful these beliefs are and consider personal change We can change our beliefs, behaviours and emotional experience at any time through experimentation, practice and conscious self-discipline. In an age where career progression may lead us into new sectors it is ever more important to challenge our sense of self and explore whether you can create a new experience of your identity by changing the beliefs you hold about yourself in order to expand your career options. Ultimately it is you who define who you are. You are only your job if you let it be so.",
+                "questions": [
+                  {
+                    "number": 51,
+                    "content": "What do we learn from the passage about one's loss of a job?",
+                    "options": [
+                      "It compels them to visit a clinical psychologist.",
+                      "It offers them a chance to play different roles.",
+                      "It renders them puzzled about who they are.",
+                      "It forces them to redefine their life's goals."
+                    ]
+                  },
+                  {
+                    "number": 52,
+                    "content": "What has the author come to understand about our identity?",
+                    "options": [
+                      "It is crucial to our emotional wellbeing.",
+                      "It plays a big role in many facets of life",
+                      "It reflects our changing status in society.",
+                      "It is more complicated than it appears"
+                    ]
+                  },
+                  {
+                    "number": 53,
+                    "content": "What does the passage say about our identities at work?",
+                    "options": [
+                      "They are essential to our self-esteem",
+                      "They evolve with the passage of time.",
+                      "They overrule all other self-perceptions.",
+                      "They are key to understanding ourselves."
+                    ]
+                  },
+                  {
+                    "number": 54,
+                    "content": "What do we have to do in today's ever-changing job market?",
+                    "options": [
+                      "Strive to develop our social identity.",
+                      "Prepare for different career paths.",
+                      "Try to be assertive at all times.",
+                      "Learn to manage uncertainty."
+                    ]
+                  },
+                  {
+                    "number": 55,
+                    "content": "What should we do to expand our career options?",
+                    "options": [
+                      "After our perceptions of ourselves.",
+                      "Compare various job opportunities.",
+                      "Look into newly emerging sectors",
+                      "Exercise self-discipline consciously."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Part IV Translation",
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to translate a passage from Chinese into English. You should write your answer on Answer Sheet 2.",
+        "content": "中国盛产竹子，是最早开发利用竹资源的国家。竹子在中国分布广泛，品种丰富。竹子实用性强，用于生产和生活的许多方面，如筷子、桌椅的制作和桥梁、房屋的建造。中国人爱竹，自古以来就有无数文人以竹为主题，创作了绚丽多彩的文学和绘画作品。竹子主干(stem)笔直，象征正直的品格。竹子具有强大的生命力和适应能力，无论环境多么恶劣，都能够顽强生存，因而寓意坚韧不拔的精神。几千年来，竹子一直被视为中华民族品格的象征。"
+      }
+    ]
+  }
+}

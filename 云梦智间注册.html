@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 云梦智间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #F5F7FF;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" opacity="0.05"><path d="M10,10 Q50,50 90,10 T170,50 T250,10" stroke="%232962FF" fill="none" stroke-width="2"/><path d="M300,100 Q350,50 400,100 T500,50 T600,100" stroke="%239C27B0" fill="none" stroke-width="2"/><path d="M100,200 Q150,150 200,200 T300,150 T400,200" stroke="%232962FF" fill="none" stroke-width="2"/></svg>'),
+                radial-gradient(circle at 10% 10%, rgba(41, 98, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(156, 39, 176, 0.05) 0%, transparent 50%);
+            font-family: 'Noto Sans SC', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .register-container {
+            box-shadow: 0 10px 25px -5px rgba(41, 98, 255, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(41, 98, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .logo-text {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #2962FF, #9C27B0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logo-text:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.2);
+            border-color: #2962FF;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #2962FF, #9C27B0);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(41, 98, 255, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(41, 98, 255, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .alert {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .alert.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .ink-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(41,98,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .ink-effect:nth-child(1) {
+            top: -100px;
+            right: -100px;
+            background: radial-gradient(circle, rgba(156,39,176,0.1) 0%, rgba(255,255,255,0) 70%);
+        }
+        .ink-effect:nth-child(2) {
+            bottom: -50px;
+            left: -50px;
+        }
+        .floating-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 4px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 水墨效果背景元素 -->
+    <div class="ink-effect"></div>
+    <div class="ink-effect"></div>
+
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-8">
+        <div class="w-full max-w-md mx-auto">
+            <!-- 顶部logo区域 -->
+            <div class="text-center mb-8">
+                <div class="flex flex-col items-center justify-center gap-2">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg mb-2 floating-card">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <a href="云梦智间首页.html" class="logo-text text-3xl">云梦智间</a>
+                    <p class="text-gray-500 mt-1 text-sm">注册新账号</p>
+                </div>
+            </div>
+            
+            <!-- 注册卡片 -->
+            <div class="register-container rounded-xl p-8 relative overflow-hidden floating-card">
+                <!-- 返回登录按钮 -->
+                <a href="云梦智间登录.html" class="absolute left-6 top-6 text-gray-500 hover:text-blue-600 transition">
+                    <i class="fas fa-arrow-left text-lg"></i>
+                </a>
+                
+                <!-- 注册状态提示 -->
+                <div id="alert" class="alert absolute top-0 left-0 right-0 p-4 rounded-t-xl"></div>
+                
+                <!-- 注册表单 -->
+                <form id="register-form" class="space-y-6 mt-4">
+                    <div class="space-y-1">
+                        <label for="name" class="block text-sm font-medium text-gray-700">姓名</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="name" name="name" 
+                                   class="w-full pl-10 pr-4 py-3 border rounded-lg input-field focus:outline-none"
+                                   placeholder="请输入真实姓名" required>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label for="username" class="block text-sm font-medium text-gray-700">用户名</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-at text-gray-400"></i>
+                            </div>
+                            <input type="text" id="username" name="username" 
+                                   class="w-full pl-10 pr-4 py-3 border rounded-lg input-field focus:outline-none"
+                                   placeholder="请输入用户名（至少6位）" required minlength="6">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <span id="username-check" class="text-xs hidden"></span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">用户名将用于登录，注册后不可修改</p>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label for="password" class="block text-sm font-medium text-gray-700">密码</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="password" name="password" 
+                                   class="w-full pl-10 pr-10 py-3 border rounded-lg input-field focus:outline-none"
+                                   placeholder="请输入密码（至少6位）" required minlength="6">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye-slash text-gray-400 cursor-pointer toggle-password"></i>
+                            </div>
+                        </div>
+                        <div id="password-strength" class="password-strength w-0 bg-gray-200"></div>
+                        <p id="password-hint" class="text-xs text-gray-500 mt-1 hidden"></p>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label for="confirm-password" class="block text-sm font-medium text-gray-700">确认密码</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="confirm-password" name="confirm-password" 
+                                   class="w-full pl-10 pr-4 py-3 border rounded-lg input-field focus:outline-none"
+                                   placeholder="请再次输入密码" required>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">手机号（可选）</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-phone text-gray-400"></i>
+                            </div>
+                            <input type="tel" id="phone" name="phone" 
+                                   class="w-full pl-10 pr-4 py-3 border rounded-lg input-field focus:outline-none"
+                                   placeholder="请输入手机号">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="agree" name="agree" class="h-4 w-4 text-blue-600 rounded focus:ring-blue-500" required>
+                        <label for="agree" class="ml-2 text-sm text-gray-600">
+                            我已阅读并同意 <a href="#" class="text-blue-600 hover:underline">《用户协议》</a> 和 <a href="#" class="text-blue-600 hover:underline">《隐私政策》</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="w-full btn-primary py-3 rounded-lg font-medium flex items-center justify-center">
+                        <span id="register-text">注册账号</span>
+                        <div id="register-loading" class="loading ml-2 hidden"></div>
+                    </button>
+                </form>
+                
+                <!-- 登录链接 -->
+                <div class="mt-6 text-center text-sm text-gray-500">
+                    已有账号? <a href="云梦智间登录.html" class="text-blue-600 font-medium hover:underline">立即登录</a>
+                </div>
+            </div>
+            
+            <!-- 页脚 -->
+            <div class="mt-8 text-center text-xs text-gray-400">
+                <p>© 2025 云梦智间 版权所有</p>
+                <p class="mt-1">蜀ICP备202502584号</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心认证系统 -->
+    <script src="云梦智间统一认证.js"></script>
+    <script src="云梦智间UI管理器.js"></script>
+
+    <!-- 主入口（可选） -->
+    <script src="云梦智间主入口.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查是否已登录
+            if (authManager.isLoggedIn()) {
+                window.location.href = '云梦智间首页.html';
+                return;
+            }
+            
+            // 显示/隐藏密码
+            document.querySelector('.toggle-password').addEventListener('click', function() {
+                const passwordInput = document.getElementById('password');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.classList.replace('fa-eye-slash', 'fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    this.classList.replace('fa-eye', 'fa-eye-slash');
+                }
+            });
+            
+            // 用户名实时检查
+            let usernameCheckTimeout;
+            document.getElementById('username').addEventListener('input', function() {
+                clearTimeout(usernameCheckTimeout);
+                const username = this.value;
+                const checkElement = document.getElementById('username-check');
+                
+                if (username.length < 6) {
+                    checkElement.classList.add('hidden');
+                    return;
+                }
+                
+                usernameCheckTimeout = setTimeout(async () => {
+                    checkElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    checkElement.classList.remove('hidden', 'text-green-600', 'text-red-600');
+                    
+                    const result = await authManager.checkUsernameAvailable(username);
+                    
+                    if (result.available) {
+                        checkElement.innerHTML = '<i class="fas fa-check"></i> 用户名可用';
+                        checkElement.classList.add('text-green-600');
+                        checkElement.classList.remove('text-red-600', 'hidden');
+                    } else {
+                        checkElement.innerHTML = '<i class="fas fa-times"></i> 用户名已存在';
+                        checkElement.classList.add('text-red-600');
+                        checkElement.classList.remove('text-green-600', 'hidden');
+                    }
+                }, 500);
+            });
+            
+            // 密码强度检测
+            document.getElementById('password').addEventListener('input', function() {
+                const password = this.value;
+                const strengthBar = document.getElementById('password-strength');
+                const hintText = document.getElementById('password-hint');
+                
+                let strength = 0;
+                let hint = '';
+                
+                if (password.length >= 6) {
+                    strength += 25;
+                }
+                
+                if (password.match(/[a-z]+/)) {
+                    strength += 25;
+                }
+                
+                if (password.match(/[A-Z]+/)) {
+                    strength += 25;
+                }
+                
+                if (password.match(/[0-9]+/)) {
+                    strength += 25;
+                }
+                
+                // 更新进度条
+                strengthBar.style.width = `${strength}%`;
+                
+                // 更新颜色和提示
+                if (strength < 25) {
+                    strengthBar.style.backgroundColor = '#ef4444';
+                    hint = '密码强度：弱';
+                } else if (strength < 50) {
+                    strengthBar.style.backgroundColor = '#f59e0b';
+                    hint = '密码强度：中';
+                } else if (strength < 75) {
+                    strengthBar.style.backgroundColor = '#3b82f6';
+                    hint = '密码强度：良';
+                } else {
+                    strengthBar.style.backgroundColor = '#10b981';
+                    hint = '密码强度：强';
+                }
+                
+                hintText.textContent = hint;
+                hintText.classList.remove('hidden');
+            });
+            
+            // 注册表单提交
+            document.getElementById('register-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                const phone = document.getElementById('phone').value;
+                const agree = document.getElementById('agree').checked;
+                
+                const registerBtn = this.querySelector('button[type="submit"]');
+                const registerText = document.getElementById('register-text');
+                const registerLoading = document.getElementById('register-loading');
+                
+                // 验证表单
+                if (!name) {
+                    showAlert('请输入姓名', 'error');
+                    return;
+                }
+                
+                if (username.length < 6) {
+                    showAlert('用户名至少6位字符', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showAlert('密码至少6位字符', 'error');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showAlert('两次输入的密码不一致', 'error');
+                    return;
+                }
+                
+                if (!agree) {
+                    showAlert('请同意用户协议和隐私政策', 'error');
+                    return;
+                }
+                
+                // 显示加载状态
+                registerText.textContent = '注册中...';
+                registerLoading.classList.remove('hidden');
+                registerBtn.disabled = true;
+                
+                try {
+                    const result = await authManager.register({
+                        name,
+                        username,
+                        password,
+                        phone: phone || undefined
+                    });
+                    
+                    if (result.success) {
+                        showAlert('注册成功，正在跳转...', 'success');
+                        
+                        setTimeout(() => {
+                            window.location.href = '云梦智间首页.html';
+                        }, 1500);
+                    } else {
+                        showAlert(result.message, 'error');
+                    }
+                } catch (error) {
+                    showAlert('网络错误，请检查连接', 'error');
+                } finally {
+                    // 恢复按钮状态
+                    registerText.textContent = '注册账号';
+                    registerLoading.classList.add('hidden');
+                    registerBtn.disabled = false;
+                }
+            });
+            
+            // 显示提示信息
+            function showAlert(message, type) {
+                const alertBox = document.getElementById('alert');
+                
+                // 清除之前的样式
+                alertBox.classList.remove('show', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+                alertBox.innerHTML = '';
+                
+                // 设置新的样式和内容
+                if (type === 'success') {
+                    alertBox.classList.add('bg-green-100', 'text-green-800');
+                    alertBox.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${message}`;
+                } else {
+                    alertBox.classList.add('bg-red-100', 'text-red-800');
+                    alertBox.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i> ${message}`;
+                }
+                
+                alertBox.classList.add('show');
+                
+                // 3秒后自动隐藏
+                setTimeout(() => {
+                    alertBox.classList.remove('show');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

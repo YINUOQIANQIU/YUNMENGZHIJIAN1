@@ -1,0 +1,574 @@
+{
+  "exam_paper": {
+    "exam_name": "2022年12月英语六级真题及答案解析（第二套）",
+    "sections": [
+      {
+        "section_name": "Part I Writing",
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to write an essay that begins with the sentence \"In an era of information explosion, it is vitally important to develop the ability to think critically and make rational choices.\" You can make statements, give reasons, or cite examples to develop your essay. You should write at least 150 words but no more than 200 words."
+      },
+      {
+        "section_name": "Part II Listening Comprehension",
+        "time_allowed": "30 minutes",
+        "subsections": [
+          {
+            "subsection_name": "Section A",
+            "directions": "In this section, you will hear two long conversations. At the end of each conversation, you will hear four questions. Both the conversation and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C), and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.",
+            "conversations": [
+              {
+                "questions_range": "1 to 4",
+                "questions": [
+                  {
+                    "number": 1,
+                    "options": [
+                      "Prioritizing happiness over money.",
+                      "Joining the club to get her new book.",
+                      "Managing one's personal finances wisely.",
+                      "Consuming more only when earning more."
+                    ]
+                  },
+                  {
+                    "number": 2,
+                    "options": [
+                      "She was in debt.",
+                      "She was a financial adviser.",
+                      "She earned $30,000 a month.",
+                      "She enjoyed a happy life."
+                    ]
+                  },
+                  {
+                    "number": 3,
+                    "options": [
+                      "It reflects one's earning power.",
+                      "It varies with one's environment.",
+                      "It mirrors one's sense of wellbeing.",
+                      "It changes with one's goals in life."
+                    ]
+                  },
+                  {
+                    "number": 4,
+                    "options": [
+                      "It would give him more time to be with his loved ones.",
+                      "It would be good for those who value relationships.",
+                      "It would mean major sacrifices for him.",
+                      "It would deprive him of his individuality."
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "5 to 8",
+                "questions": [
+                  {
+                    "number": 5,
+                    "options": [
+                      "It was the artist's first landscape.",
+                      "It was a painting by Christopher.",
+                      "It was donated by the artist herself.",
+                      "It was displayed at a retirement party."
+                    ]
+                  },
+                  {
+                    "number": 6,
+                    "options": [
+                      "It was the painting that instantly made her rich.",
+                      "It has cost him a lot of money to purchase it.",
+                      "It was recently purchased by the gallery.",
+                      "It is owned by an anonymous collector."
+                    ]
+                  },
+                  {
+                    "number": 7,
+                    "options": [
+                      "It reflects her emotions.",
+                      "It contains ample details.",
+                      "It appears perfectly symmetrical.",
+                      "It depicts the beauty of desolation."
+                    ]
+                  },
+                  {
+                    "number": 8,
+                    "options": [
+                      "She is eccentric like any other artist.",
+                      "She is a very nice and intelligent artist.",
+                      "She is as lucky as any acclaimed artist.",
+                      "She is one of the most productive artists."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "subsection_name": "Section B",
+            "directions": "In this section, you will hear two passages. At the end of each passage, you will hear three or four questions. Both the passage and the questions will be spoken only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.",
+            "passages": [
+              {
+                "questions_range": "9 to 11",
+                "questions": [
+                  {
+                    "number": 9,
+                    "options": [
+                      "It is vital to one's mental health.",
+                      "It leads to reconciliation and peace.",
+                      "It promotes interpersonal relationship.",
+                      "It keeps one from traumatic experience."
+                    ]
+                  },
+                  {
+                    "number": 10,
+                    "options": [
+                      "When the offender has power over the victim.",
+                      "When the offender is not willing to apologize.",
+                      "When the offender is not duly penalized.",
+                      "When the offender adds insult to injury."
+                    ]
+                  },
+                  {
+                    "number": 11,
+                    "options": [
+                      "Talk with the offender calmly.",
+                      "Accept the offender's apology.",
+                      "Find out why he committed the offense.",
+                      "Determine how serious the offense was."
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "12 to 15",
+                "questions": [
+                  {
+                    "number": 12,
+                    "options": [
+                      "The number of passengers dropped sharply.",
+                      "It served more and more commuters.",
+                      "The number of stations increased to 50.",
+                      "It became the longest in the United Kingdom."
+                    ]
+                  },
+                  {
+                    "number": 13,
+                    "options": [
+                      "To increase capacity to meet growing needs.",
+                      "To make way for other means of transport.",
+                      "To have its systems modernised.",
+                      "To avoid further financial losses."
+                    ]
+                  },
+                  {
+                    "number": 14,
+                    "options": [
+                      "It is generally recognised as a world heritage site.",
+                      "It is the fastest way to reach the city's south side.",
+                      "It constitutes a source of revenue for the city.",
+                      "It helps reduce traffic jams in the city centre."
+                    ]
+                  },
+                  {
+                    "number": 15,
+                    "options": [
+                      "They are usually crowded.",
+                      "They use high-tech systems.",
+                      "They accept smartcards only.",
+                      "They are colourfully decorated."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "subsection_name": "Section C",
+            "directions": "In this section, you will hear three recordings of lectures or talks followed by three or four questions. The recordings will be played only once. After you hear a question, you must choose the best answer from the four choices marked A), B), C) and D). Then mark the corresponding letter on Answer Sheet 1 with a single line through the centre.",
+            "recordings": [
+              {
+                "questions_range": "16 to 18",
+                "questions": [
+                  {
+                    "number": 16,
+                    "options": [
+                      "They are quite friendly to humans.",
+                      "They are shrinking in numbers.",
+                      "They are unafraid of humans.",
+                      "They are especially fond of garbage."
+                    ]
+                  },
+                  {
+                    "number": 17,
+                    "options": [
+                      "It is strictly forbidden.",
+                      "It is an uncommon sight.",
+                      "It is a gesture of human generosity.",
+                      "It is allowed only in certain areas."
+                    ]
+                  },
+                  {
+                    "number": 18,
+                    "options": [
+                      "Share their food with the bear they see.",
+                      "Be prepared to run into a hungry bear.",
+                      "Try to be friendly with the bear they meet.",
+                      "Refrain from teasing bears with cubs."
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "19 to 21",
+                "questions": [
+                  {
+                    "number": 19,
+                    "options": [
+                      "It refers to opinions that are radical and widespread.",
+                      "It means making judgments without adequate knowledge.",
+                      "It refers to deep-rooted beliefs about someone or something.",
+                      "It means sticking to one's judgments even when proved wrong."
+                    ]
+                  },
+                  {
+                    "number": 20,
+                    "options": [
+                      "They often lead to war between religious groups.",
+                      "They keep certain occupations from thriving.",
+                      "They allow myths and half-truths to persist.",
+                      "They prevent us from getting to the truth."
+                    ]
+                  },
+                  {
+                    "number": 21,
+                    "options": [
+                      "When we start to feel superior.",
+                      "When we mix with prejudiced people.",
+                      "When we live in an isolated neighborhood.",
+                      "When we try to keep up with those around us."
+                    ]
+                  }
+                ]
+              },
+              {
+                "questions_range": "22 to 25",
+                "questions": [
+                  {
+                    "number": 22,
+                    "options": [
+                      "Motivated.",
+                      "Disappointed.",
+                      "Perplexed.",
+                      "Shocked."
+                    ]
+                  },
+                  {
+                    "number": 23,
+                    "options": [
+                      "They would change with the passage of time.",
+                      "They would benefit young people's adult life.",
+                      "They would help kids grow.",
+                      "They would last a lifetime."
+                    ]
+                  },
+                  {
+                    "number": 24,
+                    "options": [
+                      "He had become mature.",
+                      "He suffered poor health.",
+                      "He had lots of stories to tell.",
+                      "He regretted leaving Vietnam."
+                    ]
+                  },
+                  {
+                    "number": 25,
+                    "options": [
+                      "Make friends with his students.",
+                      "Show his students how to do their best.",
+                      "Help his students get through the growing pains.",
+                      "Share his personal experience with his students."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Part III Reading Comprehension",
+        "time_allowed": "40 minutes",
+        "subsections": [
+          {
+            "subsection_name": "Section A",
+            "directions": "In this section, there is a passage with ten blanks. You are required to select one word for each blank from a list of choices given in a word bank following the passage. Read the passage through carefully before making your choices. Each choice in the bank is identified by a letter. Please mark the corresponding letter for each item on Answer Sheet 2 with a single line through the centre. You may not use any of the words in the bank more than once.",
+            "passage": "The task of the global strategist of a business is to build a platform of capabilities derived from the resources, experiences and innovations of units operating in multiple locations, to transplant those capabilities wherever appropriate, and then to systematically upgrade and renew them—ahead of the competition.\n\nApple is an outstanding case of a company whose unique capabilities give it a worldwide competitive advantage, particularly with respect to its ability to build platforms from a product base that integrates functional and aesthetic design. Apple has been able to leverage and exploit its California-based design and marketing advantages successfully throughout the world. IKEA is another such case. The do-it-yourself furniture and houseware company first developed a compelling set of capabilities to design, manufacture and ship furniture at low cost and sell it in a novel way in Sweden. Later, IKEA successfully reproduced this formula in many other countries.\n\nBy contrast, Telefónica, a Spanish telecommunications company that is now the world's fifth largest telecom by revenues, first developed its special advantage abroad. In 1989 and 1990, Telefónica had the opportunity to enter Chile and Argentina, countries that shared many institutional and cultural characteristics with its home country but that were undergoing more rapid market reform. Throughout the 1990s, Telefónica took what it learned in Chile and Argentina about reconstructing former state-owned telecoms to other Latin American countries that were privatizing their state telecoms and deregulating their telecom markets.\n\nThese examples might lead the reader to believe that creating a global advantage is an easy task. But many other instances of expensive failed experiments suggest that creating a lasting global advantage actually requires a great deal of strategic and operational finesse (技巧). Our research suggests that global winners typically create and sustain their international presence through a systematic process of exploiting, renewing and enhancing their core capabilities.",
+            "word_bank": {
+              "A": "aesthetic",
+              "B": "appropriate",
+              "C": "clusters",
+              "D": "competitive",
+              "E": "exploiting",
+              "F": "fiscal",
+              "G": "instances",
+              "H": "rehabilitated",
+              "I": "reproduced",
+              "J": "revenues",
+              "K": "safeguarding",
+              "L": "ship",
+              "M": "strategic",
+              "N": "transcend",
+              "O": "undergoing"
+            },
+            "blanks": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+          },
+          {
+            "subsection_name": "Section B",
+            "directions": "In this section, you are going to read a passage with ten statements attached to it. Each statement contains information given in one of the paragraphs. Identify the paragraph from which the information is derived. You may choose a paragraph more than once. Each paragraph is marked with a letter. Answer the question by marking the corresponding letter on Answer Sheet 2.",
+            "passage_title": "Fear of Nature: An Emerging Threat to Conservation",
+            "paragraphs": [
+              {
+                "letter": "A",
+                "content": "What do we lose when natural spaces and species disappear? Increasingly, research has shown that as species and ecosystems vanish, it also chips away at our ability to preserve what remains—because we no longer understand what we're losing."
+              },
+              {
+                "letter": "B",
+                "content": "You probably see it all the time. The neighbor who puts pesticides on his lawn rather than deal with annoying bees. The politician who votes against wildlife protection because she's never seen a wolf in the wild. The corporation that wants to bulldoze (用推土机推平) the habitat of a rare frog."
+              },
+              {
+                "letter": "C",
+                "content": "At best this can be termed \"the extinction of experience,\" where our cultural and natural histories fade from our memories and therefore our reality. At its worst it becomes something even more concerning: \"biophobia,\" the fear of living things and a complete aversion to nature."
+              },
+              {
+                "letter": "D",
+                "content": "This isn't the fiction of living in a cold, empty dystopia (绝望的世界). Sadly, it's becoming a way of life for too many people—especially children. A recent study in Japan paints a striking portrait of this problem. A survey of more than 5,300 school children in the Tochigi Prefecture examined their perception of 14 local insect species and one spider. The results? A collective \"ew!\" Most of the students saw the species as things to dislike or fear, or even as sources of danger. The less experience the students had with nature, the more negative their feelings."
+              },
+              {
+                "letter": "E",
+                "content": "The results were published earlier this year in the journal Biological Conservation. Lead researcher Masashi Soga with the University of Tokyo says the study stemmed from observations about today's nature-deficient children. \"Humans inherently avoid dangerous organisms such as bees, but children these days avoid even harmless insects such as butterflies and dragonflies (蜻蜓),\" he says. \"I have long wondered why so many of today's children react like this.\""
+              },
+              {
+                "letter": "F",
+                "content": "Although the children's reactions were somewhat expected, the new study did contain an unexpected finding: Many of the surveyed children revealed that their parents also expressed fear or disgust of the same animals. In fact these parental emotions were strong enough to overwhelm any positive experiences the children might have gained from direct experiences in nature. As Soga and his coauthors wrote in their paper, \"Our results suggest that there is likely a feedback loop in which an increase in people who have negative attitudes towards nature in one generation will lead to a further increase in people with similar attitudes in the next generation.\""
+              },
+              {
+                "letter": "G",
+                "content": "And that's possibly the greater threat posed by extinction of experience. Soga suggests the generational loss—a condition previously dubbed environmental generational amnesia (遗忘)—could chip away at our societal ability to preserve what we're losing. \"I believe that increased biophobia is a major, but invisible, threat to global biodiversity,\" Soga says. \"As the number of children who have biophobia increases, public interest and support for biodiversity conservation will gradually decline. Although many conservation biologists still consider that preventing the loss of wildlife habitat is the most important way to conserve biodiversity, I think preventing increased bio-phobia is also important for conservation.\""
+              },
+              {
+                "letter": "H",
+                "content": "What's to be done about this? The paper makes several recommendations, the most obvious of which is that children should experience nature more often. The authors also suggest establishing policies to guide these natural experiences and increasing educational programs about the natural world."
+              },
+              {
+                "letter": "I",
+                "content": "Helping parents to see species around them in a new light would make a difference, too. And, of course, maintaining support for preserving the wild spaces where these \"scary\" creatures live is the most important thing of all. That's a point reinforced by another recent study, which found that wild spaces located within urban areas—and the plants and animals that thrive in them—are particularly important for human health and well-being."
+              },
+              {
+                "letter": "J",
+                "content": "Published in the journal Frontiers in Sustainable Cities, the study examined attitudes toward Discovery Park, the heavily forested 534-acre public park in Seattle, Washington. It found that the public had the most appreciation for—and gained the most value from—the wildest parts of the park. \"I have seen whales, seals, fish, eagles, shorebirds and many other sea creatures in their natural habitat,\" one survey participant wrote. \"Coming here with people has allowed me to connect and talk with them about conversation that simply does not happen in everyday life,\" wrote another."
+              },
+              {
+                "letter": "K",
+                "content": "The participants reported that their most valuable experiences in the park included encountering wildlife, walking through open spaces, exploring the beach and finding beautiful views. \"We saw that a large majority of participants' interactions, especially their most meaningful interactions, depended on Discovery Park's relative wildness,\" says lead author Elizabeth Lev, a master's student in the University of Washington's Human Interaction with Nature Lab. This is only possible because the park is relatively wild. After all, you can't enjoy watching birds if there are no birds to follow; gaze at the sunset if it's obscured by skyscrapers; or stop and smell the flowers if they don't have room to grow."
+              },
+              {
+                "letter": "L",
+                "content": "And yet even this long-protected space could someday become less hospitable to nature. Over the past few years a lot of people and organizations have suggested developing parts of Discovery Park or the neighboring area. Most recently a plan proposed building 34 acres of much-needed affordable housing and parking spaces adjacent to the park, bringing with them noise, traffic and pollution."
+              },
+              {
+                "letter": "M",
+                "content": "If anything like that happened, both the park and the people of Seattle could lose something vital. And that would continue the trend of chipping away at Seattle's—and the world's—natural spaces, leaving just tiny pocket parks and green-but-empty spaces that offer little real value to wildlife, plants or people."
+              },
+              {
+                "letter": "N",
+                "content": "\"It is true that any interaction with nature is better than none, but I don't want people to be satisfied with any small bit of grass and trees,\" Lev says. \"We have been in this cycle of environmental generational amnesia for a long time, where the baseline keeps shifting and we don't even realize what we're losing until it's gone. If we can get people to understand how much meaning and value can come from having more experiences with more wild forms of nature, then maybe we can stop this cycle and move toward conserving and restoring what we have left.\""
+              },
+              {
+                "letter": "O",
+                "content": "Building this understanding in an ever-more fearful and disconnected world may be the biggest challenge. Peter Kahn, the senior author of Lev's paper and the director of the Human Interaction with Nature lab, made several suggestions for bridging this gap in this 2011 book, Technological Nature. They echo the recommendation about getting children into nature, but also include telling stories of how things used to be, imagining what things might be like in the future, and developing a common language about nature, \"a way of speaking about wild and domestic interaction patterns, and the meaningful, deep and often joyful feelings that they generate.\""
+              },
+              {
+                "letter": "P",
+                "content": "No matter what techniques we use, this growing field of research illustrates that saving nature requires encouraging people to experience it more often and more deeply. That calls for additional research—Lev and her coauthors have published a toolkit that other municipalities can follow to study the value of their own wild spaces—and clear communication of the results. \"If we can continue to show people the benefits of these wild spaces,\" Lev says, \"maybe people will begin to see more value in keeping these areas undeveloped—for the sake of our mutual benefit.\""
+              }
+            ],
+            "statements": [
+              {
+                "number": 36,
+                "content": "A new study found parents' aversion to certain animals would pass on to their children.",
+                "answer_paragraph": "F"
+              },
+              {
+                "number": 37,
+                "content": "The disappearance of species and ecological systems erodes our ability to keep what is left.",
+                "answer_paragraph": "A"
+              },
+              {
+                "number": 38,
+                "content": "A study showed that the wildest areas of Discovery Park appealed most to the public.",
+                "answer_paragraph": "J"
+              },
+              {
+                "number": 39,
+                "content": "The fear of living organisms is becoming more worrisome.",
+                "answer_paragraph": "C"
+              },
+              {
+                "number": 40,
+                "content": "Preventing the increase in children's fear of living creatures is also important for conserving biodiversity.",
+                "answer_paragraph": "G"
+              },
+              {
+                "number": 41,
+                "content": "Research shows that more and deeper experience people have with nature will help save it.",
+                "answer_paragraph": "P"
+              },
+              {
+                "number": 42,
+                "content": "Though humans naturally tend to avoid dangerous animals, today's children try to stay away from even harmless ones.",
+                "answer_paragraph": "E"
+              },
+              {
+                "number": 43,
+                "content": "Development in and around Discovery Park could cause heavy losses to the park and the local residents.",
+                "answer_paragraph": "M"
+              },
+              {
+                "number": 44,
+                "content": "A large survey of school children found that their negative feelings grew as their experience with nature diminished.",
+                "answer_paragraph": "D"
+              },
+              {
+                "number": 45,
+                "content": "Elizabeth Lev believes increased contact with more wildlife helps conserve biodiversity.",
+                "answer_paragraph": "N"
+              }
+            ]
+          },
+          {
+            "subsection_name": "Section C",
+            "directions": "There are 2 passages in this section. Each passage is followed by some questions or unfinished statements. For each of them there are four choices marked A), B), C) and D). You should decide on the best choice and mark the corresponding letter on Answer Sheet 2 with a single line through the centre.",
+            "passages": [
+              {
+                "title": "Passage One",
+                "questions_range": "46 to 50",
+                "content": "Some people in the US have asserted that forgiving student loan debt is one way to stimulate the economy and give assistance to those in need. One government proposition is to eliminate $10,000 of debt for 'economically distressed' students. Some in US Congress have gone so far as to suggest forgiving up to $50,000 in debt per student borrower, but does forgiving student debt necessarily correlate to helping the economically disadvantaged?\n\nThe answer is no. This policy is just giving money away to universities and the most affluent students in attendance. Federal Reserve data reveals that the highest-income 40 percent of households owe approximately 60 percent of outstanding student debt, while the lowest 40 percent owe just under 20 percent. This could be due to a combination of factors: students from high-income households are more likely to go to expensive colleges, less likely to receive financial aid, and more likely to have high incomes post-graduation. Plus, the majority of student debt is held by graduate degree earners, who earn approximately 25 percent more than their undergraduate counterparts. Clearly, giving free reign to banks to forgive student debt is a step in the wrong direction.\n\nOther proposals for broader, long-term student loan plans have some fundamental problems. One idea is to cancel student debt only for undergraduate degrees and for students making less than $125,000.\n\nThis attempts to address the fact that Congress' previously mentioned student loan forgiveness plan largely helps out the wealthy, but is an adverse incentive for universities to keep raising tuition and for students to choose to major in low-earning degree programs. Colleges have no reason to make their programs more affordable if they believe students will just take out more debt. And, students will feel more comfortable making the irresponsible decision to go tens of thousands of dollars in debt to major in impractical or idealistic subjects if they know their loans will be forgiven.\n\nThis is especially concerning given the pandemic (大流行病) has rendered a college education practically worthless. Students are paying tens of thousands of dollars per year to live at home and be lectured on the Internet. Do we really want to tell colleges that they can get away with providing below-average service for an outrageous cost?\n\nIn the case of any of these student debt plans, working-class Americans who chose not to or could not afford to go to college will be subsidizing the education of the professional class. Plumbers and retail workers will be paying for the degrees of doctors and lawyers.\n\nThe US government's effort to help those in debt is commendable but is this really the solution that will help the poor financially recover?",
+                "questions": [
+                  {
+                    "number": 46,
+                    "content": "Why do some people advocate forgiving student loan debt?",
+                    "options": [
+                      "They assert it will narrow the gap between the wealthy and the poor.",
+                      "They believe it will benefit both the economy and the underprivileged.",
+                      "They claim it will eliminate economic distress among college students.",
+                      "They think the cost of education is the responsibility of the government."
+                    ]
+                  },
+                  {
+                    "number": 47,
+                    "content": "What do we learn from the Federal Reserve data?",
+                    "options": [
+                      "Approximately 60% of student debt remains unpaid.",
+                      "Cancelling student debt benefits wealthy families most.",
+                      "Forgiving student debt provides little benefit to universities.",
+                      "Low-income families owe the biggest amount of student debt."
+                    ]
+                  },
+                  {
+                    "number": 48,
+                    "content": "What does the author say students are likely to do if they know they needn't repay their loans?",
+                    "options": [
+                      "They will choose to study subjects without considering their job prospects.",
+                      "They will be free to pursue their goals without being burdened financially.",
+                      "They will over-borrow and live beyond their means.",
+                      "They will be able to enroll in expensive universities."
+                    ]
+                  },
+                  {
+                    "number": 49,
+                    "content": "What does the author imply about colleges offering online education?",
+                    "options": [
+                      "They cannot get away with the serious consequences.",
+                      "They have suffered greatly from the current pandemic.",
+                      "The tuition they charge is not justified by the quality of their service.",
+                      "The tuition they charge has surged outrageously during the pandemic."
+                    ]
+                  },
+                  {
+                    "number": 50,
+                    "content": "What will happen if any of the proposed student debt plans is implemented?",
+                    "options": [
+                      "Plumbers and retail workers will have a chance of becoming professionals.",
+                      "Working-class students will have increasing access to subsidized education.",
+                      "Blue-collar workers will have to bear the cost of educating would-be high-earners.",
+                      "A growing number of students will be able to earn degrees in medicine and law."
+                    ]
+                  }
+                ]
+              },
+              {
+                "title": "Passage Two",
+                "questions_range": "51 to 55",
+                "content": "If there's one rule that most parents cling to in the confusing, fast-changing world of kids and media, it's \"No screens before age 2.\"\n\nAs of today, that rule has been thrown out the window.\n\nThe American Academy of Pediatrics (AAP), which first issued that recommendation back in 1999, has extensively updated and revised its guidelines for children and adolescents to reflect new research and new habits.\n\nThe new guidelines, especially for very young children, shift the focus from WHAT is on the screen to WHO else is in the room. And in doing so, they raise some intriguing points about the future of learning from media.\n\nFor babies younger than 18 months, AAP still says no screens at all are the best idea—with one notable exception: Live video chat. Surveys indicate that families already popularly believe that \"Face time doesn't count\", or at least that the benefit of virtual visits with grandparents or other relatives outweighs the potential cost of exposing babies to the laptop or smartphone.\n\nThe AAP doesn't cite positive evidence that infants actually get something out of this kind of \"conversation\", the way that they clearly do from live social interaction. But there's some observational research that infants as young as six months old are emotionally engaged by playing live peekaboo (熊猫猫游戏) with Grandma online.\n\nFor infants and toddlers (学步儿童), ages 15 months to 2 years old, there's limited evidence from a couple of very small studies that they can learn new words from educational media, if and only if parents are watching alongside them, repeating what the video says and/or drawing attention to what is on the screen. In other words, treating a video or an app like a picture book is the best bet.\n\nThe flip side of this is that many studies have actually shown poorer language skills correlated with earlier solo viewing of \"educational\" videos. There's also research that shows language delays in children who watch more TV and start watching earlier. In both cases, the problem seems to be media replacing interaction with people. For this reason, the new AAP guideline has changed from \"avoid all screens under age 2\" to \"avoid solo media use in this age group.\"\n\nFor preschoolers ages 2 to 5, there's more evidence that they have the ability to transfer knowledge from screens to the real world, including early literacy and math. For this age group, AAP recommends no more than an hour a day of screen use. And, just as with younger children, they want care-givers to take part in screen time: \"Co-view with your children, help children understand what they are seeing, and help them apply what they learn to the world around them.\"",
+                "questions": [
+                  {
+                    "number": 51,
+                    "content": "What do we learn about the \"No screens under 2\" rule?",
+                    "options": [
+                      "It has met more and more resistance from parents.",
+                      "It has proved helpful to children's healthy growth.",
+                      "It confuses parents with regard to kids' education.",
+                      "It has been discarded in line with recent research."
+                    ]
+                  },
+                  {
+                    "number": 52,
+                    "content": "What do the new AAP guidelines advocate?",
+                    "options": [
+                      "Young children should be accompanied by parents during screen time.",
+                      "Parents should be emotionally involved in their children's upbringing.",
+                      "Young children should watch videos carefully selected by parents.",
+                      "Parents should protect their children from too much media exposure."
+                    ]
+                  },
+                  {
+                    "number": 53,
+                    "content": "What do families think of live video chat according to surveys?",
+                    "options": [
+                      "It should not be regarded as screen time.",
+                      "It helps babies to develop their verbal skills.",
+                      "It is not as harmful as playing games on laptops.",
+                      "It is a good substitute for video viewing."
+                    ]
+                  },
+                  {
+                    "number": 54,
+                    "content": "What do researches find about kids solo viewing educational videos?",
+                    "options": [
+                      "It arouses their interest in language learning.",
+                      "It works no better than reading picture books.",
+                      "It hampers their development of language skills.",
+                      "It helps them acquire independent learning skills."
+                    ]
+                  },
+                  {
+                    "number": 55,
+                    "content": "What does the author say about preschoolers ages 2 to 5?",
+                    "options": [
+                      "They can understand pretty well what they see on the screen.",
+                      "They can learn on their own without much parental guidance.",
+                      "They can make use of educational videos to develop digital literacy.",
+                      "They can relate what they learn on the screen to real life situations."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Part IV Translation",
+        "time_allowed": "30 minutes",
+        "directions": "For this part, you are allowed 30 minutes to translate a passage from Chinese into English. You should write your answer on Answer Sheet 2.",
+        "content": "黄土高原 (the Loess Plateau) 是中国第三大高原，面积约 60 万平方公里，平均海拔 1000-2000 米，绝大部分覆盖着 50-80 米厚的黄土，是世界上黄土分布最集中、覆盖厚度最大的区域。这是大自然创造的一个奇迹，在世界上也是绝无仅有的。\n黄土高原是中华民族的发祥地之一。早在 5500 年前，人们就已经在黄土高原上开始农耕。随着农耕业的持续发展，黄土高原人口不断增加，在秦汉时期就成为中国的政治和经济中心。如今，随着西部大开发战略的实施，黄土高原地区的经济得到了迅速发展。"
+      }
+    ]
+  }
+}

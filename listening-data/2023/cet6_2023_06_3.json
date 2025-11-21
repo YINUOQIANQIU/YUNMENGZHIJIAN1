@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2023_06_3",
+    "exam_type": "CET-6",
+    "year": 2023,
+    "month": 6,
+    "title": "2023年6月英语六级听力真题（第三套）",
+    "audio_file": "cet6_2023_06_3.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": "cet6_2023_06_3_1",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "What was the woman's dorm like?",
+      "options": [
+        {"option": "A", "text": "It was spacious and tranquil."},
+        {"option": "B", "text": "It was warm and comfortable."},
+        {"option": "C", "text": "It was shabby and solitary."},
+        {"option": "D", "text": "It was tiny and noisy."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": "cet6_2023_06_3_2",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What does the woman say about her new apartment?",
+      "options": [
+        {"option": "A", "text": "She no longer hates people talking loudly in the dorm."},
+        {"option": "B", "text": "She misses her roommates she used to complain about."},
+        {"option": "C", "text": "She begins to enjoy the movies she once found irritating."},
+        {"option": "D", "text": "She finds the crowded dorm as cozy as her new apartment."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": "cet6_2023_06_3_3",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What does the man say about his experience of moving into a new apartment?",
+      "options": [
+        {"option": "A", "text": "He found the apartment perfectly furnished."},
+        {"option": "B", "text": "He had a feeling of despair and frustration."},
+        {"option": "C", "text": "He had a similar feeling to the woman's."},
+        {"option": "D", "text": "He felt the new place was like paradise."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": "cet6_2023_06_3_4",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What will the man probably do next?",
+      "options": [
+        {"option": "A", "text": "Go to see the woman's apartment."},
+        {"option": "B", "text": "Make a phone call to his parents."},
+        {"option": "C", "text": "Buy some furniture for the woman."},
+        {"option": "D", "text": "Decorate the woman's apartment."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": "cet6_2023_06_3_5",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What do we learn about the man from the conversation?",
+      "options": [
+        {"option": "A", "text": "He works as a literary critic."},
+        {"option": "B", "text": "He hosts an educational program."},
+        {"option": "C", "text": "He has initiated a university reform."},
+        {"option": "D", "text": "He has published a book recently."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": "cet6_2023_06_3_6",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What is the man's criticism of the current university education?",
+      "options": [
+        {"option": "A", "text": "It fails to keep up with the radical changes of society."},
+        {"option": "B", "text": "It fails to ensure universities get sufficient resources."},
+        {"option": "C", "text": "It has not prepared young people for the job market."},
+        {"option": "D", "text": "It has not fostered the growth of the arts disciplines."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": "cet6_2023_06_3_7",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "What does the man think about university funding?",
+      "options": [
+        {"option": "A", "text": "More of the budget should go to science and technology."},
+        {"option": "B", "text": "The underfunded music discipline should be prioritized."},
+        {"option": "C", "text": "Subdisciplines like sculpture should get more funding."},
+        {"option": "D", "text": "Literature should get as much funding as engineering."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": "cet6_2023_06_3_8",
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What does the man think should be the ultimate goal of university education?",
+      "options": [
+        {"option": "A", "text": "Build a prosperous nation."},
+        {"option": "B", "text": "Make skilled professionals."},
+        {"option": "C", "text": "Create ingenious artists."},
+        {"option": "D", "text": "Cultivate better citizens."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": "cet6_2023_06_3_9",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "What does the passage say about mental chatter?",
+      "options": [
+        {"option": "A", "text": "It is quite common."},
+        {"option": "B", "text": "It is rarely noticed."},
+        {"option": "C", "text": "It seldom annoys people."},
+        {"option": "D", "text": "It occurs when one is alone."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": "cet6_2023_06_3_10",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "What do creative people know, according to the passage?",
+      "options": [
+        {"option": "A", "text": "Seeing things in black and white."},
+        {"option": "B", "text": "Engaging in regular contemplation."},
+        {"option": "C", "text": "Having a special understanding of creativity."},
+        {"option": "D", "text": "Knowing how to make their mental batteries work."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": "cet6_2023_06_3_11",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "When do people usually get their best ideas according to the passage?",
+      "options": [
+        {"option": "A", "text": "Engaging in intense activity."},
+        {"option": "B", "text": "Fantasizing in one's down time."},
+        {"option": "C", "text": "Working on a particular project."},
+        {"option": "D", "text": "Reflecting during one's relaxation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": "cet6_2023_06_3_12",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "What does the passage say about the American West in the 19th century?",
+      "options": [
+        {"option": "A", "text": "Farmers helped Native Americans grow crops."},
+        {"option": "B", "text": "There were expansive university campuses."},
+        {"option": "C", "text": "There existed post offices."},
+        {"option": "D", "text": "Migrants found gold there."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": "cet6_2023_06_3_13",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What was the significance of the postal service in the American West?",
+      "options": [
+        {"option": "A", "text": "It helped to boost the economy in the American West."},
+        {"option": "B", "text": "It provided job opportunities for many gold seekers."},
+        {"option": "C", "text": "It extended the influence of the federal government."},
+        {"option": "D", "text": "It kept people in the deserts and plains connected."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": "cet6_2023_06_3_14",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "How did the US government operate the postal service in remote areas?",
+      "options": [
+        {"option": "A", "text": "It employed Native Americans to work as postmen."},
+        {"option": "B", "text": "It commissioned private wagons to carry the mail."},
+        {"option": "C", "text": "It subsidized the locals who acted as postmasters."},
+        {"option": "D", "text": "It centralized postal services in its remote areas."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": "cet6_2023_06_3_15",
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "How did the researcher conduct his study on the postal service?",
+      "options": [
+        {"option": "A", "text": "He analyzed interactive maps of mail routes."},
+        {"option": "B", "text": "He read a large collection of books on the topic."},
+        {"option": "C", "text": "He examined its historical trends with data science."},
+        {"option": "D", "text": "He collected data about its impact on local business."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": "cet6_2023_06_3_16",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What is the lecture mainly about?",
+      "options": [
+        {"option": "A", "text": "Higher levels of anxiety may improve people's memory."},
+        {"option": "B", "text": "Some experiences are easier to remember than others."},
+        {"option": "C", "text": "Most people tend to remember things selectively."},
+        {"option": "D", "text": "Simple things may leave a deep impression on one's memory."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": "cet6_2023_06_3_17",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "What did the researchers do in the experiment?",
+      "options": [
+        {"option": "A", "text": "They classified the participants' mindset."},
+        {"option": "B", "text": "They showed some photos to the participants."},
+        {"option": "C", "text": "They measured the participants' anxiety levels."},
+        {"option": "D", "text": "They tested the size of the participants' vocabulary."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": "cet6_2023_06_3_18",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "What conclusion can be drawn from the lecture?",
+      "options": [
+        {"option": "A", "text": "Anxiety has become a serious problem for an increasing number of people."},
+        {"option": "B", "text": "Extreme levels of anxiety can adversely affect cognitive performance."},
+        {"option": "C", "text": "People diagnosed with anxiety disorder may forget things selectively."},
+        {"option": "D", "text": "There is no direct correlation between memory and levels of anxiety."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": "cet6_2023_06_3_19",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "What does the speaker say about today's consumers?",
+      "options": [
+        {"option": "A", "text": "They compare products from different companies before making a choice."},
+        {"option": "B", "text": "They get information from other consumers' postings and comments."},
+        {"option": "C", "text": "They lose patience when their phone call is no promptly answered."},
+        {"option": "D", "text": "They expect to get instantaneous responses to their inquiry."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": "cet6_2023_06_3_20",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "What is the most effective way to sell products to consumers today?",
+      "options": [
+        {"option": "A", "text": "Giving them rewards on the spot."},
+        {"option": "B", "text": "Broadening their scope of interest."},
+        {"option": "C", "text": "Speaking directly to their emotions."},
+        {"option": "D", "text": "Focusing on the details of the product."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": "cet6_2023_06_3_21",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "What should businesses do to succeed in today's market?",
+      "options": [
+        {"option": "A", "text": "Change the rules of the game in the market every year."},
+        {"option": "B", "text": "Keep up with the latest technological developments."},
+        {"option": "C", "text": "Learn from technological innovators to do business."},
+        {"option": "D", "text": "Make greater efforts to build up consumers' confidence."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": "cet6_2023_06_3_22",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "What is the lecture mainly about?",
+      "options": [
+        {"option": "A", "text": "People have only one social engagement per week."},
+        {"option": "B", "text": "Working together enhances friendship."},
+        {"option": "C", "text": "Few people have devoted friends."},
+        {"option": "D", "text": "Friendships benefit work."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": "cet6_2023_06_3_23",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "What do studies show about the role of friends?",
+      "options": [
+        {"option": "A", "text": "The impact of friends on people's self-esteem."},
+        {"option": "B", "text": "How supportive friends can be in the workplace."},
+        {"option": "C", "text": "How to boost one's sense of value and worthiness."},
+        {"option": "D", "text": "The role of family ties in people's mental well-being."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": "cet6_2023_06_3_24",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "What does the speaker say about workplace friendships?",
+      "options": [
+        {"option": "A", "text": "They show little interest in their friends' work."},
+        {"option": "B", "text": "They tend to be much more difficult to make."},
+        {"option": "C", "text": "They are more trustworthy and reliable."},
+        {"option": "D", "text": "They increase people's job satisfaction."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": "cet6_2023_06_3_25",
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "What does the speaker suggest companies do?",
+      "options": [
+        {"option": "A", "text": "Allow employees to have a flexible work schedule."},
+        {"option": "B", "text": "Encourage employees to be friends with colleagues."},
+        {"option": "C", "text": "Help employees balance work and family responsibilities."},
+        {"option": "D", "text": "Organize activities to nourish friendships outside of work."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

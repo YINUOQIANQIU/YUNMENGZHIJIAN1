@@ -1,0 +1,229 @@
+
+{
+  "vocabulary": [
+    {
+      "id": "cet4_001",
+      "word": "plastic",
+      "phonetic": "/ˈplæstɪk/",
+      "meanings": [
+        {
+          "partOfSpeech": "adjective",
+          "definition": "可塑的，塑性的",
+          "examples": [
+            "Clay is a plastic material.",
+            "The company produces plastic containers."
+          ]
+        },
+        {
+          "partOfSpeech": "noun",
+          "definition": "塑料",
+          "examples": [
+            "We should reduce the use of single-use plastics.",
+            "This bag is made of recycled plastic."
+          ]
+        }
+      ],
+      "synonyms": ["malleable", "flexible"],
+      "antonyms": ["rigid", "inflexible"],
+      "difficulty": "easy",
+      "tags": ["高频", "名词", "形容词"],
+      "frequency": 5
+    },
+    {
+      "id": "cet4_002",
+      "word": "steal",
+      "phonetic": "/stiːl/",
+      "meanings": [
+        {
+          "partOfSpeech": "verb",
+          "definition": "偷窃",
+          "examples": [
+            "Someone stole my wallet on the bus.",
+            "He was arrested for stealing a car."
+          ]
+        },
+        {
+          "partOfSpeech": "noun",
+          "definition": "偷窃行为",
+          "examples": [
+            "The museum reported the steal of a valuable painting.",
+            "It was the biggest bank steal in the city's history."
+          ]
+        }
+      ],
+      "synonyms": ["rob", "thieve"],
+      "antonyms": ["return", "give"],
+      "difficulty": "easy",
+      "tags": ["高频", "动词"],
+      "frequency": 4
+    },
+    {
+      "id": "cet4_003",
+      "word": "preferable",
+      "phonetic": "/ˈprefrəbl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adjective",
+          "definition": "更可取的，更好的",
+          "examples": [
+            "A dark suit is preferable to a light one for evening wear.",
+            "Working from home is preferable to commuting every day."
+          ]
+        }
+      ],
+      "synonyms": ["better", "superior"],
+      "antonyms": ["inferior", "worse"],
+      "difficulty": "medium",
+      "tags": ["形容词"],
+      "frequency": 3
+    },
+    {
+      "id": "cet4_004",
+      "word": "summarize",
+      "phonetic": "/ˈsʌməraɪz/",
+      "meanings": [
+        {
+          "partOfSpeech": "verb",
+          "definition": "概括，总结",
+          "examples": [
+            "Can you summarize the main points of the article?",
+            "The report summarizes our findings from the research."
+          ]
+        }
+      ],
+      "synonyms": ["outline", "recap"],
+      "antonyms": ["elaborate", "expand"],
+      "difficulty": "medium",
+      "tags": ["学术", "动词"],
+      "frequency": 4
+    },
+    {
+      "id": "cet4_005",
+      "word": "chart",
+      "phonetic": "/tʃɑːrt/",
+      "meanings": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "图表",
+          "examples": [
+            "The sales chart shows a significant increase this quarter.",
+            "Please refer to the chart on page 10 for more details."
+          ]
+        },
+        {
+          "partOfSpeech": "verb",
+          "definition": "制成图表",
+          "examples": [
+            "We need to chart our progress over the next six months.",
+            "The team charted the company's growth since its founding."
+          ]
+        }
+      ],
+      "synonyms": ["graph", "diagram"],
+      "antonyms": [],
+      "difficulty": "easy",
+      "tags": ["学术", "名词", "动词"],
+      "frequency": 4
+    },
+    {
+      "id": "cet4_006",
+      "word": "student",
+      "phonetic": "/ˈstuːdnt/",
+      "meanings": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "学生",
+          "examples": [
+            "She is a diligent student who always completes her homework.",
+            "The university has over 20,000 students from around the world."
+          ]
+        }
+      ],
+      "synonyms": ["pupil", "learner"],
+      "antonyms": ["teacher", "instructor"],
+      "difficulty": "easy",
+      "tags": ["日常", "名词"],
+      "frequency": 5
+    },
+    {
+      "id": "cet4_007",
+      "word": "lip",
+      "phonetic": "/lɪp/",
+      "meanings": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "嘴唇",
+          "examples": [
+            "She applied lip balm to her dry lips.",
+            "He bit his lip nervously during the interview."
+          ]
+        }
+      ],
+      "synonyms": [],
+      "antonyms": [],
+      "difficulty": "easy",
+      "tags": ["日常", "名词"],
+      "frequency": 3
+    },
+    {
+      "id": "cet4_008",
+      "word": "year",
+      "phonetic": "/jɪr/",
+      "meanings": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "年，年份",
+          "examples": [
+            "We're planning to travel abroad next year.",
+            "The company had its most profitable year in 2023."
+          ]
+        }
+      ],
+      "synonyms": ["twelvemonth"],
+      "antonyms": [],
+      "difficulty": "easy",
+      "tags": ["高频", "日常", "名词"],
+      "frequency": 5
+    },
+    {
+      "id": "cet4_009",
+      "word": "consistent",
+      "phonetic": "/kənˈsɪstənt/",
+      "meanings": [
+        {
+          "partOfSpeech": "adjective",
+          "definition": "一致的，始终如一的",
+          "examples": [
+            "Her performance has been consistent throughout the season.",
+            "We need to maintain consistent quality in all our products."
+          ]
+        }
+      ],
+      "synonyms": ["steady", "constant"],
+      "antonyms": ["inconsistent", "variable"],
+      "difficulty": "medium",
+      "tags": ["形容词"],
+      "frequency": 4
+    },
+    {
+      "id": "cet4_010",
+      "word": "maintenance",
+      "phonetic": "/ˈmeɪntənəns/",
+      "meanings": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "维护，保养",
+          "examples": [
+            "Regular maintenance of your car can prevent major repairs.",
+            "The building requires ongoing maintenance to stay in good condition."
+          ]
+        }
+      ],
+      "synonyms": ["upkeep", "preservation"],
+      "antonyms": ["neglect", "deterioration"],
+      "difficulty": "medium",
+      "tags": ["名词"],
+      "frequency": 4
+    }
+  ]
+}

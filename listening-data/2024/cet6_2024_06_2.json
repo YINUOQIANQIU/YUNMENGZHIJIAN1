@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2024_06_2",
+    "exam_type": "CET-6",
+    "year": 2024,
+    "month": 6,
+    "title": "2024年6月英语六级听力真题（第二套）",
+    "audio_file": "cet6_2024_06_2.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Read numerous comments users put online."},
+        {"option": "B", "text": "Blended all his food without using a machine."},
+        {"option": "C", "text": "Searched for the state-of-the-art models of blenders"},
+        {"option": "D", "text": "Did thorough research on the price of kitchen appliances"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Eating any blended food."},
+        {"option": "B", "text": "Buying a blender herself."},
+        {"option": "C", "text": "Using machines to do her cooking."},
+        {"option": "D", "text": "Making soups and juices for herself."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Cooking every meal creatively in the kitchen"},
+        {"option": "B", "text": "Paying due attention to his personal hygiene."},
+        {"option": "C", "text": "Eating breakfast punctually every morning."},
+        {"option": "D", "text": "Making his own fresh fruit juice regularly"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "One-tenth of it is sugar"},
+        {"option": "B", "text": "It looks healthy and attractive."},
+        {"option": "C", "text": "One's fancy may be tickled by it."},
+        {"option": "D", "text": "It contains an assortment of nutrients."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "How he has made himself popular as the mayor of Berkton"},
+        {"option": "B", "text": "How the residents will turn Berkton into a tourist attraction."},
+        {"option": "C", "text": "How charming he himself considers the village of Berkton to be."},
+        {"option": "D", "text": "How he has led people of Berkton to change the village radically."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It was developed only to a limited extent"},
+        {"option": "B", "text": "It was totally isolated as a sleepy village."},
+        {"option": "C", "text": "It was relatively unknown to the outside"},
+        {"option": "D", "text": "It was endowed with rare natural resources."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The people in Berkton were in a harmonious atmosphere"},
+        {"option": "B", "text": "The majority of residents lived in harmony with their neighbors"},
+        {"option": "C", "text": "The majority of residents enjoyed cosy housing conditions"},
+        {"option": "D", "text": "All the houses in Berkton looked aesthetically similar."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have helped boost the local economy."},
+        {"option": "B", "text": "They have made the residents unusually proud."},
+        {"option": "C", "text": "They have contributed considerably to its popularity."},
+        {"option": "D", "text": "They have brought happiness to everyone in the village."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They have created the smallest remote-controlled walking robot in the world."},
+        {"option": "B", "text": "They are going to publish their research findings in the journal Science Robotics."},
+        {"option": "C", "text": "They are the first to build a robot that can bend, crawl, walk, turn and even jump."},
+        {"option": "D", "text": "They are engaged in research on a remote-controlled robot which uses special power."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It changes its shape by complex hardware"},
+        {"option": "B", "text": "It is operated by a special type of tiny motor"},
+        {"option": "C", "text": "It moves from one place to another by memory"},
+        {"option": "D", "text": "It is powered by the elastic property of its body."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Replace humans in exploratory tasks"},
+        {"option": "B", "text": "Perform tasks in tightly confined spaces."},
+        {"option": "C", "text": "Explore the structure of clogged arteries."},
+        {"option": "D", "text": "Assist surgeons in highly complex surgery"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "She threw up in the bathroom."},
+        {"option": "B", "text": "She slept during the entire ride."},
+        {"option": "C", "text": "She dozed off for a few minutes."},
+        {"option": "D", "text": "She boasted of her marathon race."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They are mostly immune to cognitive impairment."},
+        {"option": "B", "text": "They can sleep soundly during a rough ride at sea."},
+        {"option": "C", "text": "They are genetically determined to need less sleep"},
+        {"option": "D", "text": "They constitute about 13 percent of the population."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Whether there is a way to reach elite status."},
+        {"option": "B", "text": "Whether it is possible to modify one's genes."},
+        {"option": "C", "text": "Whether having a baby impacts one's passion."},
+        {"option": "D", "text": "Whether one can train themselves to sleep less."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It is in fact quite possible to nurture a passion for sleep."},
+        {"option": "B", "text": "Babies can severely disrupt their parents' sleep patterns"},
+        {"option": "C", "text": "Being forced to rise early differs from being an early bird."},
+        {"option": "D", "text": "New parents are forced to jump out of bed at the crack of dawn"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "We have poor awareness of how many controversial issues are being debated."},
+        {"option": "B", "text": "No one knows better than yourself what you are thinking about at the moment."},
+        {"option": "C", "text": "No one can change your opinions more than those who speak in a convincing tone."},
+        {"option": "D", "text": "We are likely to underestimate how much we can be swayed by a convincing article."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Their belief about physical punishment changed"},
+        {"option": "B", "text": "Their memory pushed them toward a current belief."},
+        {"option": "C", "text": "The memory of their initial belief came back to them."},
+        {"option": "D", "text": "Their experiences of physical punishment haunted them"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They apparently have little to do with moderate beliefs"},
+        {"option": "B", "text": "They don't reflect the changes of view on physical punishment"},
+        {"option": "C", "text": "They may not apply to changes to extreme or deeply held beliefs."},
+        {"option": "D", "text": "They are unlikely to alter people's position without more evidence"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "American moms have been increasingly inclined to live alone."},
+        {"option": "B", "text": "The American population has been on the rise in the past 25 years"},
+        {"option": "C", "text": "American motherhood has actually been on the decline."},
+        {"option": "D", "text": "The fertility rates in America have in fact been falling sharply."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "More new mothers tend to take greater care of their children"},
+        {"option": "B", "text": "More new mothers are economically able to raise children."},
+        {"option": "C", "text": "A larger proportion of women take pride in their children."},
+        {"option": "D", "text": "A larger proportion of women really enjoy motherhood."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The meaning of motherhood has changed considerably."},
+        {"option": "B", "text": "More and more mothers go shopping to treat themselves."},
+        {"option": "C", "text": "More mothers have adult children celebrating the holiday."},
+        {"option": "D", "text": "The number of American mothers has been growing steadily"}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Add to indoor toxic pollutants."},
+        {"option": "B", "text": "Beautify the home environment."},
+        {"option": "C", "text": "Absorb poisonous chemicals."},
+        {"option": "D", "text": "Soak up surrounding moisture."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "NASA did experiments in sealed containers resembling the super-insulated offices of 1970s."},
+        {"option": "B", "text": "It was based on experiments under conditions unlike those in most homes or offices."},
+        {"option": "C", "text": "NASA conducted tests in outer space whose environment is different from ours"},
+        {"option": "D", "text": "It drew its conclusion without any contrastive data from other experiments."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Natural ventilation proves much more efficient for cleaning the air than house plants"},
+        {"option": "B", "text": "Houseplants disperse chemical compounds more quickly with people moving around."},
+        {"option": "C", "text": "Natural ventilation turns out to be most effective with doors and windows wide open"},
+        {"option": "D", "text": "Houseplants in a normal environment rarely have any adverse impact on the air."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The root cause for misinterpretations of scientific findings"},
+        {"option": "B", "text": "The difficulty in understanding what's actually happening."},
+        {"option": "C", "text": "The steps to be taken in arriving at any conclusion with certainty."},
+        {"option": "D", "text": "The necessity of continually re-examining and challenging findings."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

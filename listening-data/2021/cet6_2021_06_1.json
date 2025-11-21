@@ -1,0 +1,320 @@
+{
+  "paper": {
+    "id": "cet6_2021_06",
+    "exam_type": "CET-6",
+    "year": 2021,
+    "month": 6,
+    "title": "2021年6月英语六级听力真题",
+    "audio_file": "cet6_2021_06.mp3",
+    "total_questions": 17,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "What is the man going to do?",
+      "options": [
+        {"option": "A", "text": "He is going to leave his present job."},
+        {"option": "B", "text": "He is going to attend a job interview."},
+        {"option": "C", "text": "He will meet his new manager in two weeks."},
+        {"option": "D", "text": "He will tell the management how he really feels."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 30,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What does the woman say about the man's feedback on the company?",
+      "options": [
+        {"option": "A", "text": "It should be carefully analyzed."},
+        {"option": "B", "text": "It should be kept private."},
+        {"option": "C", "text": "It can be quite useful to senior managers."},
+        {"option": "D", "text": "It can improve interviewees' job prospects."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 30,
+      "audio_end_time": 60,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What is the man worried about?",
+      "options": [
+        {"option": "A", "text": "It may do harm to his fellow employees."},
+        {"option": "B", "text": "It may displease his immediate superiors."},
+        {"option": "C", "text": "It may adversely affect his future career prospects."},
+        {"option": "D", "text": "It may leave a negative impression on the interviewer."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 60,
+      "audio_end_time": 90,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What does the woman suggest the man do?",
+      "options": [
+        {"option": "A", "text": "Pour out his frustrations on a rate-your-employer website."},
+        {"option": "B", "text": "Network with his close friends to find a better employer."},
+        {"option": "C", "text": "Do some practice for the exit interview."},
+        {"option": "D", "text": "Prepare a comprehensive exit report."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 90,
+      "audio_end_time": 120,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What is the woman mainly talking about?",
+      "options": [
+        {"option": "A", "text": "Her career as a botanist."},
+        {"option": "B", "text": "Her latest documentary."},
+        {"option": "C", "text": "Her month-long expedition."},
+        {"option": "D", "text": "Her unsuccessful journey."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 120,
+      "audio_end_time": 150,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What does the woman say about her trip?",
+      "options": [
+        {"option": "A", "text": "She was caught in a hurricane."},
+        {"option": "B", "text": "She had to live like a vegetarian."},
+        {"option": "C", "text": "She suffered from water shortage."},
+        {"option": "D", "text": "She had to endure many hardships."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 150,
+      "audio_end_time": 180,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "Why did the woman and her team have to leave the forest earlier than planned?",
+      "options": [
+        {"option": "A", "text": "They could no longer bear the humidity."},
+        {"option": "B", "text": "They had no more food in the canoe."},
+        {"option": "C", "text": "A flood was approaching."},
+        {"option": "D", "text": "A hurricane was coming."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 180,
+      "audio_end_time": 210,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "conversation",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What does the woman think of her trip?",
+      "options": [
+        {"option": "A", "text": "It was memorable."},
+        {"option": "B", "text": "It was fruitful."},
+        {"option": "C", "text": "It was unbeatable."},
+        {"option": "D", "text": "It was uneventful."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 210,
+      "audio_end_time": 240,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "What is the effect of scientists using jargon in their communication?",
+      "options": [
+        {"option": "A", "text": "It ensures the accuracy of their arguments."},
+        {"option": "B", "text": "It diminishes laymen's interest in science."},
+        {"option": "C", "text": "It hurts laymen's dignity and self-esteem."},
+        {"option": "D", "text": "It makes their expressions more explicit."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 240,
+      "audio_end_time": 270,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "How do laymen usually feel when scientists use jargon?",
+      "options": [
+        {"option": "A", "text": "They will see the complexity of science."},
+        {"option": "B", "text": "They feel great respect towards scientists."},
+        {"option": "C", "text": "They tend to disbelieve the actual science."},
+        {"option": "D", "text": "They can learn to communicate with scientists."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 270,
+      "audio_end_time": 300,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "What should scientists do when communicating with laymen?",
+      "options": [
+        {"option": "A", "text": "Explain all the jargon terms."},
+        {"option": "B", "text": "Do away with jargon terms."},
+        {"option": "C", "text": "Find appropriate topics."},
+        {"option": "D", "text": "Stimulate their interest."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 300,
+      "audio_end_time": 330,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "What was the initial concern about the local gassy hill?",
+      "options": [
+        {"option": "A", "text": "There were oil deposits below a local gassy hill."},
+        {"option": "B", "text": "The erupting gas might endanger local children."},
+        {"option": "C", "text": "There was oil-leakage along the Gulf Coast."},
+        {"option": "D", "text": "The local gassy hill might start a huge fire."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 330,
+      "audio_end_time": 360,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What was the major obstacle to drilling through the sand under the hill?",
+      "options": [
+        {"option": "A", "text": "The massive gas underground."},
+        {"option": "B", "text": "Their lack of the needed skill."},
+        {"option": "C", "text": "Their lack of suitable tools."},
+        {"option": "D", "text": "The sand under the hill."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 360,
+      "audio_end_time": 390,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "What does the passage say about the new drilling method?",
+      "options": [
+        {"option": "A", "text": "It was not as effective as he claimed."},
+        {"option": "B", "text": "It rendered many oil workers jobless."},
+        {"option": "C", "text": "It gave birth to the oil drilling industry."},
+        {"option": "D", "text": "It was not popularized until years later."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 390,
+      "audio_end_time": 420,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "passage",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "What was the impact of the discovery of oil in Texas?",
+      "options": [
+        {"option": "A", "text": "It ruined the state's cotton and beef industries."},
+        {"option": "B", "text": "It resulted in an oil surplus all over the world."},
+        {"option": "C", "text": "It resumed in an oil surplus all over the world."},
+        {"option": "D", "text": "It radically transformed the state's economy."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 420,
+      "audio_end_time": 450,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "recording",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What is mentioned as a major reason for employees to quit?",
+      "options": [
+        {"option": "A", "text": "Insufficient motivation."},
+        {"option": "B", "text": "Tough regulations."},
+        {"option": "C", "text": "Unsuitable jobs."},
+        {"option": "D", "text": "Bad managers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 450,
+      "audio_end_time": 480,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "recording",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "What is another reason for employees to quit according to the talk?",
+      "options": [
+        {"option": "A", "text": "Ineffective training."},
+        {"option": "B", "text": "Toxic company culture."},
+        {"option": "C", "text": "Overburdening of managers."},
+        {"option": "D", "text": "Lack of regular evaluation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 480,
+      "audio_end_time": 510,
+      "analysis": "",
+      "sort_order": 17
+    }
+  ]
+}

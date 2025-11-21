@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2023_03",
+    "exam_type": "CET-6",
+    "year": 2023,
+    "month": 3,
+    "title": "2023年3月英语六级听力真题(第1套)",
+    "audio_file": "cet6_2023_03_1.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "Where does the conversation most probably take place?",
+      "options": [
+        {"option": "A", "text": "In a kitchen."},
+        {"option": "B", "text": "In a restaurant."},
+        {"option": "C", "text": "In a food store."},
+        {"option": "D", "text": "In a supermarket."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "What do we learn about the woman?",
+      "options": [
+        {"option": "A", "text": "She eats meat occasionally."},
+        {"option": "B", "text": "She enjoys cheeseburgers."},
+        {"option": "C", "text": "She is a partial vegetarian."},
+        {"option": "D", "text": "She is allergic to seafood."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "What is the man's problem?",
+      "options": [
+        {"option": "A", "text": "Changing one's eating habit."},
+        {"option": "B", "text": "Dealing with one's colleagues."},
+        {"option": "C", "text": "Following the same diet for years."},
+        {"option": "D", "text": "Keeping awake at morning meetings."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "What do the man and the woman have in common?",
+      "options": [
+        {"option": "A", "text": "They are both animal lovers."},
+        {"option": "B", "text": "They enjoy perfect health."},
+        {"option": "C", "text": "They only eat organic food."},
+        {"option": "D", "text": "They are cutting back on coffee."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "What did the man's boss complain about?",
+      "options": [
+        {"option": "A", "text": "The man had an attitude problem."},
+        {"option": "B", "text": "The man made little contribution to the company."},
+        {"option": "C", "text": "The man paid attention to trivial things."},
+        {"option": "D", "text": "The man got a poor evaluation from his colleagues."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "What does the man say about some managers?",
+      "options": [
+        {"option": "A", "text": "They make unhelpful decisions for solving problems."},
+        {"option": "B", "text": "They favor some employees' suggestions over others'."},
+        {"option": "C", "text": "They reject employees' reasonable arguments for work efficiency."},
+        {"option": "D", "text": "They use manipulative language to mask their irrational choices."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "What does the man think of being honest?",
+      "options": [
+        {"option": "A", "text": "It is a must for rational judgment."},
+        {"option": "B", "text": "It is more important now than ever."},
+        {"option": "C", "text": "It is a good quality in the workplace."},
+        {"option": "D", "text": "It is more of a sin than a virtue."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "What are managers really interested in according to the man?",
+      "options": [
+        {"option": "A", "text": "Smoothing relationships in the workplace."},
+        {"option": "B", "text": "Making rational and productive decisions."},
+        {"option": "C", "text": "Preserving their power and prestige."},
+        {"option": "D", "text": "Focusing on employees' career growth."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "Why do people admire sports stars according to the speaker?",
+      "options": [
+        {"option": "A", "text": "They show genius which defies description."},
+        {"option": "B", "text": "They create very high commercial value."},
+        {"option": "C", "text": "They accomplish feats many of us cannot."},
+        {"option": "D", "text": "They bring great honor to their country."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "What do some sports stars do to give back to society?",
+      "options": [
+        {"option": "A", "text": "They try to be positive role models to children."},
+        {"option": "B", "text": "They work in spare time to teach children sports."},
+        {"option": "C", "text": "They take part in kids' extra-curricular activities."},
+        {"option": "D", "text": "They serve as spokespersons for luxury goods."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "What is the biggest challenge for sports stars?",
+      "options": [
+        {"option": "A", "text": "Being super sports stars without appearing arrogant."},
+        {"option": "B", "text": "Preventing certain athletes from getting in trouble with the law."},
+        {"option": "C", "text": "Keeping athletes away from drug or alcohol problems."},
+        {"option": "D", "text": "Separating an athlete's professional life from their personal life."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "What does the speaker say about weddings?",
+      "options": [
+        {"option": "A", "text": "They are dreams coming true to the brides."},
+        {"option": "B", "text": "They are joyous and exciting occasions."},
+        {"option": "C", "text": "They should be paid up by the attendees."},
+        {"option": "D", "text": "They always cost more than expected."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "What do we learn about the wedding the speaker attended?",
+      "options": [
+        {"option": "A", "text": "It was cancelled."},
+        {"option": "B", "text": "It cost $60,000."},
+        {"option": "C", "text": "It had eight guests only."},
+        {"option": "D", "text": "It was held in Las Vegas."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "What did the speaker advise her friend to do?",
+      "options": [
+        {"option": "A", "text": "Postpone her wedding."},
+        {"option": "B", "text": "Ask her friends for help."},
+        {"option": "C", "text": "Keep to her budget."},
+        {"option": "D", "text": "Invite more guests."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "How did the speaker's friend respond to her advice?",
+      "options": [
+        {"option": "A", "text": "She called it romantic."},
+        {"option": "B", "text": "She rejected it flatly."},
+        {"option": "C", "text": "She said she would think about it."},
+        {"option": "D", "text": "She welcomed it with open arms."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "What does the speaker say about temperature?",
+      "options": [
+        {"option": "A", "text": "It determines people's moods."},
+        {"option": "B", "text": "It can impact people's wellbeing."},
+        {"option": "C", "text": "It can influence people's personalities."},
+        {"option": "D", "text": "It is closely related to people's emotions."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "What is the effect of warm temperatures according to research?",
+      "options": [
+        {"option": "A", "text": "They make people more reproductive."},
+        {"option": "B", "text": "They tend to produce positive feelings."},
+        {"option": "C", "text": "They increase people's life expectancy."},
+        {"option": "D", "text": "They may alter people's genes gradually."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "What is one of the findings of the study comparing Americans and Chinese?",
+      "options": [
+        {"option": "A", "text": "The Americans are apparently more outgoing than the Chinese."},
+        {"option": "B", "text": "People share many personality traits despite their nationalities."},
+        {"option": "C", "text": "People in the same geographical area may differ in personality."},
+        {"option": "D", "text": "The link between temperature and personality is fairly weak."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "What is the main concern about senior citizens in the United States?",
+      "options": [
+        {"option": "A", "text": "The number of older Americans living alone is on the rise."},
+        {"option": "B", "text": "Correlations have been found between loneliness and ill health."},
+        {"option": "C", "text": "Chronic loneliness does harm to senior citizens in particular."},
+        {"option": "D", "text": "A growing number of US seniors face the risk of early mortality."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "What does the speaker say about loneliness?",
+      "options": [
+        {"option": "A", "text": "Loneliness is probably reversible."},
+        {"option": "B", "text": "Loneliness rarely results from living alone."},
+        {"option": "C", "text": "Being busy helps fight loneliness."},
+        {"option": "D", "text": "Medication is available for treating loneliness."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "What is the best way to fight loneliness according to the speaker?",
+      "options": [
+        {"option": "A", "text": "Living with one's children."},
+        {"option": "B", "text": "Meaningful social contact."},
+        {"option": "C", "text": "Meeting social expectations."},
+        {"option": "D", "text": "Timely medical intervention."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "What do we learn about the woman at the beginning of the talk?",
+      "options": [
+        {"option": "A", "text": "She had a successful career in finance."},
+        {"option": "B", "text": "She wrote stories about women travelers."},
+        {"option": "C", "text": "She made regular trips to Asian countries."},
+        {"option": "D", "text": "She invested in several private companies."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "What did the woman decide to do after returning from her trip?",
+      "options": [
+        {"option": "A", "text": "Buy a ranch."},
+        {"option": "B", "text": "Set up a travel agency."},
+        {"option": "C", "text": "Travel round the world."},
+        {"option": "D", "text": "Start a blog."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "What advice does the woman give to those who want to enter the travel industry?",
+      "options": [
+        {"option": "A", "text": "Create something unique to enter the industry."},
+        {"option": "B", "text": "Gain support from travel advertising companies."},
+        {"option": "C", "text": "Try to find a full-time job in the travel business."},
+        {"option": "D", "text": "Work hard to attract attention from publishers."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "What does the woman think is important for a travel business to succeed?",
+      "options": [
+        {"option": "A", "text": "Attracting sufficient investment."},
+        {"option": "B", "text": "Avoiding too much advertising early on."},
+        {"option": "C", "text": "Creating an exotic corporate culture."},
+        {"option": "D", "text": "Refraining from promoting similar products."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 0,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

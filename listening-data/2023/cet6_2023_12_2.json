@@ -1,0 +1,464 @@
+{
+  "paper": {
+    "id": "cet6_2023_12_2",
+    "exam_type": "CET-6",
+    "year": 2023,
+    "month": 12,
+    "title": "2023年12月英语六级听力真题(第2套)",
+    "audio_file": "cet6_2023_12_2.mp3",
+    "total_questions": 25,
+    "duration": 1800
+  },
+  "questions": [
+    {
+      "id": 1,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "1",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Renting a car instead of driving their own."},
+        {"option": "B", "text": "Surfing online to check out the best deals."},
+        {"option": "C", "text": "Exploring more summer holiday resorts."},
+        {"option": "D", "text": "Spending their holidays in a novel way."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 0,
+      "audio_end_time": 30,
+      "analysis": "",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "2",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "He once owned a van."},
+        {"option": "B", "text": "He was well travelled."},
+        {"option": "C", "text": "He did not find holiday homes appealing."},
+        {"option": "D", "text": "He did not like to be locked into one place."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 30,
+      "audio_end_time": 60,
+      "analysis": "",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "3",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Ensure the safety of passengers."},
+        {"option": "B", "text": "Drive under any weather condition."},
+        {"option": "C", "text": "Receive instructions via computers."},
+        {"option": "D", "text": "Generate their own electricity."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 60,
+      "audio_end_time": 90,
+      "analysis": "",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "4",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Having one's basic needs covered while away from home."},
+        {"option": "B", "text": "Enjoying the freedom to choose where to go and work."},
+        {"option": "C", "text": "Slowing down in one's increasingly hectic life."},
+        {"option": "D", "text": "Riding one's mountain bike on vacation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 90,
+      "audio_end_time": 120,
+      "analysis": "",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "5",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "She has missed several important appointments lately."},
+        {"option": "B", "text": "Her job performance has worsened over the past month."},
+        {"option": "C", "text": "She has lagged behind most of her co-workers in output."},
+        {"option": "D", "text": "Her physical health has deteriorated these past few weeks."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 120,
+      "audio_end_time": 150,
+      "analysis": "",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "6",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Serious health issues."},
+        {"option": "B", "text": "Disturbance of her mind."},
+        {"option": "C", "text": "Some problems at home."},
+        {"option": "D", "text": "Penalty for curtailed output."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 150,
+      "audio_end_time": 180,
+      "analysis": "",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "7",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The woman's work proficiency."},
+        {"option": "B", "text": "The woman's whole-hearted support."},
+        {"option": "C", "text": "His engaging personality."},
+        {"option": "D", "text": "His management capability."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 180,
+      "audio_end_time": 210,
+      "analysis": "",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "section_type": "short",
+      "question_type": "single_choice",
+      "question_number": "8",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The woman will resume her work in two weeks."},
+        {"option": "B", "text": "The man will be back at his 100% in a couple of weeks."},
+        {"option": "C", "text": "The woman will be off work on the next two Mondays."},
+        {"option": "D", "text": "The man will help the woman get back to her usual self."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 210,
+      "audio_end_time": 240,
+      "analysis": "",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "9",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "It can have an impact on our moods and emotions."},
+        {"option": "B", "text": "It can enable us to live a healthier and longer life."},
+        {"option": "C", "text": "It can improve our financial status significantly."},
+        {"option": "D", "text": "It can help us achieve better work performance."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 240,
+      "audio_end_time": 270,
+      "analysis": "",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "10",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "One's health tends to differ before and after marriage."},
+        {"option": "B", "text": "One's health status is related to one's social background."},
+        {"option": "C", "text": "The wealthier one's spouse is, the healthier one becomes."},
+        {"option": "D", "text": "The spouse's level of education can impact one's health."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 270,
+      "audio_end_time": 300,
+      "analysis": "",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "11",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They benefited a lot from their career achievements."},
+        {"option": "B", "text": "They showed interest in their spouse's occupations."},
+        {"option": "C", "text": "They had much in common with their spouses."},
+        {"option": "D", "text": "They had more education than their spouses."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 300,
+      "audio_end_time": 330,
+      "analysis": "",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "12",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Eliminating their root cause."},
+        {"option": "B", "text": "Forecasting flood risks accurately."},
+        {"option": "C", "text": "Identifying the cities' geological features."},
+        {"option": "D", "text": "Finding out the changing climate patterns."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 330,
+      "audio_end_time": 360,
+      "analysis": "",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "13",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To validate his hypothesis about the gravity of floods."},
+        {"option": "B", "text": "To determine the frequency of high tides causing floods."},
+        {"option": "C", "text": "To improve his mathematical flooding model."},
+        {"option": "D", "text": "To see the feasibility of his project on flooding."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 360,
+      "audio_end_time": 390,
+      "analysis": "",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "14",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To study the consequences of high tides on flooded areas."},
+        {"option": "B", "text": "To teach local citizens how to collect data of incoming floods."},
+        {"option": "C", "text": "To forecast rapid floods in real time."},
+        {"option": "D", "text": "To classify the flooding data processed."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 390,
+      "audio_end_time": 420,
+      "analysis": "",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "section_type": "long",
+      "question_type": "single_choice",
+      "question_number": "15",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They set up Internet-connected water-level sensors."},
+        {"option": "B", "text": "They tracked the rising tides with video-cameras."},
+        {"option": "C", "text": "They used newly-developed supercomputing facilities."},
+        {"option": "D", "text": "They observed the direction of water flow on the spot."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 420,
+      "audio_end_time": 450,
+      "analysis": "",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "16",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "To argue about the value of a college degree."},
+        {"option": "B", "text": "To debate the validity of current survey data."},
+        {"option": "C", "text": "To account for the drastic decline in employment among men."},
+        {"option": "D", "text": "To compare men without college degrees with those who have."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 450,
+      "audio_end_time": 480,
+      "analysis": "",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "17",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The increase in women taking up jobs."},
+        {"option": "B", "text": "The issue of changing job requirements."},
+        {"option": "C", "text": "The factor of wages."},
+        {"option": "D", "text": "The impact of inflation."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 480,
+      "audio_end_time": 510,
+      "analysis": "",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "18",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Men's unwillingness to accept low wages in times of growing inflation."},
+        {"option": "B", "text": "The wage gap between those with college degrees and those without."},
+        {"option": "C", "text": "More jobs requiring their holders to have a college degree nowadays."},
+        {"option": "D", "text": "The sharp decline in marriage among men with no college degrees."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 510,
+      "audio_end_time": 540,
+      "analysis": "",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "19",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "More and more people attach importance to protecting endangered animals."},
+        {"option": "B", "text": "More and more people prioritize animal welfare when buying things to wear."},
+        {"option": "C", "text": "An increasing number of people demand to free animals being kept in cages."},
+        {"option": "D", "text": "An increasing number of people follow the latest trend of becoming vegetarians."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 540,
+      "audio_end_time": 570,
+      "analysis": "",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "20",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Avoided the use of leather and fur."},
+        {"option": "B", "text": "Labelled all their products as vegan."},
+        {"option": "C", "text": "Refrained from using chemicals in their products."},
+        {"option": "D", "text": "Utilized a silk substitute made from mushrooms."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 570,
+      "audio_end_time": 600,
+      "analysis": "",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "21",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Whether they actually signify a substantial change."},
+        {"option": "B", "text": "Whether they effectively protect animals at large."},
+        {"option": "C", "text": "Whether they can be considered sustainable."},
+        {"option": "D", "text": "Whether they can be regarded as ethical."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 600,
+      "audio_end_time": 630,
+      "analysis": "",
+      "sort_order": 21
+    },
+    {
+      "id": 22,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "22",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The era we live in is the most peaceful in history."},
+        {"option": "B", "text": "The world has seen more violence in recent years."},
+        {"option": "C", "text": "The environmental welfare has worsened in the world."},
+        {"option": "D", "text": "The belief is less prevalent that the world is going to hell."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 630,
+      "audio_end_time": 660,
+      "analysis": "",
+      "sort_order": 22
+    },
+    {
+      "id": 23,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "23",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "They were actually not in their right mind."},
+        {"option": "B", "text": "They believed the world was deteriorating."},
+        {"option": "C", "text": "They did not wish to live in the previous century."},
+        {"option": "D", "text": "They were convinced by the statistics presented to them."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 660,
+      "audio_end_time": 690,
+      "analysis": "",
+      "sort_order": 23
+    },
+    {
+      "id": 24,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "24",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "The subjectivity of mass media."},
+        {"option": "B", "text": "The current state of affairs."},
+        {"option": "C", "text": "Our psychological biases."},
+        {"option": "D", "text": "Our ancestors' influence."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 690,
+      "audio_end_time": 720,
+      "analysis": "",
+      "sort_order": 24
+    },
+    {
+      "id": 25,
+      "section_type": "lecture",
+      "question_type": "single_choice",
+      "question_number": "25",
+      "question_text": "",
+      "options": [
+        {"option": "A", "text": "Spreading exciting news around us far and wide."},
+        {"option": "B", "text": "Vacuuming up depressing or enraging stories."},
+        {"option": "C", "text": "Calculating dangerous risks to our survival."},
+        {"option": "D", "text": "Paying attention to negative information."}
+      ],
+      "correct_answer": "",
+      "audio_start_time": 720,
+      "audio_end_time": 750,
+      "analysis": "",
+      "sort_order": 25
+    }
+  ]
+}

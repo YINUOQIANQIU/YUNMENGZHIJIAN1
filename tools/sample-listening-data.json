@@ -1,0 +1,83 @@
+{
+  "papers": [
+    {
+      "exam_type": "CET-4",
+      "year": 2024,
+      "month": 6,
+      "paper_number": 1,
+      "title": "2024年6月大学英语四级听力真题（第一套）",
+      "description": "2024年6月四级考试听力部分真题，包含短对话、长对话和短文理解",
+      "audio_file": "cet4_2024_06_1.mp3",
+      "audio_url": "/四级听力/cet4_2024_06_1.mp3",
+      "total_questions": 25,
+      "difficulty": "medium",
+      "questions": [
+        {
+          "section_type": "short",
+          "question_type": "single_choice",
+          "question_number": 1,
+          "question_text": "What does the man suggest the woman do?",
+          "options": [
+            {"option": "A", "text": "Check the website"},
+            {"option": "B", "text": "Call the office"},
+            {"option": "C", "text": "Send an email"},
+            {"option": "D", "text": "Visit in person"}
+          ],
+          "correct_answer": "A",
+          "audio_start_time": 2,
+          "audio_end_time": 18,
+          "analysis": "男士明确说'You should check the website for the latest information'",
+          "explanation": "建议类题目需要抓住suggest, should, recommend等关键词"
+        },
+        {
+          "section_type": "short",
+          "question_type": "single_choice",
+          "question_number": 2,
+          "question_text": "Where is the conversation taking place?",
+          "options": [
+            {"option": "A", "text": "At a restaurant"},
+            {"option": "B", "text": "In a library"},
+            {"option": "C", "text": "At a bus stop"},
+            {"option": "D", "text": "In a bookstore"}
+          ],
+          "correct_answer": "B",
+          "audio_start_time": 20,
+          "audio_end_time": 35,
+          "analysis": "对话中提到'books', 'quiet', 'borrow'等图书馆相关词汇",
+          "explanation": "场景推断题需要抓住环境关键词"
+        }
+      ]
+    },
+    {
+      "exam_type": "CET-6",
+      "year": 2024,
+      "month": 6,
+      "paper_number": 1,
+      "title": "2024年6月大学英语六级听力真题（第一套）",
+      "description": "2024年6月六级考试听力部分真题，包含讲座和长对话",
+      "audio_file": "cet6_2024_06_1.mp3",
+      "audio_url": "/六级听力/cet6_2024_06_1.mp3",
+      "total_questions": 25,
+      "difficulty": "hard",
+      "questions": [
+        {
+          "section_type": "lecture",
+          "question_type": "single_choice",
+          "question_number": 1,
+          "question_text": "What is the main topic of the lecture?",
+          "options": [
+            {"option": "A", "text": "Climate change effects"},
+            {"option": "B", "text": "Economic development"},
+            {"option": "C", "text": "Technological innovation"},
+            {"option": "D", "text": "Cultural heritage"}
+          ],
+          "correct_answer": "A",
+          "audio_start_time": 5,
+          "audio_end_time": 45,
+          "analysis": "讲座开头明确提到'today we'll discuss the impact of climate change'",
+          "explanation": "主旨题需要抓住开篇主题句"
+        }
+      ]
+    }
+  ]
+}
