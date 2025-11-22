@@ -5,21 +5,41 @@ const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const express = require('express');
 
-// 支持环境变量配置数据库路径（Railway适配）
+// 支持环境变量配置数据库路径（Vercel适配）
+// ⚠️ 注意：Vercel Serverless Functions 不支持 SQLite（只读文件系统）
+// 如果检测到 Vercel 环境，建议使用外部数据库（PostgreSQL/MySQL）
 const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '../moyu_zhixue.db');
-// 确保数据库目录存在
-const dbDir = path.dirname(dbPath);
-if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
+
+// Vercel 环境检测
+if (process.env.VERCEL || process.env.VERCEL_ENV) {
+    console.warn('⚠️ 警告：检测到 Vercel 环境');
+    console.warn('⚠️ SQLite 在 Vercel 中不可用，请使用外部数据库（PostgreSQL/MySQL）');
+    console.warn('⚠️ 当前使用 SQLite 可能导致数据库操作失败');
 }
+
+// 确保数据库目录存在（仅在非 Vercel 环境）
+if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+    const dbDir = path.dirname(dbPath);
+    if (!fs.existsSync(dbDir)) {
+        fs.mkdirSync(dbDir, { recursive: true });
+    }
+}
+
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('数据库连接错误:', err.message);
         console.error('数据库路径:', dbPath);
+        if (process.env.VERCEL || process.env.VERCEL_ENV) {
+            console.error('⚠️ 在 Vercel 环境中，SQLite 无法工作，请配置外部数据库');
+        }
     } else {
         console.log('成功连接到SQLite数据库');
         console.log('数据库路径:', dbPath);
-        initDatabase();
+        if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+            initDatabase();
+        } else {
+            console.warn('⚠️ Vercel 环境：跳过数据库初始化（SQLite 不支持）');
+        }
     }
 });
 

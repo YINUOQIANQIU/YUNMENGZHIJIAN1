@@ -8,6 +8,7 @@
     "dev": "node 云梦智间服务器.js"
   },
   "dependencies": {
+    "@vercel/node": "^3.0.7",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

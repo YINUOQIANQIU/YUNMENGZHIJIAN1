@@ -3589,20 +3589,42 @@ app.use('*', (req, res) => {
     });
 });
 
-// 启动服务器
-app.listen(PORT, async () => {
-    console.log(`\n🚀 云梦智间服务器运行在端口 ${PORT}`);
-    console.log('='.repeat(60));
+// Vercel适配：如果是Vercel环境，导出app而不是启动服务器
+if (process.env.VERCEL || process.env.VERCEL_ENV) {
+    // Vercel环境：只导出app，不启动服务器
+    console.log('🌐 Vercel环境检测到，导出Express应用');
     
-    // 创建游戏相关目录（使用环境变量）
+    // 创建必要的目录（Vercel环境）
     const gameDirs = [GAME_UPLOAD_DIR, GAME_EXPORT_DIR, 'game/data'];
     gameDirs.forEach(dir => {
         const dirPath = path.join(__dirname, dir);
         if (!fs.existsSync(dirPath)) {
-            fs.mkdirSync(dirPath, { recursive: true });
-            console.log(`✅ 创建游戏目录: ${dir}`);
+            try {
+                fs.mkdirSync(dirPath, { recursive: true });
+                console.log(`✅ 创建目录: ${dir}`);
+            } catch (err) {
+                console.warn(`⚠️ 创建目录失败 ${dir}:`, err.message);
+            }
         }
     });
+    
+    // 导出app供Vercel使用
+    module.exports = app;
+} else {
+    // 本地开发环境：启动服务器
+    app.listen(PORT, async () => {
+        console.log(`\n🚀 云梦智间服务器运行在端口 ${PORT}`);
+        console.log('='.repeat(60));
+        
+        // 创建游戏相关目录（使用环境变量）
+        const gameDirs = [GAME_UPLOAD_DIR, GAME_EXPORT_DIR, 'game/data'];
+        gameDirs.forEach(dir => {
+            const dirPath = path.join(__dirname, dir);
+            if (!fs.existsSync(dirPath)) {
+                fs.mkdirSync(dirPath, { recursive: true });
+                console.log(`✅ 创建游戏目录: ${dir}`);
+            }
+        });
     
     // 新增：音频文件智能扫描
     try {
@@ -3905,6 +3927,10 @@ app.listen(PORT, async () => {
     console.log('   ✅ 音频文件测试API: /api/test-audio/:filename');
     console.log('\n' + '='.repeat(60));
     console.log('🌟 云梦智间系统启动完成，开始提供服务！\n');
-});
+    });
+}
 
-module.exports = app;
+// 本地开发环境也导出app（用于测试）
+if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+    module.exports = app;
+}
