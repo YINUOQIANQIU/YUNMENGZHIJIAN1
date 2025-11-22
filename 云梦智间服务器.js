@@ -66,18 +66,26 @@ const GameServer = require('./game-server.js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// 配置上传目录（支持环境变量，Railway适配）
+const UPLOAD_DIR = process.env.UPLOAD_DIR || 'uploads';
+const GAME_UPLOAD_DIR = process.env.GAME_UPLOAD_DIR || 'game/uploads';
+const GAME_EXPORT_DIR = process.env.GAME_EXPORT_DIR || 'game/exports';
+
+// 确保上传目录存在
+[UPLOAD_DIR, GAME_UPLOAD_DIR, GAME_EXPORT_DIR].forEach(dir => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+        console.log(`✅ 创建目录: ${dir}`);
+    }
+});
+
 // 配置multer用于文件上传
 const upload = multer({ 
-    dest: 'uploads/',
+    dest: UPLOAD_DIR + '/',
     limits: {
         fileSize: 50 * 1024 * 1024 // 50MB限制
     }
 });
-
-// 确保上传目录存在
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads', { recursive: true });
-}
 
 // 中间件
 app.use(cors());
@@ -258,8 +266,8 @@ app.use('/data', express.static(path.join(__dirname, 'data')));
 // 修改：确保游戏静态文件服务正确配置
 app.use('/game', express.static(path.join(__dirname, 'game')));
 app.use('/game/data', express.static(path.join(__dirname, 'game/data')));
-app.use('/game/uploads', express.static(path.join(__dirname, 'game/uploads')));
-app.use('/game/exports', express.static(path.join(__dirname, 'game/exports')));
+app.use('/game/uploads', express.static(path.join(__dirname, GAME_UPLOAD_DIR)));
+app.use('/game/exports', express.static(path.join(__dirname, GAME_EXPORT_DIR)));
 
 // 修改：正确的游戏服务器集成
 // 创建游戏服务器实例
@@ -399,8 +407,8 @@ app.get('/api/game/questions', async (req, res) => {
 // 获取已导入的文件列表
 app.get('/api/game/vocabulary/get-imported-files', async (req, res) => {
     try {
-        const uploadsDir = path.join(__dirname, 'game', 'uploads');
-        const exportsDir = path.join(__dirname, 'game', 'exports');
+        const uploadsDir = path.join(__dirname, GAME_UPLOAD_DIR);
+        const exportsDir = path.join(__dirname, GAME_EXPORT_DIR);
         
         const importedFiles = [];
         
@@ -577,8 +585,8 @@ app.post('/api/game/vocabulary/delete-imported-file', async (req, res) => {
         
         // 安全检查：确保文件路径在允许的目录内
         const allowedDirs = [
-            path.join(__dirname, 'game', 'uploads'),
-            path.join(__dirname, 'game', 'exports')
+            path.join(__dirname, GAME_UPLOAD_DIR),
+            path.join(__dirname, GAME_EXPORT_DIR)
         ];
         
         const isAllowed = allowedDirs.some(dir => 
@@ -623,8 +631,8 @@ app.get('/api/game/vocabulary/get-file-details', async (req, res) => {
         
         // 安全检查
         const allowedDirs = [
-            path.join(__dirname, 'game', 'uploads'),
-            path.join(__dirname, 'game', 'exports')
+            path.join(__dirname, GAME_UPLOAD_DIR),
+            path.join(__dirname, GAME_EXPORT_DIR)
         ];
         
         const isAllowed = allowedDirs.some(dir => 
@@ -3196,14 +3204,14 @@ app.get('/api/courses', async (req, res) => {
     try {
         const { search, page = 1, limit = 10 } = req.query;
         
-        // 静态视频课程数据
+        // 静态视频课程数据 - 已更新视频链接
         const allCourses = [
             {
                 id: 1,
                 title: "英语口语进阶",
                 description: "AI 情景对话 | 职场必备",
                 image: "https://ai-public.mastergo.com/ai/img_res/4f81835c2858a319eba7efb9ff6d03f6.jpg",
-                video_url: "英语口语进阶.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78f0bd461391e14b720d1e86_r",
                 rating: 4,
                 popularity: 98,
                 students: 2345,
@@ -3216,7 +3224,7 @@ app.get('/api/courses', async (req, res) => {
                 title: "语法精讲系列",
                 description: "虚拟语气 | 从入门到精通",
                 image: "https://ai-public.mastergo.com/ai/img_res/c62474d9490954385e1af0851a1d66da.jpg",
-                video_url: "语法精讲.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe7848e6a7e8c489b7c1c6cee9_r",
                 rating: 3,
                 popularity: 85,
                 students: 1876,
@@ -3229,7 +3237,7 @@ app.get('/api/courses', async (req, res) => {
                 title: "高频词汇突破",
                 description: "四六级必备 | 记忆法",
                 image: "https://ai-public.mastergo.com/ai/img_res/8bad936df7a37d61f452e780975f1174.jpg",
-                video_url: "高频词汇突破.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe7884c491339c4472896929e3_r",
                 rating: 5,
                 popularity: 95,
                 students: 3421,
@@ -3242,7 +3250,7 @@ app.get('/api/courses', async (req, res) => {
                 title: "听力特训营",
                 description: "场景对话 | 听力技巧",
                 image: "https://ai-public.mastergo.com/ai/img_res/6edc1cdcc59041790c195be927d70950.jpg",
-                video_url: "听力特训营.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78b6662a52efded3304a75d1_r",
                 rating: 4,
                 popularity: 92,
                 students: 2789,
@@ -3255,7 +3263,7 @@ app.get('/api/courses', async (req, res) => {
                 title: "写作进阶课程",
                 description: "高分写作 | 实战技巧",
                 image: "https://ai-public.mastergo.com/ai/img_res/5d74927c0728d84eed2da0502713f883.jpg",
-                video_url: "写作进阶课程.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78c1e0ac4bcc4f56996211b8_r",
                 rating: 4,
                 popularity: 89,
                 students: 1654,
@@ -3268,7 +3276,7 @@ app.get('/api/courses', async (req, res) => {
                 title: "阅读理解突破",
                 description: "快速阅读 | 解题技巧",
                 image: "https://ai-public.mastergo.com/ai/img_res/a510a6e17c47db481734345bfd1050a5.jpg",
-                video_url: "阅读理解突破.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe784ac70951c0e1769f00ef87_r",
                 rating: 3,
                 popularity: 82,
                 students: 2123,
@@ -3281,7 +3289,7 @@ app.get('/api/courses', async (req, res) => {
                 title: "翻译技巧精讲",
                 description: "中英互译 | 专业技巧",
                 image: "https://ai-public.mastergo.com/ai/img_res/8a95593ceff398b9a3975ad1a3009b4e.jpg",
-                video_url: "翻译技巧精讲.mp4",
+                video_url: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe787cddd813603ee920258401_r",
                 rating: 5,
                 popularity: 96,
                 students: 3567,
@@ -3586,8 +3594,8 @@ app.listen(PORT, async () => {
     console.log(`\n🚀 云梦智间服务器运行在端口 ${PORT}`);
     console.log('='.repeat(60));
     
-    // 创建游戏相关目录
-    const gameDirs = ['game/uploads', 'game/exports', 'game/data'];
+    // 创建游戏相关目录（使用环境变量）
+    const gameDirs = [GAME_UPLOAD_DIR, GAME_EXPORT_DIR, 'game/data'];
     gameDirs.forEach(dir => {
         const dirPath = path.join(__dirname, dir);
         if (!fs.existsSync(dirPath)) {

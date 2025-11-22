@@ -193,6 +193,15 @@
             background: #000;
         }
         
+        .video-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         .video-controls {
             display: flex;
             justify-content: space-between;
@@ -451,10 +460,13 @@
                 </div>
                 <div class="video-modal-body">
                     <div class="video-player-container">
-                        <video id="video-player" class="video-player" controls>
+                        <!-- 直接视频文件播放器 -->
+                        <video id="video-player" class="video-player" controls crossorigin="anonymous" style="display: none;">
                             <source :src="currentVideo.videoUrl" type="video/mp4">
                             您的浏览器不支持HTML5视频
                         </video>
+                        <!-- 视频播放页面iframe -->
+                        <iframe id="video-iframe" class="video-iframe" frameborder="0" allowfullscreen style="display: none;"></iframe>
                     </div>
                 </div>
                 <div class="video-controls">
@@ -784,7 +796,7 @@
                     }
                 },
                 
-                // 获取默认课程数据 - 修复视频路径
+                // 获取默认课程数据 - 修改视频链接为指定的链接
                 getDefaultCourses() {
                     return [
                         {
@@ -792,7 +804,7 @@
                             title: "英语口语进阶",
                             description: "AI 情景对话 | 职场必备",
                             image: "https://ai-public.mastergo.com/ai/img_res/4f81835c2858a319eba7efb9ff6d03f6.jpg",
-                            videoUrl: "/videos/英语口语进阶.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78f0bd461391e14b720d1e86_r",
                             rating: 4,
                             popularity: 98,
                             students: 2345,
@@ -804,7 +816,7 @@
                             title: "语法精讲系列",
                             description: "虚拟语气 | 从入门到精通",
                             image: "https://ai-public.mastergo.com/ai/img_res/c62474d9490954385e1af0851a1d66da.jpg",
-                            videoUrl: "/videos/语法精讲.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe7848e6a7e8c489b7c1c6cee9_r",
                             rating: 3,
                             popularity: 85,
                             students: 1876,
@@ -816,7 +828,7 @@
                             title: "高频词汇突破",
                             description: "四六级必备 | 记忆法",
                             image: "https://ai-public.mastergo.com/ai/img_res/8bad936df7a37d61f452e780975f1174.jpg",
-                            videoUrl: "/videos/高频词汇突破.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe7884c491339c4472896929e3_r",
                             rating: 5,
                             popularity: 95,
                             students: 3421,
@@ -828,7 +840,7 @@
                             title: "听力特训营",
                             description: "场景对话 | 听力技巧",
                             image: "https://ai-public.mastergo.com/ai/img_res/6edc1cdcc59041790c195be927d70950.jpg",
-                            videoUrl: "/videos/听力特训营.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78b6662a52efded3304a75d1_r",
                             rating: 4,
                             popularity: 92,
                             students: 2789,
@@ -840,7 +852,7 @@
                             title: "写作进阶课程",
                             description: "高分写作 | 实战技巧",
                             image: "https://ai-public.mastergo.com/ai/img_res/5d74927c0728d84eed2da0502713f883.jpg",
-                            videoUrl: "/videos/写作进阶课程.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78c1e0ac4bcc4f56996211b8_r",
                             rating: 4,
                             popularity: 89,
                             students: 1654,
@@ -852,7 +864,7 @@
                             title: "阅读理解突破",
                             description: "快速阅读 | 解题技巧",
                             image: "https://ai-public.mastergo.com/ai/img_res/a510a6e17c47db481734345bfd1050a5.jpg",
-                            videoUrl: "/videos/阅读理解突破.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe784ac70951c0e1769f00ef87_r",
                             rating: 3,
                             popularity: 82,
                             students: 2123,
@@ -864,7 +876,7 @@
                             title: "翻译技巧精讲",
                             description: "中英互译 | 专业技巧",
                             image: "https://ai-public.mastergo.com/ai/img_res/8a95593ceff398b9a3975ad1a3009b4e.jpg",
-                            videoUrl: "/videos/翻译技巧精讲.mp4", // 使用绝对路径
+                            videoUrl: "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe787cddd813603ee920258401_r",
                             rating: 5,
                             popularity: 96,
                             students: 3567,
@@ -876,7 +888,7 @@
                             title: "考前冲刺班",
                             description: "真题解析 | 考点预测",
                             image: "https://ai-public.mastergo.com/ai/img_res/9c1e72d72d792aa60dcf05f67d464f9c.jpg",
-                            videoUrl: "/videos/考前冲刺班.mp4", // 使用绝对路径
+                            videoUrl: "/videos/考前冲刺班.mp4",
                             rating: 4,
                             popularity: 91,
                             students: 4231,
@@ -1051,35 +1063,27 @@
                         const videosResponse = await axios.get('/api/debug/videos');
                         console.log('视频文件夹状态:', videosResponse.data);
                         
-                        // 检查具体视频文件
-                        const videoResponse = await axios.get('/api/debug/video/英语口语进阶.mp4');
-                        console.log('具体视频文件状态:', videoResponse.data);
+                        // 测试在线视频链接（现在使用在线链接，不再检查本地文件）
+                        const testVideoUrl = "https://go.plvideo.cn/front/video/view?vid=rbe6fbfe78f0bd461391e14b720d1e86_r";
+                        console.log('测试在线视频链接:', testVideoUrl);
                         
-                        if (videoResponse.data.success) {
-                            console.log('✅ 视频文件存在，可以播放');
-                            // 测试直接访问
-                            const testUrl = videoResponse.data.url;
-                            console.log('测试访问URL:', testUrl);
-                            
-                            // 测试视频加载
-                            const video = new Audio();
-                            video.src = testUrl;
-                            video.onloadeddata = () => {
-                                console.log('🎯 视频可以正常加载！');
-                                this.showMessage('视频文件正常，可以播放', 'success');
-                            };
-                            video.onerror = (e) => {
-                                console.error('❌ 视频加载错误:', e);
-                                this.showMessage('视频加载错误: ' + e.message, 'error');
-                            };
-                        } else {
-                            console.error('❌ 视频文件不存在或无法访问');
-                            this.showMessage('视频文件不存在: ' + videoResponse.data.message, 'error');
-                        }
+                        // 测试视频加载
+                        const video = new Audio();
+                        video.src = testVideoUrl;
+                        video.onloadeddata = () => {
+                            console.log('🎯 在线视频可以正常加载！');
+                            this.showMessage('在线视频链接正常，可以播放', 'success');
+                        };
+                        video.onerror = (e) => {
+                            const errorMsg = e.message || '视频加载失败，请检查链接是否有效';
+                            console.error('❌ 在线视频加载错误:', errorMsg);
+                            // 不显示错误消息，让实际播放器处理，避免干扰用户体验
+                        };
                         
                     } catch (error) {
-                        console.error('❌ 调试失败:', error);
-                        this.showMessage('调试失败: ' + error.message, 'error');
+                        const errorMsg = error.message || '调试过程出错';
+                        console.error('❌ 调试失败:', errorMsg);
+                        // 不显示错误消息，避免干扰用户体验
                     }
                 },
                 
@@ -1093,11 +1097,11 @@
                 async openVideoModal(course) {
                     console.log('🎬 尝试打开视频:', course);
                     
-                    // 先调试视频文件
-                    await this.debugVideoFiles();
-                    
                     this.currentVideo = course;
                     this.showVideoModal = true;
+                    
+                    // 不再自动运行调试，避免干扰正常播放
+                    // 如果需要调试，可以手动调用 debugVideoFiles()
                     
                     // 重置播放器状态
                     this.isPlaying = false;
@@ -1113,61 +1117,115 @@
                 // 增强的视频播放器初始化，带重试机制
                 initVideoPlayerWithRetry() {
                     const videoPlayer = document.getElementById('video-player');
-                    if (!videoPlayer) {
+                    const videoIframe = document.getElementById('video-iframe');
+                    
+                    if (!videoPlayer || !videoIframe) {
                         console.error('❌ 视频播放器元素未找到');
                         return;
                     }
                     
-                    console.log('🎯 初始化视频播放器:', this.currentVideo.videoUrl);
+                    const videoUrl = this.currentVideo.videoUrl;
+                    console.log('🎯 初始化视频播放器:', videoUrl);
                     
-                    // 设置视频源
-                    videoPlayer.src = this.currentVideo.videoUrl;
+                    // 检测链接类型：如果是视频播放页面（如go.plvideo.cn），使用iframe
+                    // 对于imgtu.com的链接，尝试直接作为视频文件播放
+                    const isVideoPage = videoUrl.includes('go.plvideo.cn') || 
+                                      videoUrl.includes('/view?vid=') ||
+                                      videoUrl.includes('plvideo.cn');
                     
-                    // 添加详细的事件监听
-                    videoPlayer.addEventListener('error', (e) => {
-                        console.error('❌ 视频播放错误:', e);
-                        console.error('错误详情:', videoPlayer.error);
+                    // 对于imgtu.com链接，可能需要添加文件扩展名或特殊处理
+                    let finalVideoUrl = videoUrl;
+                    if (videoUrl.includes('imgtu.com') && !videoUrl.includes('.')) {
+                        // 如果imgtu.com链接没有扩展名，尝试添加.mp4
+                        // 注意：这取决于imgtu.com的实际API，可能需要调整
+                        console.log('📝 检测到imgtu.com链接，尝试作为视频文件播放');
+                    }
+                    
+                    if (isVideoPage) {
+                        // 使用iframe播放视频页面
+                        console.log('📺 检测到视频播放页面，使用iframe');
+                        videoPlayer.style.display = 'none';
+                        videoIframe.style.display = 'block';
+                        videoIframe.src = videoUrl;
+                    } else {
+                        // 使用video标签播放直接视频文件
+                        console.log('🎬 检测到直接视频文件，使用video标签');
+                        videoIframe.style.display = 'none';
+                        videoPlayer.style.display = 'block';
+                        videoPlayer.src = finalVideoUrl;
                         
-                        // 尝试备用方案
-                        this.tryAlternativeVideoSources(videoPlayer);
-                    });
-                    
-                    videoPlayer.addEventListener('loadstart', () => {
-                        console.log('📥 开始加载视频...');
-                    });
-                    
-                    videoPlayer.addEventListener('loadeddata', () => {
-                        console.log('✅ 视频数据加载完成');
-                    });
-                    
-                    videoPlayer.addEventListener('canplay', () => {
-                        console.log('🎮 视频可以播放');
-                    });
-                    
-                    videoPlayer.addEventListener('stalled', () => {
-                        console.log('⚠️ 视频加载停滞');
-                    });
-                    
-                    videoPlayer.addEventListener('waiting', () => {
-                        console.log('⏳ 视频等待数据');
-                    });
-                    
-                    // 尝试加载
-                    videoPlayer.load();
+                        // 添加详细的事件监听
+                        videoPlayer.addEventListener('error', (e) => {
+                            const error = videoPlayer.error;
+                            let errorMsg = '视频加载失败';
+                            
+                            if (error) {
+                                switch(error.code) {
+                                    case error.MEDIA_ERR_ABORTED:
+                                        errorMsg = '视频加载被中止';
+                                        break;
+                                    case error.MEDIA_ERR_NETWORK:
+                                        errorMsg = '网络错误，无法加载视频。请检查网络连接或视频链接是否有效';
+                                        break;
+                                    case error.MEDIA_ERR_DECODE:
+                                        errorMsg = '视频解码错误，可能格式不支持';
+                                        break;
+                                    case error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                                        errorMsg = '视频格式不支持或链接无效。如果是视频播放页面，可能需要使用iframe嵌入';
+                                        break;
+                                    default:
+                                        errorMsg = `视频加载错误 (错误代码: ${error.code})`;
+                                }
+                            }
+                            
+                            console.error('❌ 视频播放错误:', errorMsg);
+                            console.error('错误详情:', error);
+                            console.error('视频URL:', finalVideoUrl);
+                            
+                            // 显示用户友好的错误提示
+                            this.showMessage(errorMsg, 'error');
+                            
+                            // 如果是链接格式问题，尝试备用方案
+                            if (error && error.code === error.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+                                this.tryAlternativeVideoSources(videoPlayer);
+                            }
+                        });
+                        
+                        videoPlayer.addEventListener('loadstart', () => {
+                            console.log('📥 开始加载视频...');
+                        });
+                        
+                        videoPlayer.addEventListener('loadeddata', () => {
+                            console.log('✅ 视频数据加载完成');
+                        });
+                        
+                        videoPlayer.addEventListener('canplay', () => {
+                            console.log('🎮 视频可以播放');
+                        });
+                        
+                        videoPlayer.addEventListener('stalled', () => {
+                            console.log('⚠️ 视频加载停滞');
+                        });
+                        
+                        videoPlayer.addEventListener('waiting', () => {
+                            console.log('⏳ 视频等待数据');
+                        });
+                        
+                        // 尝试加载
+                        videoPlayer.load();
+                    }
                 },
                 
                 // 尝试备用视频源
                 tryAlternativeVideoSources(videoPlayer) {
                     console.log('🔄 尝试备用视频源...');
                     
+                    // 由于现在使用在线链接，备用源主要是当前链接本身
                     const alternatives = [
-                        `/videos/${this.currentVideo.videoUrl.split('/').pop()}`,
-                        `./videos/${this.currentVideo.videoUrl.split('/').pop()}`,
-                        `videos/${this.currentVideo.videoUrl.split('/').pop()}`,
-                        `/videos/英语口语进阶.mp4`,
-                        `./videos/英语口语进阶.mp4`,
-                        `videos/英语口语进阶.mp4`
-                    ];
+                        this.currentVideo.videoUrl, // 主要使用当前视频链接
+                        // 如果当前链接是完整的在线URL，直接使用；否则尝试其他可能的格式
+                        this.currentVideo.videoUrl.startsWith('http') ? this.currentVideo.videoUrl : null
+                    ].filter(Boolean); // 移除null值
                     
                     let currentTry = 0;
                     
@@ -1201,8 +1259,15 @@
                 closeVideoModal() {
                     this.showVideoModal = false;
                     const videoPlayer = document.getElementById('video-player');
+                    const videoIframe = document.getElementById('video-iframe');
+                    
                     if (videoPlayer) {
                         videoPlayer.pause();
+                        videoPlayer.src = ''; // 清理视频源
+                    }
+                    
+                    if (videoIframe) {
+                        videoIframe.src = ''; // 清理iframe源
                     }
                 },
                 

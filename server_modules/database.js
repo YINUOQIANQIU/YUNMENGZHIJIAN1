@@ -5,12 +5,20 @@ const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const express = require('express');
 
-const dbPath = path.join(__dirname, '../moyu_zhixue.db');
+// 支持环境变量配置数据库路径（Railway适配）
+const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '../moyu_zhixue.db');
+// 确保数据库目录存在
+const dbDir = path.dirname(dbPath);
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+}
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('数据库连接错误:', err.message);
+        console.error('数据库路径:', dbPath);
     } else {
         console.log('成功连接到SQLite数据库');
+        console.log('数据库路径:', dbPath);
         initDatabase();
     }
 });
